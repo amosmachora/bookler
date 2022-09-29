@@ -1,0 +1,18 @@
+.menu {
+  height: 90vh;
+}
+.menu-items > div {
+  border-radius: 180px;
+  padding: 10px 1rem;
+}
+.menu-items > div > p {
+  font-size: 15px;
+  margin-left: 13px;
+}
+.menu-items > div.home {
+  background-color: var(--blue-tab);
+}
+.hamburger.items-start,
+.hamburger.items-end {
+  transition: align-items 500s ease-in;
+}

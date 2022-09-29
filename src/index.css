@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  width: 100vw;
+  overflow: hidden;
+}
+:root {
+  --dark-blue-bg-main: rgba(2, 59, 150, 100%);
+  --menu-blue: rgba(10, 105, 218, 100%);
+  --blue-tab: #0076ff;
+  --horizontal-tab-bg: #0a6ada;
+  --red-search-button: #df142d;
+}
+.show {
+  outline: 1px solid red;
+}
+.flex {
+  display: flex;
+}
