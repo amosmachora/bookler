@@ -9,8 +9,14 @@ import Booking from "./Booking.svg";
 import Business from "./Business.svg";
 import Explore from "./World.svg";
 import Support from "./Support.svg";
+import Premium from "./Premium.svg";
+import PremiumArrow from "./PremiumArrow.svg";
+import MenuCloud from "./Menu-cloud.png";
 
-export default {
+export const Assets = {
+  MenuCloud,
+  PremiumArrow,
+  Premium,
   Cloud_1,
   Cloud_2,
   Cloud_3,
