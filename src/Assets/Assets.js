@@ -2,6 +2,7 @@ import Cloud_1 from "./image.png";
 import Cloud_2 from "./image_1.png";
 import Cloud_3 from "./image_2.png";
 import Plane from "./Object.png";
+import PlaneSmall from "./Plane.svg";
 import Logo from "./Logo.svg";
 import Home from "./Home.svg";
 import Wallet from "./Wallet.svg";
@@ -12,8 +13,21 @@ import Support from "./Support.svg";
 import Premium from "./Premium.svg";
 import PremiumArrow from "./PremiumArrow.svg";
 import MenuCloud from "./Menu-cloud.png";
+import ProfilePicture from "./Person.png";
+import House from "./House.svg";
+import DropDown from "./DropDown.svg";
+import Hotel from "./Hotel.svg";
+import Villa from "./Villa.svg";
+import Taxi from "./Taxi.svg";
 
 export const Assets = {
+  Taxi,
+  Villa,
+  Hotel,
+  PlaneSmall,
+  DropDown,
+  House,
+  ProfilePicture,
   MenuCloud,
   PremiumArrow,
   Premium,
