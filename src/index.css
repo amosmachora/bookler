@@ -15,6 +15,7 @@
 body {
   width: 100vw;
   overflow: hidden;
+  background-color: #e5e5e5;
 }
 :root {
   --dark-blue-bg-main: rgba(2, 59, 150, 100%);

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Assets } from "../Assets/Assets";
 
-const Options = () => {
-  const [activeChoice, setActiveChoice] = useState("flights");
+type propsType = {
+  activeChoice: string;
+  setActiveChoice: (choice: string) => void;
+};
+
+const Options = ({ activeChoice, setActiveChoice }: propsType) => {
   return (
     <div className="options flex text-white uppercase text-xs [&>*]:mr-6 [&>*]:p-3 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:transition-all [&>*]:w-[68px] [&>*]:h-[73px]">
       <div

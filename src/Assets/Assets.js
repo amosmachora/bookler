@@ -19,8 +19,16 @@ import DropDown from "./DropDown.svg";
 import Hotel from "./Hotel.svg";
 import Villa from "./Villa.svg";
 import Taxi from "./Taxi.svg";
+import LocationPointer from "./LocationPointer.svg";
+import Class from "./Class.svg";
+import Calendar from "./Calendar.svg";
+import DropDownGray from "./DropDownGray.svg";
 
 export const Assets = {
+  DropDownGray,
+  Calendar,
+  Class,
+  LocationPointer,
   Taxi,
   Villa,
   Hotel,
