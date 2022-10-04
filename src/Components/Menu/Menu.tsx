@@ -9,7 +9,7 @@ const Menu = () => {
     <div
       className={`menu ${
         isLarge ? `w-[17.14%]` : `w-[5.71%]`
-      } bg-blue-600 text-white z-50 relative ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
+      } bg-blue-600 text-white z-10 relative ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
     >
       <div className="flex items-center justify-between">
         {isLarge && (

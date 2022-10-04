@@ -23,8 +23,10 @@ import LocationPointer from "./LocationPointer.svg";
 import Class from "./Class.svg";
 import Calendar from "./Calendar.svg";
 import DropDownGray from "./DropDownGray.svg";
+import Close from "./Close.svg";
 
 export const Assets = {
+  Close,
   DropDownGray,
   Calendar,
   Class,

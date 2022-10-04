@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import { Assets } from "../Assets/Assets";
+import FromModal from "./FromModal";
 
-const SearchForm = () => {
+type SearchFormProps = {
+  setOverlay: (c: boolean) => void;
+};
+
+const SearchForm = ({ setOverlay }: SearchFormProps) => {
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
+  const [fromModal, setFromModal] = useState(false);
+
+  const openModal = (name: string) => {
+    setOverlay(true);
+    if (name === "from-modal") {
+      setFromModal(true);
+    }
+  };
   return (
     <div className="bg-white p-10 rounded-2xl mt-5">
       <form action="">
@@ -27,7 +40,10 @@ const SearchForm = () => {
           </p>
         </div>
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
-          <div className="Option w-[32.8%]">
+          <div
+            className="Option w-[32.8%]"
+            onClick={() => openModal("from-modal")}
+          >
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
               <p className="text-gray-400 text-xs ml-1">FROM</p>
@@ -104,6 +120,7 @@ const SearchForm = () => {
           />
         </div>
       </form>
+      {fromModal && <FromModal />}
     </div>
   );
 };
