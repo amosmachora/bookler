@@ -10,12 +10,19 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
   const [fromModal, setFromModal] = useState(false);
 
-  const openModal = (name: string) => {
-    setOverlay(true);
+  /**
+   * A function to handle the search modals.
+   * @param name name of the modal.
+   * @param state boolean value to indicate whether to open or close modal
+   */
+  const handleSearchModal = (name: string, state: boolean) => {
+    const modalState = state;
+    setOverlay(modalState);
     if (name === "from-modal") {
-      setFromModal(true);
+      setFromModal(modalState);
     }
   };
+
   return (
     <div className="bg-white p-10 rounded-2xl mt-5">
       <form action="">
@@ -42,7 +49,7 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
           <div
             className="Option w-[32.8%]"
-            onClick={() => openModal("from-modal")}
+            onClick={() => handleSearchModal("from-modal", true)}
           >
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
@@ -120,7 +127,7 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
           />
         </div>
       </form>
-      {fromModal && <FromModal />}
+      {fromModal && <FromModal handleSearchModal={handleSearchModal} />}
     </div>
   );
 };

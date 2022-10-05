@@ -5,7 +5,9 @@ import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
+import Overlay from "./Components/Overlay";
 import ProfileInfo from "./Components/ProfileInfo";
+import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 
 type timezone = {
@@ -33,12 +35,12 @@ export type Airport = {
 };
 
 interface MainContextValue {
-  loading: boolean;
+  isLoading: boolean;
   airports: Airport[];
 }
 
 export const MainContext = createContext<MainContextValue>({
-  loading: false,
+  isLoading: false,
   airports: [],
 });
 
@@ -46,10 +48,10 @@ function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const GlobalState = {
-    loading,
+    isLoading,
     airports,
   };
 
@@ -61,23 +63,24 @@ function App() {
         "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
       },
     };
-    setLoading(true);
+    setIsLoading(true);
     fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
       .then((response) => response.json())
       .then((response) => {
         setAirports(response.rows);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch((err) => console.error(err));
   }, []);
 
   return (
     <div className="App w-full">
-      {overlay && (
-        <div
-          className="overlay fixed top-0 left-0 w-full h-screen bg-black z-20 opacity-30 transition-all"
-          onClick={() => setOverlay(false)}
-        />
+      {overlay && <Overlay setOverlay={setOverlay} />}
+      {isLoading && (
+        <>
+          <Overlay setOverlay={setOverlay} />
+          <Reach />
+        </>
       )}
       <BackGround />
       <div className="flex relative">
