@@ -85,7 +85,7 @@ function App() {
       <BackGround />
       <div className="flex relative">
         <Menu />
-        <div className="z-20 h-min absolute top-1/4 left-1/4 w-2/3">
+        <div className="h-min absolute top-1/4 left-1/4 w-2/3">
           <div className="flex justify-between">
             <Options
               activeChoice={activeChoice}

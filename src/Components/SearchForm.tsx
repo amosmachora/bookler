@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Assets } from "../Assets/Assets";
-import FromModal from "./FromModal";
+import FromModal from "./SearchModals/FromModal";
 
 type SearchFormProps = {
   setOverlay: (c: boolean) => void;

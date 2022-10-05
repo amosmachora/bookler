@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Airport, MainContext } from "../App";
-import { Assets } from "../Assets/Assets";
+import { Airport, MainContext } from "../../App";
+import { Assets } from "../../Assets/Assets";
+import "./FromModal.css";
 // import axios from "axios";
 
 type FromModalProps = {
@@ -25,9 +26,6 @@ const FromModal = ({ handleSearchModal }: FromModalProps) => {
           airport.country.toLowerCase().includes(searchValue) ||
           airport.city.toLowerCase().includes(searchValue)
       );
-      console.log(airportListLocal);
-      console.log(filteredAirports);
-      console.log(searchValue);
       setAirportListLocal(filteredAirports);
     }
   };
@@ -61,11 +59,11 @@ const FromModal = ({ handleSearchModal }: FromModalProps) => {
         onChange={(e) => checkIfEmpty(e)}
       />
 
-      <div className="mt-8 search-results-airports h-28 overflow-y-scroll">
+      <div className="airports-list mt-8 search-results-airports h-28 overflow-y-scroll scroll">
         {airportListLocal.map((airport) => (
           <div key={airport.id} className="flex justify-between">
-            <p>{airport.country}</p>
-            <p>{airport.name}</p>
+            <p className="font-bold text-sm">{airport.country}</p>
+            <p className="text-xs">{airport.name}</p>
           </div>
         ))}
       </div>
