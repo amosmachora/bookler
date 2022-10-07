@@ -1,25 +1,50 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Airport, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
-import FromModal from "./SearchModals/FromModal";
+import AirportSearch from "./SearchModals/AirportSearch";
 
 type SearchFormProps = {
   setOverlay: (c: boolean) => void;
 };
 
 const SearchForm = ({ setOverlay }: SearchFormProps) => {
+  const { airports } = useContext(MainContext);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
-  const [fromModal, setFromModal] = useState(false);
+  const [airportSearchModal, setAirportSearchModal] = useState(false);
+  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
+  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
+  const [searchType, setSearchType] = useState("");
 
   /**
-   * A function to handle the search modals.
+   * A function to randomly decide a default airport.
+   */
+  function getRandomAirport() {
+    const min = 0;
+    const max = airports.length;
+    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
+    const randomAirport = airports[randomNumber];
+    return randomAirport;
+  }
+
+  useEffect(() => {
+    setFromAirport(getRandomAirport());
+    setToAirport(getRandomAirport());
+  }, [airports]);
+
+  /**
+   * A function to open or close the search modals.
    * @param name name of the modal.
    * @param state boolean value to indicate whether to open or close modal
    */
   const handleSearchModal = (name: string, state: boolean) => {
     const modalState = state;
     setOverlay(modalState);
-    if (name === "from-modal") {
-      setFromModal(modalState);
+    if (name === "from") {
+      setAirportSearchModal(modalState);
+      setSearchType(name);
+    } else if (name === "to") {
+      setAirportSearchModal(modalState);
+      setSearchType(name);
     }
   };
 
@@ -49,29 +74,40 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
           <div
             className="Option w-[32.8%]"
-            onClick={() => handleSearchModal("from-modal", true)}
+            onClick={() => handleSearchModal("from", true)}
           >
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
               <p className="text-gray-400 text-xs ml-1">FROM</p>
             </div>
             <p className="from-location text-base font-bold mb-1">
-              Dhaka, Bangladesh
+              {fromAirport === undefined
+                ? "Dhaka, Bangladesh"
+                : fromAirport.city + ", " + fromAirport.country}
             </p>
             <p className="from-airport text-xs text-gray-400">
-              Usmani airport, Sylhet
+              {fromAirport === undefined
+                ? "Usmani airport, Sylhet"
+                : fromAirport.name}
             </p>
           </div>
-          <div className="Option w-[32.8%]">
+          <div
+            className="Option w-[32.8%]"
+            onClick={() => handleSearchModal("to", true)}
+          >
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
               <p className="text-gray-400 text-xs ml-1">TO</p>
             </div>
             <p className="from-location text-base font-bold mb-1">
-              Delhi, India
+              {toAirport === undefined
+                ? "Delhi, India"
+                : toAirport.city + ", " + toAirport.country}
             </p>
             <p className="from-airport text-xs text-gray-400">
-              Shuvas chandra bosu airport
+              {toAirport === undefined
+                ? "Shuvas chandra bosu airport"
+                : toAirport.name}
             </p>
           </div>
           <div className="Option w-1/4">
@@ -127,7 +163,14 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
           />
         </div>
       </form>
-      {fromModal && <FromModal handleSearchModal={handleSearchModal} />}
+      {airportSearchModal && (
+        <AirportSearch
+          handleSearchModal={handleSearchModal}
+          typeOfSearch={searchType}
+          setToAirport={setToAirport}
+          setFromAirport={setFromAirport}
+        />
+      )}
     </div>
   );
 };
