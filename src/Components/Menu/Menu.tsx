@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import "./Menu.css";
 
-const Menu = () => {
-  const [isLarge, setIsLarge] = useState(true);
+interface menuProps {
+  menuWide: boolean;
+  setMenuWide: React.Dispatch<SetStateAction<boolean>>;
+}
+
+const Menu = ({ menuWide, setMenuWide }: menuProps) => {
   const [activeTab, setActiveTab] = useState("home");
   return (
     <div
       className={`menu ${
-        isLarge ? `w-[17.14%]` : `w-[5.71%]`
+        menuWide ? `w-[17.14%]` : `w-[5.71%]`
       } bg-blue-600 text-white z-0 relative ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
     >
       <div className="flex items-center justify-between">
-        {isLarge && (
+        {menuWide && (
           <img src={Assets.Logo} alt="Logo" className="object-cover" />
         )}
         <div
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
-            isLarge ? `items-end` : `items-start`
+            menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
-          onClick={() => setIsLarge((prev) => !prev)}
+          onClick={() => setMenuWide((prev) => !prev)}
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
@@ -28,7 +32,9 @@ const Menu = () => {
       </div>
       <ul
         className={`menu-items mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
-          isLarge ? "large-menu [&>*]:rounded-full" : "small-menu [&>*]:rounded"
+          menuWide
+            ? "large-menu [&>*]:rounded-full"
+            : "small-menu [&>*]:rounded"
         }`}
       >
         <div
@@ -36,42 +42,42 @@ const Menu = () => {
           onClick={() => setActiveTab("home")}
         >
           <img src={Assets.Home} alt="Home" className="tab-icon" />
-          {isLarge && <p>Home</p>}
+          {menuWide && <p>Home</p>}
         </div>
         <div
           className={`${activeTab === "wallet" ? "active" : ""}`}
           onClick={() => setActiveTab("wallet")}
         >
           <img src={Assets.Wallet} alt="Wallet" className="tab-icon" />
-          {isLarge && <p>Wallet</p>}
+          {menuWide && <p>Wallet</p>}
         </div>
         <div
           className={`${activeTab === "booking" ? "active" : ""}`}
           onClick={() => setActiveTab("booking")}
         >
           <img src={Assets.Booking} alt="Booking" className="tab-icon" />
-          {isLarge && <p>Booking</p>}
+          {menuWide && <p>Booking</p>}
         </div>
         <div
           className={`${activeTab === "business" ? "active" : ""}`}
           onClick={() => setActiveTab("business")}
         >
           <img src={Assets.Business} alt="Business" className="tab-icon" />
-          {isLarge && <p>Business</p>}
+          {menuWide && <p>Business</p>}
         </div>
         <div
           className={`${activeTab === "explore" ? "active" : ""}`}
           onClick={() => setActiveTab("explore")}
         >
           <img src={Assets.Explore} alt="Explore" className="tab-icon" />
-          {isLarge && <p>Explore</p>}
+          {menuWide && <p>Explore</p>}
         </div>
         <div
           className={`${activeTab === "support" ? "active" : ""}`}
           onClick={() => setActiveTab("support")}
         >
           <img src={Assets.Support} alt="Support" className="tab-icon" />
-          {isLarge && <p>Support</p>}
+          {menuWide && <p>Support</p>}
         </div>
       </ul>
       <div className="get-premium bg-white flex items-center rounded-full absolute w-48 h-11 pr-4 cursor-pointer bottom-10 z-10">
@@ -80,7 +86,7 @@ const Menu = () => {
           alt="Premium"
           className="w-14 h-14 absolute left-0 top-[4px]"
         />
-        {isLarge && (
+        {menuWide && (
           <React.Fragment>
             <div className="ml-auto -mr-3">
               <p className="text-black text-xs font-bold">Get premium</p>

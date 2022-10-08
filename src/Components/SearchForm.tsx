@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import { Airport, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
 import AirportSearch from "./SearchModals/AirportSearch";
+import axios from "axios";
 
 type SearchFormProps = {
   setOverlay: (c: boolean) => void;
+  setMenuWide: React.Dispatch<SetStateAction<boolean>>;
+  menuWide: boolean;
 };
 
-const SearchForm = ({ setOverlay }: SearchFormProps) => {
+const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
   const { airports } = useContext(MainContext);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
   const [airportSearchModal, setAirportSearchModal] = useState(false);
@@ -17,6 +20,7 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
 
   /**
    * A function to randomly decide a default airport.
+   * @Returns A random airport.
    */
   function getRandomAirport() {
     const min = 0;
@@ -29,7 +33,42 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
   useEffect(() => {
     setFromAirport(getRandomAirport());
     setToAirport(getRandomAirport());
-  }, [airports]);
+  }, [airports.length]);
+
+  const fetchAirportFlightData = (airport: Airport) => {
+    console.log("Searching data for " + airport.name);
+    const options = {
+      method: "GET",
+      url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${airport.icao}/2022-10-07T20:00/2022-10-08T08:00`,
+      params: {
+        withLeg: "true",
+        withCancelled: "true",
+        withCodeshared: "true",
+        withCargo: "true",
+        withPrivate: "true",
+        withLocation: "false",
+      },
+      headers: {
+        "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
+        "X-RapidAPI-Host": "aerodatabox.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    if (airports.length > 0) {
+      fetchAirportFlightData(fromAirport);
+    }
+  }, [fromAirport]);
 
   /**
    * A function to open or close the search modals.
@@ -48,8 +87,16 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
     }
   };
 
+  /**
+   * Start the flight search
+   */
+  const searchFlight = (e: React.FormEvent) => {
+    e.preventDefault();
+    setMenuWide((prev) => !prev);
+  };
+
   return (
-    <div className="bg-white p-10 rounded-2xl mt-5">
+    <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-8"}`}>
       <form action="">
         <div className="type-of-trip flex [&>*]:rounded-full [&>*]:text-sm [&>*]:py-2 [&>*]:px-6 [&>*]:mr-8 [&>*]:cursor-pointer">
           <p
@@ -160,6 +207,7 @@ const SearchForm = ({ setOverlay }: SearchFormProps) => {
             type="submit"
             value="SEARCH FLIGHT"
             className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
+            onClick={(e) => searchFlight(e)}
           />
         </div>
       </form>

@@ -18,7 +18,7 @@ body {
   background-color: #e5e5e5;
 }
 :root {
-  --dark-blue-bg-main: rgba(2, 59, 150, 100%);
+  --dark-blue-bg-main: #023b96;
   --menu-blue: rgba(10, 105, 218, 100%);
   --blue-tab: #0076ff;
   --blue-tab-hover: rgba(0, 119, 255, 0.5);

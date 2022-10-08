@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Airport, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import "./AirportSearch.css";
+import axios from "axios";
 
 type AirportSearchProps = {
   handleSearchModal: (name: string, state: boolean) => void;
@@ -18,7 +19,6 @@ const AirportSearch = ({
 }: AirportSearchProps) => {
   const { airports } = useContext(MainContext);
   const [airportListLocal, setAirportListLocal] = useState<Airport[]>(airports);
-  const [typeOfAirportSearch, setTypeOfAirportSearch] = useState(typeOfSearch);
 
   const searchAirports = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
@@ -62,7 +62,7 @@ const AirportSearch = ({
     <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-8 py-6 z-40 w-1/3 bg-white shadow-xl rounded-2xl">
       <div className="flex justify-between">
         <p className="font-medium text-2xl">
-          {capitalizeFirstLetter(typeOfAirportSearch)}
+          {capitalizeFirstLetter(typeOfSearch)}
         </p>
         <img
           src={Assets.Close}

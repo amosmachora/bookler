@@ -49,6 +49,7 @@ function App() {
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [menuWide, setMenuWide] = useState(true);
 
   const GlobalState = {
     isLoading,
@@ -82,20 +83,29 @@ function App() {
           <Reach />
         </>
       )}
-      <BackGround />
+      <BackGround menuWide={menuWide} />
       <div className="flex relative">
-        <Menu />
-        <div className="h-min absolute top-1/4 left-1/4 w-2/3">
+        <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
+        <div
+          className={`h-min absolute ${
+            menuWide ? "top-1/4 left-1/4" : "top-[34px] left-[12%]"
+          } w-2/3 transition-all`}
+        >
           <div className="flex justify-between">
             <Options
               activeChoice={activeChoice}
               setActiveChoice={setActiveChoice}
+              menuWide={menuWide}
             />
             <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
           </div>
           <MainContext.Provider value={GlobalState}>
             {activeChoice === "flights" ? (
-              <SearchForm setOverlay={setOverlay} />
+              <SearchForm
+                setOverlay={setOverlay}
+                setMenuWide={setMenuWide}
+                menuWide={menuWide}
+              />
             ) : null}
           </MainContext.Provider>
         </div>
