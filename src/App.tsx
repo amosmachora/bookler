@@ -97,7 +97,9 @@ function App() {
               setActiveChoice={setActiveChoice}
               menuWide={menuWide}
             />
-            <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
+            {menuWide && (
+              <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
+            )}
           </div>
           <MainContext.Provider value={GlobalState}>
             {activeChoice === "flights" ? (

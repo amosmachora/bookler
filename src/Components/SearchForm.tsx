@@ -1,4 +1,10 @@
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import { Airport, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
 import AirportSearch from "./SearchModals/AirportSearch";
@@ -17,6 +23,10 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
   const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
   const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [searchType, setSearchType] = useState("");
+  const departureDateInput = useRef<HTMLInputElement | null>(null);
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const returnDateInput = useRef<HTMLInputElement | null>(null);
 
   /**
    * A function to randomly decide a default airport.
@@ -95,8 +105,24 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
     setMenuWide((prev) => !prev);
   };
 
+  const getDay = (date: Date | null | undefined) => {
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    if (date == null || date == undefined) {
+      return "Sunday";
+    }
+    return weekdays[date.getDay()];
+  };
+
   return (
-    <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-8"}`}>
+    <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
       <form action="">
         <div className="type-of-trip flex [&>*]:rounded-full [&>*]:text-sm [&>*]:py-2 [&>*]:px-6 [&>*]:mr-8 [&>*]:cursor-pointer">
           <p
@@ -170,7 +196,12 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
           </div>
         </div>
         <div className="flex mt-5 justify-between">
-          <div className="w-[25%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer">
+          <div
+            className="w-[25%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer"
+            onClick={() => {
+              departureDateInput.current?.focus();
+            }}
+          >
             <div className="flex justify-between">
               <div className="flex">
                 <img src={Assets.Calendar} alt="Calendar" />
@@ -178,10 +209,22 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
               </div>
               <img src={Assets.DropDownGray} alt="Drop down" />
             </div>
-            <p className="font-bold text-base mb-1">21 Aug 2020</p>
-            <p className="text-xs text-gray-400">Sunday</p>
+            <input
+              type="date"
+              name="date-time-selector-1"
+              id="date-time-selector-1"
+              className="bg-gray-100 w-full font-bold outline-none"
+              ref={departureDateInput}
+              onChange={(e) => setDepartureDate(e.target.value)}
+            />
+            <p className="text-xs text-gray-400">
+              {getDay(departureDateInput.current?.valueAsDate)}
+            </p>
           </div>
-          <div className="w-[25%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer">
+          <div
+            className="w-[25%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer"
+            onClick={() => returnDateInput.current?.focus()}
+          >
             <div className="flex justify-between">
               <div className="flex">
                 <img src={Assets.Calendar} alt="Calendar" />
@@ -189,8 +232,17 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
               </div>
               <img src={Assets.DropDownGray} alt="Drop down" />
             </div>
-            <p className="font-bold text-base mb-1">29 Aug’20</p>
-            <p className="text-xs text-gray-400">Sunday</p>
+            <input
+              type="date"
+              className="font-bold bg-gray-100 w-full"
+              name="date-time-selector-2"
+              id="date-time-selector-2"
+              ref={returnDateInput}
+              onChange={(e) => setReturnDate(e.target.value)}
+            />
+            <p className="text-xs text-gray-400">
+              {getDay(returnDateInput.current?.valueAsDate)}
+            </p>
           </div>
           <div className="w-[14%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer">
             <div className="flex justify-between">
