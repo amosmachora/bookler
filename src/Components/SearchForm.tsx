@@ -5,7 +5,7 @@ import React, {
   useState,
   useRef,
 } from "react";
-import { Airport, MainContext } from "../App";
+import { Airport, MainContext, searchParameters } from "../App";
 import { Assets } from "../Assets/Assets";
 import AirportSearch from "./SearchModals/AirportSearch";
 import axios from "axios";
@@ -14,9 +14,17 @@ type SearchFormProps = {
   setOverlay: (c: boolean) => void;
   setMenuWide: React.Dispatch<SetStateAction<boolean>>;
   menuWide: boolean;
+  setSearchParameters: React.Dispatch<
+    SetStateAction<searchParameters | undefined>
+  >;
 };
 
-const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
+const SearchForm = ({
+  setOverlay,
+  setMenuWide,
+  menuWide,
+  setSearchParameters,
+}: SearchFormProps) => {
   const { airports } = useContext(MainContext);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
   const [airportSearchModal, setAirportSearchModal] = useState(false);
@@ -103,6 +111,13 @@ const SearchForm = ({ setOverlay, setMenuWide, menuWide }: SearchFormProps) => {
   const searchFlight = (e: React.FormEvent) => {
     e.preventDefault();
     setMenuWide((prev) => !prev);
+    setSearchParameters({
+      fromAirport,
+      toAirport,
+      departureDate,
+      returnDate,
+      typeOfTrip,
+    });
   };
 
   const getDay = (date: Date | null | undefined) => {

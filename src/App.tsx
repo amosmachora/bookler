@@ -9,6 +9,7 @@ import Overlay from "./Components/Overlay";
 import ProfileInfo from "./Components/ProfileInfo";
 import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
+import SearchParametersDisplay from "./Components/searchParametersDisplay";
 
 type timezone = {
   abbr: string;
@@ -44,12 +45,21 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
 });
 
+export type searchParameters = {
+  fromAirport: Airport;
+  toAirport: Airport;
+  departureDate: string;
+  returnDate: string;
+  typeOfTrip: string;
+};
+
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
+  const [searchParameters, setSearchParameters] = useState<searchParameters>();
 
   const GlobalState = {
     isLoading,
@@ -101,15 +111,20 @@ function App() {
               <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
             )}
           </div>
-          <MainContext.Provider value={GlobalState}>
-            {activeChoice === "flights" ? (
-              <SearchForm
-                setOverlay={setOverlay}
-                setMenuWide={setMenuWide}
-                menuWide={menuWide}
-              />
-            ) : null}
-          </MainContext.Provider>
+          {menuWide ? (
+            <MainContext.Provider value={GlobalState}>
+              {activeChoice === "flights" ? (
+                <SearchForm
+                  setOverlay={setOverlay}
+                  setMenuWide={setMenuWide}
+                  menuWide={menuWide}
+                  setSearchParameters={setSearchParameters}
+                />
+              ) : null}
+            </MainContext.Provider>
+          ) : (
+            <SearchParametersDisplay searchParameters={searchParameters} />
+          )}
         </div>
       </div>
       <div className="flex absolute right-14 top-[34px]">
