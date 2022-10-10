@@ -5,8 +5,11 @@ type searchParametersDisplayProps = {
   searchParameters: searchParameters | undefined;
 };
 
-const getFormattedDate = (date: string | undefined) => {
-  return date;
+const getFormattedDate = (date: Date | null | undefined) => {
+  const string = date?.getDate();
+  console.log(string);
+
+  return date?.toDateString().substring(0, date.toDateString().length - 4);
 };
 
 const searchParametersDisplay = ({
@@ -42,7 +45,7 @@ const searchParametersDisplay = ({
         </p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
           {getFormattedDate(searchParameters?.departureDate) +
-            "-" +
+            " - " +
             getFormattedDate(searchParameters?.returnDate)}
         </p>
       </div>

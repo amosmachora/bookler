@@ -48,8 +48,8 @@ export const MainContext = createContext<MainContextValue>({
 export type searchParameters = {
   fromAirport: Airport;
   toAirport: Airport;
-  departureDate: string;
-  returnDate: string;
+  departureDate: Date | null | undefined;
+  returnDate: Date | null | undefined;
   typeOfTrip: string;
 };
 
@@ -98,8 +98,10 @@ function App() {
         <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
         <div
           className={`h-min absolute ${
-            menuWide ? "top-1/4 left-1/4" : "top-[34px] left-[12%]"
-          } w-2/3 transition-all`}
+            menuWide
+              ? "top-1/4 left-1/4 w-2/3"
+              : "top-[34px] left-[12%] w-[87%]"
+          } transition-all`}
         >
           <div className="flex justify-between">
             <Options

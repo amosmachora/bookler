@@ -32,8 +32,8 @@ const SearchForm = ({
   const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [searchType, setSearchType] = useState("");
   const departureDateInput = useRef<HTMLInputElement | null>(null);
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [departureDate, setDepartureDate] = useState<Date | null>();
+  const [returnDate, setReturnDate] = useState<Date | null>();
   const returnDateInput = useRef<HTMLInputElement | null>(null);
 
   /**
@@ -230,7 +230,7 @@ const SearchForm = ({
               id="date-time-selector-1"
               className="bg-gray-100 w-full font-bold outline-none"
               ref={departureDateInput}
-              onChange={(e) => setDepartureDate(e.target.value)}
+              onChange={(e) => setDepartureDate(e.target.valueAsDate)}
             />
             <p className="text-xs text-gray-400">
               {getDay(departureDateInput.current?.valueAsDate)}
@@ -253,7 +253,7 @@ const SearchForm = ({
               name="date-time-selector-2"
               id="date-time-selector-2"
               ref={returnDateInput}
-              onChange={(e) => setReturnDate(e.target.value)}
+              onChange={(e) => setReturnDate(e.target.valueAsDate)}
             />
             <p className="text-xs text-gray-400">
               {getDay(returnDateInput.current?.valueAsDate)}
