@@ -5,11 +5,15 @@ type searchParametersDisplayProps = {
   searchParameters: searchParameters | undefined;
 };
 
+const getFormattedDate = (date: string | undefined) => {
+  return date;
+};
+
 const searchParametersDisplay = ({
   searchParameters,
 }: searchParametersDisplayProps) => {
   return (
-    <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-md">
+    <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg">
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">TYPE</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
@@ -37,7 +41,9 @@ const searchParametersDisplay = ({
           DEPARTURE - RETURN
         </p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {searchParameters?.departureDate + "-" + searchParameters?.returnDate}
+          {getFormattedDate(searchParameters?.departureDate) +
+            "-" +
+            getFormattedDate(searchParameters?.returnDate)}
         </p>
       </div>
       <p className="bg-red-600 text-white text-xs rounded-full px-5 py-3">
