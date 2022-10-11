@@ -5,7 +5,7 @@ import React, {
   useState,
   useRef,
 } from "react";
-import { Airport, MainContext, searchParameters } from "../App";
+import { Airport, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
 import AirportSearch from "./SearchModals/AirportSearch";
 import axios from "axios";
@@ -14,44 +14,34 @@ type SearchFormProps = {
   setOverlay: (c: boolean) => void;
   setMenuWide: React.Dispatch<SetStateAction<boolean>>;
   menuWide: boolean;
-  setSearchParameters: React.Dispatch<
-    SetStateAction<searchParameters | undefined>
-  >;
+  toAirport: Airport;
+  setToAirport: React.Dispatch<SetStateAction<Airport>>;
+  setFromAirport: React.Dispatch<SetStateAction<Airport>>;
+  fromAirport: Airport;
+  typeOfTrip: string;
+  setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
+  setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
+  setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
 };
 
 const SearchForm = ({
   setOverlay,
   setMenuWide,
   menuWide,
-  setSearchParameters,
+  toAirport,
+  setToAirport,
+  fromAirport,
+  setFromAirport,
+  typeOfTrip,
+  setTypeOfTrip,
+  setDepartureDate,
+  setReturnDate,
 }: SearchFormProps) => {
   const { airports } = useContext(MainContext);
-  const [typeOfTrip, setTypeOfTrip] = useState("one-way");
   const [airportSearchModal, setAirportSearchModal] = useState(false);
-  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
-  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [searchType, setSearchType] = useState("");
   const departureDateInput = useRef<HTMLInputElement | null>(null);
-  const [departureDate, setDepartureDate] = useState<Date | null>();
-  const [returnDate, setReturnDate] = useState<Date | null>();
   const returnDateInput = useRef<HTMLInputElement | null>(null);
-
-  /**
-   * A function to randomly decide a default airport.
-   * @Returns A random airport.
-   */
-  function getRandomAirport() {
-    const min = 0;
-    const max = airports.length;
-    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
-    const randomAirport = airports[randomNumber];
-    return randomAirport;
-  }
-
-  useEffect(() => {
-    setFromAirport(getRandomAirport());
-    setToAirport(getRandomAirport());
-  }, [airports.length]);
 
   const fetchAirportFlightData = (airport: Airport) => {
     console.log("Searching data for " + airport.name);
@@ -111,13 +101,6 @@ const SearchForm = ({
   const searchFlight = (e: React.FormEvent) => {
     e.preventDefault();
     setMenuWide((prev) => !prev);
-    setSearchParameters({
-      fromAirport,
-      toAirport,
-      departureDate,
-      returnDate,
-      typeOfTrip,
-    });
   };
 
   const getDay = (date: Date | null | undefined) => {

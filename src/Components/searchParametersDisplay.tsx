@@ -1,9 +1,5 @@
 import React from "react";
-import { searchParameters } from "../App";
-
-type searchParametersDisplayProps = {
-  searchParameters: searchParameters | undefined;
-};
+import { Airport } from "../App";
 
 const getFormattedDate = (date: Date | null | undefined) => {
   const string = date?.getDate();
@@ -12,31 +8,39 @@ const getFormattedDate = (date: Date | null | undefined) => {
   return date?.toDateString().substring(0, date.toDateString().length - 4);
 };
 
+type searchParametersDisplayProps = {
+  fromAirport: Airport;
+  toAirport: Airport;
+  typeOfTrip: string;
+  departureDate: Date | undefined | null;
+  returnDate: Date | undefined | null;
+};
+
 const searchParametersDisplay = ({
-  searchParameters,
+  fromAirport,
+  toAirport,
+  typeOfTrip,
+  departureDate,
+  returnDate,
 }: searchParametersDisplayProps) => {
   return (
     <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg">
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">TYPE</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {searchParameters?.typeOfTrip}
+          {typeOfTrip}
         </p>
       </div>
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">FROM</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {searchParameters?.fromAirport.city +
-            ", " +
-            searchParameters?.fromAirport.country}
+          {fromAirport.city + ", " + fromAirport.country}
         </p>
       </div>
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">TO</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {searchParameters?.toAirport.city +
-            ", " +
-            searchParameters?.toAirport.country}
+          {toAirport.city + ", " + toAirport.country}
         </p>
       </div>
       <div>
@@ -44,9 +48,9 @@ const searchParametersDisplay = ({
           DEPARTURE - RETURN
         </p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {getFormattedDate(searchParameters?.departureDate) +
+          {getFormattedDate(departureDate) +
             " - " +
-            getFormattedDate(searchParameters?.returnDate)}
+            getFormattedDate(returnDate)}
         </p>
       </div>
       <p className="bg-red-600 text-white text-xs rounded-full px-5 py-3">

@@ -45,21 +45,17 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
 });
 
-export type searchParameters = {
-  fromAirport: Airport;
-  toAirport: Airport;
-  departureDate: Date | null | undefined;
-  returnDate: Date | null | undefined;
-  typeOfTrip: string;
-};
-
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
-  const [searchParameters, setSearchParameters] = useState<searchParameters>();
+  const [typeOfTrip, setTypeOfTrip] = useState("one-way");
+  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
+  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
+  const [departureDate, setDepartureDate] = useState<Date | null>();
+  const [returnDate, setReturnDate] = useState<Date | null>();
 
   const GlobalState = {
     isLoading,
@@ -83,6 +79,23 @@ function App() {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  /**
+   * A function to randomly decide a default airport.
+   * @Returns A random airport.
+   */
+  function getRandomAirport() {
+    const min = 0;
+    const max = airports.length;
+    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
+    const randomAirport = airports[randomNumber];
+    return randomAirport;
+  }
+
+  useEffect(() => {
+    setFromAirport(getRandomAirport());
+    setToAirport(getRandomAirport());
+  }, [airports.length]);
 
   return (
     <div className="App w-full">
@@ -120,12 +133,25 @@ function App() {
                   setOverlay={setOverlay}
                   setMenuWide={setMenuWide}
                   menuWide={menuWide}
-                  setSearchParameters={setSearchParameters}
+                  toAirport={toAirport}
+                  setToAirport={setToAirport}
+                  fromAirport={fromAirport}
+                  setFromAirport={setFromAirport}
+                  typeOfTrip={typeOfTrip}
+                  setTypeOfTrip={setTypeOfTrip}
+                  setDepartureDate={setDepartureDate}
+                  setReturnDate={setReturnDate}
                 />
               ) : null}
             </MainContext.Provider>
           ) : (
-            <SearchParametersDisplay searchParameters={searchParameters} />
+            <SearchParametersDisplay
+              fromAirport={fromAirport}
+              toAirport={toAirport}
+              returnDate={returnDate}
+              departureDate={departureDate}
+              typeOfTrip={typeOfTrip}
+            />
           )}
         </div>
       </div>
