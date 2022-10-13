@@ -46,8 +46,54 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
 });
 
-type Arrivals = {
-  //TODO Complete creating type. Right now the data is just logged.
+type aircraft = {
+  reg?: string | undefined;
+  modeS?: string | undefined;
+  model: string;
+};
+
+type airline = {
+  name: string;
+};
+
+type airportMin = {
+  iata?: string | undefined;
+  icao?: string | undefined;
+  name: string;
+};
+
+type arrival = {
+  actualTimeLocal?: string | undefined;
+  actualTimeUtc?: string | undefined;
+  baggageBelt?: string;
+  gate?: string | undefined;
+  quality: Array<string>;
+  runwayTimeLocal?: string | undefined;
+  scheduledTimeLocal?: string;
+  scheduledTimeUtc?: string;
+  terminal?: string | undefined;
+};
+
+type departure = {
+  airport: airportMin;
+  quality: Array<string>;
+  actualTimeLocal?: string;
+  actualTimeUtc?: string;
+  gate?: string | undefined;
+  scheduledTimeLocal?: string;
+  scheduledTimeUtc?: string;
+  terminal?: string;
+};
+
+type Arrival = {
+  aircraft: aircraft;
+  airline: airline;
+  arrival: arrival;
+  codeshareStatus: string;
+  departure: departure;
+  isCargo: boolean;
+  number: string;
+  status: string;
 };
 
 type Departures = {
@@ -65,7 +111,7 @@ function App() {
   const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [departureDate, setDepartureDate] = useState<Date | null>();
   const [returnDate, setReturnDate] = useState<Date | null>();
-  const [airportArrivals, setAirportArrivals] = useState<Arrivals[]>(
+  const [airportArrivals, setAirportArrivals] = useState<Arrival[]>(
     AirPortData.arrivals
   );
   const [airportDepartures, setAirportDepartures] = useState(
