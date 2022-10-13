@@ -43,11 +43,43 @@ const SearchForm = ({
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
 
+  function getZeroPadded(secondDateHour: number) {
+    if (secondDateHour.toString().length != 2) {
+      return 0 + secondDateHour.toString();
+    }
+    return secondDateHour.toString();
+  }
+
+  /**
+   * A function to get the required search dates
+   * @Returns [firstDate, secondDate]
+   */
+  const getSearchDates = () => {
+    const todaysDate = new Date();
+    const firstDate = todaysDate.toISOString().substring(0, 16);
+
+    let secondDateHour = 0;
+    if (todaysDate.getUTCHours() >= 12) {
+      secondDateHour = todaysDate.getUTCHours() + 12 - 24;
+    } else {
+      secondDateHour = todaysDate.getUTCHours() + 12;
+    }
+    const secondDate =
+      firstDate.substring(0, 11) +
+      getZeroPadded(secondDateHour) +
+      firstDate.substring(13);
+
+    return [firstDate, secondDate];
+  };
+
   const fetchAirportFlightData = (airport: Airport) => {
     console.log("Searching data for " + airport.name);
+
     const options = {
       method: "GET",
-      url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${airport.icao}/2022-10-07T20:00/2022-10-08T08:00`,
+      url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
+        airport.icao
+      }/${getSearchDates()[0]}/${getSearchDates()[1]}`,
       params: {
         withLeg: "true",
         withCancelled: "true",

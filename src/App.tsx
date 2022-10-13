@@ -10,6 +10,7 @@ import ProfileInfo from "./Components/ProfileInfo";
 import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
+import AirPortData from "./Util/AirportFlightData.json";
 
 type timezone = {
   abbr: string;
@@ -45,6 +46,14 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
 });
 
+type Arrivals = {
+  //TODO Complete creating type. Right now the data is just logged.
+};
+
+type Departures = {
+  //TODO Complete creating departures.
+};
+
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
@@ -56,6 +65,15 @@ function App() {
   const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [departureDate, setDepartureDate] = useState<Date | null>();
   const [returnDate, setReturnDate] = useState<Date | null>();
+  const [airportArrivals, setAirportArrivals] = useState<Arrivals[]>(
+    AirPortData.arrivals
+  );
+  const [airportDepartures, setAirportDepartures] = useState(
+    AirPortData.departures
+  );
+
+  console.log(airportArrivals);
+  console.log(airportDepartures);
 
   const GlobalState = {
     isLoading,
