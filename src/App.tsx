@@ -3,6 +3,7 @@ import "./App.css";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
+import FlightResults from "./Components/FlightResults";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
 import Overlay from "./Components/Overlay";
@@ -10,7 +11,7 @@ import ProfileInfo from "./Components/ProfileInfo";
 import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
-import AirPortData from "./Util/AirportFlightData.json";
+import DevAirports from "./Util/Airports.json";
 
 type timezone = {
   abbr: string;
@@ -33,7 +34,7 @@ export type Airport = {
   lon: number;
   name: string;
   size: number;
-  timezone: timezone;
+  timezone: timezone | null;
 };
 
 interface MainContextValue {
@@ -46,59 +47,49 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
 });
 
-type aircraft = {
-  reg?: string | undefined;
-  modeS?: string | undefined;
-  model: string;
-};
+interface SearchParameters {
+  toAirport: Airport;
+  returnDate: Date | null | undefined;
+  departureDate: Date | null | undefined;
+  typeOfTrip: string;
+  fromAirport: Airport;
+  devMode: boolean;
+}
 
-type airline = {
-  name: string;
-};
-
-type airportMin = {
-  iata?: string | undefined;
-  icao?: string | undefined;
-  name: string;
-};
-
-type arrival = {
-  actualTimeLocal?: string | undefined;
-  actualTimeUtc?: string | undefined;
-  baggageBelt?: string;
-  gate?: string | undefined;
-  quality: Array<string>;
-  runwayTimeLocal?: string | undefined;
-  scheduledTimeLocal?: string;
-  scheduledTimeUtc?: string;
-  terminal?: string | undefined;
-};
-
-type departure = {
-  airport: airportMin;
-  quality: Array<string>;
-  actualTimeLocal?: string;
-  actualTimeUtc?: string;
-  gate?: string | undefined;
-  scheduledTimeLocal?: string;
-  scheduledTimeUtc?: string;
-  terminal?: string;
-};
-
-type Arrival = {
-  aircraft: aircraft;
-  airline: airline;
-  arrival: arrival;
-  codeshareStatus: string;
-  departure: departure;
-  isCargo: boolean;
-  number: string;
-  status: string;
-};
-
-type Departures = {
-  //TODO Complete creating departures.
-};
+export const SearchContext = createContext<SearchParameters>({
+  toAirport: {
+    alt: 0,
+    city: "",
+    country: "",
+    countryId: 0,
+    iata: "",
+    icao: "",
+    id: 0,
+    lat: 0,
+    lon: 0,
+    name: "",
+    size: 0,
+    timezone: null,
+  },
+  returnDate: null,
+  departureDate: null,
+  typeOfTrip: "",
+  fromAirport: {
+    alt: 0,
+    city: "",
+    country: "",
+    countryId: 0,
+    iata: "",
+    icao: "",
+    id: 0,
+    lat: 0,
+    lon: 0,
+    name: "",
+    size: 0,
+    timezone: null,
+  },
+  devMode: false,
+});
 
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
@@ -111,38 +102,34 @@ function App() {
   const [toAirport, setToAirport] = useState<Airport>(airports[0]);
   const [departureDate, setDepartureDate] = useState<Date | null>();
   const [returnDate, setReturnDate] = useState<Date | null>();
-  const [airportArrivals, setAirportArrivals] = useState<Arrival[]>(
-    AirPortData.arrivals
-  );
-  const [airportDepartures, setAirportDepartures] = useState(
-    AirPortData.departures
-  );
-
-  console.log(airportArrivals);
-  console.log(airportDepartures);
-
-  const GlobalState = {
-    isLoading,
-    airports,
-  };
+  const [devMode, setDevMode] = useState(true);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-        "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
-      },
-    };
     setIsLoading(true);
-    fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
-      .then((response) => response.json())
-      .then((response) => {
-        setAirports(response.rows);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    if (devMode) {
+      setAirports(DevAirports.rows);
+    } else {
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
+          "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
+        },
+      };
+
+      fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
+        .then((response) => response.json())
+        .then((response) => {
+          setAirports(response.rows);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setDevMode(true);
+        });
+    }
+  }, [[], devMode]);
 
   /**
    * A function to randomly decide a default airport.
@@ -191,7 +178,12 @@ function App() {
             )}
           </div>
           {menuWide ? (
-            <MainContext.Provider value={GlobalState}>
+            <MainContext.Provider
+              value={{
+                isLoading,
+                airports,
+              }}
+            >
               {activeChoice === "flights" ? (
                 <SearchForm
                   setOverlay={setOverlay}
@@ -209,13 +201,19 @@ function App() {
               ) : null}
             </MainContext.Provider>
           ) : (
-            <SearchParametersDisplay
-              fromAirport={fromAirport}
-              toAirport={toAirport}
-              returnDate={returnDate}
-              departureDate={departureDate}
-              typeOfTrip={typeOfTrip}
-            />
+            <SearchContext.Provider
+              value={{
+                typeOfTrip,
+                fromAirport,
+                departureDate,
+                returnDate,
+                toAirport,
+                devMode,
+              }}
+            >
+              <SearchParametersDisplay />
+              <FlightResults />
+            </SearchContext.Provider>
           )}
         </div>
       </div>

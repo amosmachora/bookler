@@ -1,28 +1,15 @@
 import React from "react";
-import { Airport } from "../App";
+import { useContext } from "react";
+import { Airport, SearchContext } from "../App";
 
 const getFormattedDate = (date: Date | null | undefined) => {
-  const string = date?.getDate();
-  console.log(string);
-
   return date?.toDateString().substring(0, date.toDateString().length - 4);
 };
 
-type searchParametersDisplayProps = {
-  fromAirport: Airport;
-  toAirport: Airport;
-  typeOfTrip: string;
-  departureDate: Date | undefined | null;
-  returnDate: Date | undefined | null;
-};
+const SearchParametersDisplay = () => {
+  const { typeOfTrip, fromAirport, departureDate, returnDate, toAirport } =
+    useContext(SearchContext);
 
-const searchParametersDisplay = ({
-  fromAirport,
-  toAirport,
-  typeOfTrip,
-  departureDate,
-  returnDate,
-}: searchParametersDisplayProps) => {
   return (
     <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg">
       <div>
@@ -60,4 +47,4 @@ const searchParametersDisplay = ({
   );
 };
 
-export default searchParametersDisplay;
+export default SearchParametersDisplay;
