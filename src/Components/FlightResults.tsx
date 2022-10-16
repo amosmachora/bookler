@@ -167,6 +167,7 @@ const FlightResults = () => {
       (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
     )
   );
+  console.log(outGoingFlights);
 
   return (
     <div>

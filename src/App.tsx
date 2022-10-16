@@ -13,8 +13,6 @@ import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 
-console.log(DevAirports);
-
 type timezone = {
   abbr: string;
   abbrName: string | null;
