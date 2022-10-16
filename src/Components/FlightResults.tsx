@@ -52,9 +52,30 @@ type Arrival = {
   number: string;
   status: string;
 };
+type departure2 = {
+  actualTimeLocal?: string | undefined;
+  actualTimeUtc?: string;
+  checkInDesk?: string | undefined;
+  gate?: string | undefined;
+  quality: Array<string>;
+  scheduledTimeLocal?: string;
+  scheduledTimeUtc?: string;
+  terminal?: string | undefined;
+};
+
+type arrival2 = {
+  airport: airportMin;
+  quality: Array<string>;
+};
 
 type Departures = {
-  //TODO Complete creating departures.
+  aircraft: aircraft;
+  airline: airline;
+  arrival: arrival2;
+  departure: departure2;
+  isCargo: boolean;
+  number: string;
+  status: string;
 };
 
 const FlightResults = () => {

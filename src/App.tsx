@@ -13,17 +13,19 @@ import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 
+console.log(DevAirports);
+
 type timezone = {
   abbr: string;
-  abbrName: string;
+  abbrName: string | null;
   isDst: boolean;
   name: string;
-  offset: number;
+  offset: number | null;
   offsetHours: string;
 };
 
 export type Airport = {
-  alt: number;
+  alt: number | string;
   city: string;
   country: string;
   countryId: number;
@@ -108,6 +110,7 @@ function App() {
     setIsLoading(true);
     if (devMode) {
       setAirports(DevAirports.rows);
+      setIsLoading(false);
     } else {
       const options = {
         method: "GET",
