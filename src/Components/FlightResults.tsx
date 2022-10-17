@@ -93,11 +93,18 @@ const FlightResults = () => {
   const [incomingFlights, setAirportArrivals] = useState<Arrival[]>(
     DevAirportData.arrivals
   );
+  const [foundFlights, setFoundFlights] = useState<Departures[]>();
 
   useEffect(() => {
     if (!devMode) {
       fetchAirportFlightData();
     }
+    setFoundFlights(
+      outGoingFlights.filter(
+        (outGoingFlight) =>
+          outGoingFlight.arrival.airport.icao === toAirport.icao
+      )
+    );
   }, []);
 
   function getZeroPadded(secondDateHour: number) {
@@ -162,17 +169,14 @@ const FlightResults = () => {
   };
 
   console.log("Departures from " + fromAirport.name + " to " + toAirport.name);
-  console.log(
-    outGoingFlights.filter(
-      (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
-    )
-  );
-  console.log(outGoingFlights);
 
   return (
-    <div>
+    <div className="mt-5 flight-results">
       <p>
-        to {toAirport.country} from {fromAirport.country}
+        <span className="font-bold inline text-xl">Flights</span>
+        <div className="inline h-[14px] w-[1px] mx-3 my-auto line" />
+        <span>Total</span>
+        <span className="text-blue-400"> {foundFlights?.length} results</span>
       </p>
     </div>
   );
