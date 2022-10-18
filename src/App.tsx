@@ -13,8 +13,6 @@ import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 
-console.log(DevAirports.rows.filter((airport) => airport.icao === "EPKK"));
-
 type timezone = {
   abbr: string;
   abbrName: string | null;
@@ -111,6 +109,7 @@ function App() {
     if (devMode) {
       setAirports(DevAirports.rows);
       setIsLoading(false);
+      console.log(DevAirports.rows);
     } else {
       const options = {
         method: "GET",

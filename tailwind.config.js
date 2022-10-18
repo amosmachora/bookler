@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         blueBgMain: "#023b96",
         blueBgMainSm: "#022053",
+        flightResultsBg: "#f7f9fb",
+        goldRating: "#E8B644",
       },
     },
   },

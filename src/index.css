@@ -31,10 +31,3 @@ body {
 .flex {
   display: flex;
 }
-.line {
-  outline: 1px solid rgba(151, 151, 151, 1);
-  z-index: 1000;
-}
-.flight-results {
-  background-color: rgba(247, 249, 251, 1);
-}
