@@ -109,7 +109,6 @@ function App() {
     if (devMode) {
       setAirports(DevAirports.rows);
       setIsLoading(false);
-      console.log(DevAirports.rows);
     } else {
       const options = {
         method: "GET",

@@ -3,6 +3,7 @@ import { Airport, SearchContext } from "../App";
 import DevAirportData from "../Util/AirportFlightData.json";
 import axios from "axios";
 import AirlineLogos from "../Util/AirLineLogos.json";
+import Airlines from "../Util/Airlines.json";
 
 type aircraft = {
   reg?: string | undefined;
@@ -109,9 +110,6 @@ const FlightResults = () => {
     );
   }, []);
 
-  console.log("Departures from " + fromAirport.name + " to " + toAirport.name);
-  console.log(AirlineLogos);
-
   return (
     <div className="mt-5">
       <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">
@@ -173,6 +171,7 @@ const FlightResults = () => {
                 </p>
               </div>
               <div className="h-[1px] bg-gray-200" />
+              <img src={getLogo(foundFlight.airline.name)} alt="Airline Logo" />
               <p>{foundFlight.airline.name}</p>
             </div>
             <div>Prices</div>
@@ -184,6 +183,28 @@ const FlightResults = () => {
 };
 
 export default FlightResults;
+
+/**
+ *
+ */
+const getLogo: (airlineName: string) => string = (airlineName: string) => {
+  /**
+   * {name,code,ICAO}
+   */
+  const airline = Airlines.rows.filter(
+    (airline) => airline.Name === airlineName
+  );
+
+  const imageUrl = AirlineLogos.result.response.airlines.logotypes.filter(
+    (logo) =>
+      logo.file.name.includes(airline[0]?.ICAO) ||
+      logo.file.name.includes(airline[0]?.Name) ||
+      logo.file.name.includes(airline[0]?.Code)
+  );
+  console.log(AirlineLogos.result.response.airlines.logotypes);
+
+  return imageUrl[0]?.file.url;
+};
 
 function getZeroPadded(secondDateHour: number) {
   if (secondDateHour.toString().length != 2) {
