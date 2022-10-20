@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Airport, SearchContext } from "../App";
 import DevAirportData from "../Util/AirportFlightData.json";
 import axios from "axios";
-import AirlineLogos from "../Util/AirLineLogos.json";
 import Airlines from "../Util/Airlines.json";
+import { Assets } from "../Assets/Assets";
 
 type aircraft = {
   reg?: string | undefined;
@@ -171,8 +171,15 @@ const FlightResults = () => {
                 </p>
               </div>
               <div className="h-[1px] bg-gray-200" />
-              <img src={getLogo(foundFlight.airline.name)} alt="Airline Logo" />
-              <p>{foundFlight.airline.name}</p>
+              <div className="flex items-center p-5">
+                <img
+                  src={getLogo(foundFlight.airline.name)}
+                  alt="Airline Logo"
+                  className="h-14 w-14 rounded-full shadow-xl mr-3"
+                />
+                <p>{foundFlight.airline.name}</p>
+                <p>{fromAirport.icao}</p>
+              </div>
             </div>
             <div>Prices</div>
           </div>
@@ -184,26 +191,14 @@ const FlightResults = () => {
 
 export default FlightResults;
 
-/**
- *
- */
-const getLogo: (airlineName: string) => string = (airlineName: string) => {
-  /**
-   * {name,code,ICAO}
-   */
-  const airline = Airlines.rows.filter(
+const getLogo = (airlineName: string): string => {
+  const airline: any = Airlines.rows.filter(
     (airline) => airline.Name === airlineName
   );
-
-  const imageUrl = AirlineLogos.result.response.airlines.logotypes.filter(
-    (logo) =>
-      logo.file.name.includes(airline[0]?.ICAO) ||
-      logo.file.name.includes(airline[0]?.Name) ||
-      logo.file.name.includes(airline[0]?.Code)
-  );
-  console.log(AirlineLogos.result.response.airlines.logotypes);
-
-  return imageUrl[0]?.file.url;
+  if (airline[0] === undefined) {
+    return Assets.PlaneFlying;
+  }
+  return `https://content.airhex.com/content/logos/airlines_${airline[0].Code}_100_100_s.png`;
 };
 
 function getZeroPadded(secondDateHour: number) {

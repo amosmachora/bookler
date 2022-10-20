@@ -24,8 +24,10 @@ import Class from "./Class.svg";
 import Calendar from "./Calendar.svg";
 import DropDownGray from "./DropDownGray.svg";
 import Close from "./Close.svg";
+import PlaneFlying from "./PlaneFlying.webp";
 
 export const Assets = {
+  PlaneFlying,
   Close,
   DropDownGray,
   Calendar,

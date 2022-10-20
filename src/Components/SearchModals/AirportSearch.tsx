@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Airport, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import "./AirportSearch.css";
-import axios from "axios";
+import AirportFlightData from "../../Util/AirportFlightData.json";
 
 type AirportSearchProps = {
   handleSearchModal: (name: string, state: boolean) => void;
@@ -17,8 +17,22 @@ const AirportSearch = ({
   setFromAirport,
   setToAirport,
 }: AirportSearchProps) => {
+  /**
+   * airports -> List of all possible airports.
+   * available flights airports -> Depending on the context this component will either offer this all airport data or only available flights
+   * from the chosen from airport.
+   */
   const { airports } = useContext(MainContext);
-  const [airportListLocal, setAirportListLocal] = useState<Airport[]>(airports);
+  const getSearchAirports = () => {
+    if (typeOfSearch === "to") {
+      //TODO Complete
+    }
+    return airports;
+  };
+
+  const [airportListLocal, setAirportListLocal] = useState<Airport[]>(
+    getSearchAirports()
+  );
 
   const searchAirports = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
