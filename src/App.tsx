@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
@@ -12,86 +12,9 @@ import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
-
-console.log(DevAirports);
-
-type timezone = {
-  abbr: string;
-  abbrName: string | null;
-  isDst: boolean;
-  name: string;
-  offset: number | null;
-  offsetHours: string;
-};
-
-export type Airport = {
-  alt: number | string;
-  city: string;
-  country: string;
-  countryId: number;
-  iata: string;
-  icao: string;
-  id: number;
-  lat: number;
-  lon: number;
-  name: string;
-  size: number;
-  timezone: timezone | null;
-};
-
-interface MainContextValue {
-  isLoading: boolean;
-  airports: Airport[];
-}
-
-export const MainContext = createContext<MainContextValue>({
-  isLoading: false,
-  airports: [],
-});
-
-interface SearchParameters {
-  toAirport: Airport;
-  returnDate: Date | null | undefined;
-  departureDate: Date | null | undefined;
-  typeOfTrip: string;
-  fromAirport: Airport;
-  devMode: boolean;
-}
-
-export const SearchContext = createContext<SearchParameters>({
-  toAirport: {
-    alt: 0,
-    city: "",
-    country: "",
-    countryId: 0,
-    iata: "",
-    icao: "",
-    id: 0,
-    lat: 0,
-    lon: 0,
-    name: "",
-    size: 0,
-    timezone: null,
-  },
-  returnDate: null,
-  departureDate: null,
-  typeOfTrip: "",
-  fromAirport: {
-    alt: 0,
-    city: "",
-    country: "",
-    countryId: 0,
-    iata: "",
-    icao: "",
-    id: 0,
-    lat: 0,
-    lon: 0,
-    name: "",
-    size: 0,
-    timezone: null,
-  },
-  devMode: false,
-});
+import DevAirportFlightData from "./Util/AirportFlightData.json";
+import { Airport, Arrival, Departures } from "./Types/Flights";
+import { MainContext, SearchContext } from "./Types/Contexts";
 
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
@@ -105,6 +28,14 @@ function App() {
   const [departureDate, setDepartureDate] = useState<Date | null>();
   const [returnDate, setReturnDate] = useState<Date | null>();
   const [devMode, setDevMode] = useState(true);
+  const [searchAirports, setSearchAirports] = useState<Airport[]>([]);
+  const [searchType, setSearchType] = useState("from");
+  const [outGoingFlights, setAirportDepartures] = useState<Departures[]>(
+    DevAirportFlightData.departures
+  );
+  const [incomingFlights, setAirportArrivals] = useState<Arrival[]>(
+    DevAirportFlightData.arrivals
+  );
 
   useEffect(() => {
     setIsLoading(true);
@@ -134,6 +65,20 @@ function App() {
         });
     }
   }, [[], devMode]);
+
+  useEffect(() => {
+    if (searchType === "from") {
+      setSearchAirports(airports);
+    } else {
+      console.log(
+        outGoingFlights.filter((flight) =>
+          airports
+            .map((airport) => airport.icao)
+            .includes(flight.arrival.airport.icao)
+        )
+      );
+    }
+  }, [searchType]);
 
   /**
    * A function to randomly decide a default airport.
@@ -201,6 +146,9 @@ function App() {
                   setTypeOfTrip={setTypeOfTrip}
                   setDepartureDate={setDepartureDate}
                   setReturnDate={setReturnDate}
+                  searchAirports={searchAirports}
+                  setSearchType={setSearchType}
+                  searchType={searchType}
                 />
               ) : null}
             </MainContext.Provider>
@@ -213,6 +161,7 @@ function App() {
                 returnDate,
                 toAirport,
                 devMode,
+                outGoingFlights,
               }}
             >
               <SearchParametersDisplay />

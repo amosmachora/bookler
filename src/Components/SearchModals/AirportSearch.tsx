@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Airport, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
+import { Airport } from "../../Types/Flights";
 import "./AirportSearch.css";
-import AirportFlightData from "../../Util/AirportFlightData.json";
 
 type AirportSearchProps = {
   handleSearchModal: (name: string, state: boolean) => void;
   typeOfSearch: string;
   setFromAirport: (airport: Airport) => void;
   setToAirport: (airport: Airport) => void;
+  searchAbleAirports: Airport[];
 };
 
 const AirportSearch = ({
@@ -16,23 +16,15 @@ const AirportSearch = ({
   typeOfSearch,
   setFromAirport,
   setToAirport,
+  searchAbleAirports,
 }: AirportSearchProps) => {
   /**
    * airports -> List of all possible airports.
    * available flights airports -> Depending on the context this component will either offer this all airport data or only available flights
    * from the chosen from airport.
    */
-  const { airports } = useContext(MainContext);
-  const getSearchAirports = () => {
-    if (typeOfSearch === "to") {
-      //TODO Complete
-    }
-    return airports;
-  };
-
-  const [airportListLocal, setAirportListLocal] = useState<Airport[]>(
-    getSearchAirports()
-  );
+  const [airportListLocal, setAirportListLocal] =
+    useState<Airport[]>(searchAbleAirports);
 
   const searchAirports = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
@@ -50,7 +42,7 @@ const AirportSearch = ({
 
   const checkIfEmpty = (e: React.FormEvent) => {
     if ((e.target as HTMLInputElement).value.length === 0) {
-      setAirportListLocal(airports);
+      setAirportListLocal(searchAbleAirports);
     }
   };
 

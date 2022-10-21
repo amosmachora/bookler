@@ -1,84 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Airport, SearchContext } from "../App";
 import DevAirportData from "../Util/AirportFlightData.json";
 import axios from "axios";
 import Airlines from "../Util/Airlines.json";
 import { Assets } from "../Assets/Assets";
-
-type aircraft = {
-  reg?: string | undefined;
-  modeS?: string | undefined;
-  model: string;
-};
-
-type airline = {
-  name: string;
-};
-
-type airportMin = {
-  iata?: string | undefined;
-  icao?: string | undefined;
-  name: string;
-};
-
-type arrival = {
-  actualTimeLocal?: string | undefined;
-  actualTimeUtc?: string | undefined;
-  baggageBelt?: string;
-  gate?: string | undefined;
-  quality: Array<string>;
-  runwayTimeLocal?: string | undefined;
-  scheduledTimeLocal?: string;
-  scheduledTimeUtc?: string;
-  terminal?: string | undefined;
-};
-
-type departure = {
-  airport: airportMin;
-  quality: Array<string>;
-  actualTimeLocal?: string;
-  actualTimeUtc?: string;
-  gate?: string | undefined;
-  scheduledTimeLocal?: string;
-  scheduledTimeUtc?: string;
-  terminal?: string;
-};
-
-type Arrival = {
-  aircraft: aircraft;
-  airline: airline;
-  arrival: arrival;
-  codeshareStatus: string;
-  departure: departure;
-  isCargo: boolean;
-  number: string;
-  status: string;
-};
-type departure2 = {
-  actualTimeLocal?: string | undefined;
-  actualTimeUtc?: string;
-  checkInDesk?: string | undefined;
-  gate?: string | undefined;
-  quality: Array<string>;
-  scheduledTimeLocal?: string;
-  scheduledTimeUtc?: string;
-  terminal?: string | undefined;
-};
-
-type arrival2 = {
-  airport: airportMin;
-  quality: Array<string>;
-};
-
-type Departures = {
-  aircraft: aircraft;
-  airline: airline;
-  arrival: arrival2;
-  departure: departure2;
-  isCargo: boolean;
-  number: string;
-  status: string;
-};
+import { SearchContext } from "../Types/Contexts";
+import { Airport, Departures } from "../Types/Flights";
 
 const FlightResults = () => {
   const {
@@ -88,26 +14,22 @@ const FlightResults = () => {
     typeOfTrip,
     fromAirport,
     devMode,
+    outGoingFlights,
   } = useContext(SearchContext);
-  const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
-    DevAirportData.departures
-  );
-  const [incomingFlights, setAirportArrivals] = useState<Arrival[]>(
-    DevAirportData.arrivals
-  );
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
   const [sortBy, setSortBy] = useState("cheapest");
 
   useEffect(() => {
     if (!devMode) {
       fetchAirportFlightData(fromAirport);
+    } else {
+      setFoundFlights(
+        outGoingFlights.filter(
+          (outGoingFlight) =>
+            outGoingFlight.arrival.airport.icao === toAirport.icao
+        )
+      );
     }
-    setFoundFlights(
-      outGoingFlights.filter(
-        (outGoingFlight) =>
-          outGoingFlight.arrival.airport.icao === toAirport.icao
-      )
-    );
   }, []);
 
   return (

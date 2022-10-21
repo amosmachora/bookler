@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { Airport, SearchContext } from "../App";
+import { SearchContext } from "../Types/Contexts";
 
 const getFormattedDate = (date: Date | null | undefined) => {
   return date?.toDateString().substring(0, date.toDateString().length - 4);

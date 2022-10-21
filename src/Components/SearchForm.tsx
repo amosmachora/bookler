@@ -5,10 +5,9 @@ import React, {
   useState,
   useRef,
 } from "react";
-import { Airport, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
+import { Airport } from "../Types/Flights";
 import AirportSearch from "./SearchModals/AirportSearch";
-import axios from "axios";
 
 type SearchFormProps = {
   setOverlay: (c: boolean) => void;
@@ -22,6 +21,9 @@ type SearchFormProps = {
   setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
   setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
   setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
+  searchAirports: Airport[];
+  setSearchType: React.Dispatch<SetStateAction<string>>;
+  searchType: string;
 };
 
 const SearchForm = ({
@@ -36,10 +38,11 @@ const SearchForm = ({
   setTypeOfTrip,
   setDepartureDate,
   setReturnDate,
+  searchAirports,
+  setSearchType,
+  searchType,
 }: SearchFormProps) => {
-  const { airports } = useContext(MainContext);
   const [airportSearchModal, setAirportSearchModal] = useState(false);
-  const [searchType, setSearchType] = useState("");
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
 
@@ -232,6 +235,7 @@ const SearchForm = ({
           typeOfSearch={searchType}
           setToAirport={setToAirport}
           setFromAirport={setFromAirport}
+          searchAbleAirports={searchAirports}
         />
       )}
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Airport } from "../App";
+import { Airport } from "../Types/Flights";
 
 type UpdateLoggerProps = {
   item: Airport[];
