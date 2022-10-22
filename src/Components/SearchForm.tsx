@@ -6,7 +6,8 @@ import React, {
   useRef,
 } from "react";
 import { Assets } from "../Assets/Assets";
-import { Airport } from "../Types/Flights";
+import { MainContext } from "../Types/Contexts";
+import { Airport, Departures } from "../Types/Flights";
 import AirportSearch from "./SearchModals/AirportSearch";
 
 type SearchFormProps = {
@@ -24,6 +25,8 @@ type SearchFormProps = {
   searchAirports: Airport[];
   setSearchType: React.Dispatch<SetStateAction<string>>;
   searchType: string;
+  setSearchAirports: React.Dispatch<SetStateAction<Airport[]>>;
+  outGoingFlights: Departures[];
 };
 
 const SearchForm = ({
@@ -41,26 +44,30 @@ const SearchForm = ({
   searchAirports,
   setSearchType,
   searchType,
+  setSearchAirports,
+  outGoingFlights,
 }: SearchFormProps) => {
   const [airportSearchModal, setAirportSearchModal] = useState(false);
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
+  const { airports } = useContext(MainContext);
 
-  /**
-   * A function to open or close the search modals.
-   * @param name name of the modal.
-   * @param state boolean value to indicate whether to open or close modal
-   */
-  const handleSearchModal = (name: string, state: boolean) => {
-    const modalState = state;
-    setOverlay(modalState);
-    if (name === "from") {
-      setAirportSearchModal(modalState);
-      setSearchType(name);
-    } else if (name === "to") {
-      setAirportSearchModal(modalState);
-      setSearchType(name);
-    }
+  const openFromSearchModal = () => {
+    setSearchType("from");
+    setAirportSearchModal(true);
+    setSearchAirports(airports);
+  };
+
+  const openToSearchModal = () => {
+    setSearchType("to");
+    setAirportSearchModal(true);
+    setSearchAirports(
+      airports.filter((airport) =>
+        outGoingFlights
+          .map((flight) => flight.arrival.airport.icao)
+          .includes(airport.icao)
+      )
+    );
   };
 
   /**
@@ -113,7 +120,7 @@ const SearchForm = ({
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
           <div
             className="Option w-[32.8%]"
-            onClick={() => handleSearchModal("from", true)}
+            onClick={() => openFromSearchModal()}
           >
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
@@ -130,10 +137,7 @@ const SearchForm = ({
                 : fromAirport.name}
             </p>
           </div>
-          <div
-            className="Option w-[32.8%]"
-            onClick={() => handleSearchModal("to", true)}
-          >
+          <div className="Option w-[32.8%]" onClick={() => openToSearchModal()}>
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
               <p className="text-gray-400 text-xs ml-1">TO</p>
@@ -231,7 +235,7 @@ const SearchForm = ({
       </form>
       {airportSearchModal && (
         <AirportSearch
-          handleSearchModal={handleSearchModal}
+          setAirportSearchModal={setAirportSearchModal}
           typeOfSearch={searchType}
           setToAirport={setToAirport}
           setFromAirport={setFromAirport}

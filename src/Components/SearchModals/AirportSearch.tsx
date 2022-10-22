@@ -1,28 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
 import "./AirportSearch.css";
 
 type AirportSearchProps = {
-  handleSearchModal: (name: string, state: boolean) => void;
   typeOfSearch: string;
   setFromAirport: (airport: Airport) => void;
   setToAirport: (airport: Airport) => void;
   searchAbleAirports: Airport[];
+  setAirportSearchModal: React.Dispatch<SetStateAction<boolean>>;
 };
 
 const AirportSearch = ({
-  handleSearchModal,
+  setAirportSearchModal,
   typeOfSearch,
   setFromAirport,
   setToAirport,
   searchAbleAirports,
 }: AirportSearchProps) => {
-  /**
-   * airports -> List of all possible airports.
-   * available flights airports -> Depending on the context this component will either offer this all airport data or only available flights
-   * from the chosen from airport.
-   */
   const [airportListLocal, setAirportListLocal] =
     useState<Airport[]>(searchAbleAirports);
 
@@ -55,13 +50,16 @@ const AirportSearch = ({
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 
+  /**
+   * @param airport
+   */
   const handleAirportSelection = (airport: Airport) => {
     if (typeOfSearch === "from") {
       setFromAirport(airport);
     } else if (typeOfSearch === "to") {
       setToAirport(airport);
     }
-    handleSearchModal(typeOfSearch, false);
+    setAirportSearchModal(false);
   };
 
   return (
@@ -74,7 +72,7 @@ const AirportSearch = ({
           src={Assets.Close}
           alt="Close"
           className="cursor-pointer"
-          onClick={() => handleSearchModal("from", false)}
+          onClick={() => setAirportSearchModal(false)}
         />
       </div>
       <p className="text-center text-gray-500 text-base mt-8 mb-6">

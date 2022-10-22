@@ -15,11 +15,13 @@ import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
 import { Airport, Arrival, Departures } from "./Types/Flights";
 import { MainContext, SearchContext } from "./Types/Contexts";
+import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
+import { fetchAirports } from "./Fetchers/FetchAirports";
 
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
-  const [airports, setAirports] = useState<Airport[]>([]);
+  const [airports, setAirports] = useState<Airport[]>(DevAirports.rows);
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
@@ -30,55 +32,37 @@ function App() {
   const [devMode, setDevMode] = useState(true);
   const [searchAirports, setSearchAirports] = useState<Airport[]>([]);
   const [searchType, setSearchType] = useState("from");
-  const [outGoingFlights, setAirportDepartures] = useState<Departures[]>(
+  const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
     DevAirportFlightData.departures
   );
-  const [incomingFlights, setAirportArrivals] = useState<Arrival[]>(
+  const [incomingFlights, setIncomingFlights] = useState<Arrival[]>(
     DevAirportFlightData.arrivals
   );
 
+  //TODO Fix await problems
   useEffect(() => {
-    setIsLoading(true);
-    if (devMode) {
-      setAirports(DevAirports.rows);
+    if (!devMode) {
+      setIsLoading(true);
+      const airports = fetchAirports();
+      if (airports.length === 0) {
+        setDevMode(true);
+      } else {
+        setAirports(airports);
+      }
       setIsLoading(false);
-    } else {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-          "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
-        },
-      };
-
-      fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
-        .then((response) => response.json())
-        .then((response) => {
-          setAirports(response.rows);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          console.log("Failed to fetch launching dev mode");
-          setDevMode(true);
-        });
     }
   }, [[], devMode]);
 
   useEffect(() => {
-    if (searchType === "from") {
-      setSearchAirports(airports);
-    } else {
-      console.log(
-        outGoingFlights.filter((flight) =>
-          airports
-            .map((airport) => airport.icao)
-            .includes(flight.arrival.airport.icao)
-        )
-      );
+    if (!devMode) {
+      const outGoingFlights = fetchAirportFlightData(fromAirport);
+      if (outGoingFlights.length === 0) {
+        setDevMode(true);
+      } else {
+        setOutGoingFlights(outGoingFlights);
+      }
     }
-  }, [searchType]);
+  }, [fromAirport, devMode]);
 
   /**
    * A function to randomly decide a default airport.
@@ -147,8 +131,10 @@ function App() {
                   setDepartureDate={setDepartureDate}
                   setReturnDate={setReturnDate}
                   searchAirports={searchAirports}
+                  setSearchAirports={setSearchAirports}
                   setSearchType={setSearchType}
                   searchType={searchType}
+                  outGoingFlights={outGoingFlights}
                 />
               ) : null}
             </MainContext.Provider>
