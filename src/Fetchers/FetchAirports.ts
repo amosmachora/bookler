@@ -1,7 +1,8 @@
 import { Airport } from "../Types/Flights";
 
-export const fetchAirports = (): Airport[] => {
+export const fetchAirports = async (): Promise<Airport[]> => {
   let airports: Airport[] = [];
+
   const options = {
     method: "GET",
     headers: {
@@ -10,14 +11,12 @@ export const fetchAirports = (): Airport[] => {
     },
   };
 
-  fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
+  return fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
     .then((response) => response.json())
     .then((response) => {
-      airports = response.rows;
+      return (airports = response.rows);
     })
     .catch((err) => {
       console.error(err);
     });
-
-  return airports;
 };

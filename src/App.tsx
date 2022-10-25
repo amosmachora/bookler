@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
-import FlightResults from "./Components/FlightResults";
+import FlightResults from "./Components/FlightResults/FlightResults";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
 import Overlay from "./Components/Overlay";
@@ -39,16 +38,14 @@ function App() {
     DevAirportFlightData.arrivals
   );
 
-  //TODO Fix await problems
   useEffect(() => {
+    const fetchAirport = async () => {
+      await fetchAirports().then((res) => setAirports(res));
+    };
+
     if (!devMode) {
       setIsLoading(true);
-      const airports = fetchAirports();
-      if (airports.length === 0) {
-        setDevMode(true);
-      } else {
-        setAirports(airports);
-      }
+      fetchAirport();
       setIsLoading(false);
     }
   }, [[], devMode]);
