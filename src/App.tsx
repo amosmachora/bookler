@@ -120,42 +120,42 @@ function App() {
   }, [airports.length]);
 
   return (
-    <div className="App w-full">
-      {overlay && <Overlay setOverlay={setOverlay} />}
-      {isLoading && (
-        <>
-          <Overlay setOverlay={setOverlay} />
-          <Reach />
-        </>
-      )}
-      <BackGround menuWide={menuWide} />
-      <div className="flex relative">
-        <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
-        <div
-          className={`h-min absolute ${
-            menuWide
-              ? "top-1/4 left-1/4 w-2/3"
-              : "top-[34px] left-[12%] w-[87%]"
-          } transition-all`}
-        >
-          <div className="flex justify-between">
-            <Options
-              activeChoice={activeChoice}
-              setActiveChoice={setActiveChoice}
-              menuWide={menuWide}
-            />
-            {menuWide && (
-              <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
-            )}
-          </div>
-          {menuWide ? (
-            <MainContext.Provider
-              value={{
-                isLoading,
-                airports,
-              }}
-            >
-              {activeChoice === "flights" ? (
+    <MainContext.Provider
+      value={{
+        isLoading,
+        airports,
+      }}
+    >
+      <div className="App w-full">
+        {overlay && <Overlay setOverlay={setOverlay} />}
+        {isLoading && (
+          <>
+            <Overlay setOverlay={setOverlay} />
+            <Reach />
+          </>
+        )}
+        <BackGround menuWide={menuWide} />
+        <div className="flex relative">
+          <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
+          <div
+            className={`h-min absolute ${
+              menuWide
+                ? "top-1/4 left-1/4 w-2/3"
+                : "top-[34px] left-[12%] w-[87%]"
+            } transition-all`}
+          >
+            <div className="flex justify-between">
+              <Options
+                activeChoice={activeChoice}
+                setActiveChoice={setActiveChoice}
+                menuWide={menuWide}
+              />
+              {menuWide && (
+                <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
+              )}
+            </div>
+            {menuWide ? (
+              activeChoice === "flights" ? (
                 <SearchForm
                   setOverlay={setOverlay}
                   setMenuWide={setMenuWide}
@@ -174,34 +174,34 @@ function App() {
                   searchType={searchType}
                   outGoingFlights={outGoingFlights}
                 />
-              ) : null}
-            </MainContext.Provider>
-          ) : (
-            <SearchContext.Provider
-              value={{
-                typeOfTrip,
-                fromAirport,
-                departureDate,
-                returnDate,
-                toAirport,
-                devMode,
-                outGoingFlights,
-              }}
-            >
-              <SearchParametersDisplay />
-              <FlightResults />
-            </SearchContext.Provider>
-          )}
+              ) : null
+            ) : (
+              <SearchContext.Provider
+                value={{
+                  typeOfTrip,
+                  fromAirport,
+                  departureDate,
+                  returnDate,
+                  toAirport,
+                  devMode,
+                  outGoingFlights,
+                }}
+              >
+                <SearchParametersDisplay />
+                <FlightResults />
+              </SearchContext.Provider>
+            )}
+          </div>
+        </div>
+        <div className="flex absolute right-14 top-[34px]">
+          <BecomeAPartner />
+          <ProfileInfo
+            profilePicture={Assets.ProfilePicture}
+            userName="Mansurul Haque"
+          />
         </div>
       </div>
-      <div className="flex absolute right-14 top-[34px]">
-        <BecomeAPartner />
-        <ProfileInfo
-          profilePicture={Assets.ProfilePicture}
-          userName="Mansurul Haque"
-        />
-      </div>
-    </div>
+    </MainContext.Provider>
   );
 }
 
