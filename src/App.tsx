@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
@@ -13,9 +13,50 @@ import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
 import { Airport, Arrival, Departures } from "./Types/Flights";
-import { MainContext, SearchContext } from "./Types/Contexts";
 import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
 import { fetchAirports } from "./Fetchers/FetchAirports";
+import { MainContextValue, SearchParameters } from "./Types/Contexts";
+
+export const SearchContext = createContext<SearchParameters>({
+  toAirport: {
+    alt: 0,
+    city: "",
+    country: "",
+    countryId: 0,
+    iata: "",
+    icao: "",
+    id: 0,
+    lat: 0,
+    lon: 0,
+    name: "",
+    size: 0,
+    timezone: null,
+  },
+  returnDate: null,
+  departureDate: null,
+  typeOfTrip: "",
+  fromAirport: {
+    alt: 0,
+    city: "",
+    country: "",
+    countryId: 0,
+    iata: "",
+    icao: "",
+    id: 0,
+    lat: 0,
+    lon: 0,
+    name: "",
+    size: 0,
+    timezone: null,
+  },
+  devMode: false,
+  outGoingFlights: [],
+});
+
+export const MainContext = createContext<MainContextValue>({
+  isLoading: false,
+  airports: [],
+});
 
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");

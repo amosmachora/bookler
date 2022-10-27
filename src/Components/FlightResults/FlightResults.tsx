@@ -3,9 +3,10 @@ import DevAirportData from "../../Util/AirportFlightData.json";
 import axios from "axios";
 import Airlines from "../../Util/Airlines.json";
 import { Assets } from "../../Assets/Assets";
-import { SearchContext } from "../../Types/Contexts";
 import { Airport, Departures } from "../../Types/Flights";
 import FlightFilter from "./FlightFilter";
+import BookButton from "./BookButton";
+import { MainContext, SearchContext } from "../../App";
 
 const FlightResults = () => {
   const {
@@ -29,7 +30,7 @@ const FlightResults = () => {
     );
   }, []);
   /**
-   * TODO Fix hard-coded arrival time and calculate the time of flight.
+   * TODO Fix hard-coded shit time and calculate the time of flight.
    */
 
   return (
@@ -85,7 +86,7 @@ const FlightResults = () => {
               className="flex justify-between rounded-lg overflow-hidden"
               key={foundFlight.number}
             >
-              <div className="bg-white px-2 py-3 w-5/6 mb-[2px]">
+              <div className="bg-white px-2 py-3 w-[80%] mb-[2px]">
                 <div className="flex items-center text-[11px]">
                   <p>{sortBy}</p>
                   <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-100" />
@@ -125,7 +126,23 @@ const FlightResults = () => {
                   </p>
                 </div>
               </div>
-              <div>Prices</div>
+              <div className="flex">
+                <div>
+                  <p className="text-red-600 text-sm font-semibold mt-3">
+                    00% OFF
+                  </p>
+                  <p className="text-xs text-gray-400">Save $00</p>
+                </div>
+                <div className="flex flex-col items-end">
+                  <p className="text-[32px] w-min font-semi mb-1">
+                    000
+                    <span className="text-gray-400 text-xs font-normal">
+                      USD
+                    </span>
+                  </p>
+                  <BookButton foundFlight={foundFlight} />
+                </div>
+              </div>
             </div>
           ))}
         </div>

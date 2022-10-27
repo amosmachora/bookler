@@ -5,8 +5,8 @@ import React, {
   useState,
   useRef,
 } from "react";
+import { MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
-import { MainContext } from "../Types/Contexts";
 import { Airport, Departures } from "../Types/Flights";
 import AirportSearch from "./SearchModals/AirportSearch";
 
