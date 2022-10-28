@@ -1,12 +1,20 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { SetStateAction, useContext, useRef, useState } from "react";
 import { MainContext, SearchContext } from "../../App";
 import { Airline, Airport } from "../../Types/Flights";
 
-const FlightFilter = () => {
+type FlightFilterProps = {
+  setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
+  preferredStopAirport: Airport | null;
+  setPreferredAirline: React.Dispatch<SetStateAction<Airline | null>>;
+};
+
+const FlightFilter = ({
+  setPreferredStopAirport,
+  preferredStopAirport,
+  setPreferredAirline,
+}: FlightFilterProps) => {
   const { airports, airlines } = useContext(MainContext);
   const { toAirport } = useContext(SearchContext);
-  const [selectedAirport, setSelectedAirport] = useState<Airport>(toAirport);
-  const [selectedAirline, setSelectedAirline] = useState<Airline>();
 
   const getStopSelectCities = (): Airport[] => {
     /**
@@ -15,18 +23,22 @@ const FlightFilter = () => {
     return airports;
   };
 
-  const handleAirlinePreferenceSelect = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSelectedAirline(
-      airlines.filter((airline) => airline.Name === e.target.value)[0]
+  const handleStopAirportSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPreferredStopAirport(
+      airports.filter((airport) => airport.city === e.target.value)[0]
     );
   };
 
-  const handleStopAirportSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedAirport(
-      airports.filter((airport) => airport.city === e.target.value)[0]
-    );
+  const handleAirlinePreferenceSelect = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    if (e.target.value === "No preference") {
+      setPreferredAirline(null);
+    } else {
+      setPreferredAirline(
+        airlines.filter((airline) => airline.Name === e.target.value)[0]
+      );
+    }
   };
 
   return (
@@ -71,7 +83,7 @@ const FlightFilter = () => {
         </select>
         <p className="text-sm font-semibold mb-4 mt-7">Airport</p>
         {airports
-          .filter((airport) => airport.city === selectedAirport?.city)
+          .filter((airport) => airport.city === preferredStopAirport?.city)
           .map((airport) => (
             <div className="flex items-center mb-1">
               <input

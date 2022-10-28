@@ -3,7 +3,7 @@ import DevAirportData from "../../Util/AirportFlightData.json";
 import axios from "axios";
 import Airlines from "../../Util/Airlines.json";
 import { Assets } from "../../Assets/Assets";
-import { Airport, Departures } from "../../Types/Flights";
+import { Airline, Airport, Departures } from "../../Types/Flights";
 import FlightFilter from "./FlightFilter";
 import BookButton from "./BookButton";
 import { MainContext, SearchContext } from "../../App";
@@ -20,6 +20,35 @@ const FlightResults = () => {
   } = useContext(SearchContext);
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
   const [sortBy, setSortBy] = useState("cheapest");
+  const [preferredStopAirport, setPreferredStopAirport] =
+    useState<Airport | null>(null);
+
+  const [preferredAirline, setPreferredAirline] = useState<Airline | null>(
+    null
+  );
+
+  console.log(foundFlights);
+
+  useEffect(() => {
+    console.log(preferredStopAirport);
+  }, [preferredStopAirport]);
+
+  useEffect(() => {
+    if (preferredAirline !== null) {
+      setFoundFlights(
+        foundFlights?.filter(
+          (foundFlight) => foundFlight.airline.name === preferredAirline.Name
+        )
+      );
+    } else {
+      setFoundFlights(
+        outGoingFlights.filter(
+          (outGoingFlight) =>
+            outGoingFlight.arrival.airport.icao === toAirport.icao
+        )
+      );
+    }
+  }, [preferredAirline]);
 
   useEffect(() => {
     setFoundFlights(
@@ -147,7 +176,11 @@ const FlightResults = () => {
           ))}
         </div>
       </div>
-      <FlightFilter />
+      <FlightFilter
+        setPreferredStopAirport={setPreferredStopAirport}
+        preferredStopAirport={preferredStopAirport}
+        setPreferredAirline={setPreferredAirline}
+      />
     </div>
   );
 };
