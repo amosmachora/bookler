@@ -12,10 +12,12 @@ import SearchForm from "./Components/SearchForm";
 import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
-import { Airport, Arrival, Departures } from "./Types/Flights";
+import { Airline, Airport, Arrival, Departures } from "./Types/Flights";
 import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
 import { fetchAirports } from "./Fetchers/FetchAirports";
 import { MainContextValue, SearchParameters } from "./Types/Contexts";
+import Airlines from "./Util/Airlines.json";
+import { fetchAirlines } from "./Fetchers/FetchAirlines";
 
 export const SearchContext = createContext<SearchParameters>({
   toAirport: {
@@ -56,6 +58,7 @@ export const SearchContext = createContext<SearchParameters>({
 export const MainContext = createContext<MainContextValue>({
   isLoading: false,
   airports: [],
+  airlines: [],
 });
 
 function App() {
@@ -78,15 +81,17 @@ function App() {
   const [incomingFlights, setIncomingFlights] = useState<Arrival[]>(
     DevAirportFlightData.arrivals
   );
+  const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
 
   useEffect(() => {
-    const fetchAirport = async () => {
+    const fetchFromApi = async () => {
       await fetchAirports().then((res) => setAirports(res));
+      setAirlines(fetchAirlines());
     };
 
     if (!devMode) {
       setIsLoading(true);
-      fetchAirport();
+      fetchFromApi();
       setIsLoading(false);
     }
   }, [[], devMode]);
@@ -124,6 +129,7 @@ function App() {
       value={{
         isLoading,
         airports,
+        airlines,
       }}
     >
       <div className="App w-full">

@@ -8,6 +8,7 @@ module.exports = {
         blueBgMainSm: "#022053",
         flightResultsBg: "#f7f9fb",
         goldRating: "#E8B644",
+        flightPrices: "#FAFAFB",
       },
     },
   },

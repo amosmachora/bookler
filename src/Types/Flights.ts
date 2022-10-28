@@ -97,3 +97,9 @@ export type Departures = {
   number: string;
   status: string;
 };
+
+export type Airline = {
+  Name: string;
+  Code: string;
+  ICAO: string;
+};

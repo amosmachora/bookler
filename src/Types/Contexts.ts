@@ -1,4 +1,4 @@
-import { Airport, Departures } from "./Flights";
+import { Airline, Airport, Departures } from "./Flights";
 
 export interface SearchParameters {
   toAirport: Airport;
@@ -13,4 +13,5 @@ export interface SearchParameters {
 export interface MainContextValue {
   isLoading: boolean;
   airports: Airport[];
+  airlines: Airline[];
 }
