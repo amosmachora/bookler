@@ -103,3 +103,173 @@ export type Airline = {
   Code: string;
   ICAO: string;
 };
+
+type country = {
+  name: string;
+  code: string;
+  id: number;
+};
+
+type aircraftImage = {
+  src: string;
+  link: string;
+  copyright: string;
+  source: string;
+};
+
+export type SingleFlightData = {
+  result: {
+    request: {
+      callback: null;
+      device: string;
+      fetchBy: string;
+      filterBy: null;
+      format: string;
+      limit: number;
+      olderThenFlightId: null;
+      page: number;
+      pk: null;
+      query: string;
+      timestamp: null;
+      token: null;
+    };
+    response: {
+      item: {
+        current: number;
+        total: null;
+        limit: number;
+      };
+      page: {
+        current: number;
+        total: null;
+        limit?: number;
+      };
+      timestamp: number;
+      data: {
+        identification: {
+          id: null | string;
+          row: number;
+          number: {
+            default: string;
+            alternative: null;
+          };
+          callsign: null | string;
+          codeshare: null;
+        };
+        status: {
+          live: boolean;
+          text: string;
+          icon: null | string;
+          estimated: null;
+          ambiguous: boolean;
+          generic: {
+            status: {
+              text: string;
+              type: string;
+              color: string;
+              diverted: null;
+            };
+            eventTime: {
+              utc: null | number;
+              local: null | number;
+            };
+          };
+        };
+        aircraft: {
+          model: {
+            code: string;
+            text: null | string;
+          };
+          hex: null | string;
+          registration: null | string;
+          serialNo: null;
+          age: null | {
+            availability: boolean;
+          };
+          restricted: null | boolean;
+          availability: {
+            serialNo: null | boolean;
+            age: null | boolean;
+          };
+        };
+        owner: null | { name: string; code: { iata: string; icao: string } };
+        airline: {
+          name: string;
+          code: {
+            iata: string;
+            icao: string;
+          };
+        };
+        airport: {
+          origin: {
+            name: string;
+            code: {
+              iata: string;
+              icao: string;
+            };
+            position: {
+              latitude: number;
+              longitude: number;
+              country: country;
+              region: {
+                city: string;
+              };
+            };
+          };
+          destination: {
+            name: string;
+            code: {
+              iata: string;
+              icao: string;
+            };
+            position: {
+              latitude: number;
+              longitude: number;
+              country: country;
+              region: {
+                city: string;
+              };
+            };
+            timezone: {
+              name: string;
+              offset: number;
+              abbr: string;
+              abbrName: null;
+              isDst: boolean;
+            };
+            visible: boolean;
+          };
+          real: null;
+        };
+        time: {
+          scheduled: {
+            departure: number;
+            arrival: number;
+          };
+          real: {
+            departure: null | number;
+            arrival: null | number;
+          };
+          estimated: {
+            departure: null | number;
+            arrival: null | number;
+          };
+          other: {
+            eta: null | number;
+            updated: number;
+            duration: null | number;
+          };
+        };
+      }[];
+      aircraftInfo: null;
+      aircraftImages: {
+        registration: string;
+        images: {
+          thumbnails: aircraftImage[];
+          medium: aircraftImage[];
+          large: aircraftImage[];
+        };
+      }[];
+    };
+  };
+};

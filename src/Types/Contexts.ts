@@ -14,4 +14,5 @@ export interface MainContextValue {
   isLoading: boolean;
   airports: Airport[];
   airlines: Airline[];
+  devMode: boolean;
 }

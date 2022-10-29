@@ -13,7 +13,7 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
     <div
       className={`menu ${
         menuWide ? `w-[17.14%]` : `w-[5.71%]`
-      } bg-blue-600 text-white z-0 relative ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
+      } bg-blue-600 text-white z-0 fixed top-0 ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
     >
       <div className="flex items-center justify-between">
         {menuWide && (

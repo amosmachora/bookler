@@ -59,6 +59,7 @@ export const MainContext = createContext<MainContextValue>({
   isLoading: false,
   airports: [],
   airlines: [],
+  devMode: false,
 });
 
 function App() {
@@ -130,6 +131,7 @@ function App() {
         isLoading,
         airports,
         airlines,
+        devMode,
       }}
     >
       <div className="App w-full">
@@ -144,10 +146,10 @@ function App() {
         <div className="flex relative">
           <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
           <div
-            className={`h-min absolute ${
+            className={`h-min ${
               menuWide
-                ? "top-1/4 left-1/4 w-2/3"
-                : "top-[34px] left-[12%] w-[87%]"
+                ? "top-1/4 left-1/4 w-2/3 fixed"
+                : "top-[34px] left-[12%] w-[87%] absolute"
             } transition-all`}
           >
             <div className="flex justify-between">
