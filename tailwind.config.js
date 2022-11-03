@@ -9,6 +9,7 @@ module.exports = {
         flightResultsBg: "#f7f9fb",
         goldRating: "#E8B644",
         flightPrices: "#FAFAFB",
+        detailsText: "#163668",
       },
     },
   },
