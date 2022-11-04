@@ -2,7 +2,7 @@ import axios from "axios";
 import { SingleFlightData } from "../Types/Flights";
 
 export const fetchExtraFlightData = (
-  flightNumber: string
+  flightNumber: string | undefined
 ): SingleFlightData | undefined => {
   let flightData: SingleFlightData | undefined = undefined;
   const options = {

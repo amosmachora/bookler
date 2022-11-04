@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext, SearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
-import { Departures, SingleFlightData } from "../../Types/Flights";
+import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
 import BookButton from "./BookButton";
 import { Airline } from "../../Types/Flights";
 import DevExtraFlightData from "../../Util/DevExtraFlightData.json";
@@ -16,16 +16,16 @@ type FoundFlightProps = {
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
   const { fromAirport, toAirport } = useContext(SearchContext);
   const { airlines } = useContext(MainContext);
-  const [flightData, setFlightData] = useState<SingleFlightData | undefined>(
-    DevExtraFlightData
-  );
+  const [extraFlightData, setExtraFlightData] = useState<
+    SingleFlightData | undefined
+  >(DevExtraFlightData);
   const { devMode } = useContext(MainContext);
   const [showDetails, setShowDetails] = useState<Boolean>(false);
 
   useEffect(() => {
     if (!devMode) {
-      const flightData = fetchExtraFlightData(foundFlight.number);
-      setFlightData(flightData);
+      const flightData = fetchExtraFlightData(foundFlight.aircraft.reg);
+      setExtraFlightData(flightData);
     }
   }, []);
 
@@ -50,19 +50,12 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
             <p className="mr-4 text-sm font-bold w-20">
               {foundFlight.airline.name}
             </p>
-            <div className="flex flex-col items-end">
-              <p className="font-bold text-lg">
-                {getActualTime(foundFlight.departure.scheduledTimeUtc)}
-              </p>
-              <p className="text-sm text-gray-400">{fromAirport.icao}</p>
-            </div>
-            <div className="w-24 mx-5 border-b h-[1px] border-dashed border-black relative">
-              <div className="w-3 h-3 rounded-full bg-white border-2 border-black center-absolutely" />
-            </div>
-            <div className="flex flex-col items-start">
-              <p className="font-bold text-lg">00:00</p>
-              <p className="mr-2 text-sm text-gray-400">{toAirport.icao}</p>
-            </div>
+            <FlightTimes
+              foundFlight={foundFlight}
+              fromAirport={fromAirport}
+              toAirport={toAirport}
+              extraFlightData={extraFlightData}
+            />
             <p className="font-bold mx-6">00H 00M</p>
             <p
               className="text-black bg-gray-300 rounded-full text-xs p-2 cursor-pointer"
@@ -86,7 +79,14 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
           </div>
         </div>
       </div>
-      <div>{showDetails && <FlightDetails flightData={flightData} />}</div>
+      <div>
+        {showDetails && (
+          <FlightDetails
+            extraFlightData={extraFlightData}
+            foundFlight={foundFlight}
+          />
+        )}
+      </div>
     </>
   );
 };
@@ -107,5 +107,50 @@ function getActualTime(scheduledTimeUtc: string | undefined): React.ReactNode {
   return scheduledTimeUtc?.substring(
     scheduledTimeUtc.length - 6,
     scheduledTimeUtc.length - 1
+  );
+}
+
+type FlightTimesProps = {
+  fromAirport: Airport;
+  toAirport: Airport;
+  foundFlight: Departures;
+  showLocations?: boolean;
+  extraFlightData?: SingleFlightData | undefined;
+};
+
+export function FlightTimes({
+  fromAirport,
+  toAirport,
+  foundFlight,
+  showLocations,
+  extraFlightData,
+}: FlightTimesProps) {
+  return (
+    <div className="flex items-center">
+      <div className="flex flex-col items-end">
+        <p className="font-bold text-lg">
+          {getActualTime(foundFlight.departure.scheduledTimeUtc)}
+        </p>
+        <p className="text-sm text-gray-400">
+          {showLocations
+            ? fromAirport.city + ", " + fromAirport.country
+            : fromAirport.icao}
+        </p>
+      </div>
+      <div className="w-24 mx-5 border-b h-[1px] border-dashed border-black relative">
+        <div className="w-3 h-3 rounded-full bg-white border-2 border-black center-absolutely" />
+      </div>
+      <div className="flex flex-col items-start">
+        <p className="font-bold text-lg">
+          {/* {flightData?.result.response.data[9].time.scheduled.arrival} */}
+          00:00
+        </p>
+        <p className="mr-2 text-sm text-gray-400">
+          {showLocations
+            ? toAirport.city + ", " + toAirport.country
+            : toAirport.icao}
+        </p>
+      </div>
+    </div>
   );
 }

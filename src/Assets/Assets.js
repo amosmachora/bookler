@@ -25,8 +25,10 @@ import Calendar from "./Calendar.svg";
 import DropDownGray from "./DropDownGray.svg";
 import Close from "./Close.svg";
 import PlaneFlying from "./PlaneFlying.webp";
+import loadingImage from "./icons8-spinner.gif";
 
 export const Assets = {
+  loadingImage,
   PlaneFlying,
   Close,
   DropDownGray,
