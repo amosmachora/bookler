@@ -60,10 +60,9 @@ const FlightFilter = ({
           defaultValue={toAirport.city}
           onChange={(e) => handleStopAirportSelect(e)}
         >
-          <span className="text-gray-300 text-xs">Via </span>
           <option value={toAirport.city}>NO STOP</option>
           {getStopSelectCities().map((airport) => (
-            <option value={airport.city}>
+            <option value={airport.city} key={airport.id}>
               {airport.city + ", " + airport.country}
             </option>
           ))}
@@ -78,14 +77,16 @@ const FlightFilter = ({
         >
           <option value="No preference">NO PREFERENCE</option>
           {airlines.map((airline) => (
-            <option value={airline.Name}>{airline.Name}</option>
+            <option value={airline.Name} key={airline.ICAO}>
+              {airline.Name}
+            </option>
           ))}
         </select>
         <p className="text-sm font-semibold mb-4 mt-7">Airport</p>
         {airports
           .filter((airport) => airport.city === preferredStopAirport?.city)
           .map((airport) => (
-            <div className="flex items-center mb-1">
+            <div className="flex items-center mb-1" key={airport.id}>
               <input
                 type="checkbox"
                 id={airport.name}

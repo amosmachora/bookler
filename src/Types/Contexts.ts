@@ -16,3 +16,7 @@ export interface MainContextValue {
   airlines: Airline[];
   devMode: boolean;
 }
+
+export interface BookingContextType {
+  initiateBooking: (flight: Departures) => void;
+}

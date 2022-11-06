@@ -55,10 +55,10 @@ const FlightDetails = ({
     getAircraftImage().then((url) => setAircraftImage(url));
   }, []);
 
-  console.log(foundFlight);
+  // console.log(foundFlight);
 
   return (
-    <div className="transition-all">
+    <div className="transition-all mb-2 rounded-b-lg overflow-hidden">
       <div>
         <button
           onClick={() => setDetails(true)}
@@ -96,6 +96,28 @@ const FlightDetails = ({
               toAirport={toAirport}
               showLocations={true}
             />
+            <div className="flex flex-col flex-grow ml-2">
+              <div className="flex justify-between">
+                <p className="font-bold text-sm">
+                  <span className="text-gray-500 font-medium text-sm">
+                    Baggage:{" "}
+                  </span>
+                  Adult
+                </p>
+                <p className="font-bold text-sm">
+                  <span className="text-gray-500 font-medium text-sm">
+                    Check In:{" "}
+                  </span>
+                  40kgs
+                </p>
+              </div>
+              <p className="font-bold text-sm mt-1">
+                <span className="text-gray-500 font-medium text-sm">
+                  Cabin:{" "}
+                </span>
+                40kgs
+              </p>
+            </div>
           </div>
         ) : null}
         <div className="mt-7 flex items-center justify-between">
@@ -103,6 +125,28 @@ const FlightDetails = ({
             {foundFlight.airline.name}
           </p>
           <div className="bg-gray-300 w-10/12 h-[1px]" />
+        </div>
+        <div className="flex mt-1">
+          <div className="flex items-center mr-12">
+            <img src={Assets.PlaneSeat} alt="Plane seat" className="mr-2" />
+            <p className="text-gray-500 text-xs">80 cm Seat</p>
+          </div>
+          <div className="flex items-center mr-12">
+            <img src={Assets.Wifi} alt="WIFI" className="mr-2" />
+            <p className="text-gray-500 text-xs">Wifi</p>
+          </div>
+          <div className="flex items-center mr-12">
+            <img src={Assets.Food} alt="Food" className="mr-2" />
+            <p className="text-gray-500 text-xs">Food available</p>
+          </div>
+          <div className="flex items-center mr-12">
+            <img
+              src={Assets.ChargingBattery}
+              alt="Charging battery"
+              className="mr-2"
+            />
+            <p className="text-gray-500 text-xs">Power Outlet</p>
+          </div>
         </div>
       </div>
     </div>

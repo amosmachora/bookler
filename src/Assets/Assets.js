@@ -26,8 +26,16 @@ import DropDownGray from "./DropDownGray.svg";
 import Close from "./Close.svg";
 import PlaneFlying from "./PlaneFlying.webp";
 import loadingImage from "./icons8-spinner.gif";
+import Food from "./Food.svg";
+import PlaneSeat from "./PlaneSeat.svg";
+import Wifi from "./Wifi.svg";
+import ChargingBattery from "./icons8-charging-battery-30.png";
 
 export const Assets = {
+  Food,
+  PlaneSeat,
+  Wifi,
+  ChargingBattery,
   loadingImage,
   PlaneFlying,
   Close,

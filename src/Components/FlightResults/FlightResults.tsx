@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, createContext } from "react";
 import DevAirportData from "../../Util/AirportFlightData.json";
 import axios from "axios";
 import { Assets } from "../../Assets/Assets";
@@ -7,6 +7,11 @@ import FlightFilter from "./FlightFilter";
 import BookButton from "./BookButton";
 import { MainContext, SearchContext } from "../../App";
 import FoundFlight from "./FoundFlight";
+import { BookingContextType } from "../../Types/Contexts";
+
+export const BookingContext = createContext<BookingContextType>({
+  initiateBooking() {},
+});
 
 const FlightResults = () => {
   const {
@@ -21,16 +26,14 @@ const FlightResults = () => {
   const [sortBy, setSortBy] = useState("cheapest");
   const [preferredStopAirport, setPreferredStopAirport] =
     useState<Airport | null>(null);
-
   const [preferredAirline, setPreferredAirline] = useState<Airline | null>(
     null
   );
+  const [booking, setBooking] = useState(false);
 
   const allUnfilteredFoundFlights = outGoingFlights.filter(
     (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
   );
-
-  console.log(foundFlights);
 
   useEffect(() => {
     console.log(preferredStopAirport);
@@ -51,9 +54,11 @@ const FlightResults = () => {
   useEffect(() => {
     setFoundFlights(allUnfilteredFoundFlights);
   }, []);
-  /**
-   * TODO Fix hard-coded shit time and calculate the time of flight.
-   */
+
+  const initiateBooking = (flight: Departures) => {
+    console.log(flight);
+    setBooking(true);
+  };
 
   return (
     <div className="flex sticky top-0">
@@ -102,17 +107,27 @@ const FlightResults = () => {
             </p>
           </div>
         </div>
-        <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights ">
-          {foundFlights?.map((foundFlight) => (
-            <FoundFlight foundFlight={foundFlight} sortBy={sortBy} />
-          ))}
-        </div>
+        <BookingContext.Provider value={{ initiateBooking }}>
+          <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights ">
+            {foundFlights?.map((foundFlight) => (
+              <FoundFlight
+                foundFlight={foundFlight}
+                sortBy={sortBy}
+                key={foundFlight.number}
+              />
+            ))}
+          </div>
+        </BookingContext.Provider>
       </div>
-      <FlightFilter
-        setPreferredStopAirport={setPreferredStopAirport}
-        preferredStopAirport={preferredStopAirport}
-        setPreferredAirline={setPreferredAirline}
-      />
+      {booking ? (
+        <p>Booking</p>
+      ) : (
+        <FlightFilter
+          setPreferredStopAirport={setPreferredStopAirport}
+          preferredStopAirport={preferredStopAirport}
+          setPreferredAirline={setPreferredAirline}
+        />
+      )}
     </div>
   );
 };

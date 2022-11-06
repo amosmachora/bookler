@@ -31,8 +31,13 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
 
   return (
     <>
-      <div className="flex rounded-lg overflow-hidden" key={foundFlight.number}>
-        <div className="bg-white px-2 py-3 w-[79%] mb-[2px]">
+      <div
+        className={`flex ${
+          showDetails ? "rounded-t-lg" : "rounded-lg mb-2"
+        } overflow-hidden transition-all`}
+        key={foundFlight.number}
+      >
+        <div className="bg-white px-2 py-3 w-[79%]">
           <div className="flex items-center text-[11px]">
             <p>{sortBy}</p>
             <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-100" />
@@ -70,7 +75,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
             <p className="text-red-600 text-sm font-semibold mt-7">00% OFF</p>
             <p className="text-xs text-gray-400">Save $00</p>
           </div>
-          <div className="flex flex-col items-end mt-2">
+          <div className="flex flex-col items-end mt-2 justify-between">
             <p className="text-[32px] w-min font-semi mb-1">
               000
               <span className="text-gray-400 text-xs font-normal">USD</span>
@@ -131,7 +136,7 @@ export function FlightTimes({
         <p className="font-bold text-lg">
           {getActualTime(foundFlight.departure.scheduledTimeUtc)}
         </p>
-        <p className="text-sm text-gray-400">
+        <p className={`text-gray-400 ${showLocations ? "text-xs" : "text-sm"}`}>
           {showLocations
             ? fromAirport.city + ", " + fromAirport.country
             : fromAirport.icao}
@@ -142,10 +147,14 @@ export function FlightTimes({
       </div>
       <div className="flex flex-col items-start">
         <p className="font-bold text-lg">
-          {/* {flightData?.result.response.data[9].time.scheduled.arrival} */}
+          {/* {extraFlightData?.result.response.data[9].time.scheduled.arrival} */}
           00:00
         </p>
-        <p className="mr-2 text-sm text-gray-400">
+        <p
+          className={`mr-2 text-gray-400 ${
+            showLocations ? "text-xs" : "text-sm"
+          }`}
+        >
           {showLocations
             ? toAirport.city + ", " + toAirport.country
             : toAirport.icao}
