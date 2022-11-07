@@ -67,7 +67,7 @@ const FlightResults = () => {
   const [numberOfAdults, setNumberOfAdults] = useState(0);
 
   const initiateBooking = (flight: Departures) => {
-    console.log(flight);
+    setFoundFlights([flight]);
     setBooking(true);
     setFlightPrice(fetchFlightPrices(flight));
   };
