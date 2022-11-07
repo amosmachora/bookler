@@ -19,4 +19,6 @@ export interface MainContextValue {
 
 export interface BookingContextType {
   initiateBooking: (flight: Departures) => void;
+  numberOfAdults: number;
+  flightPrice: number;
 }

@@ -10,6 +10,7 @@ module.exports = {
         goldRating: "#E8B644",
         flightPrices: "#FAFAFB",
         detailsText: "#163668",
+        grayLight: "#F9F9F9",
       },
     },
   },
