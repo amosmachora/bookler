@@ -5,6 +5,7 @@
     "bosu",
     "codeshare",
     "Codeshared",
+    "cybikcbkyuc",
     "dmshdbcb",
     "EPKK",
     "fro",
@@ -16,6 +17,16 @@
     "Shuvas",
     "Sylhet",
     "tailwindcss",
+    "Traveller",
+    "UKCBILBCYIACEWUILB",
     "Usmani"
-  ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "css": "css"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }

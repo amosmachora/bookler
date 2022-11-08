@@ -9,6 +9,7 @@ import { MainContext, SearchContext } from "../../App";
 import FoundFlight from "./FoundFlight";
 import { BookingContextType } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
+import TravelerDetails from "./TravelerDetails";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
@@ -122,7 +123,7 @@ const FlightResults = () => {
               </p>
             </div>
           </div>
-          <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights ">
+          <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights">
             {foundFlights?.map((foundFlight) => (
               <FoundFlight
                 foundFlight={foundFlight}
@@ -130,6 +131,7 @@ const FlightResults = () => {
                 key={foundFlight.number}
               />
             ))}
+            <TravelerDetails />
           </div>
         </div>
         {booking ? (
