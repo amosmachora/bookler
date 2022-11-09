@@ -273,3 +273,24 @@ export type SingleFlightData = {
     };
   };
 };
+
+export type Country = {
+  code: string;
+  continent: string;
+  currencyCode: string;
+  dialCode: string;
+  flag: string;
+  name: string;
+};
+
+export type Adult = {
+  name: string | undefined;
+  category: string;
+};
+
+export type TravelerInfo = {
+  adultList?: Adult[];
+  country?: Country;
+  mobile?: string;
+  email?: string;
+};

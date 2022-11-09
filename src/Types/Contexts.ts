@@ -1,4 +1,4 @@
-import { Airline, Airport, Departures } from "./Flights";
+import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
 
 export interface SearchParameters {
   toAirport: Airport;
@@ -19,6 +19,6 @@ export interface MainContextValue {
 
 export interface BookingContextType {
   initiateBooking: (flight: Departures) => void;
-  numberOfAdults: number;
+  travelersInfo: TravelerInfo | null;
   flightPrice: number;
 }

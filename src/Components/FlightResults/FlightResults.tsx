@@ -2,7 +2,12 @@ import React, { useState, useContext, useEffect, createContext } from "react";
 import DevAirportData from "../../Util/AirportFlightData.json";
 import axios from "axios";
 import { Assets } from "../../Assets/Assets";
-import { Airline, Airport, Departures } from "../../Types/Flights";
+import {
+  Airline,
+  Airport,
+  Departures,
+  TravelerInfo,
+} from "../../Types/Flights";
 import FlightFilter from "./FlightFilter";
 import BookButton from "./BookButton";
 import { MainContext, SearchContext } from "../../App";
@@ -13,7 +18,7 @@ import TravelerDetails from "./TravelerDetails";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
-  numberOfAdults: 0,
+  travelersInfo: null,
   flightPrice: 0,
 });
 
@@ -65,7 +70,6 @@ const FlightResults = () => {
   };
 
   const [flightPrice, setFlightPrice] = useState<number>(0);
-  const [numberOfAdults, setNumberOfAdults] = useState(0);
 
   const initiateBooking = (flight: Departures) => {
     setFoundFlights([flight]);
@@ -73,9 +77,11 @@ const FlightResults = () => {
     setFlightPrice(fetchFlightPrices(flight));
   };
 
+  const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
+
   return (
     <BookingContext.Provider
-      value={{ initiateBooking, numberOfAdults, flightPrice }}
+      value={{ initiateBooking, travelersInfo, flightPrice }}
     >
       <div className="flex sticky top-0">
         <div className="mt-4 w-3/4">
@@ -131,7 +137,12 @@ const FlightResults = () => {
                 key={foundFlight.number}
               />
             ))}
-            <TravelerDetails />
+            {booking && (
+              <TravelerDetails
+                setTravelersInfo={setTravelersInfo}
+                travelersInfo={travelersInfo}
+              />
+            )}
           </div>
         </div>
         {booking ? (
