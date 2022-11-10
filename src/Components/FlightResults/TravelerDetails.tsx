@@ -85,7 +85,7 @@ const TravelerDetails = ({
       </div>
       <div className="p-4">
         {travelersInfo?.adultList?.map((adult) => (
-          <div className="flex">
+          <div className="flex" key={adult.name}>
             <p className="w-full">{adult.name}</p>
             <p
               className="text-blue-700 cursor-pointer"

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  // content: ["*"],
   theme: {
     extend: {
       colors: {
@@ -11,6 +12,7 @@ module.exports = {
         flightPrices: "#FAFAFB",
         detailsText: "#163668",
         grayLight: "#F9F9F9",
+        checkMarkBg: "#0A6ADA",
       },
     },
   },

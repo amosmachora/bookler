@@ -30,8 +30,14 @@ import Food from "./Food.svg";
 import PlaneSeat from "./PlaneSeat.svg";
 import Wifi from "./Wifi.svg";
 import ChargingBattery from "./icons8-charging-battery-30.png";
+import CheckMark from "./Checkmark.svg";
+import ArrowLeft from "./Arrow-Left.svg";
+import ArrowRight from "./Arrow-right.svg";
 
 export const Assets = {
+  ArrowLeft,
+  ArrowRight,
+  CheckMark,
   Food,
   PlaneSeat,
   Wifi,

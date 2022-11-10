@@ -3,6 +3,7 @@
     "aerodatabox",
     "bjsn",
     "bosu",
+    "Checkmark",
     "codeshare",
     "Codeshared",
     "cybikcbkyuc",
@@ -22,9 +23,9 @@
     "Usmani"
   ],
   "tailwindCSS.includeLanguages": {
-    "html": "html",
     "javascript": "javascript",
-    "css": "css"
+    "html": "HTML",
+    "typescript": "typescript"
   },
   "editor.quickSuggestions": {
     "strings": true
