@@ -41,3 +41,10 @@ body {
   background-color: #df142d;
   border-radius: 2px;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(37, 99, 235);
+  border-radius: 20px;
+}

@@ -7,6 +7,7 @@ import { Airline } from "../../Types/Flights";
 import DevExtraFlightData from "../../Util/DevExtraFlightData.json";
 import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
+import { BookingContext } from "./FlightResults";
 
 type FoundFlightProps = {
   foundFlight: Departures;
@@ -16,6 +17,7 @@ type FoundFlightProps = {
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
   const { fromAirport, toAirport } = useContext(SearchContext);
   const { airlines } = useContext(MainContext);
+  const { booking } = useContext(BookingContext);
   const [extraFlightData, setExtraFlightData] = useState<
     SingleFlightData | undefined
   >(DevExtraFlightData);
@@ -39,7 +41,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
       >
         <div className="bg-white px-2 py-3 w-[79%]">
           <div className="flex items-center text-[11px]">
-            <p>{sortBy}</p>
+            <p className="capitalize">{sortBy}</p>
             <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-100" />
             <p>
               Rating: <span className="text-goldRating font-bold">4.5</span>
@@ -80,7 +82,9 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
               000
               <span className="text-gray-400 text-xs font-normal">USD</span>
             </p>
-            <BookButton foundFlight={foundFlight} />
+            {booking === false ? (
+              <BookButton foundFlight={foundFlight} />
+            ) : null}
           </div>
         </div>
       </div>

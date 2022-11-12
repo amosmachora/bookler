@@ -21,6 +21,7 @@ export interface BookingContextType {
   initiateBooking: (flight: Departures) => void;
   travelersInfo: TravelerInfo | null;
   flightPrice: FlightPrices | null;
+  booking: boolean;
 }
 
 export type FlightPrices = {

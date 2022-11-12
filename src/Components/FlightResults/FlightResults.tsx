@@ -22,6 +22,7 @@ export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
   travelersInfo: null,
   flightPrice: { flightSurCharges: 0, baseFare: 0 },
+  booking: false,
 });
 
 const FlightResults = () => {
@@ -91,10 +92,16 @@ const FlightResults = () => {
         initiateBooking,
         travelersInfo,
         flightPrice,
+        booking,
       }}
     >
       {showPayments ? (
-        <PaymentOptions />
+        <PaymentOptions
+          setShowPayments={setShowPayments}
+          allUnfilteredFoundFlights={allUnfilteredFoundFlights}
+          setFoundFlights={setFoundFlights}
+          setBooking={setBooking}
+        />
       ) : (
         <div className="flex sticky top-0">
           <div className="mt-4 w-3/4">

@@ -1,104 +1,130 @@
 import React, { useContext, useState } from "react";
 import { Assets } from "../../Assets/Assets";
+import { Departures } from "../../Types/Flights";
 import { getTotalPrice } from "../../Util/Helpers";
 import { BookingContext } from "./FlightResults";
+import ProgressBar from "./ProgressBar";
 
-const PaymentOptions = () => {
+type PaymentOptionsProps = {
+  setShowPayments: React.Dispatch<React.SetStateAction<boolean>>;
+  setFoundFlights: React.Dispatch<
+    React.SetStateAction<Departures[] | undefined>
+  >;
+  allUnfilteredFoundFlights: Departures[];
+  setBooking: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const PaymentOptions = ({
+  setShowPayments,
+  setFoundFlights,
+  allUnfilteredFoundFlights,
+  setBooking,
+}: PaymentOptionsProps) => {
   const remainingTime = "0min 5sec";
   const [paymentOption, setPaymentOption] = useState("CreditCard");
   const { travelersInfo, flightPrice } = useContext(BookingContext);
   return (
-    <div className="grid mt-5">
-      <div className="flex justify-between py-3 px-5 rounded-md bg-flightResultsBg items-center">
-        <p className="font-bold text-lg">Payment Options</p>
-        <p className="text-gray-500 text-sm">
-          The session will expire in{" "}
-          <span className="text-sky-700 font-semibold">{remainingTime}</span>
-        </p>
-      </div>
-      <div className="flex justify-between bg-white rounded-md py-3 px-12 mt-2 items-center text-xs">
-        <div className="flex items-center">
-          <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
-          <p>Flight selected</p>
-        </div>
-        <div className="h-[1px] w-1/4 bg-gray-300" />
-        <div className="flex items-center">
-          <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
-          <p>Flight details</p>
-        </div>
-        <div className="h-[1px] w-1/4 bg-gray-300" />
-        <div className="flex items-center">
-          <span className="mr-2 bg-checkMarkBg px-2 py-[3px] text-white rounded-full">
-            3
-          </span>
-          <p className="font-semibold">Flight booking</p>
-        </div>
-      </div>
-      <div className="rounded-md px-12 py-6 bg-white mt-1 relative text-sm">
-        <p className="font-bold text-2xl mb-5">Payment Method</p>
-        <PaymentProviderSelector
-          paymentOption={paymentOption}
-          setPaymentOption={setPaymentOption}
-        />
-        <p className="mt-24 mb-3">Card Number</p>
-        <input
-          type="number"
-          className="border w-full h-11 rounded-md bg-flightResultsBg px-4"
-        />
-        <p className="mt-6 mb-3">Name Of Card</p>
-        <input
-          type="text"
-          className="border w-full h-11 rounded-md bg-flightResultsBg px-4"
-        />
-        <div className="flex mt-8 w-3/4 justify-between">
-          <div className="w-1/4">
-            <p className="mb-3">Expiry Month</p>
-            <select className="border h-11 rounded-md bg-flightResultsBg px-4 w-full">
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-          </div>
-          <div className="w-1/4">
-            <p className="mb-3">Expiry year</p>
-            <select className="border h-11 rounded-md bg-flightResultsBg px-4 w-full">
-              <option value="2000">2000</option>
-              <option value="2001">2001</option>
-            </select>
-          </div>
-          <div className="w-1/4">
-            <p className="mb-3">CVC Code</p>
-            <input
-              type="number"
-              className="border h-11 rounded-md bg-flightResultsBg px-4 w-full"
-            />
-          </div>
-        </div>
-        <div className="flex mt-7">
-          <input
-            type="checkbox"
-            name="Privacy Policy"
-            className="mr-1 h-5 w-5 cursor-pointer"
-          />
-          <p>
-            {" "}
-            I accept the Fare Rules and{" "}
-            <span className="cursor-pointer text-blue-600">Privacy Policy</span>
+    <div className="flex mt-5 justify-between">
+      <div className="w-3/4">
+        <div className="flex justify-between py-3 px-5 rounded-md bg-flightResultsBg items-center">
+          <p className="font-bold text-lg">Payment Options</p>
+          <p className="text-gray-500 text-sm">
+            The session will expire in{" "}
+            <span className="text-sky-700 font-semibold">{remainingTime}</span>
           </p>
         </div>
-        <p>
-          {getTotalPrice(travelersInfo, flightPrice)}
-          <span className="text-gray-300 text-xs">USD</span>
+        <ProgressBar
+          allUnfilteredFoundFlights={allUnfilteredFoundFlights}
+          setFoundFlights={setFoundFlights}
+          setShowPayments={setShowPayments}
+          setBooking={setBooking}
+        />
+        <div className="rounded-md px-12 py-6 bg-white mt-1 relative text-sm overflow-y-scroll h-80">
+          <p className="font-bold text-2xl mb-5">Payment Method</p>
+          <PaymentProviderSelector
+            paymentOption={paymentOption}
+            setPaymentOption={setPaymentOption}
+          />
+          <p className="mt-24 mb-3">Card Number</p>
+          <input
+            type="number"
+            className="border w-full h-11 rounded-md bg-flightResultsBg px-4"
+          />
+          <p className="mt-6 mb-3">Name Of Card</p>
+          <input
+            type="text"
+            className="border w-full h-11 rounded-md bg-flightResultsBg px-4"
+          />
+          <div className="flex mt-8 w-3/4 justify-between">
+            <div className="w-1/4">
+              <p className="mb-3">Expiry Month</p>
+              <select className="border h-11 rounded-md bg-flightResultsBg px-4 w-full">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
+            </div>
+            <div className="w-1/4">
+              <p className="mb-3">Expiry year</p>
+              <select className="border h-11 rounded-md bg-flightResultsBg px-4 w-full">
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+              </select>
+            </div>
+            <div className="w-1/4">
+              <p className="mb-3">CVC Code</p>
+              <input
+                type="number"
+                className="border h-11 rounded-md bg-flightResultsBg px-4 w-full"
+              />
+            </div>
+          </div>
+          <div className="flex mt-7">
+            <input
+              type="checkbox"
+              name="Privacy Policy"
+              className="mr-1 h-5 w-5 cursor-pointer"
+            />
+            <p>
+              {" "}
+              I accept the Fare Rules and{" "}
+              <span className="cursor-pointer text-blue-600">
+                Privacy Policy
+              </span>
+            </p>
+          </div>
+          <p className="font-bold text-3xl mt-6 mb-4">
+            {getTotalPrice(travelersInfo, flightPrice)}
+            <span className="text-gray-300 text-xs font-medium ml-1">USD</span>
+          </p>
+          <button className="bg-blue-500 py-2 px-4 text-white rounded-full hover:bg-blue-800 transition-all">
+            Pay Now
+          </button>
+        </div>
+      </div>
+      <div className="bg-white rounded-md h-max overflow-hidden flex flex-col items-center w-1/5 mr-6">
+        <p className="bg-flightResultsBg font-semibold px-5 py-3 w-full">
+          Profile
         </p>
+        <img
+          src={Assets.ProfilePicture}
+          alt="Profile"
+          className="rounded-full h-24 w-24 my-5"
+        />
+        <p className="text-base font-bold">Mansurul Haque</p>
+        <p className="text-xs">Personal account</p>
+        <button className="bg-gray-200 text-xs rounded-full py-2 px-3 font-semibold mt-4 mb-6">
+          Edit profile
+        </button>
       </div>
     </div>
   );
