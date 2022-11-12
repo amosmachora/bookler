@@ -13,6 +13,7 @@ module.exports = {
         detailsText: "#163668",
         grayLight: "#F9F9F9",
         checkMarkBg: "#0A6ADA",
+        paymentOptions: "#F0F0F0",
       },
     },
   },

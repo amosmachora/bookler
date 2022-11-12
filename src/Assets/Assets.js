@@ -33,8 +33,20 @@ import ChargingBattery from "./icons8-charging-battery-30.png";
 import CheckMark from "./Checkmark.svg";
 import ArrowLeft from "./Arrow-Left.svg";
 import ArrowRight from "./Arrow-right.svg";
+import CreditCard from "./CreditCard.svg";
+import EMICard from "./EMICard.svg";
+import GiftCard from "./GiftCard.svg";
+import GooglePlay from "./GooglePlay.svg";
+import PayPal from "./Paypal.svg";
+import WalletPay from "./WalletPay.svg";
 
 export const Assets = {
+  CreditCard,
+  EMICard,
+  GiftCard,
+  GooglePlay,
+  PayPal,
+  WalletPay,
   ArrowLeft,
   ArrowRight,
   CheckMark,

@@ -12,7 +12,7 @@ import FlightFilter from "./FlightFilter";
 import BookButton from "./BookButton";
 import { MainContext, SearchContext } from "../../App";
 import FoundFlight from "./FoundFlight";
-import { BookingContextType } from "../../Types/Contexts";
+import { BookingContextType, FlightPrices } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
 import TravelerDetails from "./TravelerDetails";
 import GoButton from "./GoButton";
@@ -21,7 +21,7 @@ import PaymentOptions from "./PaymentOptions";
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
   travelersInfo: null,
-  flightPrice: 0,
+  flightPrice: { flightSurCharges: 0, baseFare: 0 },
 });
 
 const FlightResults = () => {
@@ -66,12 +66,13 @@ const FlightResults = () => {
     setFoundFlights(allUnfilteredFoundFlights);
   }, []);
 
-  const fetchFlightPrices = (flight: Departures) => {
-    const flightPrice = 0;
-    return flightPrice;
+  const fetchFlightPrices = (flight: Departures): FlightPrices => {
+    const baseFare = 20;
+    const flightSurCharges = 10;
+    return { baseFare, flightSurCharges };
   };
 
-  const [flightPrice, setFlightPrice] = useState<number>(0);
+  const [flightPrice, setFlightPrice] = useState<FlightPrices | null>(null);
 
   const initiateBooking = (flight: Departures) => {
     setFoundFlights([flight]);
@@ -82,9 +83,15 @@ const FlightResults = () => {
   const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
   const [showPayments, setShowPayments] = useState(false);
 
+  console.log(travelersInfo);
+
   return (
     <BookingContext.Provider
-      value={{ initiateBooking, travelersInfo, flightPrice }}
+      value={{
+        initiateBooking,
+        travelersInfo,
+        flightPrice,
+      }}
     >
       {showPayments ? (
         <PaymentOptions />

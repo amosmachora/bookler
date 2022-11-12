@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Adult, Country, TravelerInfo } from "../../Types/Flights";
+import { BookingContext } from "./FlightResults";
 
 type TravelerDetailsProps = {
   travelersInfo: TravelerInfo | null;
   setTravelersInfo: React.Dispatch<React.SetStateAction<TravelerInfo | null>>;
 };
 
-const TravelerDetails = ({
-  travelersInfo,
-  setTravelersInfo,
-}: TravelerDetailsProps) => {
+const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
   const [countryList, setCountryList] = useState<Country[]>([]);
   const adultNameInputRef = useRef<HTMLInputElement>(null);
+  const { travelersInfo, flightPrice } = useContext(BookingContext);
 
   const fetchCountryCode = () => {
     const options = {

@@ -1,11 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BookingContext } from "./FlightResults";
+import { getTotalPrice } from "../../Util/Helpers";
 
 const FareSummary = () => {
-  const { travelersInfo, flightPrice } = useContext(BookingContext);
-  const flightSurCharges = 0;
+  const { flightPrice, travelersInfo } = useContext(BookingContext);
   const numberOfAdults =
-    travelersInfo === null ? 0 : travelersInfo?.adultList?.length;
+    travelersInfo?.adultList === undefined
+      ? 0
+      : travelersInfo?.adultList?.length;
+
+  const getFlightPriceWithoutSurCharges = (): number => {
+    const baseFare =
+      flightPrice?.baseFare === undefined ? 0 : flightPrice?.baseFare;
+
+    return baseFare * numberOfAdults;
+  };
 
   return (
     <div className="mt-5 w-11/12 mr-16 rounded-lg overflow-hidden ml-5">
@@ -14,17 +23,17 @@ const FareSummary = () => {
         <p className="text-sm my-4">Base Fare</p>
         <div className="flex justify-between text-xs px-2 py-2 border rounded-sm">
           <p className="text-gray-400">
-            Adults ({numberOfAdults + " X $" + flightPrice})
+            Adults ({numberOfAdults + " X $" + flightPrice?.baseFare})
           </p>
-          <p className="font-semibold">${numberOfAdults ?? 0 * flightPrice}</p>
+          <p className="font-semibold">${getFlightPriceWithoutSurCharges()}</p>
         </div>
         <p className="text-sm my-4">Airlines</p>
         <div className="flex justify-between text-xs px-2 py-2 border rounded-sm">
           <p className="text-gray-400">Fee & Surcharges</p>
-          <p className="font-semibold">${flightSurCharges}</p>
+          <p className="font-semibold">${flightPrice?.flightSurCharges}</p>
         </div>
         <p className="text-right my-5 font-bold">
-          ${(numberOfAdults ?? 0 * flightPrice) + flightSurCharges}{" "}
+          ${getTotalPrice(travelersInfo, flightPrice)}{" "}
           <span className="text-xs text-gray-300 font-light">USD</span>
         </p>
       </div>
