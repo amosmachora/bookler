@@ -78,7 +78,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
             <p className="text-xs text-gray-400">Save $00</p>
           </div>
           <div className="flex flex-col items-end mt-2 justify-between">
-            <p className="text-[32px] w-min font-semi mb-1">
+            <p className="text-[32px] w-min font-semi mb-1 ml-6">
               000
               <span className="text-gray-400 text-xs font-normal">USD</span>
             </p>

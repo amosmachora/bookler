@@ -103,7 +103,7 @@ const FlightResults = () => {
           setBooking={setBooking}
         />
       ) : (
-        <div className="flex sticky top-0">
+        <div className="flex sticky top-0 justify-between">
           <div className="mt-4 w-3/4">
             <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">
               <div className="flex items-center">
@@ -166,7 +166,7 @@ const FlightResults = () => {
             </div>
           </div>
           {booking ? (
-            <div className="w-1/4">
+            <div className="w-1/5 mr-6">
               <FareSummary />
               <GoButton setShowPayments={setShowPayments} />
             </div>

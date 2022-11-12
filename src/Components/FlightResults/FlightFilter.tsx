@@ -42,7 +42,7 @@ const FlightFilter = ({
   };
 
   return (
-    <div className="mt-5 w-1/4 ml-5 mr-16 rounded-lg overflow-hidden">
+    <div className="w-1/5 mr-6 mt-4 ml-5 rounded-lg overflow-hidden">
       <p className="font-bold text-lg p-3 bg-flightResultsBg">Filters</p>
       <div className="p-5 bg-white">
         <p className="text-sm font-semibold mb-4">Price</p>

@@ -17,7 +17,7 @@ const FareSummary = () => {
   };
 
   return (
-    <div className="mt-5 w-11/12 mr-16 rounded-lg overflow-hidden ml-5">
+    <div className="mt-4 w-full mr-16 rounded-lg overflow-hidden">
       <p className="bg-grayLight font-bold px-4 py-3">Fare Summary</p>
       <div className="bg-white py-4 px-4 rounded-b-lg ">
         <p className="text-sm my-4">Base Fare</p>

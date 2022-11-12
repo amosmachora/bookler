@@ -183,7 +183,7 @@ function App() {
                   outGoingFlights={outGoingFlights}
                 />
               ) : null
-            ) : (
+            ) : activeChoice === "flights" ? (
               <SearchContext.Provider
                 value={{
                   typeOfTrip,
@@ -198,7 +198,7 @@ function App() {
                 <SearchParametersDisplay />
                 <FlightResults />
               </SearchContext.Provider>
-            )}
+            ) : null}
           </div>
         </div>
         <div className="flex absolute right-14 top-[34px]">
