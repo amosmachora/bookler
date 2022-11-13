@@ -6,9 +6,13 @@ import { Airport } from "../Types/Flights";
 
 type HotelSearchFormProps = {
   fromAirport: Airport;
+  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const HotelSearchForm = ({ fromAirport }: HotelSearchFormProps) => {
+const HotelSearchForm = ({
+  fromAirport,
+  setMenuWide,
+}: HotelSearchFormProps) => {
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
 
   const openSearchModal = () => {
@@ -16,7 +20,7 @@ const HotelSearchForm = ({ fromAirport }: HotelSearchFormProps) => {
   };
 
   const searchHotel = () => {
-    console.log("Yoh");
+    setMenuWide(false);
   };
 
   return (

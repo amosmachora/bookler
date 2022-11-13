@@ -6,6 +6,9 @@ const getFormattedDate = (date: Date | null | undefined) => {
   return date?.toDateString().substring(0, date.toDateString().length - 4);
 };
 
+/**
+ * @returns Display for chosen flight search parameters
+ */
 const SearchParametersDisplay = () => {
   const { typeOfTrip, fromAirport, departureDate, returnDate, toAirport } =
     useContext(SearchContext);

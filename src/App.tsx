@@ -9,7 +9,6 @@ import Overlay from "./Components/Overlay";
 import ProfileInfo from "./Components/ProfileInfo";
 import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
-import SearchParametersDisplay from "./Components/searchParametersDisplay";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
 import { Airline, Airport, Arrival, Departures } from "./Types/Flights";
@@ -19,6 +18,8 @@ import { MainContextValue, SearchParameters } from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
 import HotelSearchForm from "./Pages/Hotel";
+import SearchParametersDisplay from "./Components/SearchParameters";
+import HotelSearchResults from "./Pages/HotelSearchResults";
 
 export const SearchContext = createContext<SearchParameters>({
   toAirport: {
@@ -149,7 +150,32 @@ function App() {
         />
       );
     } else if (activeChoice === "hotel") {
-      return <HotelSearchForm fromAirport={fromAirport} />;
+      return (
+        <HotelSearchForm fromAirport={fromAirport} setMenuWide={setMenuWide} />
+      );
+    }
+  };
+
+  const renderResults = (): JSX.Element | undefined => {
+    if (activeChoice === "flights") {
+      return (
+        <SearchContext.Provider
+          value={{
+            typeOfTrip,
+            fromAirport,
+            departureDate,
+            returnDate,
+            toAirport,
+            devMode,
+            outGoingFlights,
+          }}
+        >
+          <SearchParametersDisplay />
+          <FlightResults />
+        </SearchContext.Provider>
+      );
+    } else if (activeChoice === "hotel") {
+      return <HotelSearchResults />;
     }
   };
 
@@ -190,24 +216,7 @@ function App() {
                 <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
               )}
             </div>
-            {menuWide ? (
-              renderTab()
-            ) : activeChoice === "flights" ? (
-              <SearchContext.Provider
-                value={{
-                  typeOfTrip,
-                  fromAirport,
-                  departureDate,
-                  returnDate,
-                  toAirport,
-                  devMode,
-                  outGoingFlights,
-                }}
-              >
-                <SearchParametersDisplay />
-                <FlightResults />
-              </SearchContext.Provider>
-            ) : null}
+            {menuWide ? renderTab() : renderResults()}
           </div>
         </div>
         <div className="flex absolute right-14 top-[34px]">
