@@ -18,6 +18,7 @@ import { fetchAirports } from "./Fetchers/FetchAirports";
 import { MainContextValue, SearchParameters } from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
+import HotelSearchForm from "./Pages/Hotel";
 
 export const SearchContext = createContext<SearchParameters>({
   toAirport: {
@@ -125,6 +126,33 @@ function App() {
     setToAirport(getRandomAirport());
   }, [airports.length]);
 
+  const renderTab = (): JSX.Element | undefined => {
+    if (activeChoice === "flights") {
+      return (
+        <SearchForm
+          setOverlay={setOverlay}
+          setMenuWide={setMenuWide}
+          menuWide={menuWide}
+          toAirport={toAirport}
+          setToAirport={setToAirport}
+          fromAirport={fromAirport}
+          setFromAirport={setFromAirport}
+          typeOfTrip={typeOfTrip}
+          setTypeOfTrip={setTypeOfTrip}
+          setDepartureDate={setDepartureDate}
+          setReturnDate={setReturnDate}
+          searchAirports={searchAirports}
+          setSearchAirports={setSearchAirports}
+          setSearchType={setSearchType}
+          searchType={searchType}
+          outGoingFlights={outGoingFlights}
+        />
+      );
+    } else if (activeChoice === "hotel") {
+      return <HotelSearchForm fromAirport={fromAirport} />;
+    }
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -163,26 +191,7 @@ function App() {
               )}
             </div>
             {menuWide ? (
-              activeChoice === "flights" ? (
-                <SearchForm
-                  setOverlay={setOverlay}
-                  setMenuWide={setMenuWide}
-                  menuWide={menuWide}
-                  toAirport={toAirport}
-                  setToAirport={setToAirport}
-                  fromAirport={fromAirport}
-                  setFromAirport={setFromAirport}
-                  typeOfTrip={typeOfTrip}
-                  setTypeOfTrip={setTypeOfTrip}
-                  setDepartureDate={setDepartureDate}
-                  setReturnDate={setReturnDate}
-                  searchAirports={searchAirports}
-                  setSearchAirports={setSearchAirports}
-                  setSearchType={setSearchType}
-                  searchType={searchType}
-                  outGoingFlights={outGoingFlights}
-                />
-              ) : null
+              renderTab()
             ) : activeChoice === "flights" ? (
               <SearchContext.Provider
                 value={{

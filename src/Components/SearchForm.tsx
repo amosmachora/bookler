@@ -78,25 +78,9 @@ const SearchForm = ({
     setMenuWide((prev) => !prev);
   };
 
-  const getDay = (date: Date | null | undefined) => {
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    if (date == null || date == undefined) {
-      return "Sunday";
-    }
-    return weekdays[date.getDay()];
-  };
-
   return (
     <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
-      <form action="">
+      <form>
         <div className="type-of-trip flex [&>*]:rounded-full [&>*]:text-sm [&>*]:py-2 [&>*]:px-6 [&>*]:mr-8 [&>*]:cursor-pointer">
           <p
             className={`${typeOfTrip === "one-way" ? "bg-gray-100" : ""}`}
@@ -118,25 +102,10 @@ const SearchForm = ({
           </p>
         </div>
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
-          <div
-            className="Option w-[32.8%]"
-            onClick={() => openFromSearchModal()}
-          >
-            <div className="flex">
-              <img src={Assets.LocationPointer} alt="Location Pointer" />
-              <p className="text-gray-400 text-xs ml-1">FROM</p>
-            </div>
-            <p className="from-location text-base font-bold mb-1">
-              {fromAirport === undefined
-                ? "Dhaka, Bangladesh"
-                : fromAirport.city + ", " + fromAirport.country}
-            </p>
-            <p className="from-airport text-xs text-gray-400">
-              {fromAirport === undefined
-                ? "Usmani airport, Sylhet"
-                : fromAirport.name}
-            </p>
-          </div>
+          <FromAirportInput
+            openFromSearchModal={openFromSearchModal}
+            fromAirport={fromAirport}
+          />
           <div className="Option w-[32.8%]" onClick={() => openToSearchModal()}>
             <div className="flex">
               <img src={Assets.LocationPointer} alt="Location Pointer" />
@@ -214,17 +183,7 @@ const SearchForm = ({
               {getDay(returnDateInput.current?.valueAsDate)}
             </p>
           </div>
-          <div className="w-[14%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer">
-            <div className="flex justify-between">
-              <div className="flex">
-                <img src={Assets.Calendar} alt="Calendar" />
-                <p className="text-xs ml-1 text-gray-400">Return</p>
-              </div>
-              <img src={Assets.DropDownGray} alt="Drop down" />
-            </div>
-            <p className="font-bold text-base mb-1">More</p>
-            <div>...</div>
-          </div>
+          <MoreButton />
           <input
             type="submit"
             value="SEARCH FLIGHT"
@@ -247,3 +206,64 @@ const SearchForm = ({
 };
 
 export default SearchForm;
+
+type FromAirportInputProps = {
+  openFromSearchModal: () => void;
+  fromAirport: Airport;
+};
+
+export function FromAirportInput({
+  openFromSearchModal,
+  fromAirport,
+}: FromAirportInputProps) {
+  return (
+    <div className="Option w-[32.8%]" onClick={() => openFromSearchModal()}>
+      <div className="flex">
+        <img src={Assets.LocationPointer} alt="Location Pointer" />
+        <p className="text-gray-400 text-xs ml-1">FROM</p>
+      </div>
+      <p className="from-location text-base font-bold mb-1">
+        {fromAirport === undefined
+          ? "Dhaka, Bangladesh"
+          : fromAirport.city + ", " + fromAirport.country}
+      </p>
+      <p className="from-airport text-xs text-gray-400">
+        {fromAirport === undefined
+          ? "Usmani airport, Sylhet"
+          : fromAirport.name}
+      </p>
+    </div>
+  );
+}
+
+export const getDay = (date: Date | null | undefined) => {
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  if (date == null || date == undefined) {
+    return "Sunday";
+  }
+  return weekdays[date.getDay()];
+};
+
+export function MoreButton() {
+  return (
+    <div className="w-[14%] bg-gray-100 border py-2 px-4 rounded-lg cursor-pointer">
+      <div className="flex justify-between">
+        <div className="flex">
+          <img src={Assets.Calendar} alt="Calendar" />
+          <p className="text-xs ml-1 text-gray-400">Return</p>
+        </div>
+        <img src={Assets.DropDownGray} alt="Drop down" />
+      </div>
+      <p className="font-bold text-base mb-1">More</p>
+      <div>...</div>
+    </div>
+  );
+}
