@@ -28,3 +28,10 @@ export type FlightPrices = {
   baseFare: number;
   flightSurCharges: number;
 };
+
+export interface HotelSearch {
+  checkInDate: Date | null;
+  checkOutDate: Date | null;
+  setCheckInDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  setCheckOutDate: React.Dispatch<React.SetStateAction<Date | null>>;
+}

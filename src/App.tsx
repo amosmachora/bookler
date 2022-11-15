@@ -14,10 +14,14 @@ import DevAirportFlightData from "./Util/AirportFlightData.json";
 import { Airline, Airport, Arrival, Departures } from "./Types/Flights";
 import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
 import { fetchAirports } from "./Fetchers/FetchAirports";
-import { MainContextValue, SearchParameters } from "./Types/Contexts";
+import {
+  HotelSearch,
+  MainContextValue,
+  SearchParameters,
+} from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
-import HotelSearchForm from "./Pages/Hotel";
+import HotelSearchForm from "./Pages/HotelSearchForm";
 import SearchParametersDisplay from "./Components/SearchParameters";
 import HotelSearchResults from "./Pages/HotelSearchResults";
 
@@ -64,6 +68,8 @@ export const MainContext = createContext<MainContextValue>({
   devMode: false,
 });
 
+export const HotelSearchContext = createContext<HotelSearch>(null as any);
+
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
@@ -85,6 +91,10 @@ function App() {
     DevAirportFlightData.arrivals
   );
   const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
+  const [destinationsInTargetLocation, setDestinationsInTargetLocation] =
+    useState({});
+  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const fetchFromApi = async () => {
@@ -151,7 +161,7 @@ function App() {
       );
     } else if (activeChoice === "hotel") {
       return (
-        <HotelSearchForm fromAirport={fromAirport} setMenuWide={setMenuWide} />
+        <HotelSearchForm toAirport={toAirport} setMenuWide={setMenuWide} />
       );
     }
   };
@@ -175,7 +185,7 @@ function App() {
         </SearchContext.Provider>
       );
     } else if (activeChoice === "hotel") {
-      return <HotelSearchResults />;
+      return <HotelSearchResults toAirport={toAirport} />;
     }
   };
 
@@ -216,7 +226,16 @@ function App() {
                 <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
               )}
             </div>
-            {menuWide ? renderTab() : renderResults()}
+            <HotelSearchContext.Provider
+              value={{
+                checkInDate,
+                checkOutDate,
+                setCheckInDate,
+                setCheckOutDate,
+              }}
+            >
+              {menuWide ? renderTab() : renderResults()}
+            </HotelSearchContext.Provider>
           </div>
         </div>
         <div className="flex absolute right-14 top-[34px]">

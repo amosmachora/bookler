@@ -1,0 +1,206 @@
+{
+  "query": "London",
+  "moresuggestions": 10,
+  "suggestions": [
+    {
+      "group": "CITY_GROUP",
+      "entities": [
+        {
+          "geoId": "2114",
+          "destinationId": "549499",
+          "landmarkCityDestinationId": null,
+          "type": "CITY",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.50746,
+          "longitude": -0.127673,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "London"
+        },
+        {
+          "geoId": "6195474",
+          "destinationId": "1735370",
+          "landmarkCityDestinationId": null,
+          "type": "NEIGHBORHOOD",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.508362,
+          "longitude": -0.129026,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> City Centre, London, England, United Kingdom",
+          "name": "London City Centre"
+        },
+        {
+          "geoId": "8557",
+          "destinationId": "1477058",
+          "landmarkCityDestinationId": null,
+          "type": "CITY",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 37.128979,
+          "longitude": -84.083267,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span>, Kentucky, United States of America",
+          "name": "London"
+        },
+        {
+          "geoId": "6047476",
+          "destinationId": "1808499",
+          "landmarkCityDestinationId": null,
+          "type": "NEIGHBORHOOD",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.529952514458806,
+          "longitude": -0.12402339913938097,
+          "searchDetail": null,
+          "caption": "Kings Cross St. Pancras, <span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "Kings Cross St. Pancras"
+        },
+        {
+          "geoId": "800049",
+          "destinationId": "1762406",
+          "landmarkCityDestinationId": null,
+          "type": "NEIGHBORHOOD",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.515972,
+          "longitude": -0.174943,
+          "searchDetail": null,
+          "caption": "Paddington, <span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "Paddington"
+        },
+        {
+          "geoId": "4127",
+          "destinationId": "1643565",
+          "landmarkCityDestinationId": null,
+          "type": "CITY",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 42.983841,
+          "longitude": -81.249771,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> (and vicinity), Ontario, Canada",
+          "name": "London (and vicinity)"
+        }
+      ]
+    },
+    {
+      "group": "HOTEL_GROUP",
+      "entities": [
+        {
+          "geoId": "12786616",
+          "destinationId": "561413",
+          "landmarkCityDestinationId": null,
+          "type": "HOTEL",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 41.887943,
+          "longitude": -87.625385,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span>House Chicago, Curio Collection by Hilton, Chicago, Illinois, United States of America",
+          "name": "LondonHouse Chicago, Curio Collection by Hilton"
+        },
+        {
+          "geoId": "438504",
+          "destinationId": "235666",
+          "landmarkCityDestinationId": null,
+          "type": "HOTEL",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.480839,
+          "longitude": -0.437828,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> Heathrow Marriott Hotel, Hayes, England, United Kingdom",
+          "name": "London Heathrow Marriott Hotel"
+        },
+        {
+          "geoId": "18773",
+          "destinationId": "114200",
+          "landmarkCityDestinationId": null,
+          "type": "HOTEL",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.494561,
+          "longitude": -0.189412,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> Marriott Hotel Kensington, London, England, United Kingdom",
+          "name": "London Marriott Hotel Kensington"
+        }
+      ]
+    },
+    {
+      "group": "LANDMARK_GROUP",
+      "entities": [
+        {
+          "geoId": "507738",
+          "destinationId": "1410",
+          "landmarkCityDestinationId": "549499",
+          "type": "LANDMARK",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.507267,
+          "longitude": -0.16573,
+          "searchDetail": null,
+          "caption": "Hyde Park, <span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "Hyde Park"
+        },
+        {
+          "geoId": "508420",
+          "destinationId": "552738",
+          "landmarkCityDestinationId": "549499",
+          "type": "LANDMARK",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.508524,
+          "longitude": -0.128247,
+          "searchDetail": null,
+          "caption": "Trafalgar Square, <span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "Trafalgar Square"
+        },
+        {
+          "geoId": "508419",
+          "destinationId": "1653503",
+          "landmarkCityDestinationId": "549499",
+          "type": "LANDMARK",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.50561,
+          "longitude": -0.07523,
+          "searchDetail": null,
+          "caption": "Tower Bridge, <span class='highlighted'>London</span>, England, United Kingdom",
+          "name": "Tower Bridge"
+        }
+      ]
+    },
+    {
+      "group": "TRANSPORT_GROUP",
+      "entities": [
+        {
+          "geoId": "5392460",
+          "destinationId": "543878",
+          "landmarkCityDestinationId": null,
+          "type": "AIRPORT",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.470878,
+          "longitude": -0.449753,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span>, United Kingdom (LHR-Heathrow)",
+          "name": "London (LHR-Heathrow)"
+        },
+        {
+          "geoId": "6042795",
+          "destinationId": "1740530",
+          "landmarkCityDestinationId": null,
+          "type": "TRAIN_STATION",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.528105,
+          "longitude": -0.133168,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> Euston Station, London, England, United Kingdom",
+          "name": "London Euston Station"
+        },
+        {
+          "geoId": "6022212",
+          "destinationId": "1710445",
+          "landmarkCityDestinationId": null,
+          "type": "TRAIN_STATION",
+          "redirectPage": "DEFAULT_PAGE",
+          "latitude": 51.496418,
+          "longitude": -0.143799,
+          "searchDetail": null,
+          "caption": "<span class='highlighted'>London</span> Victoria Station, London, England, United Kingdom",
+          "name": "London Victoria Station"
+        }
+      ]
+    }
+  ]
+}

@@ -43,11 +43,21 @@ const SearchParametersDisplay = () => {
             getFormattedDate(returnDate)}
         </p>
       </div>
-      <p className="bg-red-600 text-white text-xs rounded-full px-5 py-3">
-        SEARCH FLIGHT
-      </p>
+      <RedSearchButton text="Search FlIGhT" />
     </div>
   );
 };
 
 export default SearchParametersDisplay;
+
+type RedSearchButtonProps = {
+  text: string;
+};
+
+export function RedSearchButton({ text }: RedSearchButtonProps) {
+  return (
+    <p className="bg-red-600 text-white text-xs rounded-full px-5 py-3 uppercase cursor-pointer">
+      {text}
+    </p>
+  );
+}

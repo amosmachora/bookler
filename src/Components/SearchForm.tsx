@@ -106,22 +106,10 @@ const SearchForm = ({
             openFromSearchModal={openFromSearchModal}
             fromAirport={fromAirport}
           />
-          <div className="Option w-[32.8%]" onClick={() => openToSearchModal()}>
-            <div className="flex">
-              <img src={Assets.LocationPointer} alt="Location Pointer" />
-              <p className="text-gray-400 text-xs ml-1">TO</p>
-            </div>
-            <p className="from-location text-base font-bold mb-1">
-              {toAirport === undefined
-                ? "Delhi, India"
-                : toAirport.city + ", " + toAirport.country}
-            </p>
-            <p className="from-airport text-xs text-gray-400">
-              {toAirport === undefined
-                ? "Shuvas chandra bosu airport"
-                : toAirport.name}
-            </p>
-          </div>
+          <ToAirportInput
+            openToSearchModal={openToSearchModal}
+            toAirport={toAirport}
+          />
           <div className="Option w-1/4">
             <div className="flex">
               <img src={Assets.Class} alt="Location Pointer" />
@@ -264,6 +252,35 @@ export function MoreButton() {
       </div>
       <p className="font-bold text-base mb-1">More</p>
       <div>...</div>
+    </div>
+  );
+}
+
+type ToAirportInputProps = {
+  openToSearchModal: () => void;
+  toAirport: Airport;
+};
+
+export function ToAirportInput({
+  openToSearchModal,
+  toAirport,
+}: ToAirportInputProps) {
+  return (
+    <div className="Option w-[32.8%]" onClick={() => openToSearchModal()}>
+      <div className="flex">
+        <img src={Assets.LocationPointer} alt="Location Pointer" />
+        <p className="text-gray-400 text-xs ml-1">TO</p>
+      </div>
+      <p className="from-location text-base font-bold mb-1">
+        {toAirport === undefined
+          ? "Delhi, India"
+          : toAirport.city + ", " + toAirport.country}
+      </p>
+      <p className="from-airport text-xs text-gray-400">
+        {toAirport === undefined
+          ? "Shuvas chandra bosu airport"
+          : toAirport.name}
+      </p>
     </div>
   );
 }
