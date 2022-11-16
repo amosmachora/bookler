@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import { HotelSearchContext, MainContext } from "../App";
 import { Assets } from "../Assets/Assets";
 import { RedSearchButton } from "../Components/SearchParameters";
@@ -47,7 +47,7 @@ const HotelSearchResults = ({ toAirport }: HotelSearchResultsProps) => {
     <div>
       <HotelSearchParameters toAirport={toAirport} />
       {hotelList.map((hotel) => {
-        return <p>{hotel.name}</p>;
+        return <p key={hotel.name}>{hotel.name}</p>;
       })}
     </div>
   );
@@ -72,18 +72,17 @@ function HotelSearchParameters({ toAirport }: HotelSearchParametersProps) {
       </div>
       <div>
         <p className="text-xs text-gray-300 ml-2">CHECK-IN</p>
-        <div className="flex bg-gray-100 py-2 px-6 rounded-full mt-1 cursor-pointer justify-between">
-          {/* <input type="date" defaultValue={checkInDate?.toDateString()} /> */}
-          <p>25 Aug’19</p>
-          <img src={Assets.Calendar} alt="Calendar" />
-        </div>
+        <CheckInCheckOutDatePicker
+          setDateFunction={setCheckInDate}
+          date={checkInDate}
+        />
       </div>
       <div>
         <p className="text-xs text-gray-300 ml-2">CHECK-OUT</p>
-        <div className="flex bg-gray-100 py-2 px-6 rounded-full mt-1 cursor-pointer justify-between">
-          <p>25 Aug’19</p>
-          <img src={Assets.Calendar} alt="Calendar" />
-        </div>
+        <CheckInCheckOutDatePicker
+          date={checkOutDate}
+          setDateFunction={setCheckOutDate}
+        />
       </div>
       <div>
         <p className="text-xs text-gray-300 ml-2">Rooms & Guests</p>
@@ -92,6 +91,32 @@ function HotelSearchParameters({ toAirport }: HotelSearchParametersProps) {
         </p>
       </div>
       <RedSearchButton text="Search Hotels" />
+    </div>
+  );
+}
+
+type CheckInCheckOutDatePicker = {
+  date: Date | null;
+  setDateFunction: React.Dispatch<SetStateAction<Date | null>>;
+};
+
+function CheckInCheckOutDatePicker({
+  date,
+  setDateFunction,
+}: CheckInCheckOutDatePicker) {
+  return (
+    <div className="mt-1 relative">
+      <input
+        type="date"
+        defaultValue={date?.toDateString()}
+        onChange={(e) => setDateFunction(e.target.valueAsDate)}
+        className="w-full py-2 px-6 rounded-full bg-gray-100 cursor-pointer check-in-or-out-picker"
+      />
+      <img
+        src={Assets.Calendar}
+        alt="Calendar"
+        className="absolute top-1/2 right-6 -translate-y-1/2"
+      />
     </div>
   );
 }

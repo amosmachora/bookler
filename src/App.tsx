@@ -96,6 +96,9 @@ function App() {
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
 
+  console.log(checkInDate);
+  console.log(checkOutDate);
+
   useEffect(() => {
     const fetchFromApi = async () => {
       await fetchAirports().then((res) => setAirports(res));

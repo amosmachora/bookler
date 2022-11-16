@@ -48,3 +48,8 @@ body {
   background-color: rgb(37, 99, 235);
   border-radius: 20px;
 }
+.check-in-or-out-picker::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  z-index: 50;
+}
