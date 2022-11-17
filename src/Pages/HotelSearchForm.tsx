@@ -12,10 +12,8 @@ type HotelSearchFormProps = {
 const HotelSearchForm = ({ toAirport, setMenuWide }: HotelSearchFormProps) => {
   const { setCheckInDate, checkInDate, setCheckOutDate, checkOutDate } =
     useContext(HotelSearchContext);
-
-  const openSearchModal = () => {
-    console.log("Hi");
-  };
+  const [showHotelSearchModal, setShowHotelSearchModal] =
+    useState<boolean>(false);
 
   const searchHotel = () => {
     setMenuWide(false);
@@ -24,10 +22,17 @@ const HotelSearchForm = ({ toAirport, setMenuWide }: HotelSearchFormProps) => {
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5">
       <div className="flex justify-between [&>*]:bg-gray-100 [&>*]:px-4 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg mb-4">
-        <ToAirportInput
-          openToSearchModal={openSearchModal}
-          toAirport={toAirport}
-        />
+        <div
+          className="bg-gray-200 rounded-md w-[32%]"
+          onClick={() => setShowHotelSearchModal(true)}
+        >
+          <div className="flex">
+            <img src={Assets.LocationPointer} alt="Location pointer" />
+            <p className="text-gray-300 text-sm ml-1">TO</p>
+          </div>
+          <p className="text-black font-bold">Turin, Italy</p>
+          <p className="text-xs text-gray-400">Turin Caselle Airport</p>
+        </div>
         <CheckInOrOutInput
           setDate={setCheckInDate}
           date={checkInDate}
@@ -60,6 +65,7 @@ const HotelSearchForm = ({ toAirport, setMenuWide }: HotelSearchFormProps) => {
           onClick={() => searchHotel()}
         />
       </div>
+      {showHotelSearchModal && <HotelLocationPicker />}
     </div>
   );
 };
@@ -88,3 +94,12 @@ function CheckInOrOutInput({ setDate, date, name }: CheckInOrOutInputProps) {
     </div>
   );
 }
+
+const HotelLocationPicker = () => {
+  const { countriesList } = useContext(MainContext);
+  return (
+    <div className="absolute top-0 right-1/2 translate-x-1/2 bg-white">
+      Choose your target Location
+    </div>
+  );
+};

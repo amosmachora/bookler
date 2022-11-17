@@ -24,6 +24,7 @@ import { fetchAirlines } from "./Fetchers/FetchAirlines";
 import HotelSearchForm from "./Pages/HotelSearchForm";
 import SearchParametersDisplay from "./Components/SearchParameters";
 import HotelSearchResults from "./Pages/HotelSearchResults";
+import { fetchCountries } from "./Fetchers/FetchCountries";
 
 export const SearchContext = createContext<SearchParameters>({
   toAirport: {
@@ -66,6 +67,7 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
   airlines: [],
   devMode: false,
+  countriesList: {},
 });
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
@@ -95,13 +97,12 @@ function App() {
     useState({});
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
-
-  console.log(checkInDate);
-  console.log(checkOutDate);
+  const [countriesList, setCountriesList] = useState({});
 
   useEffect(() => {
     const fetchFromApi = async () => {
       await fetchAirports().then((res) => setAirports(res));
+      await fetchCountries().then((res) => setCountriesList(res));
       setAirlines(fetchAirlines());
     };
 
@@ -199,6 +200,7 @@ function App() {
         airports,
         airlines,
         devMode,
+        countriesList,
       }}
     >
       <div className="App w-full">
