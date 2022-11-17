@@ -24,7 +24,10 @@ import { fetchAirlines } from "./Fetchers/FetchAirlines";
 import HotelSearchForm from "./Pages/HotelSearchForm";
 import SearchParametersDisplay from "./Components/SearchParameters";
 import HotelSearchResults from "./Pages/HotelSearchResults";
-import { fetchCountries } from "./Fetchers/FetchCountries";
+import {
+  CountriesWithStateAndCities,
+  fetchCountries,
+} from "./Fetchers/FetchCountries";
 
 export const SearchContext = createContext<SearchParameters>({
   toAirport: {
@@ -97,18 +100,20 @@ function App() {
     useState({});
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
-  const [countriesList, setCountriesList] = useState({});
+  const [countriesList, setCountriesList] = useState<
+    CountriesWithStateAndCities[]
+  >([]);
 
   useEffect(() => {
-    const fetchFromApi = async () => {
+    const initializeApplication = async () => {
       await fetchAirports().then((res) => setAirports(res));
       await fetchCountries().then((res) => setCountriesList(res));
       setAirlines(fetchAirlines());
     };
-
+    fetchCountries().then((res) => console.log(res));
     if (!devMode) {
       setIsLoading(true);
-      fetchFromApi();
+      initializeApplication();
       setIsLoading(false);
     }
   }, [[], devMode]);
