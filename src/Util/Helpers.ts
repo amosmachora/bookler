@@ -25,3 +25,12 @@ export function getTotalPrice(
 export const getFormattedDate = (date: Date | null | undefined) => {
   return date?.toDateString().substring(0, date.toDateString().length - 4);
 };
+
+/**
+ *
+ * @param date A simple date object
+ * @returns A date of the format "2022-11-20"
+ */
+export const getDateFromIsoString = (date: Date | null): string | undefined => {
+  return date?.toISOString().substring(0, 10);
+};

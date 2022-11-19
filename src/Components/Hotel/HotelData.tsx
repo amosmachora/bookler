@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { HotelSearchContext } from "../../App";
 import { fetchHotelData } from "../../Fetchers/FetchHotelData";
+import { getDateFromIsoString } from "../../Util/Helpers";
 import { Hotel } from "./HotelSearchResults";
 
 const HotelData = ({ hotel }: { hotel: Hotel }) => {
@@ -10,12 +11,10 @@ const HotelData = ({ hotel }: { hotel: Hotel }) => {
   useEffect(() => {
     fetchHotelData(
       hotel.destinationId,
-      checkInDate?.toDateString(),
-      checkOutDate?.toDateString()
+      getDateFromIsoString(checkInDate),
+      getDateFromIsoString(checkOutDate)
     ).then((res) => setHotelData(res));
   }, []);
-
-  console.log(hotelData);
 
   return <div>{hotel.name}</div>;
 };
