@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { BookingContext } from "./FlightResults";
 import { getTotalPrice } from "../../Util/Helpers";
 

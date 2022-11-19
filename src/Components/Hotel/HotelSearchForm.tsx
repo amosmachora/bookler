@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { HotelSearchContext, MainContext } from "../App";
-import { Assets } from "../Assets/Assets";
-import { ToAirportInput, getDay, MoreButton } from "../Components/SearchForm";
-import { Airport } from "../Types/Flights";
+import { HotelSearchContext, MainContext } from "../../App";
+import { Assets } from "../../Assets/Assets";
+import { getDay, MoreButton } from "../SearchForm";
+import { Airport } from "../../Types/Flights";
+import { HotelLocationPicker } from "./HotelLocationPicker";
 
 type HotelSearchFormProps = {
   toAirport: Airport;
@@ -94,21 +95,3 @@ function CheckInOrOutInput({ setDate, date, name }: CheckInOrOutInputProps) {
     </div>
   );
 }
-
-const HotelLocationPicker = () => {
-  const { countriesList } = useContext(MainContext);
-  const test = () => {
-    for (const key in countriesList) {
-      console.log(key);
-    }
-    // console.log("yes");
-  };
-  return (
-    <div
-      className="absolute top-0 right-1/2 translate-x-1/2 bg-white"
-      onClick={() => test()}
-    >
-      Choose your target Location
-    </div>
-  );
-};

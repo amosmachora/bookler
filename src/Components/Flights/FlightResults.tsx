@@ -1,7 +1,4 @@
 import React, { useState, useContext, useEffect, createContext } from "react";
-import DevAirportData from "../../Util/AirportFlightData.json";
-import axios from "axios";
-import { Assets } from "../../Assets/Assets";
 import {
   Airline,
   Airport,
@@ -9,8 +6,7 @@ import {
   TravelerInfo,
 } from "../../Types/Flights";
 import FlightFilter from "./FlightFilter";
-import BookButton from "./BookButton";
-import { MainContext, SearchContext } from "../../App";
+import { FlightSearchContext } from "../../App";
 import FoundFlight from "./FoundFlight";
 import { BookingContextType, FlightPrices } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
@@ -28,12 +24,12 @@ export const BookingContext = createContext<BookingContextType>({
 const FlightResults = () => {
   const {
     toAirport,
-    returnDate,
-    departureDate,
-    typeOfTrip,
-    fromAirport,
+    // returnDate,
+    // departureDate,
+    // typeOfTrip,
+    // fromAirport,
     outGoingFlights,
-  } = useContext(SearchContext);
+  } = useContext(FlightSearchContext);
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
   const [sortBy, setSortBy] = useState("cheapest");
   const [preferredStopAirport, setPreferredStopAirport] =

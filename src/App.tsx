@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
-import FlightResults from "./Components/FlightResults/FlightResults";
+import FlightResults from "./Components/Flights/FlightResults";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
 import Overlay from "./Components/Overlay";
@@ -11,59 +11,61 @@ import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
-import { Airline, Airport, Arrival, Departures } from "./Types/Flights";
+import { Airline, Airport, Departures } from "./Types/Flights";
 import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
 import { fetchAirports } from "./Fetchers/FetchAirports";
 import {
   HotelSearch,
   MainContextValue,
-  SearchParameters,
+  FlightSearchParametersContext,
 } from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
-import HotelSearchForm from "./Pages/HotelSearchForm";
-import SearchParametersDisplay from "./Components/SearchParameters";
-import HotelSearchResults from "./Pages/HotelSearchResults";
+import HotelSearchForm from "./Components/Hotel/HotelSearchForm";
+import HotelSearchResults from "./Components/Hotel/HotelSearchResults";
 import {
   CountriesWithStateAndCities,
   fetchCountries,
 } from "./Fetchers/FetchCountries";
+import FlightSearchParameters from "./Components/Flights/FlightSearchParameters";
 
-export const SearchContext = createContext<SearchParameters>({
-  toAirport: {
-    alt: 0,
-    city: "",
-    country: "",
-    countryId: 0,
-    iata: "",
-    icao: "",
-    id: 0,
-    lat: 0,
-    lon: 0,
-    name: "",
-    size: 0,
-    timezone: null,
-  },
-  returnDate: null,
-  departureDate: null,
-  typeOfTrip: "",
-  fromAirport: {
-    alt: 0,
-    city: "",
-    country: "",
-    countryId: 0,
-    iata: "",
-    icao: "",
-    id: 0,
-    lat: 0,
-    lon: 0,
-    name: "",
-    size: 0,
-    timezone: null,
-  },
-  devMode: false,
-  outGoingFlights: [],
-});
+export const FlightSearchContext = createContext<FlightSearchParametersContext>(
+  {
+    toAirport: {
+      alt: 0,
+      city: "",
+      country: "",
+      countryId: 0,
+      iata: "",
+      icao: "",
+      id: 0,
+      lat: 0,
+      lon: 0,
+      name: "",
+      size: 0,
+      timezone: null,
+    },
+    returnDate: null,
+    departureDate: null,
+    typeOfTrip: "",
+    fromAirport: {
+      alt: 0,
+      city: "",
+      country: "",
+      countryId: 0,
+      iata: "",
+      icao: "",
+      id: 0,
+      lat: 0,
+      lon: 0,
+      name: "",
+      size: 0,
+      timezone: null,
+    },
+    devMode: false,
+    outGoingFlights: [],
+  }
+);
 
 export const MainContext = createContext<MainContextValue>({
   isLoading: false,
@@ -92,12 +94,7 @@ function App() {
   const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
     DevAirportFlightData.departures
   );
-  const [incomingFlights, setIncomingFlights] = useState<Arrival[]>(
-    DevAirportFlightData.arrivals
-  );
   const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
-  const [destinationsInTargetLocation, setDestinationsInTargetLocation] =
-    useState({});
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
   const [countriesList, setCountriesList] = useState<
@@ -110,7 +107,6 @@ function App() {
       await fetchCountries().then((res) => setCountriesList(res));
       setAirlines(fetchAirlines());
     };
-    fetchCountries().then((res) => console.log(res));
     if (!devMode) {
       setIsLoading(true);
       initializeApplication();
@@ -178,7 +174,7 @@ function App() {
   const renderResults = (): JSX.Element | undefined => {
     if (activeChoice === "flights") {
       return (
-        <SearchContext.Provider
+        <FlightSearchContext.Provider
           value={{
             typeOfTrip,
             fromAirport,
@@ -189,9 +185,9 @@ function App() {
             outGoingFlights,
           }}
         >
-          <SearchParametersDisplay />
+          <FlightSearchParameters />
           <FlightResults />
-        </SearchContext.Provider>
+        </FlightSearchContext.Provider>
       );
     } else if (activeChoice === "hotel") {
       return <HotelSearchResults toAirport={toAirport} />;

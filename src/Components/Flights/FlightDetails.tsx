@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SearchContext } from "../../App";
+import { FlightSearchContext } from "../../App";
 import { Departures, SingleFlightData } from "../../Types/Flights";
 import { FlightTimes } from "./FoundFlight";
 import axios from "axios";
@@ -14,13 +14,7 @@ const FlightDetails = ({
   extraFlightData,
   foundFlight,
 }: FlightDetailsProps) => {
-  // const aircraftImages = extraFlightData?.result.response.aircraftImages;
-  // const randomIndex = Math.floor(Math.random() * 5);
-  //   console.log("Extra flight data 👇👇👇👇");
-  //   console.log(extraFlightData?.result.response.data);
-  //   console.log("Found Flight 👇👇👇👇");
-  //   console.log(foundFlight);
-  const { toAirport, fromAirport } = useContext(SearchContext);
+  const { toAirport, fromAirport } = useContext(FlightSearchContext);
   const [details, setDetails] = useState(true);
   const [aircraftImage, setAircraftImage] = useState<string>();
   const [loading, setLoading] = useState(true);

@@ -1,5 +1,5 @@
-import React, { SetStateAction, useContext, useRef, useState } from "react";
-import { MainContext, SearchContext } from "../../App";
+import React, { SetStateAction, useContext } from "react";
+import { MainContext, FlightSearchContext } from "../../App";
 import { Airline, Airport } from "../../Types/Flights";
 
 type FlightFilterProps = {
@@ -14,7 +14,7 @@ const FlightFilter = ({
   setPreferredAirline,
 }: FlightFilterProps) => {
   const { airports, airlines } = useContext(MainContext);
-  const { toAirport } = useContext(SearchContext);
+  const { toAirport } = useContext(FlightSearchContext);
 
   const getStopSelectCities = (): Airport[] => {
     /**

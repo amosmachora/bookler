@@ -1,6 +1,6 @@
 import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
 
-export interface SearchParameters {
+export interface FlightSearchParametersContext {
   toAirport: Airport;
   returnDate: Date | null | undefined;
   departureDate: Date | null | undefined;

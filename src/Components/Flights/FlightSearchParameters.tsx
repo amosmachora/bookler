@@ -1,17 +1,15 @@
 import React from "react";
 import { useContext } from "react";
-import { SearchContext } from "../App";
-
-const getFormattedDate = (date: Date | null | undefined) => {
-  return date?.toDateString().substring(0, date.toDateString().length - 4);
-};
+import { FlightSearchContext } from "../../App";
+import { getFormattedDate } from "../../Util/Helpers";
+import { RedSearchButton } from "../RedSearchButton";
 
 /**
  * @returns Display for chosen flight search parameters
  */
-const SearchParametersDisplay = () => {
+const FlightSearchParameters = () => {
   const { typeOfTrip, fromAirport, departureDate, returnDate, toAirport } =
-    useContext(SearchContext);
+    useContext(FlightSearchContext);
 
   return (
     <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg mr-6">
@@ -48,16 +46,4 @@ const SearchParametersDisplay = () => {
   );
 };
 
-export default SearchParametersDisplay;
-
-type RedSearchButtonProps = {
-  text: string;
-};
-
-export function RedSearchButton({ text }: RedSearchButtonProps) {
-  return (
-    <p className="bg-red-600 text-white text-xs rounded-full px-5 py-3 uppercase cursor-pointer">
-      {text}
-    </p>
-  );
-}
+export default FlightSearchParameters;

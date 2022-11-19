@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext, SearchContext } from "../../App";
+import { MainContext, FlightSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
 import BookButton from "./BookButton";
@@ -15,7 +15,7 @@ type FoundFlightProps = {
 };
 
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
-  const { fromAirport, toAirport } = useContext(SearchContext);
+  const { fromAirport, toAirport } = useContext(FlightSearchContext);
   const { airlines } = useContext(MainContext);
   const { booking } = useContext(BookingContext);
   const [extraFlightData, setExtraFlightData] = useState<

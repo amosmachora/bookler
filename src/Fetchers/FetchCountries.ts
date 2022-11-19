@@ -1,5 +1,4 @@
 import axios from "axios";
-import { type } from "os";
 
 export type CountriesWithStateAndCities = {
   id: number;
@@ -130,7 +129,6 @@ const fetchNextResults = async (url: string): Promise<FetchResponse> => {
     headers: {
       "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
       "X-RapidAPI-Host": "countries-states-cities-dataset.p.rapidapi.com",
-      "access-control-allow-origin": "*",
     },
   };
   const res: FetchResponse = await axios

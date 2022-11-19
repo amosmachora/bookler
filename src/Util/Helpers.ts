@@ -16,3 +16,12 @@ export function getTotalPrice(
 
   return numberOfAdults * baseFare + flightSurcharges;
 }
+
+/**
+ * Get formatted date.
+ * @param date A normal Js Date object
+ * @returns date string of the format "Fri Nov 18"
+ */
+export const getFormattedDate = (date: Date | null | undefined) => {
+  return date?.toDateString().substring(0, date.toDateString().length - 4);
+};
