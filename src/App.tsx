@@ -28,6 +28,7 @@ import {
   fetchCountries,
 } from "./Fetchers/FetchCountries";
 import FlightSearchParameters from "./Components/Flights/FlightSearchParameters";
+import { TravellerHotelInfo } from "./Types/Hotel";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
   {
@@ -97,9 +98,17 @@ function App() {
   const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+  const [targetHotelLocation, setTargetHotelLocation] =
+    useState<Airport | null>(null);
   const [countriesList, setCountriesList] = useState<
     CountriesWithStateAndCities[]
   >([]);
+  const [travellerHotelInfo, setTravellerHotelInfo] =
+    useState<TravellerHotelInfo>({
+      Rooms: 1,
+      adults: 0,
+      kids: 0,
+    });
 
   useEffect(() => {
     const initializeApplication = async () => {
@@ -238,6 +247,10 @@ function App() {
                 checkOutDate,
                 setCheckInDate,
                 setCheckOutDate,
+                targetHotelLocation,
+                setTargetHotelLocation,
+                travellerHotelInfo,
+                setTravellerHotelInfo,
               }}
             >
               {menuWide ? renderTab() : renderResults()}

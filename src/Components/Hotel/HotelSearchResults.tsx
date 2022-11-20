@@ -36,14 +36,15 @@ const HotelSearchResults = ({ toAirport }: HotelSearchResultsProps) => {
 
   useEffect(() => {
     if (!devMode) {
+      fetchDestinationsByLocations(toAirport.city).then((res) => {
+        setHotelList(
+          res.suggestions.filter(
+            (suggestion: { group: string }) =>
+              suggestion.group === "HOTEL_GROUP"
+          )[0].entities
+        );
+      });
     }
-    fetchDestinationsByLocations(toAirport.city).then((res) => {
-      setHotelList(
-        res.suggestions.filter(
-          (suggestion: { group: string }) => suggestion.group === "HOTEL_GROUP"
-        )[0].entities
-      );
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

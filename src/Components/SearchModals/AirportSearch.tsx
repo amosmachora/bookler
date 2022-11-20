@@ -1,25 +1,25 @@
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useState } from "react";
+import { HotelSearchContext, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
 import "./AirportSearch.css";
 
 type AirportSearchProps = {
   typeOfSearch: string;
-  setFromAirport: (airport: Airport) => void;
-  setToAirport: (airport: Airport) => void;
-  searchAbleAirports: Airport[];
-  setAirportSearchModal: React.Dispatch<SetStateAction<boolean>>;
+  setFromAirport?: (airport: Airport) => void;
+  setToAirport?: (airport: Airport) => void;
+  closeModalFunction: React.Dispatch<SetStateAction<boolean>>;
 };
 
 const AirportSearch = ({
-  setAirportSearchModal,
+  closeModalFunction,
   typeOfSearch,
   setFromAirport,
   setToAirport,
-  searchAbleAirports,
 }: AirportSearchProps) => {
-  const [airportListLocal, setAirportListLocal] =
-    useState<Airport[]>(searchAbleAirports);
+  const { airports } = useContext(MainContext);
+  const [airportListLocal, setAirportListLocal] = useState<Airport[]>(airports);
+  const { setTargetHotelLocation } = useContext(HotelSearchContext);
 
   const searchAirports = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
@@ -37,7 +37,7 @@ const AirportSearch = ({
 
   const checkIfEmpty = (e: React.FormEvent) => {
     if ((e.target as HTMLInputElement).value.length === 0) {
-      setAirportListLocal(searchAbleAirports);
+      setAirportListLocal(airports);
     }
   };
 
@@ -55,11 +55,13 @@ const AirportSearch = ({
    */
   const handleAirportSelection = (airport: Airport) => {
     if (typeOfSearch === "from") {
-      setFromAirport(airport);
+      if (setFromAirport !== undefined) setFromAirport(airport);
     } else if (typeOfSearch === "to") {
-      setToAirport(airport);
+      if (setToAirport !== undefined) setToAirport(airport);
+    } else if (typeOfSearch === "Choose your target location") {
+      setTargetHotelLocation(airport);
     }
-    setAirportSearchModal(false);
+    closeModalFunction(false);
   };
 
   return (
@@ -72,7 +74,7 @@ const AirportSearch = ({
           src={Assets.Close}
           alt="Close"
           className="cursor-pointer"
-          onClick={() => setAirportSearchModal(false)}
+          onClick={() => closeModalFunction(false)}
         />
       </div>
       <p className="text-center text-gray-500 text-base mt-8 mb-6">

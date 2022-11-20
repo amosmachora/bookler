@@ -182,11 +182,10 @@ const SearchForm = ({
       </form>
       {airportSearchModal && (
         <AirportSearch
-          setAirportSearchModal={setAirportSearchModal}
+          closeModalFunction={setAirportSearchModal}
           typeOfSearch={searchType}
           setToAirport={setToAirport}
           setFromAirport={setFromAirport}
-          searchAbleAirports={searchAirports}
         />
       )}
     </div>

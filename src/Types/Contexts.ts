@@ -1,4 +1,5 @@
 import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
+import { TravellerHotelInfo } from "./Hotel";
 
 export interface FlightSearchParametersContext {
   toAirport: Airport;
@@ -35,4 +36,10 @@ export interface HotelSearch {
   checkOutDate: Date | null;
   setCheckInDate: React.Dispatch<React.SetStateAction<Date | null>>;
   setCheckOutDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  targetHotelLocation: Airport | null;
+  setTargetHotelLocation: React.Dispatch<React.SetStateAction<Airport | null>>;
+  travellerHotelInfo: TravellerHotelInfo;
+  setTravellerHotelInfo: React.Dispatch<
+    React.SetStateAction<TravellerHotelInfo>
+  >;
 }

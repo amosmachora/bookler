@@ -80,8 +80,6 @@ const FlightResults = () => {
   const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
   const [showPayments, setShowPayments] = useState(false);
 
-  console.log(travelersInfo);
-
   return (
     <BookingContext.Provider
       value={{
