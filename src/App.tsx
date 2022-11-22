@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
@@ -109,6 +109,7 @@ function App() {
       adults: 0,
       kids: 0,
     });
+  const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const initializeApplication = async () => {
@@ -175,7 +176,11 @@ function App() {
       );
     } else if (activeChoice === "hotel") {
       return (
-        <HotelSearchForm toAirport={toAirport} setMenuWide={setMenuWide} />
+        <HotelSearchForm
+          toAirport={toAirport}
+          setMenuWide={setMenuWide}
+          travelingForWorkCheckBox={travelingForWorkCheckBox}
+        />
       );
     }
   };
@@ -199,7 +204,12 @@ function App() {
         </FlightSearchContext.Provider>
       );
     } else if (activeChoice === "hotel") {
-      return <HotelSearchResults toAirport={toAirport} />;
+      return (
+        <HotelSearchResults
+          toAirport={toAirport}
+          travelingForWorkCheckBox={travelingForWorkCheckBox}
+        />
+      );
     }
   };
 

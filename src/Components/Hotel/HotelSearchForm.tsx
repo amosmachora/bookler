@@ -9,9 +9,13 @@ import TravellerSelector from "./TravellersSelector";
 type HotelSearchFormProps = {
   toAirport: Airport;
   setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
+  travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-const HotelSearchForm = ({ setMenuWide }: HotelSearchFormProps) => {
+const HotelSearchForm = ({
+  setMenuWide,
+  travelingForWorkCheckBox,
+}: HotelSearchFormProps) => {
   const {
     setCheckInDate,
     checkInDate,
@@ -76,7 +80,11 @@ const HotelSearchForm = ({ setMenuWide }: HotelSearchFormProps) => {
           name="Check out"
         />
         <div className="flex h-max mt-auto">
-          <input type="checkbox" className="h-5 w-5 mr-2 cursor-pointer" />
+          <input
+            type="checkbox"
+            className="h-5 w-5 mr-2 cursor-pointer"
+            ref={travelingForWorkCheckBox}
+          />
           <p>I`m traveling for work</p>
         </div>
         <MoreButton />

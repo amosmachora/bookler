@@ -1,58 +1,51 @@
-import React, { useContext, useEffect, useState } from "react";
-import { MainContext } from "../../App";
-import { fetchDestinationsByLocations } from "../../Fetchers/FetchDestinationsByLocation";
+import React, { useContext, useEffect } from "react";
+import { HotelSearchContext, MainContext } from "../../App";
+import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
+import { fetchSuggestedLocations } from "../../Fetchers/FetchSuggestedLocations";
 import { Airport } from "../../Types/Flights";
-import DestinationData from "../../Util/DestinationData.json";
-import HotelData from "./HotelData";
+import { getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
 
 type HotelSearchResultsProps = {
   toAirport: Airport;
+  travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export type Hotel = {
-  caption: string;
-  destinationId: string;
-  geoId: string;
-  landmarkCityDestinationId: null | string;
-  latitude: number;
-  longitude: number;
-  name: string;
-  redirectPage: string;
-  searchDetail: null;
-  type: string;
-};
-
-const HotelSearchResults = ({ toAirport }: HotelSearchResultsProps) => {
+const HotelSearchResults = ({
+  toAirport,
+  travelingForWorkCheckBox,
+}: HotelSearchResultsProps) => {
   const { devMode } = useContext(MainContext);
-
-  const [hotelList, setHotelList] = useState<Hotel[]>(
-    DestinationData.suggestions.filter(
-      (suggestion: { group: string }) => suggestion.group === "HOTEL_GROUP"
-    )[0].entities
-  );
-
-  console.log(hotelList);
+  const { targetHotelLocation } = useContext(HotelSearchContext);
+  const { checkInDate, checkOutDate, travellerHotelInfo } =
+    useContext(HotelSearchContext);
 
   useEffect(() => {
     if (!devMode) {
-      fetchDestinationsByLocations(toAirport.city).then((res) => {
-        setHotelList(
-          res.suggestions.filter(
-            (suggestion: { group: string }) =>
-              suggestion.group === "HOTEL_GROUP"
-          )[0].entities
-        );
+      fetchSuggestedLocations(targetHotelLocation?.city).then((res) => {
+        const cityLocation = res.filter((res) => res.dest_type === "city");
+        fetchPropertyListByDestId(
+          getDateFromIsoString(checkInDate),
+          getDateFromIsoString(checkOutDate),
+          travellerHotelInfo.adults.toString(),
+          travellerHotelInfo.Rooms.toString(),
+          cityLocation[0].dest_id,
+          travellerHotelInfo.kids.toString(),
+          travelingForWorkCheckBox.current?.checked ? "business" : "leisure"
+        ).then((res) => console.log(res));
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [
+    checkInDate,
+    checkOutDate,
+    devMode,
+    targetHotelLocation,
+    travelingForWorkCheckBox,
+    travellerHotelInfo,
+  ]);
   return (
     <div>
       <HotelSearchParameters toAirport={toAirport} />
-      {hotelList.map((hotel) => {
-        return <HotelData hotel={hotel} key={hotel.name} />;
-      })}
     </div>
   );
 };

@@ -1,0 +1,3257 @@
+{
+  "total_count_with_filters": 124,
+  "copyright": [],
+  "result": [
+    {
+      "main_photo_id": 206249139,
+      "city_in_trans": "in Apple Valley",
+      "has_swimming_pool": 1,
+      "distance_to_cc": "0.80",
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "country_trans": "United States of America",
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1,
+        "all_inclusive_price": 120.04,
+        "currency": "USD",
+        "has_incalculable_charges": 0,
+        "gross_price": "109.00",
+        "sum_excluded_raw": 11.04
+      },
+      "is_mobile_deal": 0,
+      "type": "property_card",
+      "extended": 0,
+      "review_nr": 294,
+      "city_trans": "Apple Valley",
+      "id": "property_card_332529",
+      "class": 3,
+      "ufi": 20066627,
+      "timezone": "America/Chicago",
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "default_language": "en",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "is_smart_deal": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc1": "us",
+      "review_score_word": "Very Good",
+      "hotel_facilities": "23,22,96,2,16,11,6,80,160,484,109,47,51,121,48,110,305,8,97,301,25,3,163,103,72,433,46,20,7,107,108,111",
+      "hotel_name": "Grandstay Apple Valley",
+      "city_name_en": "Apple Valley (Minnesota)",
+      "address_trans": "7083 153rd Street West",
+      "hotel_id": 332529,
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "longitude": -93.2095220897874,
+      "preferred_plus": 0,
+      "updated_checkin": null,
+      "district": "",
+      "price_is_final": 0,
+      "url": "https://www.booking.com/hotel/us/apple-valley-7083-153rd-street-west.html",
+      "class_is_estimated": 0,
+      "badges": [],
+      "urgency_room_msg": "Quadruple Room",
+      "latitude": 44.727528548286,
+      "currency_code": "USD",
+      "block_ids": ["33252914_204038008_4_1_0"],
+      "hotel_name_trans": "Grandstay Apple Valley",
+      "review_recommendation": "",
+      "min_total_price": 109,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 4
+        }
+      },
+      "native_ads_cpc": 0,
+      "native_ad_id": "",
+      "city": "Apple Valley (Minnesota)",
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "hotel_include_breakfast": 1,
+      "zip": "MN 55124",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/206249139.jpg?k=af1ce71cfd542d6f2aecf208a3e46f5ade667c0095dce32bd7c380e1bf9cea1b&o=",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "in_best_district": 0,
+      "address": "7083 153rd Street West",
+      "preferred": 1,
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "district_id": 0,
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Apple Valley",
+      "native_ads_tracking": "",
+      "distance": "0.80",
+      "review_score": 8,
+      "is_free_cancellable": 1,
+      "is_wholesaler_candidate": 1
+    },
+    {
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "review_score_word": "Very Good",
+      "hotel_name": "AmericInn by Wyndham Apple Valley",
+      "address_trans": "15000 Glazier Avenue",
+      "hotel_facilities": "136,163,222,25,301,135,8,5,107,108,433,46,20,161,72,63,64,16,81,2,22,96,305,10,436,4,48,121,51,47,109,160,80",
+      "city_name_en": "Apple Valley (Minnesota)",
+      "hotel_id": 275247,
+      "cc1": "us",
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "url": "https://www.booking.com/hotel/us/americinn-and-suites-apple-valley.html",
+      "price_is_final": 0,
+      "class_is_estimated": 0,
+      "badges": [],
+      "urgency_room_msg": "Queen Room with Two Queen Beds - Non-Smoking",
+      "longitude": -93.2165629869797,
+      "preferred_plus": 0,
+      "district": "",
+      "updated_checkin": null,
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "min_total_price": 144,
+      "review_recommendation": "",
+      "block_ids": ["27524702_246073751_5_0_0"],
+      "hotel_name_trans": "AmericInn by Wyndham Apple Valley",
+      "latitude": 44.7323250846255,
+      "currency_code": "USD",
+      "city_in_trans": "in Apple Valley",
+      "main_photo_id": 230180303,
+      "type": "property_card",
+      "review_nr": 86,
+      "city_trans": "Apple Valley",
+      "extended": 0,
+      "selected_review_topic": null,
+      "accommodation_type_name": "Motels",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1,
+        "currency": "USD",
+        "all_inclusive_price": 161.47,
+        "has_incalculable_charges": 0,
+        "sum_excluded_raw": 17.47,
+        "gross_price": "144.00"
+      },
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "country_trans": "United States of America",
+      "distance_to_cc": "0.10",
+      "deals": {
+        "deal_attributes": {},
+        "deal_events_killswitch": 0,
+        "deals_available": {}
+      },
+      "ufi": 20066627,
+      "timezone": "America/Chicago",
+      "id": "property_card_275247",
+      "class": 3,
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "default_language": "en",
+      "district_id": 0,
+      "default_wishlist_name": "Apple Valley",
+      "cant_book": 0,
+      "has_free_parking": 1,
+      "is_free_cancellable": 1,
+      "distance": "0.09",
+      "review_score": 8.1,
+      "native_ads_tracking": "",
+      "is_wholesaler_candidate": 1,
+      "city": "Apple Valley (Minnesota)",
+      "native_ad_id": "",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 13,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "hotel_include_breakfast": 0,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "accommodation_type": 205,
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/230180303.jpg?k=323ca758f3a2a580cf5a7e2028cee4b14ce16450063bb056be9b7179f7a3650f&o=",
+      "zip": "MN 55124",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "address": "15000 Glazier Avenue",
+      "preferred": 0
+    },
+    {
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Burnsville",
+      "district_id": 0,
+      "review_score": 8.3,
+      "distance": "4.94",
+      "native_ads_tracking": "",
+      "is_free_cancellable": 1,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "accommodation_type": 204,
+      "hotel_include_breakfast": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 9,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "preferred": 0,
+      "address": "14201 Nicollet Avenue South",
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/107497849.jpg?k=0c75152013dd559d3518f19e8df8de554d964d70ab0e2869dcf14a413ee02ba3&o=",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "zip": "MN 55337",
+      "districts": "",
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "hotel_id": 282426,
+      "hotel_name": "Best Western Premier Nicollet Inn",
+      "review_score_word": "Very Good",
+      "city_name_en": "Burnsville (Minnesota)",
+      "hotel_facilities": "81,133,461,420,64,6,11,220,109,457,80,305,131,446,51,124,301,135,176,26,101,46,103,438,437,465,111,2,22,195,91,449,425,445,110,4,421,221,423,7,72,466,96,63,47,462,160,121,436,3,134,145,198,200,184,8,14,12,450,5,464,49,456,16,28,23,224,451,253,485,453,468,48,467,203,158,25,222,117,163,107,459,108,20,433,455,205,422",
+      "address_trans": "14201 Nicollet Avenue South",
+      "cc1": "us",
+      "is_smart_deal": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "hotel_name_trans": "Best Western Premier Nicollet Inn",
+      "block_ids": ["28242614_346789654_4_34_0"],
+      "currency_code": "USD",
+      "latitude": 44.7455083294515,
+      "min_total_price": 129.99,
+      "review_recommendation": "",
+      "updated_checkin": null,
+      "district": "",
+      "preferred_plus": 0,
+      "longitude": -93.2769781351089,
+      "checkin": {
+        "from": "16:00",
+        "until": ""
+      },
+      "urgency_room_msg": "Queen Room with Two Queen Beds and Balcony",
+      "url": "https://www.booking.com/hotel/us/nicollet-inn.html",
+      "price_is_final": 0,
+      "class_is_estimated": 0,
+      "badges": [],
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "has_swimming_pool": 1,
+      "distance_to_cc": "2.50",
+      "extended": 1,
+      "type": "property_card",
+      "review_nr": 103,
+      "city_trans": "Burnsville",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "all_inclusive_price": 143.16,
+        "currency": "USD",
+        "gross_price": 129.99,
+        "sum_excluded_raw": 13.17,
+        "has_incalculable_charges": 0,
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1
+      },
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "main_photo_id": 107497849,
+      "city_in_trans": "in Burnsville",
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "timezone": "America/Menominee",
+      "ufi": 20066850,
+      "id": "property_card_282426",
+      "class": 3,
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      }
+    },
+    {
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "timezone": "America/Menominee",
+      "ufi": 20066850,
+      "class": 3,
+      "id": "property_card_182834",
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {
+          "has_preset": 1
+        },
+        "deal_events": [
+          {
+            "text_color": "#FFFFFF",
+            "localized_name": "Late Escape Deals",
+            "preset_id": null,
+            "disabled": 0,
+            "icon_url": "https://summer_deal.com",
+            "localized_description": "You’re getting a reduced rate because this property offers a discount on stays between October 1, 2022 and January 3, 2023.",
+            "icon_name": "percentage-circle",
+            "discount_percentage": 40,
+            "description_translation_tag": "sales_campaigns_late_escape_deal_badge_tooltip_pd",
+            "name_translation_tag": "deals_landing_late_escape_label",
+            "bg_color": "#FF8000",
+            "code": 123
+          }
+        ]
+      },
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "has_swimming_pool": 1,
+      "distance_to_cc": "2.80",
+      "type": "property_card",
+      "extended": 1,
+      "review_nr": 180,
+      "city_trans": "Burnsville",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1,
+        "currency": "USD",
+        "all_inclusive_price": 90.03,
+        "sum_excluded_raw": 8.28,
+        "gross_price": 81.75,
+        "has_incalculable_charges": 0
+      },
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "main_photo_id": 135764593,
+      "city_in_trans": "in Burnsville",
+      "hotel_name_trans": "AmericInn by Wyndham Burnsville",
+      "block_ids": ["18283408_246102412_2_0_0"],
+      "currency_code": "USD",
+      "latitude": 44.7430517621624,
+      "min_total_price": 81.75,
+      "review_recommendation": "",
+      "district": "",
+      "updated_checkin": null,
+      "preferred_plus": 0,
+      "longitude": -93.2803080976009,
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "urgency_room_msg": "Queen Room with Two Queen Beds - Non-Smoking",
+      "url": "https://www.booking.com/hotel/us/days-inn-burnsville.html",
+      "price_is_final": 0,
+      "badges": [],
+      "class_is_estimated": 0,
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "hotel_id": 182834,
+      "hotel_name": "AmericInn by Wyndham Burnsville",
+      "review_score_word": "Good",
+      "hotel_facilities": "161,419,459,107,108,433,20,455,422,158,25,222,163,136,179,425,484,449,452,468,195,22,16,28,2,451,253,91,103,170,488,46,464,49,456,301,135,198,184,8,450,462,160,80,47,220,109,457,305,436,96,461,81,143,11,420",
+      "city_name_en": "Burnsville (Minnesota)",
+      "address_trans": "14331 Nicollet Court",
+      "cc1": "us",
+      "is_smart_deal": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "preferred": 1,
+      "address": "14331 Nicollet Court",
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/135764593.jpg?k=86f89f73a03d514c22889eb8add7f169fdf19a3983ef040e319fdbf644876a93&o=",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "zip": "MN 55306",
+      "districts": "",
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "accommodation_type": 204,
+      "hotel_include_breakfast": 0,
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 13,
+          "localized_area": null
+        }
+      },
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "review_score": 7.9,
+      "distance": "5.11",
+      "native_ads_tracking": "",
+      "is_free_cancellable": 1,
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Burnsville",
+      "district_id": 0
+    },
+    {
+      "district_id": 0,
+      "default_wishlist_name": "Burnsville",
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "is_free_cancellable": 1,
+      "distance": "5.21",
+      "review_score": 7.7,
+      "native_ads_tracking": "",
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 13,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "hotel_include_breakfast": 1,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "accommodation_type": 204,
+      "districts": "",
+      "in_best_district": 0,
+      "checkout": {
+        "until": "12:00",
+        "from": ""
+      },
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/156726083.jpg?k=5932e04e20913c7fbba9fc241b1ff186d204c04d9852562469a44a9ee78662be&o=",
+      "zip": "MN 55306",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "address": "14400 Nicollet Court",
+      "preferred": 1,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "hotel_name": "Hampton Inn Minneapolis-Burnsville",
+      "review_score_word": "Good",
+      "hotel_facilities": "81,461,96,479,436,305,486,474,51,457,458,109,47,80,462,160,450,502,185,184,8,301,49,456,46,488,487,494,448,103,451,253,2,28,16,23,48,468,467,110,452,444,489,211,453,445,435,484,449,439,163,25,460,496,478,20,433,455,108,459,107,483",
+      "city_name_en": "Burnsville (Minnesota)",
+      "address_trans": "14400 Nicollet Court",
+      "hotel_id": 181459,
+      "cc1": "us",
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "price_is_final": 0,
+      "url": "https://www.booking.com/hotel/us/hampton-inn-minneapolis-burnsville.html",
+      "class_is_estimated": 0,
+      "badges": [],
+      "urgency_room_msg": "Queen Room - Non-Smoking",
+      "longitude": -93.2818047702312,
+      "preferred_plus": 0,
+      "district": "",
+      "updated_checkin": null,
+      "checkin": {
+        "until": "23:00",
+        "from": "15:00"
+      },
+      "min_total_price": 134,
+      "review_recommendation": "",
+      "block_ids": ["18145910_266273143_5_1_0"],
+      "hotel_name_trans": "Hampton Inn Minneapolis-Burnsville",
+      "latitude": 44.7422420912885,
+      "currency_code": "USD",
+      "city_in_trans": "in Burnsville",
+      "main_photo_id": 156726083,
+      "city_trans": "Burnsville",
+      "type": "property_card",
+      "review_nr": 65,
+      "extended": 1,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1,
+        "currency": "USD",
+        "all_inclusive_price": 147.57,
+        "sum_excluded_raw": 13.57,
+        "gross_price": "134.00",
+        "has_incalculable_charges": 0
+      },
+      "is_mobile_deal": 0,
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "distance_to_cc": "2.90",
+      "has_swimming_pool": 1,
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "ufi": 20066850,
+      "timezone": "America/Menominee",
+      "id": "property_card_181459",
+      "class": 3,
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "default_language": "en"
+    },
+    {
+      "review_score_word": "Pleasant",
+      "hotel_facilities": "25,163,441,136,20,443,433,455,108,107,496,23,22,2,28,16,451,453,445,449,439,434,468,48,467,503,184,8,145,135,301,450,502,65,448,447,103,46,494,456,96,504,81,11,182,440,63,80,462,160,109,457,47,51,121,446,436,492,305",
+      "hotel_name": "Fairfield Inn & Suites Minneapolis Burnsville",
+      "city_name_en": "Burnsville (Minnesota)",
+      "address_trans": "14350 Nicollet Court",
+      "hotel_id": 269546,
+      "cc1": "us",
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "is_smart_deal": 0,
+      "min_total_price": 109.48,
+      "review_recommendation": "",
+      "block_ids": ["26954601_331492924_0_1_0"],
+      "hotel_name_trans": "Fairfield Inn & Suites Minneapolis Burnsville",
+      "latitude": 44.7429612700981,
+      "currency_code": "USD",
+      "url": "https://www.booking.com/hotel/us/fairfield-inn-burnsville.html",
+      "price_is_final": 0,
+      "badges": [],
+      "class_is_estimated": 0,
+      "urgency_room_msg": "Queen Room with Two Queen Beds",
+      "preferred_plus": 0,
+      "longitude": -93.281576782465,
+      "district": "",
+      "updated_checkin": null,
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "city_trans": "Burnsville",
+      "type": "property_card",
+      "review_nr": 51,
+      "extended": 1,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_incalculable_charges": 0,
+        "sum_excluded_raw": 11.09,
+        "gross_price": 109.48,
+        "currency": "USD",
+        "all_inclusive_price": 120.57,
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0
+      },
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "country_trans": "United States of America",
+      "has_swimming_pool": 1,
+      "distance_to_cc": "2.80",
+      "city_in_trans": "in Burnsville",
+      "main_photo_id": 80463985,
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "default_language": "en",
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      },
+      "ufi": 20066850,
+      "timezone": "America/Menominee",
+      "id": "property_card_269546",
+      "class": 3,
+      "default_wishlist_name": "Burnsville",
+      "cant_book": 0,
+      "has_free_parking": 1,
+      "district_id": 0,
+      "is_free_cancellable": 1,
+      "distance": "5.21",
+      "review_score": 6.9,
+      "native_ads_tracking": "",
+      "hotel_include_breakfast": 1,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "accommodation_type": 204,
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 4,
+          "localized_area": null
+        }
+      },
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "address": "14350 Nicollet Court",
+      "preferred": 0,
+      "districts": "",
+      "checkout": {
+        "until": "12:00",
+        "from": ""
+      },
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/80463985.jpg?k=11847d7002709c86f027a05a28695b9d41539d7e0042614ccd636469b8c81444&o=",
+      "zip": "MN 55306",
+      "is_genius_deal": 0,
+      "countrycode": "us"
+    },
+    {
+      "min_total_price": 75.6,
+      "review_recommendation": "",
+      "block_ids": ["2592404_353226576_2_1_0"],
+      "hotel_name_trans": "LivINN Hotel Minneapolis South / Burnsville",
+      "latitude": 44.7669528989612,
+      "currency_code": "USD",
+      "url": "https://www.booking.com/hotel/us/livinn-suites-burnsville.html",
+      "badges": [
+        {
+          "id": "mobile_price",
+          "text": "Mobile-only price",
+          "badge_variant": "constructive"
+        }
+      ],
+      "price_is_final": 1,
+      "class_is_estimated": 0,
+      "urgency_room_msg": "Economy King Room - Non-Smoking",
+      "longitude": -93.2899171113968,
+      "preferred_plus": 0,
+      "district": "",
+      "updated_checkin": null,
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "hotel_facilities": "451,2,16,22,468,48,467,4,110,453,425,449,136,163,25,158,422,20,455,108,459,107,423,177,420,11,182,81,143,461,96,436,305,457,109,47,80,462,160,450,8,184,135,49,456,464,46",
+      "review_score_word": "Very Good",
+      "hotel_name": "LivINN Hotel Minneapolis South / Burnsville",
+      "city_name_en": "Burnsville (Minnesota)",
+      "address_trans": "13080 Aldrich Avenue South",
+      "hotel_id": 25924,
+      "cc1": "us",
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "is_smart_deal": 0,
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "default_language": "en",
+      "deals": {
+        "deals_available": {},
+        "deal_attributes": {},
+        "deal_events_killswitch": 0
+      },
+      "ufi": 20066850,
+      "timezone": "America/Menominee",
+      "id": "property_card_25924",
+      "class": 3,
+      "review_nr": 809,
+      "type": "property_card",
+      "city_trans": "Burnsville",
+      "extended": 1,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "is_mobile_deal": 1,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 0,
+        "currency": "USD",
+        "all_inclusive_price": 91.72,
+        "sum_excluded_raw": 16.12,
+        "gross_price": "75.60",
+        "has_incalculable_charges": 0
+      },
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "country_trans": "United States of America",
+      "distance_to_cc": "1.00",
+      "city_in_trans": "in Burnsville",
+      "main_photo_id": 111061525,
+      "is_wholesaler_candidate": 1,
+      "is_free_cancellable": 1,
+      "distance": "6.92",
+      "review_score": 8,
+      "native_ads_tracking": "",
+      "default_wishlist_name": "Burnsville",
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "district_id": 0,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "address": "13080 Aldrich Avenue South",
+      "preferred": 1,
+      "in_best_district": 0,
+      "districts": "",
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/111061525.jpg?k=950d0940b6de6f65176b137a577c02e0dc128e19cdc62294c4730e796453f0a0&o=",
+      "zip": "MN 55337",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "hotel_include_breakfast": 1,
+      "mobile_discount_percentage": 8.39999999999999,
+      "updated_checkout": null,
+      "accommodation_type": 204,
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 9,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0
+    },
+    {
+      "default_wishlist_name": "Eagan",
+      "cant_book": 0,
+      "district_id": 0,
+      "is_free_cancellable": 1,
+      "review_score": 3.5,
+      "distance": "6.38",
+      "native_ads_tracking": "",
+      "hotel_include_breakfast": 0,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "accommodation_type": 218,
+      "city": "Eagan",
+      "native_ad_id": "",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 9,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "preferred": 0,
+      "address": "1953 Rahncliff Court",
+      "districts": "",
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/249455743.jpg?k=547440de19bcef9fc3fe78a3c0cdcee9ae80d5b209db60b3c887a62e76b472c0&o=",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "zip": "MN 55122",
+      "hotel_id": 4924380,
+      "city_name_en": "Eagan",
+      "review_score_word": "Poor",
+      "hotel_name": "Norwood Inn & Suites Eagan",
+      "hotel_facilities": "110,44,424,425,224,91,411,253,28,16,127,22,205,422,78,433,20,423,57,107,221,108,419,72,421,136,163,222,25,242,158,117,305,10,51,109,240,47,80,418,257,142,177,64,63,420,11,6,143,81,96,111,5,54,438,437,103,14,185,8,135,301",
+      "address_trans": "1953 Rahncliff Court",
+      "cc1": "us",
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "min_total_price": 76,
+      "review_recommendation": "",
+      "hotel_name_trans": "Norwood Inn & Suites Eagan",
+      "block_ids": ["492438010_363134968_3_0_0"],
+      "currency_code": "USD",
+      "latitude": 44.7887500464013,
+      "urgency_room_msg": "Standard King Room",
+      "price_is_final": 1,
+      "url": "https://www.booking.com/hotel/us/norwood-inn-amp-suites-eagan.html",
+      "badges": [],
+      "class_is_estimated": 0,
+      "district": "",
+      "updated_checkin": null,
+      "longitude": -93.2064707066765,
+      "preferred_plus": 0,
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "review_nr": 851,
+      "type": "property_card",
+      "extended": 1,
+      "city_trans": "Eagan",
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 0,
+        "all_inclusive_price": 83.7,
+        "currency": "USD",
+        "gross_price": "76.00",
+        "sum_excluded_raw": "7.70",
+        "has_incalculable_charges": 0
+      },
+      "is_mobile_deal": 0,
+      "selected_review_topic": null,
+      "accommodation_type_name": "Inns",
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 1,
+      "has_swimming_pool": 1,
+      "distance_to_cc": "4.60",
+      "city_in_trans": "in Eagan",
+      "main_photo_id": 249455743,
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "default_language": "xu",
+      "deals": {
+        "deal_attributes": {},
+        "deal_events_killswitch": 0,
+        "deals_available": {}
+      },
+      "timezone": "America/Menominee",
+      "ufi": 20067112,
+      "id": "property_card_4924380",
+      "class": 0
+    },
+    {
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 9,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "city": "Eagan (Minnesota)",
+      "native_ad_id": "",
+      "mobile_discount_percentage": 10.9,
+      "updated_checkout": null,
+      "accommodation_type": 204,
+      "hotel_include_breakfast": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/268853973.jpg?k=c5864c3f3da0e5166a776459fdee04c25b838fa44b44a0680a4257420593659d&o=",
+      "zip": "MN 55122",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "address": "4510 Erin Drive",
+      "preferred": 1,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "district_id": 0,
+      "cant_book": 0,
+      "default_wishlist_name": "Eagan",
+      "distance": "6.81",
+      "review_score": 7.5,
+      "native_ads_tracking": "",
+      "is_free_cancellable": 1,
+      "is_wholesaler_candidate": 1,
+      "main_photo_id": 268853973,
+      "city_in_trans": "in Eagan",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "distance_to_cc": "5.15",
+      "has_swimming_pool": 1,
+      "type": "property_card",
+      "review_nr": 308,
+      "city_trans": "Eagan",
+      "extended": 1,
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "price_breakdown": {
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0,
+        "gross_price": "98.10",
+        "sum_excluded_raw": 9.94,
+        "has_incalculable_charges": 0,
+        "all_inclusive_price": 108.04,
+        "currency": "USD"
+      },
+      "is_mobile_deal": 1,
+      "ufi": 20067112,
+      "timezone": "America/Menominee",
+      "id": "property_card_302636",
+      "class": 2,
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "is_smart_deal": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "review_score_word": "Good",
+      "hotel_name": "Days Inn by Wyndham Eagan Minnesota Near Mall of America",
+      "hotel_facilities": "16,81,22,96,128,63,420,6,11,47,458,109,457,425,80,305,436,121,48,304,25,135,301,8,136,163,107,455,433,488,20,103,422",
+      "city_name_en": "Eagan (Minnesota)",
+      "address_trans": "4510 Erin Drive",
+      "hotel_id": 302636,
+      "cc1": "us",
+      "preferred_plus": 0,
+      "longitude": -93.2201369,
+      "updated_checkin": null,
+      "district": "",
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "url": "https://www.booking.com/hotel/us/days-inn-eagan.html",
+      "class_is_estimated": 0,
+      "price_is_final": 0,
+      "badges": [
+        {
+          "badge_variant": "constructive",
+          "text": "Mobile-only price",
+          "id": "mobile_price"
+        }
+      ],
+      "urgency_room_msg": "Standard Queen Room - Disability Access - Non-Smoking",
+      "block_ids": ["30263614_246080238_2_1_0"],
+      "hotel_name_trans": "Days Inn by Wyndham Eagan Minnesota Near Mall of America",
+      "latitude": 44.793083,
+      "currency_code": "USD",
+      "min_total_price": 98.1,
+      "review_recommendation": ""
+    },
+    {
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 24
+        }
+      },
+      "native_ads_cpc": 0,
+      "native_ad_id": "",
+      "city": "Lakeville (Minnesota)",
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "hotel_include_breakfast": 1,
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "zip": "MN 55044",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/169863232.jpg?k=45465cfb06876a12ebf128cbe4ae79e306adb8a642f009834feec29321800631&o=",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "in_best_district": 0,
+      "districts": "",
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "preferred": 0,
+      "address": "17605 Kenrick Avenue",
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "district_id": 0,
+      "cant_book": 0,
+      "has_free_parking": 1,
+      "default_wishlist_name": "Lakeville",
+      "native_ads_tracking": "",
+      "review_score": 7.6,
+      "distance": "6.88",
+      "is_free_cancellable": 1,
+      "is_wholesaler_candidate": 1,
+      "main_photo_id": 169863232,
+      "city_in_trans": "in Lakeville",
+      "distance_to_cc": "6.10",
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 0,
+        "currency": "USD",
+        "all_inclusive_price": 110.12,
+        "sum_excluded_raw": 10.13,
+        "gross_price": 99.99,
+        "has_incalculable_charges": 0
+      },
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "type": "property_card",
+      "extended": 1,
+      "review_nr": 59,
+      "city_trans": "Lakeville",
+      "id": "property_card_176119",
+      "class": 2,
+      "timezone": "America/Chicago",
+      "ufi": 20067631,
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      },
+      "default_language": "en",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "is_smart_deal": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc1": "us",
+      "hotel_id": 176119,
+      "review_score_word": "Good",
+      "hotel_facilities": "452,464,456,486,468,160,449,484,462,47,107,459,457,455,46,163,450,451,96,461,2",
+      "hotel_name": "Quality Inn Lakeville",
+      "city_name_en": "Lakeville (Minnesota)",
+      "address_trans": "17605 Kenrick Avenue",
+      "checkin": {
+        "from": "15:00",
+        "until": "00:00"
+      },
+      "district": "",
+      "updated_checkin": null,
+      "longitude": -93.2866823673248,
+      "preferred_plus": 0,
+      "urgency_room_msg": "Queen Room with Two Queen Beds - Non-Smoking",
+      "price_is_final": 1,
+      "url": "https://www.booking.com/hotel/us/comfort-inn-lakeville.html",
+      "badges": [],
+      "class_is_estimated": 0,
+      "currency_code": "USD",
+      "latitude": 44.6943055765799,
+      "hotel_name_trans": "Quality Inn Lakeville",
+      "block_ids": ["17611901_249642427_2_1_0"],
+      "review_recommendation": "",
+      "min_total_price": 99.99
+    },
+    {
+      "is_free_cancellable": 1,
+      "native_ads_tracking": "",
+      "distance": "6.52",
+      "review_score": 7.6,
+      "district_id": 0,
+      "default_wishlist_name": "Lakeville",
+      "cant_book": 0,
+      "has_free_parking": 1,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "zip": "MN 55044",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/156652161.jpg?k=8a5ce58ea95334356faa7d29a7d4609156c75d3018a6194eecc02fb4e82e517d&o=",
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "address": "17145 Kenyon Avenue",
+      "preferred": 0,
+      "native_ad_id": "",
+      "city": "Lakeville (Minnesota)",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 4,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "hotel_include_breakfast": 1,
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "url": "https://www.booking.com/hotel/us/baymont-inn-lakeville.html",
+      "class_is_estimated": 0,
+      "price_is_final": 0,
+      "badges": [],
+      "urgency_room_msg": "Queen Room with Two Queen Beds - Non-Smoking",
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "preferred_plus": 0,
+      "longitude": -93.2876969128847,
+      "updated_checkin": null,
+      "district": "",
+      "review_recommendation": "",
+      "min_total_price": 109.99,
+      "latitude": 44.7011349741482,
+      "currency_code": "USD",
+      "block_ids": ["33736504_246077464_2_1_0"],
+      "hotel_name_trans": "Baymont by Wyndham Lakeville",
+      "is_city_center": 0,
+      "cc_required": 1,
+      "is_smart_deal": 0,
+      "cc1": "us",
+      "review_score_word": "Good",
+      "city_name_en": "Lakeville (Minnesota)",
+      "hotel_name": "Baymont by Wyndham Lakeville",
+      "hotel_facilities": "2,28,96,22,63,64,6,109,47,80,160,436,121,305,25,8,301,163,433,20,46,57,107",
+      "address_trans": "17145 Kenyon Avenue",
+      "hotel_id": 337365,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "id": "property_card_337365",
+      "class": 2,
+      "ufi": 20067631,
+      "timezone": "America/Chicago",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "default_language": "en",
+      "city_in_trans": "in Lakeville",
+      "main_photo_id": 156652161,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "price_breakdown": {
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0,
+        "has_incalculable_charges": 0,
+        "sum_excluded_raw": 11.14,
+        "gross_price": 109.99,
+        "currency": "USD",
+        "all_inclusive_price": 121.13
+      },
+      "is_mobile_deal": 0,
+      "extended": 1,
+      "type": "property_card",
+      "review_nr": 130,
+      "city_trans": "Lakeville",
+      "distance_to_cc": "6.75",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America"
+    },
+    {
+      "is_free_cancellable": 1,
+      "native_ads_tracking": "",
+      "distance": "6.37",
+      "review_score": 8.1,
+      "district_id": 0,
+      "default_wishlist_name": "Eagan",
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "in_best_district": 0,
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "districts": "",
+      "zip": "MN 55122",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/280110402.jpg?k=55604400d3b7106e2f190040635e4cff4ab2463d8019ce16d882b00f172958b4&o=",
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "address": "1975 Rahncliff Court",
+      "preferred": 1,
+      "native_ad_id": "",
+      "city": "Eagan (Minnesota)",
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 7
+        }
+      },
+      "hotel_include_breakfast": 0,
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "url": "https://www.booking.com/hotel/us/hilton-garden-inn-minneapolis-eagan.html",
+      "class_is_estimated": 0,
+      "price_is_final": 0,
+      "badges": [],
+      "urgency_room_msg": "King Room",
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "longitude": -93.2060149312019,
+      "preferred_plus": 0,
+      "district": "",
+      "updated_checkin": null,
+      "review_recommendation": "",
+      "min_total_price": 149,
+      "latitude": 44.7885979540366,
+      "currency_code": "USD",
+      "block_ids": ["18219802_266269718_3_2_0"],
+      "hotel_name_trans": "Hilton Garden Inn Minneapolis Eagan",
+      "is_city_center": 0,
+      "cc_required": 1,
+      "is_smart_deal": 0,
+      "cc1": "us",
+      "address_trans": "1975 Rahncliff Court",
+      "review_score_word": "Very Good",
+      "hotel_name": "Hilton Garden Inn Minneapolis Eagan",
+      "hotel_facilities": "253,451,16,28,23,467,48,203,43,489,485,439,453,163,219,158,222,25,117,209,422,205,496,108,459,107,455,20,433,483,63,177,182,143,96,436,479,121,47,160,462,502,450,12,3,198,184,8,5,49,210,448,91,2,22,4,452,425,449,445,136,17,460,478,443,7,420,15,440,6,11,133,81,505,305,51,474,109,80,124,301,135,139,111,488,487,46,103",
+      "city_name_en": "Eagan (Minnesota)",
+      "hotel_id": 182198,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "deals": {
+        "deal_attributes": {},
+        "deal_events_killswitch": 0,
+        "deals_available": {}
+      },
+      "id": "property_card_182198",
+      "class": 3,
+      "ufi": 20067112,
+      "timezone": "America/Menominee",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "default_language": "en",
+      "city_in_trans": "in Eagan",
+      "main_photo_id": 280110402,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0,
+        "sum_excluded_raw": 15.09,
+        "gross_price": "149.00",
+        "has_incalculable_charges": 0,
+        "currency": "USD",
+        "all_inclusive_price": 164.09
+      },
+      "review_nr": 48,
+      "type": "property_card",
+      "extended": 1,
+      "city_trans": "Eagan",
+      "distance_to_cc": "4.60",
+      "has_swimming_pool": 1,
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America"
+    },
+    {
+      "is_smart_deal": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "address_trans": "12850 West Frontage Road",
+      "review_score_word": "Good",
+      "hotel_name": "Prime Rate Inn",
+      "hotel_facilities": "121,80,103,160,433,46,109,107,47,163,136,29,8,301,135,96,22,2",
+      "city_name_en": "Burnsville (Minnesota)",
+      "hotel_id": 301500,
+      "cc1": "us",
+      "preferred_plus": 0,
+      "longitude": -93.2900981605053,
+      "updated_checkin": null,
+      "district": "",
+      "checkin": {
+        "from": "14:00",
+        "until": ""
+      },
+      "url": "https://www.booking.com/hotel/us/prime-rate-motel.html",
+      "class_is_estimated": 0,
+      "price_is_final": 0,
+      "badges": [],
+      "urgency_room_msg": "Queen Room - Non-Smoking",
+      "block_ids": ["30150001_204529453_2_0_0"],
+      "hotel_name_trans": "Prime Rate Inn",
+      "latitude": 44.7713040761322,
+      "currency_code": "USD",
+      "min_total_price": 79,
+      "review_recommendation": "",
+      "main_photo_id": 60663971,
+      "city_in_trans": "in Burnsville",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "distance_to_cc": "1.10",
+      "has_swimming_pool": 1,
+      "type": "property_card",
+      "review_nr": 151,
+      "extended": 1,
+      "city_trans": "Burnsville",
+      "selected_review_topic": null,
+      "accommodation_type_name": "Motels",
+      "price_breakdown": {
+        "gross_price": "79.00",
+        "sum_excluded_raw": "8.00",
+        "has_incalculable_charges": 0,
+        "all_inclusive_price": 87,
+        "currency": "USD",
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0
+      },
+      "is_mobile_deal": 0,
+      "ufi": 20066850,
+      "timezone": "America/Menominee",
+      "id": "property_card_301500",
+      "class": 2,
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      },
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "district_id": 0,
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Burnsville",
+      "distance": "7.22",
+      "review_score": 7.4,
+      "native_ads_tracking": "",
+      "is_free_cancellable": 1,
+      "is_wholesaler_candidate": 1,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 9
+        }
+      },
+      "native_ads_cpc": 0,
+      "city": "Burnsville (Minnesota)",
+      "native_ad_id": "",
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "accommodation_type": 205,
+      "hotel_include_breakfast": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/60663971.jpg?k=74787cc6c6de5953382fec92c02190560ba53f3ac33f0a363d8e3a8fee43dbd1&o=",
+      "zip": "MN 55337",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "districts": "",
+      "in_best_district": 0,
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "address": "12850 West Frontage Road",
+      "preferred": 0,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0
+    },
+    {
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "accommodation_type": 204,
+      "hotel_include_breakfast": 0,
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 9,
+          "localized_area": null
+        }
+      },
+      "city": "Burnsville (Minesota)",
+      "native_ad_id": "",
+      "address": "12920 Aldrich Avenue South",
+      "preferred": 0,
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/238110966.jpg?k=f72089226843faf77824dab519fd01d6f3669b1e5e9fa9598932616a31eb2942&o=",
+      "zip": "MN 55337",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "in_best_district": 0,
+      "districts": "",
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Burnsville",
+      "district_id": 0,
+      "is_wholesaler_candidate": 1,
+      "distance": "7.16",
+      "review_score": 7.2,
+      "native_ads_tracking": "",
+      "is_free_cancellable": 1,
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "distance_to_cc": "1.15",
+      "extended": 1,
+      "type": "property_card",
+      "review_nr": 118,
+      "city_trans": "Burnsville",
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1,
+        "currency": "USD",
+        "all_inclusive_price": 77.08,
+        "sum_excluded_raw": 7.09,
+        "gross_price": 69.99,
+        "has_incalculable_charges": 0
+      },
+      "main_photo_id": 238110966,
+      "city_in_trans": "in Burnsville",
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "ufi": 20066850,
+      "timezone": "America/Menominee",
+      "id": "property_card_240054",
+      "class": 2,
+      "deals": {
+        "deal_attributes": {},
+        "deal_events_killswitch": 0,
+        "deals_available": {}
+      },
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "hotel_name": "Motel 6-Burnsville, MN",
+      "review_score_word": "Good",
+      "hotel_facilities": "110,4,80,160,46,109,47,164,136,117,8,96,2,16",
+      "city_name_en": "Burnsville (Minesota)",
+      "address_trans": "12920 Aldrich Avenue South",
+      "hotel_id": 240054,
+      "cc1": "us",
+      "is_smart_deal": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "block_ids": ["24005414_233818648_1_0_0"],
+      "hotel_name_trans": "Motel 6-Burnsville, MN",
+      "latitude": 44.7688055,
+      "currency_code": "USD",
+      "min_total_price": 69.99,
+      "review_recommendation": "",
+      "preferred_plus": 0,
+      "longitude": -93.2917693,
+      "updated_checkin": null,
+      "district": "",
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "class_is_estimated": 0,
+      "url": "https://www.booking.com/hotel/us/burnsville.html",
+      "price_is_final": 0,
+      "badges": [],
+      "urgency_room_msg": "Deluxe King Room - Smoking"
+    },
+    {
+      "hotel_include_breakfast": 0,
+      "accommodation_type": 204,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "native_ad_id": "",
+      "city": "Burnsville (Minnesota)",
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 9
+        }
+      },
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "preferred": 0,
+      "address": "1101 West Burnsville Parkway",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "zip": "MN 55337",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/175009396.jpg?k=7fc9cef8de1b48dc53c37e2b0d4b45a825f4dde891120e827146f3c991e18354&o=",
+      "default_wishlist_name": "Burnsville",
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "district_id": 0,
+      "is_wholesaler_candidate": 1,
+      "is_free_cancellable": 0,
+      "native_ads_tracking": "",
+      "review_score": 7.8,
+      "distance": "7.20",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_fine_print_charges": 1,
+        "has_tax_exceptions": 0,
+        "has_incalculable_charges": 0,
+        "sum_excluded_raw": 8.61,
+        "gross_price": 84.99,
+        "currency": "USD",
+        "all_inclusive_price": 93.6
+      },
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "review_nr": 100,
+      "type": "property_card",
+      "extended": 1,
+      "city_trans": "Burnsville",
+      "distance_to_cc": "1.15",
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "city_in_trans": "in Burnsville",
+      "main_photo_id": 175009396,
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "default_language": "en",
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "id": "property_card_299302",
+      "class": 2,
+      "timezone": "America/Menominee",
+      "ufi": 20066850,
+      "cc1": "us",
+      "hotel_id": 299302,
+      "hotel_name": "Burnsville Inn & Suites",
+      "review_score_word": "Good",
+      "hotel_facilities": "80,418,160,425,109,424,47,110,305,22,96,2,16,81,420,419,46,423,107,422,184,8,135,25,158,163,136",
+      "address_trans": "1101 West Burnsville Parkway",
+      "city_name_en": "Burnsville (Minnesota)",
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "review_recommendation": "",
+      "min_total_price": 84.99,
+      "currency_code": "USD",
+      "latitude": 44.7693322813148,
+      "hotel_name_trans": "Burnsville Inn & Suites",
+      "block_ids": ["29930203_354159938_0_0_0"],
+      "urgency_room_msg": "Queen Room - Smoking",
+      "badges": [],
+      "url": "https://www.booking.com/hotel/us/americas-best-value-inn-burnsville-minneapolis.html",
+      "price_is_final": 0,
+      "class_is_estimated": 0,
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "updated_checkin": null,
+      "district": "",
+      "longitude": -93.2918348908424,
+      "preferred_plus": 0
+    },
+    {
+      "id": "property_card_3317671",
+      "class": 3,
+      "timezone": "America/Menominee",
+      "ufi": 20067112,
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      },
+      "default_language": "en",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "main_photo_id": 223795069,
+      "city_in_trans": "in Eagan",
+      "distance_to_cc": "3.75",
+      "has_swimming_pool": 1,
+      "country_trans": "United States of America",
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "price_breakdown": {
+        "has_fine_print_charges": 0,
+        "has_tax_exceptions": 0,
+        "gross_price": "144.00",
+        "sum_excluded_raw": 14.59,
+        "has_incalculable_charges": 0,
+        "all_inclusive_price": 158.59,
+        "currency": "USD"
+      },
+      "is_mobile_deal": 0,
+      "accommodation_type_name": "Hotels",
+      "selected_review_topic": null,
+      "extended": 1,
+      "type": "property_card",
+      "review_nr": 193,
+      "city_trans": "Eagan",
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "district": "",
+      "updated_checkin": null,
+      "preferred_plus": 0,
+      "longitude": -93.2131182598,
+      "urgency_room_msg": "Queen Suite - Non-Smoking",
+      "price_is_final": 0,
+      "url": "https://www.booking.com/hotel/us/home2-suites-by-hilton-eagan-minneapolis.html",
+      "badges": [],
+      "class_is_estimated": 0,
+      "currency_code": "USD",
+      "latitude": 44.8145443006,
+      "hotel_name_trans": "Home2 Suites By Hilton Eagan Minneapolis",
+      "block_ids": ["331767106_266277143_2_1_0"],
+      "review_recommendation": "",
+      "min_total_price": 144,
+      "is_smart_deal": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc1": "us",
+      "hotel_id": 3317671,
+      "review_score_word": "Very Good",
+      "hotel_facilities": "496,478,20,433,455,108,459,107,483,490,163,25,17,460,48,4,110,452,489,444,453,435,445,449,439,91,451,506,253,28,2,16,22,49,456,464,488,494,448,103,499,450,8,139,184,301,479,121,436,492,305,474,51,493,109,457,47,462,160,11,81,461,96",
+      "hotel_name": "Home2 Suites By Hilton Eagan Minneapolis",
+      "city_name_en": "Eagan (Minnisota)",
+      "address_trans": "3939 Cedar Grove Parkway",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "zip": "MN 55122",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/223795069.jpg?k=df2828dbf18b59b2407abee3abf54efda82ce6ef34357e15f1b8431e9b599b36&o=",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "preferred": 1,
+      "address": "3939 Cedar Grove Parkway",
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 5,
+          "localized_area": null
+        }
+      },
+      "native_ad_id": "",
+      "city": "Eagan (Minnisota)",
+      "accommodation_type": 204,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "hotel_include_breakfast": 1,
+      "native_ads_tracking": "",
+      "review_score": 8,
+      "distance": "9.20",
+      "is_free_cancellable": 1,
+      "district_id": 0,
+      "cant_book": 0,
+      "default_wishlist_name": "Eagan"
+    },
+    {
+      "native_ads_cpc": 0,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 9
+        }
+      },
+      "city": "Eagan",
+      "native_ad_id": "",
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "accommodation_type": 204,
+      "hotel_include_breakfast": 1,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/292045195.jpg?k=a994f741bd3672de9f8ed36908081bab663b5a42f0d362ce3fb00ff106112000&o=",
+      "is_genius_deal": 0,
+      "countrycode": "us",
+      "zip": "55122",
+      "districts": "",
+      "checkout": {
+        "until": "12:00",
+        "from": ""
+      },
+      "in_best_district": 0,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "preferred": 0,
+      "address": "3949 Cedar Grove Pkwy",
+      "is_no_prepayment_block": 1,
+      "wishlist_count": 0,
+      "district_id": 0,
+      "cant_book": 0,
+      "default_wishlist_name": "Eagan",
+      "review_score": 8.1,
+      "distance": "9.22",
+      "native_ads_tracking": "",
+      "is_free_cancellable": 0,
+      "main_photo_id": 292045195,
+      "city_in_trans": "in Eagan",
+      "country_trans": "United States of America",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "distance_to_cc": "3.70",
+      "has_swimming_pool": 1,
+      "review_nr": 45,
+      "type": "property_card",
+      "extended": 1,
+      "city_trans": "Eagan",
+      "price_breakdown": {
+        "has_incalculable_charges": 0,
+        "sum_excluded_raw": 12.05,
+        "gross_price": "119.00",
+        "currency": "USD",
+        "all_inclusive_price": 131.05,
+        "has_fine_print_charges": 0,
+        "has_tax_exceptions": 0
+      },
+      "is_mobile_deal": 0,
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "timezone": "America/Menominee",
+      "ufi": 20067112,
+      "class": 0,
+      "id": "property_card_7166512",
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      },
+      "default_language": "en",
+      "currencycode": "USD",
+      "children_not_allowed": 0,
+      "is_smart_deal": 0,
+      "is_city_center": 0,
+      "cc_required": 1,
+      "genius_discount_percentage": 0,
+      "soldout": 0,
+      "hotel_id": 7166512,
+      "review_score_word": "Very Good",
+      "city_name_en": "Eagan",
+      "hotel_name": "Fairfield by Marriott Inn & Suites St. Paul Eagan",
+      "hotel_facilities": "189,185,503,8,184,301,198,502,65,494,448,437,447,103,465,111,49,505,81,96,504,440,491,420,11,109,47,80,160,121,436,305,51,25,222,158,441,421,179,186,20,433,108,107,423,161,422,442,212,2,16,188,22,506,253,424,489,211,434,497,498,435,445,439,425",
+      "address_trans": "3949 Cedar Grove Pkwy",
+      "cc1": "us",
+      "district": "",
+      "updated_checkin": null,
+      "preferred_plus": 0,
+      "longitude": -93.212212,
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "urgency_room_msg": "King Room",
+      "url": "https://www.booking.com/hotel/us/fairfield-by-marriott-inn-suites-st-paul-eagan.html",
+      "badges": [],
+      "price_is_final": 0,
+      "class_is_estimated": 0,
+      "hotel_name_trans": "Fairfield by Marriott Inn & Suites St. Paul Eagan",
+      "block_ids": ["716651203_298979948_0_1_0"],
+      "currency_code": "USD",
+      "latitude": 44.814709,
+      "min_total_price": 119,
+      "review_recommendation": ""
+    },
+    {
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "default_wishlist_name": "Savage",
+      "district_id": 0,
+      "is_wholesaler_candidate": 1,
+      "native_ads_tracking": "",
+      "distance": "10.84",
+      "review_score": 6.2,
+      "is_free_cancellable": 0,
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "hotel_include_breakfast": 1,
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "unit_type_id": 24,
+          "localized_area": null
+        }
+      },
+      "native_ads_cpc": 0,
+      "native_ad_id": "",
+      "city": "Savage (Minnesota)",
+      "address": "4601 West Hwy 13",
+      "preferred": 0,
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "zip": "MN 55378",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/169863705.jpg?k=a866c1a10ecdd49030f6ae21c8d9212772d672d566b764f9a463f9b2d5dc8f0c&o=",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "checkout": {
+        "from": "",
+        "until": "11:00"
+      },
+      "in_best_district": 0,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc1": "us",
+      "review_score_word": "Pleasant",
+      "hotel_facilities": "305,47,107,433,46,160,103,161,163,2,96,301",
+      "hotel_name": "Quality Inn Savage",
+      "address_trans": "4601 West Hwy 13",
+      "city_name_en": "Savage (Minnesota)",
+      "hotel_id": 490381,
+      "is_smart_deal": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "latitude": 44.7785718103438,
+      "currency_code": "USD",
+      "block_ids": ["49038101_334064697_2_1_0"],
+      "hotel_name_trans": "Quality Inn Savage",
+      "review_recommendation": "",
+      "min_total_price": 62.9,
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "longitude": -93.3380681276321,
+      "preferred_plus": 0,
+      "updated_checkin": null,
+      "district": "",
+      "class_is_estimated": 0,
+      "url": "https://www.booking.com/hotel/us/hotel-highway-13-savage.html",
+      "price_is_final": 0,
+      "badges": [],
+      "urgency_room_msg": "Queen Room - Non-Smoking",
+      "has_swimming_pool": 1,
+      "distance_to_cc": "0.20",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_fine_print_charges": 0,
+        "has_tax_exceptions": 0,
+        "sum_excluded_raw": 4.33,
+        "gross_price": "62.90",
+        "has_incalculable_charges": 0,
+        "currency": "USD",
+        "all_inclusive_price": 67.23
+      },
+      "city_trans": "Savage",
+      "type": "property_card",
+      "review_nr": 99,
+      "extended": 1,
+      "main_photo_id": 169863705,
+      "city_in_trans": "in Savage",
+      "default_language": "en",
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "id": "property_card_490381",
+      "class": 3,
+      "ufi": 20068301,
+      "timezone": "America/Chicago",
+      "deals": {
+        "deals_available": {},
+        "deal_events_killswitch": 0,
+        "deal_attributes": {}
+      }
+    },
+    {
+      "is_free_cancellable": 1,
+      "native_ads_tracking": "",
+      "distance": "11.73",
+      "review_score": 8,
+      "default_wishlist_name": "Eagan",
+      "cant_book": 0,
+      "district_id": 0,
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "address": "3450 Washington Drive",
+      "preferred": 1,
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "in_best_district": 0,
+      "zip": "MN 55122",
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/116752118.jpg?k=f04c4a44b8aa7d62d121ba9b3c8597212ae257e3ee66b1825dd35f46837049c9&o=",
+      "hotel_include_breakfast": 1,
+      "accommodation_type": 204,
+      "mobile_discount_percentage": 0,
+      "updated_checkout": null,
+      "native_ad_id": "",
+      "city": "Eagan (Minnesota)",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 13
+        }
+      },
+      "native_ads_cpc": 0,
+      "review_recommendation": "",
+      "min_total_price": 97,
+      "latitude": 44.8316383155157,
+      "currency_code": "USD",
+      "block_ids": ["7999414_346789357_2_1_0"],
+      "hotel_name_trans": "Best Western Plus Dakota Ridge",
+      "url": "https://www.booking.com/hotel/us/best-western-dakota-ridge.html",
+      "class_is_estimated": 0,
+      "price_is_final": 1,
+      "badges": [],
+      "urgency_room_msg": "Queen Room with Two Queen Beds - Non-Smoking",
+      "checkin": {
+        "until": "",
+        "from": "15:00"
+      },
+      "preferred_plus": 0,
+      "longitude": -93.1692418456078,
+      "district": "",
+      "updated_checkin": null,
+      "cc1": "us",
+      "review_score_word": "Very Good",
+      "hotel_name": "Best Western Plus Dakota Ridge",
+      "address_trans": "3450 Washington Drive",
+      "hotel_facilities": "420,11,6,143,81,461,96,446,436,305,426,486,109,457,47,80,160,462,26,450,12,184,8,135,145,465,456,49,488,487,437,438,91,253,451,28,2,70,16,23,22,48,468,110,4,43,44,485,424,445,453,484,425,449,136,25,158,460,117,422,455,20,423,459,108,107,454,161",
+      "city_name_en": "Eagan (Minnesota)",
+      "hotel_id": 79994,
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "default_language": "en",
+      "deals": {
+        "deal_attributes": {},
+        "deal_events_killswitch": 0,
+        "deals_available": {}
+      },
+      "id": "property_card_79994",
+      "class": 3,
+      "ufi": 20067112,
+      "timezone": "America/Menominee",
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "has_fine_print_charges": 0,
+        "has_tax_exceptions": 0,
+        "has_incalculable_charges": 0,
+        "gross_price": "97.00",
+        "sum_excluded_raw": 9.83,
+        "all_inclusive_price": 106.83,
+        "currency": "USD"
+      },
+      "review_nr": 255,
+      "type": "property_card",
+      "city_trans": "Eagan",
+      "extended": 1,
+      "distance_to_cc": "1.55",
+      "is_geo_rate": "",
+      "hotel_has_vb_boost": 0,
+      "country_trans": "United States of America",
+      "city_in_trans": "in Eagan",
+      "main_photo_id": 116752118
+    },
+    {
+      "default_wishlist_name": "Lakeville",
+      "has_free_parking": 1,
+      "cant_book": 0,
+      "district_id": 0,
+      "is_free_cancellable": 1,
+      "native_ads_tracking": "",
+      "review_score": 7.2,
+      "distance": "11.36",
+      "hotel_include_breakfast": 0,
+      "accommodation_type": 204,
+      "updated_checkout": null,
+      "mobile_discount_percentage": 0,
+      "native_ad_id": "",
+      "city": "Lakeville (Minnesota)",
+      "matching_units_configuration": {
+        "matching_units_common_config": {
+          "localized_area": null,
+          "unit_type_id": 9
+        }
+      },
+      "native_ads_cpc": 0,
+      "wishlist_count": 0,
+      "is_no_prepayment_block": 1,
+      "preferred": 0,
+      "address": "11274 210th Street",
+      "bwallet": {
+        "hotel_eligibility": 0
+      },
+      "districts": "",
+      "in_best_district": 0,
+      "checkout": {
+        "until": "11:00",
+        "from": ""
+      },
+      "countrycode": "us",
+      "is_genius_deal": 0,
+      "zip": "MN 55044",
+      "main_photo_url": "https://cf.bstatic.com/xdata/images/hotel/square60/79799624.jpg?k=ca74a0318bf91b10399af80fa4ea3bfaff2e289ddd52cd5af184d4bb7c612553&o=",
+      "cc1": "us",
+      "hotel_id": 374404,
+      "review_score_word": "Good",
+      "hotel_name": "Motel 6-Lakeville, MN - South - Lakeville",
+      "city_name_en": "Lakeville (Minnesota)",
+      "hotel_facilities": "135,184,8,158,185,25,186,450,136,161,437,107,459,423,46,488,455,422,96,22,16,188,2,451,425,449,160,80,445,47,424,109,305,468,4,110",
+      "address_trans": "11274 210th Street",
+      "soldout": 0,
+      "genius_discount_percentage": 0,
+      "cc_required": 1,
+      "is_city_center": 0,
+      "is_smart_deal": 0,
+      "review_recommendation": "",
+      "min_total_price": 69.99,
+      "currency_code": "USD",
+      "latitude": 44.644378,
+      "hotel_name_trans": "Motel 6-Lakeville, MN - South - Lakeville",
+      "block_ids": ["37440408_243801034_2_0_0"],
+      "urgency_room_msg": "Queen Room",
+      "url": "https://www.booking.com/hotel/us/lakeville-11274-210th-street.html",
+      "class_is_estimated": 0,
+      "price_is_final": 0,
+      "badges": [],
+      "checkin": {
+        "from": "15:00",
+        "until": ""
+      },
+      "updated_checkin": null,
+      "district": "",
+      "longitude": -93.291557,
+      "preferred_plus": 0,
+      "is_mobile_deal": 0,
+      "price_breakdown": {
+        "all_inclusive_price": 77.08,
+        "currency": "USD",
+        "gross_price": 69.99,
+        "sum_excluded_raw": 7.09,
+        "has_incalculable_charges": 0,
+        "has_tax_exceptions": 0,
+        "has_fine_print_charges": 1
+      },
+      "selected_review_topic": null,
+      "accommodation_type_name": "Hotels",
+      "type": "property_card",
+      "review_nr": 170,
+      "extended": 1,
+      "city_trans": "Lakeville",
+      "distance_to_cc": "3.95",
+      "country_trans": "United States of America",
+      "hotel_has_vb_boost": 0,
+      "is_geo_rate": "",
+      "city_in_trans": "in Lakeville",
+      "main_photo_id": 79799624,
+      "children_not_allowed": 0,
+      "currencycode": "USD",
+      "default_language": "en",
+      "deals": {
+        "deal_events_killswitch": 0,
+        "deal_attributes": {},
+        "deals_available": {}
+      },
+      "id": "property_card_374404",
+      "class": 2,
+      "timezone": "America/Chicago",
+      "ufi": 20067631
+    }
+  ],
+  "search_metadata": "hotels_cc1=us",
+  "unfiltered_count": 4,
+  "has_low_availability": 1,
+  "sorting": {
+    "options": [
+      {
+        "identifier": "distance",
+        "name": "Distance From Downtown",
+        "loading_message": null
+      },
+      {
+        "loading_message": null,
+        "name": "Popularity",
+        "identifier": "popularity"
+      },
+      {
+        "name": "Best reviewed & lowest price",
+        "loading_message": null,
+        "identifier": "rating_and_price"
+      },
+      {
+        "identifier": "class_descending",
+        "name": "Stars (5 to 0)",
+        "loading_message": null
+      },
+      {
+        "identifier": "class_ascending",
+        "name": "Stars (0 to 5)",
+        "loading_message": null
+      },
+      {
+        "identifier": "bayesian_review_score",
+        "name": "Guest Review Score",
+        "loading_message": null
+      },
+      {
+        "identifier": "price",
+        "name": "Price (low to high)",
+        "loading_message": null
+      }
+    ],
+    "selected_identifier": "popularity"
+  },
+  "map_bounding_box": {
+    "sw_lat": 44.6443352667604,
+    "ne_long": -92.938012,
+    "ne_lat": 44.948208,
+    "sw_long": -93.5102572292089
+  },
+  "is_beach_ufi": 0,
+  "base_filters": [
+    {
+      "id": "price_category",
+      "is_group": 1,
+      "any_text": "No price range selected",
+      "title": "Your budget (for 1 night)",
+      "categories": [
+        {
+          "selected": 0,
+          "to": 100,
+          "name": "US$50 - US$100 ",
+          "display_format": "%LOWER% - %UPPER%",
+          "from": 50,
+          "id": "price_category::100",
+          "style_for_count": 0,
+          "count": 46
+        },
+        {
+          "selected": 0,
+          "name": "US$100 - US$150 ",
+          "to": 150,
+          "from": 100,
+          "display_format": "%LOWER% - %UPPER%",
+          "style_for_count": 0,
+          "count": 96,
+          "id": "price_category::150"
+        },
+        {
+          "count": 61,
+          "style_for_count": 0,
+          "id": "price_category::200",
+          "display_format": "%LOWER% - %UPPER%",
+          "from": 150,
+          "name": "US$150 - US$200 ",
+          "to": 200,
+          "selected": 0
+        },
+        {
+          "display_format": "%LOWER% + ",
+          "from": 200,
+          "id": "price_category::250",
+          "count": 29,
+          "style_for_count": 0,
+          "selected": 0,
+          "to": 0,
+          "name": "US$200 + "
+        }
+      ],
+      "irene_resp_id": "pri",
+      "type": "multiple_union",
+      "iconfont": "pricetag",
+      "layout": {
+        "collapsed_count": 5,
+        "is_collapsable": 0,
+        "is_collapsed": 0
+      }
+    },
+    {
+      "categories": [
+        {
+          "style_for_count": 0,
+          "count": 92,
+          "id": "mealplan::breakfast_included",
+          "name": "Breakfast Included",
+          "popular_rank": 2,
+          "selected": 0,
+          "popular": 1
+        },
+        {
+          "id": "popular_activities::103",
+          "count": 77,
+          "style_for_count": 0,
+          "name": "Indoor pool",
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 3
+        },
+        {
+          "name": "Parking",
+          "popular": 1,
+          "popular_rank": 6,
+          "selected": 0,
+          "id": "facility::2",
+          "count": 111,
+          "style_for_count": 0
+        },
+        {
+          "count": 118,
+          "style_for_count": 0,
+          "id": "property_type::204",
+          "name": "Hotels",
+          "selected": 0,
+          "popular_rank": 7,
+          "popular": 1
+        },
+        {
+          "popular": 1,
+          "popular_rank": 8,
+          "selected": 0,
+          "name": "Air conditioning",
+          "id": "room_facility::11",
+          "count": 117,
+          "style_for_count": 0
+        },
+        {
+          "popular": 1,
+          "popular_rank": 9,
+          "selected": 0,
+          "name": "Family rooms",
+          "experiment_tracking_data": {
+            "track_on_select": [
+              {
+                "type": 1,
+                "experiment_tag": "families_app_family_rooms_blackout",
+                "value": 1
+              }
+            ]
+          },
+          "id": "facility::28",
+          "style_for_count": 0,
+          "count": 64
+        },
+        {
+          "name": "Double bed",
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 10,
+          "id": "twin_double_bed::3",
+          "count": 117,
+          "style_for_count": 0
+        },
+        {
+          "name": "Hot tub/Jacuzzi",
+          "popular": 1,
+          "popular_rank": 11,
+          "selected": 0,
+          "id": "popular_activities::63",
+          "count": 43,
+          "style_for_count": 0
+        }
+      ],
+      "irene_resp_id": "popular",
+      "type": "multiple_intersection",
+      "layout": {
+        "is_collapsed": 0,
+        "collapsed_count": 5,
+        "is_collapsable": 0
+      },
+      "iconfont": "aconfirmation",
+      "id": "popular",
+      "is_group": 1,
+      "any_text": "No rating selected",
+      "title": "Popular Filters"
+    },
+    {
+      "is_group": 1,
+      "id": "free_cancellation",
+      "title": "Free cancellation ",
+      "any_text": null,
+      "categories": [
+        {
+          "selected": 0,
+          "id": "free_cancellation::1",
+          "name": "Free Cancellation",
+          "style_for_count": 0,
+          "count": 96
+        }
+      ],
+      "irene_resp_id": "fc",
+      "type": "single_option",
+      "layout": {
+        "is_collapsed": 0,
+        "is_collapsable": 0,
+        "collapsed_count": 5
+      },
+      "iconfont": "aconfirmation"
+    },
+    {
+      "irene_resp_id": "health_and_hygiene",
+      "categories": [
+        {
+          "selected": 0,
+          "count": 109,
+          "style_for_count": 0,
+          "name": "Properties that take health & safety measures",
+          "id": "health_and_hygiene::1"
+        }
+      ],
+      "type": "single_option",
+      "layout": {
+        "is_collapsed": 0,
+        "is_collapsable": 0,
+        "collapsed_count": 5
+      },
+      "iconfont": null,
+      "is_group": 1,
+      "id": "health_and_hygiene",
+      "title": "Properties with additional health & safety measures",
+      "any_text": null
+    },
+    {
+      "irene_resp_id": "class",
+      "categories": [
+        {
+          "id": "class::0",
+          "style_for_count": 0,
+          "count": 5,
+          "name": "Unrated",
+          "selected": 0
+        },
+        {
+          "count": 1,
+          "style_for_count": 0,
+          "name": "1 star",
+          "id": "class::1",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "name": "2 stars",
+          "style_for_count": 0,
+          "count": 30,
+          "id": "class::2"
+        },
+        {
+          "selected": 0,
+          "id": "class::3",
+          "name": "3 stars",
+          "count": 78,
+          "style_for_count": 0
+        },
+        {
+          "selected": 0,
+          "id": "class::4",
+          "name": "4 stars",
+          "style_for_count": 0,
+          "count": 10
+        }
+      ],
+      "type": "multiple_union",
+      "layout": {
+        "is_collapsed": 0,
+        "is_collapsable": 0,
+        "collapsed_count": 5
+      },
+      "iconfont": "acstar",
+      "id": "class",
+      "is_group": 1,
+      "any_text": "No stars selected",
+      "title": "Star Rating"
+    },
+    {
+      "categories": [
+        {
+          "count": 118,
+          "style_for_count": 0,
+          "id": "property_type::204",
+          "name": "Hotels",
+          "selected": 0,
+          "popular_rank": 7,
+          "popular": 1
+        },
+        {
+          "id": "family_friendly_property::1",
+          "style_for_count": 0,
+          "count": 22,
+          "name": "Family-Friendly Properties",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "property_type::205",
+          "name": "Motels",
+          "count": 6,
+          "style_for_count": 0
+        }
+      ],
+      "irene_resp_id": "ht_id",
+      "layout": {
+        "is_collapsable": 0,
+        "collapsed_count": 5,
+        "is_collapsed": 0
+      },
+      "iconfont": "homecrop",
+      "type": "multiple_union",
+      "id": "property_type",
+      "is_group": 1,
+      "any_text": "No property type selected",
+      "title": "Property Type"
+    },
+    {
+      "title": "Facilities",
+      "any_text": "No facilities selected",
+      "experiment_tracking_data": {
+        "track_on_view": [
+          {
+            "value": 1,
+            "experiment_tag": "families_app_family_rooms_blackout",
+            "type": 0
+          }
+        ]
+      },
+      "is_group": 1,
+      "id": "facility",
+      "type": "multiple_intersection",
+      "iconfont": "frontdesk",
+      "layout": {
+        "is_collapsable": 1,
+        "collapsed_count": 5,
+        "is_collapsed": 1
+      },
+      "categories": [
+        {
+          "selected": 0,
+          "name": "24-hour front desk",
+          "style_for_count": 0,
+          "count": 115,
+          "id": "facility::8"
+        },
+        {
+          "name": "Airport shuttle",
+          "count": 35,
+          "style_for_count": 0,
+          "id": "facility::17",
+          "selected": 0
+        },
+        {
+          "count": 35,
+          "style_for_count": 0,
+          "name": "Airport shuttle (free)",
+          "id": "facility::139",
+          "selected": 0
+        },
+        {
+          "count": 22,
+          "style_for_count": 0,
+          "name": "BBQ facilities",
+          "id": "facility::72",
+          "selected": 0
+        },
+        {
+          "id": "facility::182",
+          "style_for_count": 0,
+          "count": 21,
+          "name": "Electric vehicle charging station",
+          "selected": 0
+        },
+        {
+          "count": 107,
+          "style_for_count": 0,
+          "name": "Facilities for disabled guests",
+          "id": "facility::25",
+          "selected": 0
+        },
+        {
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 9,
+          "name": "Family rooms",
+          "experiment_tracking_data": {
+            "track_on_select": [
+              {
+                "type": 1,
+                "value": 1,
+                "experiment_tag": "families_app_family_rooms_blackout"
+              }
+            ]
+          },
+          "id": "facility::28",
+          "count": 64,
+          "style_for_count": 0
+        },
+        {
+          "selected": 0,
+          "id": "facility::11",
+          "style_for_count": 0,
+          "count": 98,
+          "name": "Fitness center"
+        },
+        {
+          "selected": 0,
+          "id": "facility::46",
+          "style_for_count": 0,
+          "count": 88,
+          "name": "Free parking"
+        },
+        {
+          "id": "facility::107",
+          "name": "Free WiFi",
+          "style_for_count": 0,
+          "count": 107,
+          "selected": 0
+        },
+        {
+          "name": "Non-smoking rooms",
+          "style_for_count": 0,
+          "count": 111,
+          "id": "facility::16",
+          "selected": 0
+        },
+        {
+          "style_for_count": 0,
+          "count": 111,
+          "id": "facility::2",
+          "name": "Parking",
+          "popular_rank": 6,
+          "selected": 0,
+          "popular": 1
+        },
+        {
+          "selected": 0,
+          "popular_rank": 13,
+          "popular": 1,
+          "name": "Pet friendly",
+          "style_for_count": 0,
+          "count": 58,
+          "id": "facility::4"
+        },
+        {
+          "selected": 0,
+          "name": "Restaurant",
+          "style_for_count": 0,
+          "count": 34,
+          "id": "facility::3"
+        },
+        {
+          "selected": 0,
+          "count": 24,
+          "style_for_count": 0,
+          "name": "Room service",
+          "id": "facility::5"
+        },
+        {
+          "style_for_count": 0,
+          "count": 4,
+          "name": "Spa",
+          "id": "facility::54",
+          "selected": 0
+        },
+        {
+          "id": "facility::433",
+          "name": "Swimming pool",
+          "style_for_count": 0,
+          "count": 78,
+          "selected": 0
+        }
+      ],
+      "irene_resp_id": "hotelfacility"
+    },
+    {
+      "type": "multiple_single_selection",
+      "iconfont": null,
+      "layout": {
+        "is_collapsed": 0,
+        "is_collapsable": 0,
+        "collapsed_count": 5
+      },
+      "categories": [
+        {
+          "selected": 0,
+          "style_for_count": 0,
+          "count": 2,
+          "name": "Less than 1 km",
+          "id": "distance::1000"
+        },
+        {
+          "selected": 0,
+          "count": 2,
+          "style_for_count": 0,
+          "name": "Less than 3 km",
+          "id": "distance::3000"
+        },
+        {
+          "id": "distance::5000",
+          "name": "Less than 5 km",
+          "style_for_count": 0,
+          "count": 3,
+          "selected": 0
+        }
+      ],
+      "irene_resp_id": "distance",
+      "title": "Distance from city center",
+      "any_text": "No Preference",
+      "is_group": 1,
+      "id": "distance"
+    },
+    {
+      "any_text": "Any meal options",
+      "title": "Meals",
+      "id": "mealplan",
+      "is_group": 1,
+      "layout": {
+        "is_collapsed": 0,
+        "is_collapsable": 0,
+        "collapsed_count": 5
+      },
+      "iconfont": "restaurants",
+      "type": "multiple_union",
+      "categories": [
+        {
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 2,
+          "name": "Breakfast Included",
+          "id": "mealplan::breakfast_included",
+          "style_for_count": 0,
+          "count": 92
+        },
+        {
+          "selected": 0,
+          "name": "Kitchen amenities",
+          "count": 28,
+          "style_for_count": 0,
+          "id": "mealplan::999"
+        }
+      ],
+      "irene_resp_id": "mealplan"
+    },
+    {
+      "irene_resp_id": "popular_activities",
+      "categories": [
+        {
+          "name": "Indoor pool",
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 3,
+          "id": "popular_activities::103",
+          "count": 77,
+          "style_for_count": 0
+        },
+        {
+          "id": "popular_activities::63",
+          "style_for_count": 0,
+          "count": 43,
+          "name": "Hot tub/Jacuzzi",
+          "popular": 1,
+          "popular_rank": 11,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "popular_activities::11",
+          "name": "Fitness center",
+          "count": 98,
+          "style_for_count": 0
+        },
+        {
+          "selected": 0,
+          "id": "popular_activities::253",
+          "count": 63,
+          "style_for_count": 0,
+          "name": "Fitness"
+        },
+        {
+          "selected": 0,
+          "id": "popular_activities::12",
+          "name": "Golf course (within 2 miles)",
+          "count": 24,
+          "style_for_count": 0
+        },
+        {
+          "id": "popular_activities::447",
+          "name": "Bicycle rental",
+          "count": 16,
+          "style_for_count": 0,
+          "selected": 0
+        }
+      ],
+      "layout": {
+        "collapsed_count": 6,
+        "is_collapsable": 0,
+        "is_collapsed": 0
+      },
+      "iconfont": null,
+      "type": "multiple_union",
+      "is_group": 1,
+      "id": "popular_activities",
+      "title": "Fun Things To Do",
+      "any_text": null
+    },
+    {
+      "irene_resp_id": "chaincode",
+      "categories": [
+        {
+          "selected": 0,
+          "name": "AmericInn",
+          "style_for_count": 0,
+          "count": 4,
+          "id": "chaincode::9349"
+        },
+        {
+          "name": "Baymont Inn & Suites",
+          "style_for_count": 0,
+          "count": 3,
+          "id": "chaincode::1993",
+          "selected": 0
+        },
+        {
+          "name": "Best Western",
+          "count": 3,
+          "style_for_count": 0,
+          "id": "chaincode::1029",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "style_for_count": 0,
+          "count": 3,
+          "name": "Comfort Inn",
+          "id": "chaincode::1120"
+        },
+        {
+          "selected": 0,
+          "name": "Country Inn & Suites by Radisson",
+          "count": 4,
+          "style_for_count": 0,
+          "id": "chaincode::8644"
+        },
+        {
+          "count": 3,
+          "style_for_count": 0,
+          "name": "Courtyard by Marriott",
+          "id": "chaincode::1093",
+          "selected": 0
+        },
+        {
+          "id": "chaincode::1983",
+          "count": 2,
+          "style_for_count": 0,
+          "name": "Embassy Suites Hotels",
+          "selected": 0
+        },
+        {
+          "id": "chaincode::2145",
+          "name": "Extended Stay America",
+          "count": 5,
+          "style_for_count": 0,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "popular_rank": 14,
+          "popular": 1,
+          "name": "Fairfield Inn",
+          "style_for_count": 0,
+          "count": 6,
+          "id": "chaincode::2188"
+        },
+        {
+          "selected": 0,
+          "count": 7,
+          "style_for_count": 0,
+          "name": "Hampton Inn",
+          "id": "chaincode::1851"
+        },
+        {
+          "id": "chaincode::2117",
+          "name": "Hilton Garden Inn",
+          "count": 4,
+          "style_for_count": 0,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "chaincode::1078",
+          "count": 2,
+          "style_for_count": 0,
+          "name": "Hilton Hotels & Resorts"
+        },
+        {
+          "selected": 0,
+          "id": "chaincode::2301",
+          "name": "Holiday Inn Express",
+          "style_for_count": 0,
+          "count": 6
+        },
+        {
+          "name": "Home2 Suites by Hilton",
+          "count": 3,
+          "style_for_count": 0,
+          "id": "chaincode::3203",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "count": 2,
+          "style_for_count": 0,
+          "name": "Homewood Suites by Hilton",
+          "id": "chaincode::1982"
+        },
+        {
+          "id": "chaincode::12220",
+          "name": "La Quinta by Wyndham",
+          "count": 2,
+          "style_for_count": 0,
+          "selected": 0
+        },
+        {
+          "name": "Marriott Hotels & Resorts",
+          "style_for_count": 0,
+          "count": 2,
+          "id": "chaincode::1080",
+          "selected": 0
+        },
+        {
+          "name": "Microtel Inns & Suites",
+          "count": 3,
+          "style_for_count": 0,
+          "id": "chaincode::2111",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "chaincode::2985",
+          "style_for_count": 0,
+          "count": 2,
+          "name": "Motel6"
+        },
+        {
+          "id": "chaincode::1122",
+          "name": "Quality Inn",
+          "style_for_count": 0,
+          "count": 3,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "name": "Residence Inn",
+          "count": 5,
+          "style_for_count": 0,
+          "id": "chaincode::1098"
+        },
+        {
+          "id": "chaincode::13638",
+          "name": "Sonesta Hotels",
+          "style_for_count": 0,
+          "count": 3,
+          "selected": 0
+        },
+        {
+          "name": "SpringHill Suites",
+          "style_for_count": 0,
+          "count": 3,
+          "id": "chaincode::2187",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "count": 2,
+          "style_for_count": 0,
+          "name": "Super 8",
+          "id": "chaincode::1750"
+        },
+        {
+          "selected": 0,
+          "id": "chaincode::2910",
+          "name": "TownePlace Suites by Marriott",
+          "count": 3,
+          "style_for_count": 0
+        }
+      ],
+      "type": "multiple_union",
+      "iconfont": "hotel",
+      "layout": {
+        "is_collapsable": 1,
+        "collapsed_count": 5,
+        "is_collapsed": 1
+      },
+      "is_group": 1,
+      "id": "chaincode",
+      "title": "Chain",
+      "any_text": "No chain selected"
+    },
+    {
+      "title": "Review Score",
+      "any_text": "No score selected",
+      "is_group": 1,
+      "id": "reviewscorebuckets",
+      "type": "multiple_single_selection",
+      "layout": {
+        "is_collapsed": 1,
+        "collapsed_count": 5,
+        "is_collapsable": 1
+      },
+      "iconfont": "reviews",
+      "irene_resp_id": "review_score",
+      "categories": [
+        {
+          "id": "reviewscorebuckets::50",
+          "count": 121,
+          "style_for_count": 0,
+          "name": "Fair: 5+",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "reviewscorebuckets::60",
+          "count": 112,
+          "style_for_count": 0,
+          "name": "Pleasant: 6+"
+        },
+        {
+          "name": "Good: 7+",
+          "count": 102,
+          "style_for_count": 0,
+          "id": "reviewscorebuckets::70",
+          "selected": 0
+        },
+        {
+          "count": 64,
+          "style_for_count": 0,
+          "name": "Very Good: 8+",
+          "id": "reviewscorebuckets::80",
+          "selected": 0
+        },
+        {
+          "count": 12,
+          "style_for_count": 0,
+          "name": "Wonderful: 9+",
+          "id": "reviewscorebuckets::90",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "reviewscorebuckets::999",
+          "name": "No rating",
+          "style_for_count": 0,
+          "count": 2
+        }
+      ]
+    },
+    {
+      "type": "multiple_intersection",
+      "iconfont": "bath",
+      "layout": {
+        "is_collapsable": 1,
+        "collapsed_count": 5,
+        "is_collapsed": 1
+      },
+      "irene_resp_id": "roomfacility",
+      "categories": [
+        {
+          "id": "room_facility::38",
+          "name": "Private bathroom",
+          "style_for_count": 0,
+          "count": 110,
+          "selected": 0
+        },
+        {
+          "count": 117,
+          "style_for_count": 0,
+          "id": "room_facility::11",
+          "name": "Air conditioning",
+          "selected": 0,
+          "popular_rank": 8,
+          "popular": 1
+        },
+        {
+          "id": "room_facility::75",
+          "name": "Flat-screen TV",
+          "style_for_count": 0,
+          "count": 91,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "room_facility::5",
+          "name": "Bathtub",
+          "count": 53,
+          "style_for_count": 0
+        },
+        {
+          "id": "room_facility::17",
+          "name": "Balcony",
+          "count": 3,
+          "style_for_count": 0,
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "count": 28,
+          "style_for_count": 0,
+          "name": "Kitchen/Kitchenette",
+          "id": "room_facility::999"
+        },
+        {
+          "name": "Coffee/Tea maker",
+          "style_for_count": 0,
+          "count": 93,
+          "id": "room_facility::998",
+          "selected": 0
+        },
+        {
+          "id": "room_facility::81",
+          "name": "View",
+          "style_for_count": 0,
+          "count": 14,
+          "selected": 0
+        },
+        {
+          "id": "room_facility::20",
+          "count": 4,
+          "style_for_count": 0,
+          "name": "Spa tub",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "room_facility::123",
+          "name": "Terrace",
+          "style_for_count": 0,
+          "count": 2
+        },
+        {
+          "selected": 0,
+          "name": "Patio",
+          "count": 2,
+          "style_for_count": 0,
+          "id": "room_facility::37"
+        },
+        {
+          "selected": 0,
+          "name": "Soundproof",
+          "count": 12,
+          "style_for_count": 0,
+          "id": "room_facility::79"
+        },
+        {
+          "name": "Electric kettle",
+          "style_for_count": 0,
+          "count": 1,
+          "id": "room_facility::86",
+          "selected": 0
+        },
+        {
+          "selected": 0,
+          "id": "room_facility::120",
+          "count": 52,
+          "style_for_count": 0,
+          "name": "Coffee machine"
+        }
+      ],
+      "any_text": "No room facilities selected",
+      "title": "Room Facilities",
+      "id": "room_facility",
+      "is_group": 1
+    },
+    {
+      "id": "twin_double_bed",
+      "is_group": 1,
+      "any_text": "Select bed type",
+      "title": "Bed Preference",
+      "irene_resp_id": "tdb",
+      "categories": [
+        {
+          "id": "twin_double_bed::2",
+          "style_for_count": 0,
+          "count": 3,
+          "name": "2 single beds",
+          "selected": 0
+        },
+        {
+          "id": "twin_double_bed::3",
+          "count": 117,
+          "style_for_count": 0,
+          "popular": 1,
+          "selected": 0,
+          "popular_rank": 10,
+          "name": "Double bed"
+        }
+      ],
+      "type": "multiple_union",
+      "iconfont": null,
+      "layout": {
+        "is_collapsed": 0,
+        "collapsed_count": 5,
+        "is_collapsable": 0
+      }
+    }
+  ],
+  "b_max_los_data": {
+    "default_los": 45,
+    "experiment": "long_stays_android_extend_los_2",
+    "max_allowed_los": 90,
+    "extended_los": 90,
+    "is_fullon": 0,
+    "has_extended_los": 1
+  },
+  "recommended_filters": [
+    {
+      "name": "Hotels",
+      "generic_id": "property_type::204"
+    },
+    {
+      "generic_id": "room_facility::11",
+      "name": "Air conditioning"
+    },
+    {
+      "generic_id": "twin_double_bed::3",
+      "name": "Double bed"
+    },
+    {
+      "generic_id": "facility::2",
+      "name": "Parking"
+    },
+    {
+      "name": "Breakfast Included",
+      "generic_id": "mealplan::breakfast_included"
+    }
+  ],
+  "applied_filters": [],
+  "search_id": "185a4667821669039949f3892aa6fbd2152:1:111",
+  "extended_count": 122,
+  "primary_count": 2,
+  "page_loading_threshold": 10,
+  "sort": [
+    {
+      "id": "distance",
+      "name": "Distance From Downtown"
+    },
+    {
+      "name": "Popularity",
+      "id": "popularity"
+    },
+    {
+      "id": "rating_and_price",
+      "name": "Best reviewed & lowest price"
+    },
+    {
+      "id": "class_descending",
+      "name": "Stars (5 to 0)"
+    },
+    {
+      "name": "Stars (0 to 5)",
+      "id": "class_ascending"
+    },
+    {
+      "name": "Guest Review Score",
+      "id": "bayesian_review_score"
+    },
+    {
+      "id": "price",
+      "name": "Price (low to high)"
+    }
+  ],
+  "search_radius": 25,
+  "count": 2,
+  "unfiltered_primary_count": 4,
+  "room_distribution": [
+    {
+      "adults": "1",
+      "children": [2]
+    }
+  ],
+  "ranking_version": 5
+}
