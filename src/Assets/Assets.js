@@ -39,8 +39,10 @@ import GiftCard from "./GiftCard.svg";
 import GooglePlay from "./GooglePlay.svg";
 import PayPal from "./Paypal.svg";
 import WalletPay from "./WalletPay.svg";
+import PriceArrows from "./PriceArrows.svg";
 
 export const Assets = {
+  PriceArrows,
   CreditCard,
   EMICard,
   GiftCard,
