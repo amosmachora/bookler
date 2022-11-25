@@ -56,3 +56,7 @@ body {
 .toggle-image-buttons {
   background: rgba(255, 255, 255, 0.5);
 }
+.toggle-image-buttons:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transition: background 200ms ease-in-out;
+}

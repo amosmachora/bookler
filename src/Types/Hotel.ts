@@ -131,3 +131,17 @@ interface tags {
   id?: number;
   tag?: string;
 }
+
+export interface Facility {
+  hotelfacilitytype_id: number;
+  facilitytype_id: number;
+  is_common_room_facility: number;
+  facilitytype_name: string;
+  roomfacilitytype_id: string;
+  facility_name: string;
+  hotel_id: number;
+  value: number;
+  kind: string;
+  free?: number;
+  paid?: number;
+}

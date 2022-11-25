@@ -42,8 +42,10 @@ import WalletPay from "./WalletPay.svg";
 import PriceArrows from "./PriceArrows.svg";
 import ArrowWhiteRight from "./Arrow-right-white.svg";
 import ArrowWhiteLeft from "./Arrow-left-white.svg";
+import Star from "./Star.svg";
 
 export const Assets = {
+  Star,
   ArrowWhiteLeft,
   ArrowWhiteRight,
   PriceArrows,
