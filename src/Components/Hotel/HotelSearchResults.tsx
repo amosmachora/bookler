@@ -112,7 +112,7 @@ const HotelSearchResults = ({
         </div>
       </div>
       {hotelList.map((hotelInfo) => (
-        <HotelData hotelInfo={hotelInfo} />
+        <HotelData hotelInfo={hotelInfo} key={hotelInfo.hotel_id} />
       ))}
     </div>
   );
