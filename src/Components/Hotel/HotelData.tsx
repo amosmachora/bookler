@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
+import { Assets } from "../../Assets/Assets";
 import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
 import { HotelImagesType, HotelInfo } from "../../Types/Hotel";
 import HotelImages from "../../Util/HotelImages.json";
@@ -34,7 +35,7 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
   ];
 
   /**
-   *
+   * A function that returns a random image url.
    * @returns Image url
    */
   const getRandomImage = (): string | undefined => {
@@ -45,7 +46,7 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
   const getSpecificImage = (image_type: string): string | undefined => {
     const imageArray = hotelImages.data[tempHotelId].find((image) => {
       const imageTags = image[1];
-      if (imageTags.length > 0) {
+      if (Array.isArray(imageTags) && imageTags.length > 0) {
         return imageTags[0].tag_name === image_type;
       }
       return false;
@@ -65,22 +66,40 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
             alt="Hotel main"
             className="h-full object-contain rounded-md"
           />
-          <div className="absolute z-50 flex show bottom-0 w-full">
-            <img
-              src={getSpecificImage("Room Photo")}
-              alt="Random hotel"
-              className="rounded-[50%] border border-white h-5 w-5 cursor-pointer"
-            />
-            <img
-              src={getSpecificImage("Restaurant/Places to Eat")}
-              alt="Random hotel"
-              className="rounded-[50%] border border-white h-5 w-5 cursor-pointer"
-            />
-            <img
-              src={getSpecificImage("Fitness Center/Facilities")}
-              alt="Random hotel"
-              className="rounded-[50%] border border-white h-5 w-5 cursor-pointer"
-            />
+          <div className="absolute z-50 flex bottom-4 w-full px-5 justify-between">
+            <div className="flex">
+              <img
+                src={getSpecificImage("Room Photo")}
+                alt="Random hotel"
+                className="rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border"
+              />
+              <img
+                src={getSpecificImage("Restaurant/Places to Eat")}
+                alt="Random hotel"
+                className="rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border"
+              />
+              <img
+                src={getSpecificImage("Fitness Center/Facilities")}
+                alt="Random hotel"
+                className="rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border"
+              />
+            </div>
+            <div>
+              <button className="text-white w-6 h-6 rounded-sm mr-2 text-lg toggle-image-buttons">
+                <img
+                  src={Assets.ArrowWhiteLeft}
+                  alt="Arrow"
+                  className="mx-auto h-3"
+                />
+              </button>
+              <button className="w-6 h-6 rounded-sm text-white text-lg toggle-image-buttons">
+                <img
+                  src={Assets.ArrowWhiteRight}
+                  alt="Arrow"
+                  className="mx-auto h-3"
+                />
+              </button>
+            </div>
           </div>
         </div>
         <div className="py-6 pl-6 ">

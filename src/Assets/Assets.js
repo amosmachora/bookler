@@ -40,8 +40,12 @@ import GooglePlay from "./GooglePlay.svg";
 import PayPal from "./Paypal.svg";
 import WalletPay from "./WalletPay.svg";
 import PriceArrows from "./PriceArrows.svg";
+import ArrowWhiteRight from "./Arrow-right-white.svg";
+import ArrowWhiteLeft from "./Arrow-left-white.svg";
 
 export const Assets = {
+  ArrowWhiteLeft,
+  ArrowWhiteRight,
   PriceArrows,
   CreditCard,
   EMICard,

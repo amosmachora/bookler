@@ -112,39 +112,22 @@ export type HotelInfo = {
   zip: string;
 };
 
-export type HotelImagesType = {
-  categories: never[];
-  data: {
-    [key: string]: imageArray[];
-  };
+export interface HotelImagesType {
+  categories: any[];
+  data: Data;
   url_prefix: string;
-};
+}
 
-//Here
-type imageArray = [
-  number,
-  imageTagsOne,
-  number,
-  imageTagsTwo,
-  string,
-  string,
-  string,
-  string
-];
+interface Data {
+  [key: string]: Array<Array<tags[] | number | string>>;
+}
 
-type imageTagsOne = tags[];
-
-type tags = {
-  confidence: number;
-  photo_id: number;
-  tag_id: number;
-  tag_name: string | null;
-  tag_type: string;
-};
-
-type imageTagsTwo = tagsTwo[];
-
-type tagsTwo = {
-  id: number;
-  tag: string;
-};
+interface tags {
+  tag_type?: string;
+  tag_name?: null | string;
+  confidence?: number;
+  tag_id?: number;
+  photo_id?: number;
+  id?: number;
+  tag?: string;
+}
