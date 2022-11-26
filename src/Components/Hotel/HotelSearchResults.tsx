@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { HotelSearchContext, MainContext } from "../../App";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
-import { Airport } from "../../Types/Flights";
 import { getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
 import PropertyList from "../../Util/PropertyListByDestId.json";
@@ -11,20 +10,20 @@ import { HotelInfo } from "../../Types/Hotel";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 
 type HotelSearchResultsProps = {
-  toAirport: Airport;
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
 };
 
 const HotelSearchResults = ({
-  toAirport,
   travelingForWorkCheckBox,
 }: HotelSearchResultsProps) => {
   const { devMode } = useContext(MainContext);
-  const { targetHotelLocation } = useContext(HotelSearchContext);
-  const { checkInDate, checkOutDate, travellerHotelInfo } =
+  const { checkInDate, checkOutDate, travellerHotelInfo, targetHotelLocation } =
     useContext(HotelSearchContext);
-  const [sortBy, setSortBy] = useState<string>("Popularity");
+  const [propertyList, setPropertyList] = useState(PropertyList);
   const [hotelList, setHotelList] = useState<HotelInfo[]>(PropertyList.result);
+  const [sortBy, setSortBy] = useState<string>();
+
+  console.log(PropertyList);
 
   useEffect(() => {
     if (!devMode) {
@@ -51,7 +50,7 @@ const HotelSearchResults = ({
   ]);
   return (
     <div>
-      <HotelSearchParameters toAirport={toAirport} />
+      <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
       <div className="flex justify-between bg-flightResultsBg py-3 px-5 rounded-md items-center">
         <div className="flex items-stretch">
           <p className="font-bold">Hotels</p>
