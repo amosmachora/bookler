@@ -5,9 +5,11 @@ import { RedSearchButton } from "../RedSearchButton";
 import CheckInCheckOutDatePicker from "./CheckInCheckOutDatePicker";
 
 type HotelSearchParametersProps = {
-  toAirport: Airport;
+  targetHotelLocation: Airport | null;
 };
-const HotelSearchParameters = ({ toAirport }: HotelSearchParametersProps) => {
+const HotelSearchParameters = ({
+  targetHotelLocation,
+}: HotelSearchParametersProps) => {
   const {
     setCheckInDate,
     checkInDate,
@@ -20,7 +22,7 @@ const HotelSearchParameters = ({ toAirport }: HotelSearchParametersProps) => {
       <div>
         <p className="text-xs text-gray-300 ml-2">WHERE</p>
         <p className="bg-gray-100 py-2 px-6 rounded-full mt-1">
-          {toAirport.city + ", " + toAirport.country}
+          {targetHotelLocation?.city + ", " + targetHotelLocation?.country}
         </p>
       </div>
       <div>

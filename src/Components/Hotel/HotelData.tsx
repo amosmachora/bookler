@@ -6,12 +6,15 @@ import { Facility, HotelImagesType, HotelInfo } from "../../Types/Hotel";
 import HotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
+import LittleFacilityDisplay from "./LittleFacilityDisplay";
 
 const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
   const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
   const { devMode } = useContext(MainContext);
   const [hotelFacilities, setHotelFacilities] =
     useState<Facility[]>(Facilities);
+
+  const [showAllFacilities, setShowAllFacilities] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,13 +79,13 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
 
   const [image, setImage] = useState(getSpecificImage("Property Building"));
 
-  const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? false : true;
+  const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
 
   const smallCircleClasses: string =
     "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
 
   return (
-    <div className="my-1 bg-white rounded-md h-48">
+    <div className="my-3 bg-white rounded-md h-48">
       <div className="flex h-full">
         <div className="h-full w-[21%] relative">
           <img
@@ -139,9 +142,10 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
             </div>
           </div>
         </div>
-        <div className="py-6 pl-6 flex-grow relative pr-20">
+        <div className="py-6 pl-6 flex-grow relative pr-20 w-[79%]">
+          <p className="font-bold text-lg">{hotelInfo.hotel_name}</p>
           <div className="flex justify-between">
-            <p className="font-bold text-lg">{hotelInfo.hotel_name}</p>
+            <p className="font-semibold text-xs">{hotelInfo.address}</p>
             <p className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500">
               Map View
             </p>
@@ -153,25 +157,48 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
             </div>
             <div className="w-full h-6 bg-white rounded-tr-3xl" />
           </div>
-          <div className="h-24 overflow-scroll w-full">
-            {hotelFacilities.map((facility) => (
-              <p>{facility.facility_name}</p>
+          <div
+            className={`${
+              showAllFacilities
+                ? "h-12 overflow-y-scroll"
+                : "h-4 overflow-y-hidden"
+            } w-full flex flex-wrap my-3 relative`}
+          >
+            {hotelFacilities.map((facility, index) => (
+              <LittleFacilityDisplay facility={facility} key={index} />
             ))}
+            <p
+              className="font-bold text-xs right-1 absolute cursor-pointer"
+              onClick={() => setShowAllFacilities((prev) => !prev)}
+            >
+              {showAllFacilities ? "Less -" : "More +"}
+            </p>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center absolute bottom-3 w-[95%]">
             <p className="font-bold">
+              <span className="text-yellow-500 text-xs font-light mr-2">
+                25% off
+              </span>
               ${hotelInfo.price_breakdown.all_inclusive_price}
             </p>
             <div className="text-xs">
               <button className="px-5 py-3 bg-gray-300 rounded-md font-semibold mr-4 hover:bg-gray-200 transition-all">
                 View Details
               </button>
-              <button
-                className="text-white bg-blue-600 px-5 py-3 rounded-md hover:bg-blue-400 transition-all disabled:cursor-not-allowed"
-                disabled={isBookingAllowed}
-              >
-                BOOK NOW
-              </button>
+              {isBookingAllowed ? (
+                <a
+                  className="text-white bg-blue-600 px-5 py-3 rounded-md hover:bg-blue-400 transition-all disabled:cursor-not-allowed"
+                  href={hotelInfo.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  BOOK NOW
+                </a>
+              ) : (
+                <button className="text-white bg-blue-600 px-5 py-3 rounded-md hover:bg-blue-400 transition-all disabled:cursor-not-allowed">
+                  SOLD OUT 😥
+                </button>
+              )}
             </div>
           </div>
         </div>

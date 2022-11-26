@@ -206,7 +206,6 @@ function App() {
     } else if (activeChoice === "hotel") {
       return (
         <HotelSearchResults
-          toAirport={toAirport}
           travelingForWorkCheckBox={travelingForWorkCheckBox}
         />
       );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PropertyListType } from "../Types/PropertyList";
 
 /**
  * List properties having type of resorts, hotels, motels, hostels, etc as on official site
@@ -18,8 +19,9 @@ export const fetchPropertyListByDestId = async (
   room_qty: string,
   dest_ids: string,
   children_qty: string,
-  travel_purpose: string
-) => {
+  travel_purpose: string,
+  sortBy: string
+): Promise<PropertyListType> => {
   const options = {
     method: "GET",
     url: "https://apidojo-booking-v1.p.rapidapi.com/properties/list",
@@ -34,7 +36,7 @@ export const fetchPropertyListByDestId = async (
       children_qty: children_qty,
       search_id: "none",
       price_filter_currencycode: "USD",
-      order_by: "popularity",
+      order_by: sortBy,
       languagecode: "en-us",
       travel_purpose: travel_purpose,
     },

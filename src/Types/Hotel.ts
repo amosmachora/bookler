@@ -5,6 +5,7 @@ export type TravellerHotelInfo = {
 };
 
 export type HotelInfo = {
+  [x: string]: any;
   accommodation_type: number;
   accommodation_type_name: string;
   address: string;
