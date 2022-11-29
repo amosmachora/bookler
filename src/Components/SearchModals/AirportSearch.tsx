@@ -17,27 +17,28 @@ const AirportSearch = ({
   setFromAirport,
   setToAirport,
 }: AirportSearchProps) => {
-  const { airports } = useContext(MainContext);
-  const [airportListLocal, setAirportListLocal] = useState<Airport[]>(airports);
+  const { searchAirports } = useContext(MainContext);
+  const [localAirportList, setLocalAirportList] =
+    useState<Airport[]>(searchAirports);
   const { setTargetHotelLocation } = useContext(HotelSearchContext);
 
-  const searchAirports = (e: React.KeyboardEvent) => {
+  const searchAirport = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
 
     if (e.key === "Enter") {
-      const filteredAirports = airportListLocal.filter(
+      const filteredAirports = localAirportList.filter(
         (airport) =>
           airport.name.toLowerCase().includes(searchValue) ||
           airport.country.toLowerCase().includes(searchValue) ||
           airport.city.toLowerCase().includes(searchValue)
       );
-      setAirportListLocal(filteredAirports);
+      setLocalAirportList(filteredAirports);
     }
   };
 
   const checkIfEmpty = (e: React.FormEvent) => {
     if ((e.target as HTMLInputElement).value.length === 0) {
-      setAirportListLocal(airports);
+      setLocalAirportList(searchAirports);
     }
   };
 
@@ -85,12 +86,12 @@ const AirportSearch = ({
         name="From"
         className="w-full border rounded-xl h-11 p-4 text-sm focus:border-blue-500 outline-none focus:border-2"
         placeholder="Start your flight search"
-        onKeyDown={(e) => searchAirports(e)}
+        onKeyDown={(e) => searchAirport(e)}
         onChange={(e) => checkIfEmpty(e)}
       />
 
       <div className="airports-list mt-8 search-results-airports h-28 overflow-y-scroll scroll">
-        {airportListLocal.map((airport) => (
+        {localAirportList.map((airport) => (
           <div
             key={airport.id}
             className="flex justify-between cursor-pointer"

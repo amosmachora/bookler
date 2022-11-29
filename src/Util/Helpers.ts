@@ -34,3 +34,19 @@ export const getFormattedDate = (date: Date | null | undefined) => {
 export const getDateFromIsoString = (date: Date | null): string | undefined => {
   return date?.toISOString().substring(0, 10);
 };
+
+export const getDay = (date: Date | null | undefined) => {
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  if (date === null || date === undefined) {
+    return "Sunday";
+  }
+  return weekdays[date.getDay()];
+};

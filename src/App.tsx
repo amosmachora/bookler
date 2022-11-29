@@ -63,7 +63,6 @@ export const FlightSearchContext = createContext<FlightSearchParametersContext>(
       size: 0,
       timezone: null,
     },
-    devMode: false,
     outGoingFlights: [],
   }
 );
@@ -74,6 +73,8 @@ export const MainContext = createContext<MainContextValue>({
   airlines: [],
   devMode: false,
   countriesList: {},
+  searchAirports: [],
+  setSearchAirports: () => {},
 });
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
@@ -90,7 +91,7 @@ function App() {
   const [departureDate, setDepartureDate] = useState<Date | null>();
   const [returnDate, setReturnDate] = useState<Date | null>();
   const [devMode, setDevMode] = useState(true);
-  const [searchAirports, setSearchAirports] = useState<Airport[]>([]);
+  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
   const [searchType, setSearchType] = useState("from");
   const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
     DevAirportFlightData.departures
@@ -137,7 +138,7 @@ function App() {
 
   /**
    * A function to randomly decide a default airport.
-   * @Returns A random airport.
+   * @Returns A random airport object.
    */
   function getRandomAirport() {
     const min = 0;
@@ -155,24 +156,31 @@ function App() {
   const renderTab = (): JSX.Element | undefined => {
     if (activeChoice === "flights") {
       return (
-        <SearchForm
-          setOverlay={setOverlay}
-          setMenuWide={setMenuWide}
-          menuWide={menuWide}
-          toAirport={toAirport}
-          setToAirport={setToAirport}
-          fromAirport={fromAirport}
-          setFromAirport={setFromAirport}
-          typeOfTrip={typeOfTrip}
-          setTypeOfTrip={setTypeOfTrip}
-          setDepartureDate={setDepartureDate}
-          setReturnDate={setReturnDate}
-          searchAirports={searchAirports}
-          setSearchAirports={setSearchAirports}
-          setSearchType={setSearchType}
-          searchType={searchType}
-          outGoingFlights={outGoingFlights}
-        />
+        <FlightSearchContext.Provider
+          value={{
+            typeOfTrip,
+            fromAirport,
+            departureDate,
+            returnDate,
+            toAirport,
+            outGoingFlights,
+          }}
+        >
+          <SearchForm
+            setMenuWide={setMenuWide}
+            menuWide={menuWide}
+            setToAirport={setToAirport}
+            setFromAirport={setFromAirport}
+            setTypeOfTrip={setTypeOfTrip}
+            setDepartureDate={setDepartureDate}
+            setReturnDate={setReturnDate}
+            setSearchType={setSearchType}
+            searchType={searchType}
+            typeOfTrip={typeOfTrip}
+            searchAirports={searchAirports}
+            outGoingFlights={outGoingFlights}
+          />
+        </FlightSearchContext.Provider>
       );
     } else if (activeChoice === "hotel") {
       return (
@@ -195,7 +203,6 @@ function App() {
             departureDate,
             returnDate,
             toAirport,
-            devMode,
             outGoingFlights,
           }}
         >
@@ -220,6 +227,8 @@ function App() {
         airlines,
         devMode,
         countriesList,
+        searchAirports,
+        setSearchAirports,
       }}
     >
       <div className="App w-full">

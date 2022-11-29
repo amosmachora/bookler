@@ -7,7 +7,6 @@ export interface FlightSearchParametersContext {
   departureDate: Date | null | undefined;
   typeOfTrip: string;
   fromAirport: Airport;
-  devMode: boolean;
   outGoingFlights: Departures[];
 }
 
@@ -17,6 +16,8 @@ export interface MainContextValue {
   airlines: Airline[];
   devMode: boolean;
   countriesList: object;
+  searchAirports: Airport[];
+  setSearchAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
 }
 
 export interface BookingContextType {

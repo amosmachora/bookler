@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { HotelSearchContext } from "../../App";
+import { HotelSearchContext, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
-import { getDay, MoreButton } from "../SearchForm";
+import { MoreButton } from "../../MoreButton";
 import { Airport } from "../../Types/Flights";
+import { getDay } from "../../Util/Helpers";
 import AirportSearch from "../SearchModals/AirportSearch";
 import TravellerSelector from "./TravellersSelector";
 
@@ -24,16 +25,21 @@ const HotelSearchForm = ({
     targetHotelLocation,
     travellerHotelInfo,
   } = useContext(HotelSearchContext);
+  const { setSearchAirports } = useContext(MainContext);
   const [showHotelSearchModal, setShowHotelSearchModal] =
     useState<boolean>(false);
   const [showTravelSelector, setShowTravelSelector] = useState<boolean>(false);
+  const { airports } = useContext(MainContext);
 
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5 relative">
       <div className="flex justify-between [&>*]:bg-gray-100 [&>*]:px-4 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg mb-4">
         <div
           className="bg-gray-200 rounded-md w-[32%]"
-          onClick={() => setShowHotelSearchModal(true)}
+          onClick={() => {
+            setSearchAirports(airports);
+            setShowHotelSearchModal(true);
+          }}
         >
           <div className="flex">
             <img src={Assets.LocationPointer} alt="Location pointer" />
