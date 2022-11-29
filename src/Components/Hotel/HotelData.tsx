@@ -87,7 +87,7 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
   return (
     <div className="my-3 bg-white rounded-md h-48">
       <div className="flex h-full">
-        <div className="h-full w-[21%] relative">
+        <div className="h-full w-[30%] relative">
           <img
             src={image}
             alt="Hotel main"
@@ -142,7 +142,7 @@ const HotelData = ({ hotelInfo }: { hotelInfo: HotelInfo }) => {
             </div>
           </div>
         </div>
-        <div className="py-6 pl-6 flex-grow relative pr-20 w-[79%]">
+        <div className="py-6 pl-6 flex-grow relative pr-20 w-[70%]">
           <p className="font-bold text-lg">{hotelInfo.hotel_name}</p>
           <div className="flex justify-between">
             <p className="font-semibold text-xs">{hotelInfo.address}</p>
