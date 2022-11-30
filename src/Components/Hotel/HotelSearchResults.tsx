@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { HotelSearchContext, MainContext } from "../../App";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
-import { getDateFromIsoString } from "../../Util/Helpers";
+import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
 import PropertyList from "../../Util/PropertyListByDestId.json";
 import HotelData from "./HotelData";
@@ -27,6 +27,9 @@ const HotelSearchResults = ({
     propertyList.sorting.selected_identifier
   );
 
+  //Selected filters array
+  const [filterBy, setFilterBy] = useState<Array<string>>([]);
+
   useEffect(() => {
     if (!devMode) {
       fetchSuggestedLocations(targetHotelLocation?.city).then((res) => {
@@ -39,13 +42,13 @@ const HotelSearchResults = ({
           cityLocation[0].dest_id,
           travellerHotelInfo.kids.toString(),
           travelingForWorkCheckBox.current?.checked ? "business" : "leisure",
-          //FIX ME
-          "popularity"
+          sortBy,
+          cleaned(filterBy)
         ).then((res) => setPropertyList(res));
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [devMode, sortBy]);
+  }, [devMode, sortBy, filterBy]);
 
   useEffect(() => {
     setHotelList(propertyList.result);
@@ -57,23 +60,21 @@ const HotelSearchResults = ({
       <div className="flex justify-between">
         <div className="bg-flightResultsBg py-3 rounded-md w-[78%]">
           <div className="flex px-5">
-            <div className="flex items-stretch">
+            <div className="flex">
               <p className="font-bold">Hotels</p>
               <div className="h-inherit w-[1px] bg-gray-300 mx-3" />
-              <div className="flex items-center">
-                <p className="text-sm font-semibold">
-                  Total{" "}
-                  <span className="text-sky-500 font-normal">
-                    {PropertyList.result.length} results
-                  </span>
-                </p>
-              </div>
+              <p className="text-sm font-semibold">
+                Total{" "}
+                <span className="text-sky-500 font-normal">
+                  {PropertyList.result.length} results
+                </span>
+              </p>
             </div>
             <div className="flex text-sm items-stretch text-gray-400">
-              <div className="flex items-center flex-wrap">
+              <div className="flex items-center flex-wrap text-xs">
                 {propertyList.sort.map((sortOption) => (
                   <p
-                    className={`rounded-full text-xs py-1 mx-1 px-2 cursor-pointer transition-all ${
+                    className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
                       sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
                     }`}
                     onClick={() => setSortBy(sortOption.id)}
@@ -81,13 +82,14 @@ const HotelSearchResults = ({
                     {sortOption.name}
                   </p>
                 ))}
+                {propertyList.applied_filters.map((appliedFilter) => (
+                  <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
+                ))}
               </div>
               <div className="h-inherit w-[1px] bg-gray-300 mx-3" />
-              <div className="flex items-center">
-                <p className="cursor-pointer text-blue-600 font-semibold">
-                  Map View
-                </p>
-              </div>
+              <p className="cursor-pointer text-blue-600 font-semibold">
+                Map View
+              </p>
             </div>
           </div>
           {hotelList.map((hotelInfo) => (
@@ -97,6 +99,7 @@ const HotelSearchResults = ({
         <HotelFilter
           baseFilters={propertyList.base_filters}
           recommendedFilters={propertyList.recommended_filters}
+          setFilterBy={setFilterBy}
         />
       </div>
     </div>
