@@ -2,7 +2,13 @@ import React from "react";
 import { Assets } from "../../Assets/Assets";
 import { Facility } from "../../Types/Hotel";
 
-const LittleFacilityDisplay = ({ facility }: { facility: Facility }) => {
+const LittleFacilityDisplay = ({
+  facility,
+  mapShown,
+}: {
+  facility: Facility;
+  mapShown: boolean;
+}) => {
   return (
     <div className="flex mr-5 items-center">
       <img
@@ -10,7 +16,9 @@ const LittleFacilityDisplay = ({ facility }: { facility: Facility }) => {
         alt="Test"
         className="mx-2 h-3 w-3 object-cover"
       />
-      <p className="text-xs text-gray-400">{facility.facility_name}</p>
+      {mapShown ? null : (
+        <p className="text-xs text-gray-400">{facility.facility_name}</p>
+      )}
     </div>
   );
 };

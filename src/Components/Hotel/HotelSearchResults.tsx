@@ -1,3 +1,4 @@
+import Map from "./Map";
 import React, { useContext, useEffect, useState } from "react";
 import { HotelSearchContext, MainContext } from "../../App";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
@@ -54,12 +55,14 @@ const HotelSearchResults = ({
     setHotelList(propertyList.result);
   }, [propertyList]);
 
+  const [mapShown, setMapShown] = useState<boolean>(false);
+
   return (
     <div>
       <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
       <div className="flex justify-between">
-        <div className="bg-flightResultsBg py-3 rounded-md w-[78%] h-max">
-          <div className="flex px-5">
+        <div className="w-[78%] h-max">
+          <div className="flex px-5 bg-flightResultsBg py-1 rounded-md mb-1">
             <div className="flex">
               <p className="font-bold">Hotels</p>
               <div className="h-inherit w-[1px] bg-gray-300 mx-3" />
@@ -92,10 +95,22 @@ const HotelSearchResults = ({
               </p>
             </div>
           </div>
-          <div className="h-[55vh] overflow-y-scroll">
-            {hotelList.map((hotelInfo) => (
-              <HotelData hotelInfo={hotelInfo} key={hotelInfo.hotel_id} />
-            ))}
+          <div className="flex justify-between">
+            <div
+              className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md ${
+                mapShown ? "w-[44%]" : ""
+              } `}
+            >
+              {hotelList.map((hotelInfo) => (
+                <HotelData
+                  hotelInfo={hotelInfo}
+                  key={hotelInfo.hotel_id}
+                  setShowMapFunction={setMapShown}
+                  mapShown={mapShown}
+                />
+              ))}
+            </div>
+            {mapShown && <Map />}
           </div>
         </div>
         <HotelFilter
