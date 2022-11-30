@@ -43,8 +43,10 @@ import PriceArrows from "./PriceArrows.svg";
 import ArrowWhiteRight from "./Arrow-right-white.svg";
 import ArrowWhiteLeft from "./Arrow-left-white.svg";
 import Star from "./Star.svg";
+import StarBlue from "./Star-blue.svg";
 
 export const Assets = {
+  StarBlue,
   Star,
   ArrowWhiteLeft,
   ArrowWhiteRight,

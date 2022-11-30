@@ -4,14 +4,25 @@ import { BaseFilter, RecommendedFilter } from "../../Types/PropertyList";
 const HotelFilter = ({
   baseFilters,
   recommendedFilters,
+  setFilterBy,
 }: {
   baseFilters: BaseFilter[];
   recommendedFilters: RecommendedFilter[];
+  setFilterBy: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
-  const [activeFilter, setActiveFilter] = useState<BaseFilter | undefined>();
+  const [activeFilter, setActiveFilter] = useState<BaseFilter | undefined>(
+    baseFilters[0]
+  );
 
-  // console.log(baseFilters);
-  // console.log(recommendedFilters);
+  const addFilter = (filter_id: string) => {
+    setFilterBy((prevState) => [...prevState, filter_id]);
+  };
+
+  const removeFilter = (filter: string) => {
+    setFilterBy((prevState) =>
+      prevState.filter((element) => element !== filter)
+    );
+  };
 
   return (
     <div className="w-1/5 rounded-md overflow-hidden">
@@ -33,13 +44,20 @@ const HotelFilter = ({
           }}
         >
           {baseFilters.map((filter) => (
-            <option value={filter.id}>{filter.title}</option>
+            <option value={filter.id} key={filter.id}>
+              {filter.title}
+            </option>
           ))}
         </select>
         <p className="mt-7 mb-5">Category</p>
-        <select className="w-full font-bold border rounded-md h-10 px-3">
+        <select
+          className="w-full font-bold border rounded-md h-10 px-3"
+          onChange={(e) => addFilter(e.target.value)}
+        >
           {activeFilter?.categories.map((filter) => (
-            <option value={filter.id}>{filter.name}</option>
+            <option value={filter.id} key={filter.id}>
+              {filter.name}
+            </option>
           ))}
         </select>
         <p className="mt-7 mb-5">Popular Filters</p>
@@ -48,7 +66,16 @@ const HotelFilter = ({
             className="flex text-gray-400 text-xs mb-2"
             key={filter.generic_id}
           >
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  addFilter(filter.generic_id);
+                } else {
+                  removeFilter(filter.generic_id);
+                }
+              }}
+            />
             <p className="ml-2">{filter.name}</p>
           </div>
         ))}

@@ -50,3 +50,22 @@ export const getDay = (date: Date | null | undefined) => {
   }
   return weekdays[date.getDay()];
 };
+
+/**
+ * A function to clean the array of strings
+ * @param filterBy an array of strings
+ * @returns one string of the format string1,string2,string3,
+ */
+export function cleaned(filterBy: string[]): string {
+  let text: string = "";
+
+  filterBy.forEach((filter) => {
+    if (filterBy.indexOf(filter) !== filterBy.length - 1) {
+      text = text.concat(filter + ",");
+    } else {
+      text = text.concat(filter);
+    }
+  });
+
+  return text;
+}

@@ -58,7 +58,7 @@ const HotelSearchResults = ({
     <div>
       <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
       <div className="flex justify-between">
-        <div className="bg-flightResultsBg py-3 rounded-md w-[78%]">
+        <div className="bg-flightResultsBg py-3 rounded-md w-[78%] h-max">
           <div className="flex px-5">
             <div className="flex">
               <p className="font-bold">Hotels</p>
@@ -92,9 +92,11 @@ const HotelSearchResults = ({
               </p>
             </div>
           </div>
-          {hotelList.map((hotelInfo) => (
-            <HotelData hotelInfo={hotelInfo} key={hotelInfo.hotel_id} />
-          ))}
+          <div className="h-[55vh] overflow-y-scroll">
+            {hotelList.map((hotelInfo) => (
+              <HotelData hotelInfo={hotelInfo} key={hotelInfo.hotel_id} />
+            ))}
+          </div>
         </div>
         <HotelFilter
           baseFilters={propertyList.base_filters}

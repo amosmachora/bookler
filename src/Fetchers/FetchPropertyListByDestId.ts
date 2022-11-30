@@ -20,7 +20,8 @@ export const fetchPropertyListByDestId = async (
   dest_ids: string,
   children_qty: string,
   travel_purpose: string,
-  sortBy: string
+  sortBy: string,
+  categories_filter: string
 ): Promise<PropertyListType> => {
   const options = {
     method: "GET",
@@ -39,6 +40,7 @@ export const fetchPropertyListByDestId = async (
       order_by: sortBy,
       languagecode: "en-us",
       travel_purpose: travel_purpose,
+      categories_filter: categories_filter,
     },
     headers: {
       "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
