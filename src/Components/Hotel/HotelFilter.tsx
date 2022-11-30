@@ -32,7 +32,9 @@ const HotelFilter = ({
           <p>Price</p>
           <p>+795</p>
         </div>
-        <p>Price graph</p>
+        <p className="text-red-800 font-bold">
+          Fix me !! Generate price graph from provided prices
+        </p>
         <input type="range" className="w-full" />
         <p className="font-semibold mb-5 mt-7">Looking for</p>
         <select

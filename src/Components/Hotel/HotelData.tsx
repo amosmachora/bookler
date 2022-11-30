@@ -156,7 +156,7 @@ const HotelData = ({
         </div>
         <div
           className={`py-6 flex-grow relative ${
-            mapShown ? "w-[67%] pl-3" : "pr-20 w-[70%] pl-6"
+            mapShown ? "w-[67%] px-2" : "pr-20 w-[70%] pl-6"
           }`}
         >
           <div
@@ -168,8 +168,8 @@ const HotelData = ({
             <div
               className={`${
                 mapShown
-                  ? "right-1 rounded font-semibold"
-                  : "right-0 rounded-tl-md rounded-bl-md font-bold absolute top-[15%]"
+                  ? "rounded font-semibold"
+                  : "rounded-tl-md rounded-bl-md font-bold right-0 absolute top-[15%]"
               } text-white bg-blue-900`}
             >
               <div className="flex items-center px-3 py-1">

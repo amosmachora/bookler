@@ -9,6 +9,7 @@ import HotelData from "./HotelData";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
+import HotelActiveDataScreen from "./HotelActiveDataScreen";
 // import HotelFilter from "./HotelFilter";
 
 type HotelSearchResultsProps = {
@@ -62,39 +63,11 @@ const HotelSearchResults = ({
       <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
       <div className="flex justify-between">
         <div className="w-[78%] h-max">
-          <div className="flex px-5 bg-flightResultsBg py-1 rounded-md mb-1">
-            <div className="flex">
-              <p className="font-bold">Hotels</p>
-              <div className="h-inherit w-[1px] bg-gray-300 mx-3" />
-              <p className="text-sm font-semibold">
-                Total{" "}
-                <span className="text-sky-500 font-normal">
-                  {PropertyList.result.length} results
-                </span>
-              </p>
-            </div>
-            <div className="flex text-sm items-stretch text-gray-400">
-              <div className="flex items-center flex-wrap text-xs">
-                {propertyList.sort.map((sortOption) => (
-                  <p
-                    className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
-                      sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
-                    }`}
-                    onClick={() => setSortBy(sortOption.id)}
-                  >
-                    {sortOption.name}
-                  </p>
-                ))}
-                {propertyList.applied_filters.map((appliedFilter) => (
-                  <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
-                ))}
-              </div>
-              <div className="h-inherit w-[1px] bg-gray-300 mx-3" />
-              <p className="cursor-pointer text-blue-600 font-semibold">
-                Map View
-              </p>
-            </div>
-          </div>
+          <HotelActiveDataScreen
+            sortBy={sortBy}
+            propertyList={propertyList}
+            setSortBy={setSortBy}
+          />
           <div className="flex justify-between">
             <div
               className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md ${
