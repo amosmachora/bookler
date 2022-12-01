@@ -81,7 +81,7 @@ const HotelFilter = ({
             <p className="ml-2">{filter.name}</p>
           </div>
         ))}
-        <p className="text-center mt-11 mb-9">More</p>
+        <p className="text-center mt-4 mb-4">More</p>
       </div>
     </div>
   );

@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
-import { Facility, HotelImagesType, HotelInfo } from "../../Types/Hotel";
+import {
+  Facility,
+  GoogleMapsCenter,
+  HotelImagesType,
+  HotelInfo,
+} from "../../Types/Hotel";
 import HotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
@@ -12,10 +17,12 @@ const HotelData = ({
   hotelInfo,
   setShowMapFunction,
   mapShown,
+  setMapCenter,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
   mapShown: boolean;
+  setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
   const { devMode } = useContext(MainContext);
@@ -188,7 +195,13 @@ const HotelData = ({
             {mapShown ? null : (
               <p
                 className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
-                onClick={() => setShowMapFunction(true)}
+                onClick={() => {
+                  setShowMapFunction(true);
+                  setMapCenter({
+                    lat: hotelInfo.latitude,
+                    lng: hotelInfo.longitude,
+                  });
+                }}
               >
                 Map View
               </p>

@@ -10,7 +10,7 @@ import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
 import HotelActiveDataScreen from "./HotelActiveDataScreen";
-// import HotelFilter from "./HotelFilter";
+import { GoogleMapsCenter } from "../../Types/Hotel";
 
 type HotelSearchResultsProps = {
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
@@ -57,6 +57,10 @@ const HotelSearchResults = ({
   }, [propertyList]);
 
   const [mapShown, setMapShown] = useState<boolean>(false);
+  const [mapCenter, setMapCenter] = useState<GoogleMapsCenter>({
+    lat: 0,
+    lng: 0,
+  });
 
   return (
     <div>
@@ -80,10 +84,11 @@ const HotelSearchResults = ({
                   key={hotelInfo.hotel_id}
                   setShowMapFunction={setMapShown}
                   mapShown={mapShown}
+                  setMapCenter={setMapCenter}
                 />
               ))}
             </div>
-            {mapShown && <Map />}
+            {mapShown && <Map center={mapCenter} />}
           </div>
         </div>
         <HotelFilter

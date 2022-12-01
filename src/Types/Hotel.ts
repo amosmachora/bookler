@@ -146,3 +146,8 @@ export interface Facility {
   free?: number;
   paid?: number;
 }
+
+export type GoogleMapsCenter = {
+  lat: number;
+  lng: number;
+};
