@@ -27,6 +27,7 @@ const HotelActiveDataScreen = ({
               sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
             }`}
             onClick={() => setSortBy(sortOption.id)}
+            key={sortOption.id}
           >
             {sortOption.name}
           </p>

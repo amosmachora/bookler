@@ -31,6 +31,7 @@ const HotelSearchResults = ({
 
   //Selected filters array
   const [filterBy, setFilterBy] = useState<Array<string>>([]);
+  const [activeTab, setActiveTab] = useState("");
 
   useEffect(() => {
     if (!devMode) {
@@ -74,7 +75,7 @@ const HotelSearchResults = ({
           />
           <div className="flex justify-between">
             <div
-              className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md ${
+              className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
                 mapShown ? "w-[44%]" : ""
               } `}
             >
@@ -85,10 +86,12 @@ const HotelSearchResults = ({
                   setShowMapFunction={setMapShown}
                   mapShown={mapShown}
                   setMapCenter={setMapCenter}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
                 />
               ))}
             </div>
-            {mapShown && <Map center={mapCenter} />}
+            {mapShown && mapCenter !== null && <Map center={mapCenter} />}
           </div>
         </div>
         <HotelFilter

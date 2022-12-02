@@ -1,11 +1,13 @@
 import React from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { GoogleMapsCenter } from "../../Types/Hotel";
 
 const Map = ({ center }: { center: GoogleMapsCenter }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_GOOGLE_MAPS_API_KEY as string,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
   });
+
+  console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
   if (!isLoaded) return <p>Loading...</p>;
 

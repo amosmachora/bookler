@@ -18,11 +18,15 @@ const HotelData = ({
   setShowMapFunction,
   mapShown,
   setMapCenter,
+  activeTab,
+  setActiveTab,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
   mapShown: boolean;
   setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
   const { devMode } = useContext(MainContext);
@@ -100,7 +104,13 @@ const HotelData = ({
     "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
 
   return (
-    <div className="mb-1 bg-white rounded-md h-48">
+    <div
+      className={`bg-white rounded-md h-48 ${
+        activeTab === hotelInfo.hotel_name
+          ? "shadow-md border-2 my-2 border-red-400"
+          : "mb-1 border-0"
+      } transition-all`}
+    >
       <div className="flex h-full">
         <div className={`h-full ${mapShown ? "w-[33%]" : "w-[30%]"} relative`}>
           <img
@@ -190,28 +200,27 @@ const HotelData = ({
               )}
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className={`flex justify-between ${mapShown ? "mt-3" : ""}`}>
             <p className="font-semibold text-xs">{hotelInfo.address}</p>
-            {mapShown ? null : (
-              <p
-                className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
-                onClick={() => {
-                  setShowMapFunction(true);
-                  setMapCenter({
-                    lat: hotelInfo.latitude,
-                    lng: hotelInfo.longitude,
-                  });
-                }}
-              >
-                Map View
-              </p>
-            )}
+            <p
+              className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
+              onClick={() => {
+                setShowMapFunction(true);
+                setActiveTab(hotelInfo.hotel_name);
+                setMapCenter({
+                  lat: hotelInfo.latitude,
+                  lng: hotelInfo.longitude,
+                });
+              }}
+            >
+              Map View
+            </p>
           </div>
           <div
             className={`${
               showAllFacilities
-                ? "h-12 overflow-y-scroll"
-                : `${mapShown ? "h-12" : "h-4"} overflow-y-hidden`
+                ? "h-11 overflow-y-scroll"
+                : `h-4 overflow-y-hidden`
             } w-full flex flex-wrap my-3 relative`}
           >
             {hotelFacilities.map((facility, index) => (
