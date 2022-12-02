@@ -1,3 +1,4 @@
+import React from "react";
 import "./Reach.css";
 
 const Reach = () => {
