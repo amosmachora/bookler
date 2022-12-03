@@ -4,7 +4,7 @@ import { GoogleMapsCenter } from "../../Types/Hotel";
 
 const Map = ({ center }: { center: GoogleMapsCenter }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
+    googleMapsApiKey: "AIzaSyD0jlERSG3b0Ic6yP8jwYaaeT_CfTJtPbQ",
   });
 
   console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);

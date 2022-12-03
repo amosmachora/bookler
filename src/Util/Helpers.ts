@@ -1,5 +1,6 @@
 import { FlightPrices } from "../Types/Contexts";
 import { TravelerInfo } from "../Types/Flights";
+import { HotelImagesType } from "../Types/Hotel";
 
 export function getTotalPrice(
   travelersInfo: TravelerInfo | null,

@@ -20,13 +20,21 @@ const HotelData = ({
   setMapCenter,
   activeTab,
   setActiveTab,
+  setDetailsShown,
+  setHotelDetailsId,
+  setHotelDetailsImages,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
   mapShown: boolean;
   setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  activeTab: string | null;
+  setActiveTab: React.Dispatch<React.SetStateAction<string | null>>;
+  setDetailsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  setHotelDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
+  setHotelDetailsImages: React.Dispatch<
+    React.SetStateAction<HotelImagesType | null>
+  >;
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
   const { devMode } = useContext(MainContext);
@@ -50,6 +58,30 @@ const HotelData = ({
   }, [devMode, hotelInfo.hotel_id]);
 
   const tempHotelId: number = 25924;
+
+  const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
+
+  const smallCircleClasses: string =
+    "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
+
+  /**
+   *
+   * @param image_type A image type string e.g "Property Building"
+   * @returns imageUrl of the specified image
+   */
+  const getSpecificImage = (image_type: string): string | undefined => {
+    const imageArray = hotelImages.data[tempHotelId].find((image) => {
+      const imageTags = image[1];
+      if (Array.isArray(imageTags) && imageTags.length > 0) {
+        return imageTags[0].tag_name === image_type;
+      }
+      return false;
+    });
+
+    if (imageArray !== undefined) {
+      return hotelImages.url_prefix + imageArray[4];
+    }
+  };
 
   const possibleTags = [
     "Bathroom",
@@ -77,31 +109,7 @@ const HotelData = ({
     return getSpecificImage(possibleTags[randomIndex]);
   };
 
-  /**
-   *
-   * @param image_type A image type string e.g "Property Building"
-   * @returns imageUrl of the specified image
-   */
-  const getSpecificImage = (image_type: string): string | undefined => {
-    const imageArray = hotelImages.data[tempHotelId].find((image) => {
-      const imageTags = image[1];
-      if (Array.isArray(imageTags) && imageTags.length > 0) {
-        return imageTags[0].tag_name === image_type;
-      }
-      return false;
-    });
-
-    if (imageArray !== undefined) {
-      return hotelImages.url_prefix + imageArray[4];
-    }
-  };
-
   const [image, setImage] = useState(getSpecificImage("Property Building"));
-
-  const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
-
-  const smallCircleClasses: string =
-    "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
 
   return (
     <div
@@ -202,19 +210,31 @@ const HotelData = ({
           </div>
           <div className={`flex justify-between ${mapShown ? "mt-3" : ""}`}>
             <p className="font-semibold text-xs">{hotelInfo.address}</p>
-            <p
-              className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
-              onClick={() => {
-                setShowMapFunction(true);
-                setActiveTab(hotelInfo.hotel_name);
-                setMapCenter({
-                  lat: hotelInfo.latitude,
-                  lng: hotelInfo.longitude,
-                });
-              }}
-            >
-              Map View
-            </p>
+            {activeTab === hotelInfo.hotel_name ? (
+              <p
+                className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
+                onClick={() => {
+                  setShowMapFunction(false);
+                  setActiveTab(null);
+                }}
+              >
+                Close Map
+              </p>
+            ) : (
+              <p
+                className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
+                onClick={() => {
+                  setShowMapFunction(true);
+                  setActiveTab(hotelInfo.hotel_name);
+                  setMapCenter({
+                    lat: hotelInfo.latitude,
+                    lng: hotelInfo.longitude,
+                  });
+                }}
+              >
+                Map View
+              </p>
+            )}
           </div>
           <div
             className={`${
@@ -255,6 +275,11 @@ const HotelData = ({
                     ? "px-1 hover:border-gray-400 transition-all mr-2"
                     : "bg-gray-300 hover:bg-gray-400 px-5 mr-4"
                 } rounded-md font-semibold transition-all border-2 border-transparent`}
+                onClick={() => {
+                  setHotelDetailsId(hotelInfo.hotel_id);
+                  setDetailsShown(true);
+                  setHotelDetailsImages(hotelImages);
+                }}
               >
                 View Details
               </button>

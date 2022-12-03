@@ -123,7 +123,7 @@ interface Data {
   [key: string]: Array<Array<tags[] | number | string>>;
 }
 
-interface tags {
+export interface tags {
   tag_type?: string;
   tag_name?: null | string;
   confidence?: number;

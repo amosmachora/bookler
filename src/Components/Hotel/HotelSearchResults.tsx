@@ -10,7 +10,8 @@ import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
 import HotelActiveDataScreen from "./HotelActiveDataScreen";
-import { GoogleMapsCenter } from "../../Types/Hotel";
+import { GoogleMapsCenter, HotelImagesType } from "../../Types/Hotel";
+import HotelDetails from "./HotelDetails";
 
 type HotelSearchResultsProps = {
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
@@ -31,7 +32,7 @@ const HotelSearchResults = ({
 
   //Selected filters array
   const [filterBy, setFilterBy] = useState<Array<string>>([]);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState<string | null>(null);
 
   useEffect(() => {
     if (!devMode) {
@@ -63,42 +64,61 @@ const HotelSearchResults = ({
     lng: 0,
   });
 
+  const [detailsShown, setDetailsShown] = useState<boolean>(false);
+  const [hotelDetailsId, setHotelDetailsId] = useState<number | null>(null);
+  const [HotelDetailsImages, setHotelDetailsImages] =
+    useState<HotelImagesType | null>(null);
+
   return (
     <div>
       <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
       <div className="flex justify-between">
-        <div className="w-[78%] h-max">
+        <div className={`${detailsShown ? "w-full" : "w-[78%]"} h-max`}>
           <HotelActiveDataScreen
             sortBy={sortBy}
             propertyList={propertyList}
             setSortBy={setSortBy}
           />
-          <div className="flex justify-between">
-            <div
-              className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
-                mapShown ? "w-[44%]" : ""
-              } `}
-            >
-              {hotelList.map((hotelInfo) => (
-                <HotelData
-                  hotelInfo={hotelInfo}
-                  key={hotelInfo.hotel_id}
-                  setShowMapFunction={setMapShown}
-                  mapShown={mapShown}
-                  setMapCenter={setMapCenter}
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                />
-              ))}
+          {detailsShown ? (
+            <HotelDetails
+              hotelInfo={hotelList.find(
+                (hotel) => hotel.hotel_id === hotelDetailsId
+              )}
+              hotelImages={HotelDetailsImages}
+            />
+          ) : (
+            <div className="flex justify-between">
+              <div
+                className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
+                  mapShown ? "w-[44%]" : ""
+                } `}
+              >
+                {hotelList.map((hotelInfo) => (
+                  <HotelData
+                    hotelInfo={hotelInfo}
+                    key={hotelInfo.hotel_id}
+                    setShowMapFunction={setMapShown}
+                    mapShown={mapShown}
+                    setMapCenter={setMapCenter}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    setDetailsShown={setDetailsShown}
+                    setHotelDetailsId={setHotelDetailsId}
+                    setHotelDetailsImages={setHotelDetailsImages}
+                  />
+                ))}
+              </div>
+              {mapShown && mapCenter !== null && <Map center={mapCenter} />}
             </div>
-            {mapShown && mapCenter !== null && <Map center={mapCenter} />}
-          </div>
+          )}
         </div>
-        <HotelFilter
-          baseFilters={propertyList.base_filters}
-          recommendedFilters={propertyList.recommended_filters}
-          setFilterBy={setFilterBy}
-        />
+        {!detailsShown && (
+          <HotelFilter
+            baseFilters={propertyList.base_filters}
+            recommendedFilters={propertyList.recommended_filters}
+            setFilterBy={setFilterBy}
+          />
+        )}
       </div>
     </div>
   );

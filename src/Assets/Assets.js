@@ -44,8 +44,10 @@ import ArrowWhiteRight from "./Arrow-right-white.svg";
 import ArrowWhiteLeft from "./Arrow-left-white.svg";
 import Star from "./Star.svg";
 import StarBlue from "./Star-blue.svg";
+import LocationPointerBlue from "./Location-pointer-blue.svg";
 
 export const Assets = {
+  LocationPointerBlue,
   StarBlue,
   Star,
   ArrowWhiteLeft,
