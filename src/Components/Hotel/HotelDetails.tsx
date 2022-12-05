@@ -1,6 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { HotelImagesType, HotelInfo, tags } from "../../Types/Hotel";
+
+type HotelImage = {
+  tag_name: string | undefined | null;
+  img_url_large: string;
+  img_url_small: string;
+  img_url_medium: string;
+  img_url_tiny: string;
+};
 
 const HotelDetails = ({
   hotelInfo,
@@ -11,7 +19,7 @@ const HotelDetails = ({
 }) => {
   const tempHotelId: number = 25924;
 
-  const getArrayOfImages = () => {
+  const getArrayOfImages = (): HotelImage[] | undefined => {
     const ArrayOfImages = hotelImages?.data[tempHotelId].map((hotelImage) => {
       return {
         tag_name: getTagName(hotelImage[1]),
@@ -38,12 +46,9 @@ const HotelDetails = ({
     }
   };
 
-  const [image, setImage] = useState<string | undefined>(
+  const [image, setImage] = useState<HotelImage | undefined>(
     getArrayOfImages()?.find((image) => image.tag_name === "Property Building")
-      ?.img_url_large
   );
-
-  console.log(image);
 
   return (
     <div className="bg-white rounded-md px-3 py-6">
@@ -68,7 +73,7 @@ const HotelDetails = ({
       <div className="flex">
         <div className="w-[55%] relative">
           <img
-            src={image}
+            src={image?.img_url_large}
             alt="LocationPointerBlue"
             className="w-full rounded-md h-[67vh] object-cover"
           />
@@ -82,16 +87,18 @@ const HotelDetails = ({
             alt="Arrow"
             className="h-6 absolute top-1/2 right-3 cursor-pointer hover:h-4 transition-all"
           />
-          {/* <div className="flex justify-between">
-            {[...Array(numberOfAllowedImages)].map((i) => (
+          <div
+            className="flex justify-between w-full absolute bottom-6 overflow-x-scroll items-baseline"
+            id="image-tape"
+          >
+            {getArrayOfImages()?.map((hotelImage, index) => (
               <TinyImageSelector
-                hotelImages={hotelImages as HotelImagesType}
-                hotel_id={tempHotelId}
+                renderImage={hotelImage}
+                key={index}
                 setImage={setImage}
-                key={i}
               />
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
@@ -100,22 +107,25 @@ const HotelDetails = ({
 
 export default HotelDetails;
 
-// function TinyImageSelector({
-//   hotelImages,
-//   hotel_id,
-//   setImage,
-// }: {
-//   hotelImages: HotelImagesType;
-//   hotel_id: number;
-//   setImage: React.Dispatch<React.SetStateAction<string | undefined>>;
-// }) {
-//   const IMAGE_URL = getRandomImage(hotelImages as HotelImagesType, hotel_id);
-//   return (
-//     <img
-//       src={IMAGE_URL}
-//       alt="Random hotel img"
-//       className="h-12 w-[10%] rounded-md cursor-pointer"
-//       onClick={() => setImage(IMAGE_URL)}
-//     />
-//   );
-// }
+function TinyImageSelector({
+  renderImage,
+  setImage,
+}: {
+  renderImage: HotelImage;
+  setImage: React.Dispatch<React.SetStateAction<HotelImage | undefined>>;
+}) {
+  const imageRef = useRef<HTMLImageElement | null>(null);
+
+  return (
+    <img
+      src={renderImage.img_url_large}
+      alt="Random hotel img"
+      className={`h-12 w-[65px] rounded-md cursor-pointer mx-2 object-cover hover:h-20 hover:w-24 transition-all duration-300`}
+      onClick={() => {
+        setImage(renderImage);
+        imageRef.current!.className =
+          imageRef.current?.className + " h-19 w-23 transition-all";
+      }}
+    />
+  );
+}
