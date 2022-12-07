@@ -1,46 +1,42 @@
 import React, { SetStateAction, useContext, useState, useRef } from "react";
-import { FlightSearchContext, MainContext } from "../App";
-import { Assets } from "../Assets/Assets";
+import { MainContext } from "../../App";
+import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
-import { Airport, Departures } from "../Types/Flights";
-import { getDay } from "../Util/Helpers";
+import { Airport } from "../../Types/Flights";
+import { getDay } from "../../Util/Helpers";
+import { FlightSearchContext } from "./Flights";
 import { FromAirportInput } from "./FromAirportInput";
-import AirportSearch from "./SearchModals/AirportSearch";
 import { ToAirportInput } from "./ToAirportInput";
+import AirportSearch from "../SearchModals/AirportSearch";
+import { Link } from "react-router-dom";
 
 type SearchFormProps = {
-  setMenuWide: React.Dispatch<SetStateAction<boolean>>;
-  menuWide: boolean;
-  typeOfTrip: string;
   setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
   setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
   setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  searchAirports: Airport[];
   setSearchType: React.Dispatch<SetStateAction<string>>;
   searchType: string;
-  outGoingFlights: Departures[];
   setFromAirport: React.Dispatch<React.SetStateAction<Airport>>;
   setToAirport: React.Dispatch<React.SetStateAction<Airport>>;
 };
 
-const SearchForm = ({
-  setMenuWide,
-  menuWide,
+const FlightSearchForm = ({
   setFromAirport,
   setToAirport,
-  typeOfTrip,
   setTypeOfTrip,
   setDepartureDate,
   setReturnDate,
   setSearchType,
   searchType,
-  outGoingFlights,
 }: SearchFormProps) => {
+  const { typeOfTrip, outGoingFlights } = useContext(FlightSearchContext);
+  const { menuWide, setMenuWide } = useContext(MainContext);
+
   const [airportSearchModal, setAirportSearchModal] = useState(false);
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
   const { airports } = useContext(MainContext);
-  const { setSearchAirports } = useContext(MainContext);
+  const { setSearchAirports } = useContext(FlightSearchContext);
 
   const openFromSearchModal = () => {
     setSearchType("from");
@@ -58,14 +54,6 @@ const SearchForm = ({
           .includes(airport.icao)
       )
     );
-  };
-
-  /**
-   * Start the flight search
-   */
-  const searchFlight = (e: React.FormEvent) => {
-    e.preventDefault();
-    setMenuWide((prev) => !prev);
   };
 
   return (
@@ -156,12 +144,13 @@ const SearchForm = ({
             </p>
           </div>
           <MoreButton />
-          <input
-            type="submit"
-            value="SEARCH FLIGHT"
+          <Link
+            to="flight-results"
             className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
-            onClick={(e) => searchFlight(e)}
-          />
+            onClick={() => setMenuWide((prev) => !prev)}
+          >
+            <p>SEARCH FLIGHT</p>
+          </Link>
         </div>
       </form>
       {airportSearchModal && (
@@ -176,4 +165,4 @@ const SearchForm = ({
   );
 };
 
-export default SearchForm;
+export default FlightSearchForm;

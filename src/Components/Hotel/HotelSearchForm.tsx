@@ -1,20 +1,17 @@
 import React, { useContext, useState } from "react";
-import { HotelSearchContext, MainContext } from "../../App";
+import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
-import { MoreButton } from "../../MoreButton";
-import { Airport } from "../../Types/Flights";
+import { MoreButton } from "../MoreButton";
 import { getDay } from "../../Util/Helpers";
 import AirportSearch from "../SearchModals/AirportSearch";
+import { HotelSearchContext } from "./Hotel";
 import TravellerSelector from "./TravellersSelector";
 
 type HotelSearchFormProps = {
-  toAirport: Airport;
-  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
 };
 
 const HotelSearchForm = ({
-  setMenuWide,
   travelingForWorkCheckBox,
 }: HotelSearchFormProps) => {
   const {
@@ -25,11 +22,11 @@ const HotelSearchForm = ({
     targetHotelLocation,
     travellerHotelInfo,
   } = useContext(HotelSearchContext);
-  const { setSearchAirports } = useContext(MainContext);
+
+  const { setMenuWide } = useContext(MainContext);
   const [showHotelSearchModal, setShowHotelSearchModal] =
     useState<boolean>(false);
   const [showTravelSelector, setShowTravelSelector] = useState<boolean>(false);
-  const { airports } = useContext(MainContext);
 
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5 relative">
@@ -37,7 +34,6 @@ const HotelSearchForm = ({
         <div
           className="bg-gray-200 rounded-md w-[32%]"
           onClick={() => {
-            setSearchAirports(airports);
             setShowHotelSearchModal(true);
           }}
         >

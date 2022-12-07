@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { HotelSearchContext } from "../../App";
+import { HotelSearchContext } from "./Hotel";
 
 /**
  * @param closeModalFunction a function to close the modal

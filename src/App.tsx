@@ -1,71 +1,23 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import BecomeAPartner from "./Components/BecomeAPartner";
-import FlightResults from "./Components/Flights/FlightResults";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
 import Overlay from "./Components/Overlay";
 import ProfileInfo from "./Components/ProfileInfo";
 import Reach from "./Components/Reach/Reach";
-import SearchForm from "./Components/SearchForm";
 import DevAirports from "./Util/Airports.json";
-import DevAirportFlightData from "./Util/AirportFlightData.json";
-import { Airline, Airport, Departures } from "./Types/Flights";
-import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
+import { Airline, Airport } from "./Types/Flights";
 import { fetchAirports } from "./Fetchers/FetchAirports";
-import {
-  HotelSearch,
-  MainContextValue,
-  FlightSearchParametersContext,
-} from "./Types/Contexts";
+import { MainContextValue } from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
-import HotelSearchForm from "./Components/Hotel/HotelSearchForm";
-import HotelSearchResults from "./Components/Hotel/HotelSearchResults";
 import {
   CountriesWithStateAndCities,
   fetchCountries,
 } from "./Fetchers/FetchCountries";
-import FlightSearchParameters from "./Components/Flights/FlightSearchParameters";
-import { TravellerHotelInfo } from "./Types/Hotel";
-
-export const FlightSearchContext = createContext<FlightSearchParametersContext>(
-  {
-    toAirport: {
-      alt: 0,
-      city: "",
-      country: "",
-      countryId: 0,
-      iata: "",
-      icao: "",
-      id: 0,
-      lat: 0,
-      lon: 0,
-      name: "",
-      size: 0,
-      timezone: null,
-    },
-    returnDate: null,
-    departureDate: null,
-    typeOfTrip: "",
-    fromAirport: {
-      alt: 0,
-      city: "",
-      country: "",
-      countryId: 0,
-      iata: "",
-      icao: "",
-      id: 0,
-      lat: 0,
-      lon: 0,
-      name: "",
-      size: 0,
-      timezone: null,
-    },
-    outGoingFlights: [],
-  }
-);
+import { Outlet } from "react-router";
 
 export const MainContext = createContext<MainContextValue>({
   isLoading: false,
@@ -73,44 +25,21 @@ export const MainContext = createContext<MainContextValue>({
   airlines: [],
   devMode: false,
   countriesList: {},
-  searchAirports: [],
-  setSearchAirports: () => {},
+  setDevMode: () => {},
+  setMenuWide: () => {},
+  menuWide: false,
 });
 
-export const HotelSearchContext = createContext<HotelSearch>(null as any);
-
 function App() {
-  const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>(DevAirports.rows);
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
-  const [typeOfTrip, setTypeOfTrip] = useState("one-way");
-  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
-  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
-  const [departureDate, setDepartureDate] = useState<Date | null>();
-  const [returnDate, setReturnDate] = useState<Date | null>();
   const [devMode, setDevMode] = useState(true);
-  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
-  const [searchType, setSearchType] = useState("from");
-  const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
-    DevAirportFlightData.departures
-  );
   const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
-  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
-  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
-  const [targetHotelLocation, setTargetHotelLocation] =
-    useState<Airport | null>(null);
   const [countriesList, setCountriesList] = useState<
     CountriesWithStateAndCities[]
   >([]);
-  const [travellerHotelInfo, setTravellerHotelInfo] =
-    useState<TravellerHotelInfo>({
-      Rooms: 1,
-      adults: 0,
-      kids: 0,
-    });
-  const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const initializeApplication = async () => {
@@ -123,101 +52,8 @@ function App() {
       initializeApplication();
       setIsLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [[], devMode]);
-
-  useEffect(() => {
-    if (!devMode) {
-      const outGoingFlights = fetchAirportFlightData(fromAirport);
-      if (outGoingFlights.length === 0) {
-        setDevMode(true);
-      } else {
-        setOutGoingFlights(outGoingFlights);
-      }
-    }
-  }, [fromAirport, devMode]);
-
-  /**
-   * A function to randomly decide a default airport.
-   * @Returns A random airport object.
-   */
-  function getRandomAirport() {
-    const min = 0;
-    const max = airports.length;
-    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
-    const randomAirport = airports[randomNumber];
-    return randomAirport;
-  }
-
-  useEffect(() => {
-    setFromAirport(getRandomAirport());
-    setToAirport(getRandomAirport());
-  }, [airports.length]);
-
-  const renderTab = (): JSX.Element | undefined => {
-    if (activeChoice === "flights") {
-      return (
-        <FlightSearchContext.Provider
-          value={{
-            typeOfTrip,
-            fromAirport,
-            departureDate,
-            returnDate,
-            toAirport,
-            outGoingFlights,
-          }}
-        >
-          <SearchForm
-            setMenuWide={setMenuWide}
-            menuWide={menuWide}
-            setToAirport={setToAirport}
-            setFromAirport={setFromAirport}
-            setTypeOfTrip={setTypeOfTrip}
-            setDepartureDate={setDepartureDate}
-            setReturnDate={setReturnDate}
-            setSearchType={setSearchType}
-            searchType={searchType}
-            typeOfTrip={typeOfTrip}
-            searchAirports={searchAirports}
-            outGoingFlights={outGoingFlights}
-          />
-        </FlightSearchContext.Provider>
-      );
-    } else if (activeChoice === "hotel") {
-      return (
-        <HotelSearchForm
-          toAirport={toAirport}
-          setMenuWide={setMenuWide}
-          travelingForWorkCheckBox={travelingForWorkCheckBox}
-        />
-      );
-    }
-  };
-
-  const renderResults = (): JSX.Element | undefined => {
-    if (activeChoice === "flights") {
-      return (
-        <FlightSearchContext.Provider
-          value={{
-            typeOfTrip,
-            fromAirport,
-            departureDate,
-            returnDate,
-            toAirport,
-            outGoingFlights,
-          }}
-        >
-          <FlightSearchParameters />
-          <FlightResults />
-        </FlightSearchContext.Provider>
-      );
-    } else if (activeChoice === "hotel") {
-      return (
-        <HotelSearchResults
-          travelingForWorkCheckBox={travelingForWorkCheckBox}
-        />
-      );
-    }
-  };
 
   return (
     <MainContext.Provider
@@ -227,8 +63,9 @@ function App() {
         airlines,
         devMode,
         countriesList,
-        searchAirports,
-        setSearchAirports,
+        setDevMode,
+        setMenuWide,
+        menuWide,
       }}
     >
       <div className="App w-full">
@@ -250,29 +87,12 @@ function App() {
             } transition-all`}
           >
             <div className="flex justify-between">
-              <Options
-                activeChoice={activeChoice}
-                setActiveChoice={setActiveChoice}
-                menuWide={menuWide}
-              />
+              <Options menuWide={menuWide} />
               {menuWide && (
                 <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
               )}
             </div>
-            <HotelSearchContext.Provider
-              value={{
-                checkInDate,
-                checkOutDate,
-                setCheckInDate,
-                setCheckOutDate,
-                targetHotelLocation,
-                setTargetHotelLocation,
-                travellerHotelInfo,
-                setTravellerHotelInfo,
-              }}
-            >
-              {menuWide ? renderTab() : renderResults()}
-            </HotelSearchContext.Provider>
+            <Outlet />
           </div>
         </div>
         <div className="flex absolute right-14 top-[34px]">

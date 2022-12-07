@@ -1,4 +1,4 @@
-import { Assets } from "./Assets/Assets";
+import { Assets } from "../Assets/Assets";
 
 export function MoreButton() {
   return (

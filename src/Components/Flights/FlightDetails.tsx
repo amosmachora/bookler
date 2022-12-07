@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FlightSearchContext } from "../../App";
-import { Departures, SingleFlightData } from "../../Types/Flights";
+import { Departures } from "../../Types/Flights";
 import { FlightTimes } from "./FoundFlight";
 import axios from "axios";
 import { Assets } from "../../Assets/Assets";
+import { FlightSearchContext } from "./Flights";
 
 type FlightDetailsProps = {
-  extraFlightData: SingleFlightData | undefined;
   foundFlight: Departures;
 };
 
-const FlightDetails = ({
-  extraFlightData,
-  foundFlight,
-}: FlightDetailsProps) => {
+const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
   const { toAirport, fromAirport } = useContext(FlightSearchContext);
   const [details, setDetails] = useState(true);
   const [aircraftImage, setAircraftImage] = useState<string>();

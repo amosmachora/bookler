@@ -1,4 +1,5 @@
 import React, { SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
 import "./Menu.css";
 
@@ -9,6 +10,10 @@ interface menuProps {
 
 const Menu = ({ menuWide, setMenuWide }: menuProps) => {
   const [activeTab, setActiveTab] = useState("home");
+  // const { pathname } = useLocation();
+  // console.log(pathname);
+  //TODO fix the base url link
+
   return (
     <div
       className={`menu ${
@@ -19,16 +24,17 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
         {menuWide && (
           <img src={Assets.Logo} alt="Logo" className="object-cover" />
         )}
-        <div
+        <Link
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
             menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
           onClick={() => setMenuWide((prev) => !prev)}
+          to="/flights"
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-full h-[3px] rounded-sm" />
-        </div>
+        </Link>
       </div>
       <ul
         className={`menu-items mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
