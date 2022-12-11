@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { HotelImagesType, HotelInfo, tags } from "../../Types/Hotel";
 
-type HotelImage = {
+export type HotelImage = {
   tag_name: string | undefined | null;
   img_url_large: string;
   img_url_small: string;
@@ -46,9 +46,12 @@ const HotelDetails = ({
     }
   };
 
-  const [image, setImage] = useState<HotelImage | undefined>(
-    getArrayOfImages()?.find((image) => image.tag_name === "Property Building")
+  const arrayOfUniqueImages: HotelImage[] = getUniqueImages(getArrayOfImages());
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(
+    Math.floor(7 / 2)
   );
+
+  //TODO fix arrow buttons.
 
   return (
     <div className="bg-white rounded-md px-3 py-6">
@@ -73,7 +76,7 @@ const HotelDetails = ({
       <div className="flex">
         <div className="w-[55%] relative">
           <img
-            src={image?.img_url_large}
+            src={arrayOfUniqueImages[activeImageIndex].img_url_large}
             alt="LocationPointerBlue"
             className="w-full rounded-md h-[67vh] object-cover"
           />
@@ -81,21 +84,36 @@ const HotelDetails = ({
             src={Assets.ArrowWhiteLeft}
             alt="Arrow"
             className="h-6 absolute top-1/2 left-3 cursor-pointer hover:h-4 transition-all"
+            onClick={() =>
+              setActiveImageIndex((prev) =>
+                prev !== 0 ? prev - 1 : arrayOfUniqueImages.length - 1
+              )
+            }
           />
           <img
             src={Assets.ArrowWhiteRight}
             alt="Arrow"
             className="h-6 absolute top-1/2 right-3 cursor-pointer hover:h-4 transition-all"
+            onClick={() =>
+              setActiveImageIndex((prev) =>
+                prev !== arrayOfUniqueImages.length - 1 ? prev + 1 : 0
+              )
+            }
           />
           <div
-            className="flex justify-between w-full absolute bottom-6 overflow-x-scroll items-baseline"
+            className="flex justify-between w-full absolute bottom-6 overflow-x-hidden items-baseline"
             id="image-tape"
           >
-            {getArrayOfImages()?.map((hotelImage, index) => (
-              <TinyImageSelector
-                renderImage={hotelImage}
-                key={index}
-                setImage={setImage}
+            {arrayOfUniqueImages.map((hotelImage, index) => (
+              <img
+                src={hotelImage.img_url_large}
+                alt="Random hotel img"
+                className={`rounded-md cursor-pointer mx-2 object-cover hover:h-20 hover:w-24 transition-all duration-300 ${
+                  activeImageIndex === index
+                    ? "h-20 w-24 rounded-xl border-2 border-white"
+                    : "w-16 h-12"
+                }`}
+                onClick={() => setActiveImageIndex(index)}
               />
             ))}
           </div>
@@ -107,25 +125,22 @@ const HotelDetails = ({
 
 export default HotelDetails;
 
-function TinyImageSelector({
-  renderImage,
-  setImage,
-}: {
-  renderImage: HotelImage;
-  setImage: React.Dispatch<React.SetStateAction<HotelImage | undefined>>;
-}) {
-  const imageRef = useRef<HTMLImageElement | null>(null);
+const getKey = (arrayOfImages: HotelImage[]): string => {
+  const firstObject = arrayOfImages?.find(() => true);
+  return Object.keys(firstObject as Object)[0];
+};
 
-  return (
-    <img
-      src={renderImage.img_url_large}
-      alt="Random hotel img"
-      className={`h-12 w-[65px] rounded-md cursor-pointer mx-2 object-cover hover:h-20 hover:w-24 transition-all duration-300`}
-      onClick={() => {
-        setImage(renderImage);
-        imageRef.current!.className =
-          imageRef.current?.className + " h-19 w-23 transition-all";
-      }}
-    />
+const getUniqueImages = (
+  arrayOfImages: HotelImage[] | undefined
+): HotelImage[] => {
+  const arrayUniqueByKey: HotelImage[] = [
+    ...new Map(
+      arrayOfImages?.map((item) => [item[getKey(arrayOfImages)], item])
+    ).values(),
+  ];
+
+  return arrayUniqueByKey.slice(
+    arrayUniqueByKey.length - 7,
+    arrayUniqueByKey.length
   );
-}
+};
