@@ -14,6 +14,7 @@ module.exports = {
         grayLight: "#F9F9F9",
         checkMarkBg: "#0A6ADA",
         paymentOptions: "#F0F0F0",
+        ratingBg: "#3C6097",
       },
     },
   },

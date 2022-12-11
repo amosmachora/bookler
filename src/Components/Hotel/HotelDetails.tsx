@@ -51,7 +51,7 @@ const HotelDetails = ({
     Math.floor(7 / 2)
   );
 
-  //TODO fix arrow buttons.
+  console.log(hotelInfo);
 
   return (
     <div className="bg-white rounded-md px-3 py-6">
@@ -68,38 +68,51 @@ const HotelDetails = ({
             {hotelInfo?.price_breakdown.all_inclusive_price}{" "}
             <span className="text-gray-500 text-xs font-normal">USD</span>
           </p>
-          <button className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white">
+          <a
+            className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white"
+            href={hotelInfo?.url}
+            target="_blank"
+            rel="noreferrer"
+          >
             PAY NOW
-          </button>
+          </a>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex justify-between">
         <div className="w-[55%] relative">
           <img
             src={arrayOfUniqueImages[activeImageIndex].img_url_large}
             alt="LocationPointerBlue"
             className="w-full rounded-md h-[67vh] object-cover"
           />
-          <img
-            src={Assets.ArrowWhiteLeft}
-            alt="Arrow"
-            className="h-6 absolute top-1/2 left-3 cursor-pointer hover:h-4 transition-all"
+          <div
             onClick={() =>
               setActiveImageIndex((prev) =>
                 prev !== 0 ? prev - 1 : arrayOfUniqueImages.length - 1
               )
             }
-          />
-          <img
-            src={Assets.ArrowWhiteRight}
-            alt="Arrow"
-            className="h-6 absolute top-1/2 right-3 cursor-pointer hover:h-4 transition-all"
+            className="absolute top-1/3 left-0 cursor-pointer h-16 flex items-center w-6 justify-center [&>*]:hover:h-4 image-switch"
+          >
+            <img
+              src={Assets.ArrowWhiteLeft}
+              alt="Arrow"
+              className="transition-all h-6 w-4"
+            />
+          </div>
+          <div
             onClick={() =>
               setActiveImageIndex((prev) =>
                 prev !== arrayOfUniqueImages.length - 1 ? prev + 1 : 0
               )
             }
-          />
+            className="absolute top-1/3 right-0 cursor-pointer h-16 flex items-center w-6 justify-center [&>*]:hover:h-4 image-switch"
+          >
+            <img
+              src={Assets.ArrowWhiteRight}
+              alt="Arrow"
+              className="h-6 transition-all w-4"
+            />
+          </div>
           <div
             className="flex justify-between w-full absolute bottom-6 overflow-x-hidden items-baseline"
             id="image-tape"
@@ -116,6 +129,23 @@ const HotelDetails = ({
                 onClick={() => setActiveImageIndex(index)}
               />
             ))}
+          </div>
+        </div>
+        <div className="w-[43%]">
+          <p className="font-bold">Hotel review</p>
+          <div className="flex items-center mt-2">
+            <div className="bg-ratingBg flex rounded-md w-max px-2 text-white text-sm py-1 items-center">
+              <p className="mr-1 font-bold">
+                {((hotelInfo!.review_score / 10) * 5).toFixed(1)}
+              </p>
+              <img src={Assets.Star} alt="Star" />
+            </div>
+            <div className="ml-3">
+              <p className="text-sm">{hotelInfo?.review_score_word}</p>
+              <p className="text-[11px] text-gray-400">
+                {hotelInfo?.review_nr} reviews
+              </p>
+            </div>
           </div>
         </div>
       </div>
