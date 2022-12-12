@@ -1,0 +1,15 @@
+[
+  {
+    "description": "Upon check-in photo identification and credit card is required. All special requests are subject to availability upon check-in. Special requests cannot be guaranteed and may incur additional charges.\n\nPlease note that the free shuttle services runs from 07:00 to 17:00 daily. Guests needing airport shuttle outside of these hours must make other arrangements.",
+    "descriptiontype_id": 7,
+    "languagecode": "en-us",
+    "extra_lines": {
+      "imp_info": "Guests are required to show a photo ID and credit card upon check-in. Please note that all Special Requests are subject to availability and additional charges may apply.\n\n"
+    }
+  },
+  {
+    "descriptiontype_id": 6,
+    "description": "This Apple Valley hotel is within a 20-minute drive of Minneapolis-Saint Paul International Airport and the Mall of America. It features spacious suites with a kitchenette.\n\nA cable TV and free Wi-Fi are standard in every modern suite at the Grandstay Apple Valley. All suites include a dining area and living room with sofa bed.\n\nFree access to the indoor pool and hot tub is provided to all guests of the Apple Valley Grandstay Hotel. Active guests can work out in the gym, play a game of basketball on the hotel sports court or use the on-site putting green.\n\nA daily breakfast buffet is served in the morning and barbecue facilities are also available. The Grandstay Pantry store has snacks and beverages for purchase.\n\nParking is free at the Grandstay. The Minnesota Zoo and Apple Valley Golf Course are both an 8-minute drive away.",
+    "languagecode": "en-us"
+  }
+]
