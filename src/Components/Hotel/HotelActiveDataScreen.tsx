@@ -11,7 +11,7 @@ const HotelActiveDataScreen = ({
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   return (
-    <div className="flex px-5 bg-flightResultsBg py-1 rounded-md mb-1 items-center">
+    <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center">
       <p className="font-bold">Hotels</p>
       <div className="h-5 w-[1px] bg-gray-300 mx-3" />
       <p className="text-sm font-semibold">

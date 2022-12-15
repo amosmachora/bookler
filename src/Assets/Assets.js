@@ -46,8 +46,14 @@ import Star from "./Star.svg";
 import StarBlue from "./Star-blue.svg";
 import StarGray from "./Star-gray.svg";
 import LocationPointerBlue from "./Location-pointer-blue.svg";
+import SoapyHands from "./SoapyHands.svg";
+import InfoIcon from "./Info.svg";
+import PersonClipArt from "./person-clipart.svg";
 
 export const Assets = {
+  PersonClipArt,
+  InfoIcon,
+  SoapyHands,
   StarGray,
   LocationPointerBlue,
   StarBlue,

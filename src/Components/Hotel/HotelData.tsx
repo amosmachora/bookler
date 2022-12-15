@@ -23,6 +23,7 @@ const HotelData = ({
   setDetailsShown,
   setHotelDetailsId,
   setHotelDetailsImages,
+  setHotelDetailsFacilities,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +36,7 @@ const HotelData = ({
   setHotelDetailsImages: React.Dispatch<
     React.SetStateAction<HotelImagesType | null>
   >;
+  setHotelDetailsFacilities: React.Dispatch<React.SetStateAction<Facility[]>>;
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
   const { devMode } = useContext(MainContext);
@@ -277,8 +279,9 @@ const HotelData = ({
                 } rounded-md font-semibold transition-all border-2 border-transparent`}
                 onClick={() => {
                   setHotelDetailsId(hotelInfo.hotel_id);
-                  setDetailsShown(true);
                   setHotelDetailsImages(hotelImages);
+                  setHotelDetailsFacilities(hotelFacilities);
+                  setDetailsShown(true);
                 }}
               >
                 View Details

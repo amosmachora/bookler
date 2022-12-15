@@ -3,11 +3,13 @@ import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { fetchHotelDescription } from "../../Fetchers/FetchHotelDescription";
 import { fetchHotelReviews } from "../../Fetchers/FetchHotelReviews";
-import { HotelImagesType, HotelInfo, tags } from "../../Types/Hotel";
+import { Facility, HotelImagesType, HotelInfo, tags } from "../../Types/Hotel";
 import { HotelReviews } from "../../Types/HotelReviews";
 import { HotelDescription } from "../../Types/HotelDescription";
 import DevHotelReviews from "../../Util/HotelReviews.json";
 import DevHotelDescription from "../../Util/DevHotelDescription.json";
+import LittleFacilityDisplay from "./LittleFacilityDisplay";
+import Flag from "react-world-flags";
 
 export type HotelImage = {
   tag_name: string | undefined | null;
@@ -20,9 +22,13 @@ export type HotelImage = {
 const HotelDetails = ({
   hotelInfo,
   hotelImages,
+  hotelFacilities,
+  showInfo,
 }: {
   hotelInfo: HotelInfo | undefined;
   hotelImages: HotelImagesType | null;
+  hotelFacilities: Facility[];
+  showInfo: boolean;
 }) => {
   const tempHotelId: number = 25924;
 
@@ -73,10 +79,12 @@ const HotelDetails = ({
         setHotelDescription(res)
       );
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [devMode, []]);
-  const hotelReview = (hotelInfo!.review_score / 10) * 5;
+
+  const hotelReviewScore: number = (hotelInfo!.review_score / 10) * 5;
+
+  console.log(hotelReviews.result);
 
   return (
     <div className="bg-white rounded-md px-3 py-6">
@@ -104,7 +112,11 @@ const HotelDetails = ({
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="w-[55%] relative h-[67vh]">
+        <div
+          className={`${
+            showInfo ? "w-[55%]" : "w-45%"
+          } transition-all relative h-[67vh]`}
+        >
           <img
             src={arrayOfUniqueImages[activeImageIndex].img_url_large}
             alt="LocationPointerBlue"
@@ -157,48 +169,134 @@ const HotelDetails = ({
             ))}
           </div>
         </div>
-        <div className="w-[43%]">
-          <p className="font-bold">Hotel review</p>
-          <div className="flex items-center mt-2">
-            <div className="bg-ratingBg flex rounded-md w-max px-2 text-white text-sm py-1 items-center">
-              <p className="mr-1 font-bold">{hotelReview.toFixed(1)}</p>
-              <img src={Assets.Star} alt="Star" />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm">{hotelInfo?.review_score_word}</p>
-              <div className="flex">
-                <p className="text-[11px] text-gray-400 mr-2">
-                  {hotelInfo?.review_nr} reviews
-                </p>
-                {[...Array(hotelReview)].map(() => (
-                  <img src={Assets.StarBlue} alt="star" />
-                ))}
-                {[...Array(5 - hotelReview)].map(() => (
-                  <img src={Assets.StarGray} alt="star" />
-                ))}
+        {showInfo ? (
+          <div className="w-[43%]">
+            <p className="font-bold">Hotel review</p>
+            <div className="flex items-center mt-2">
+              <div className="bg-ratingBg flex rounded-md w-max px-2 text-white text-sm py-1 items-center">
+                <p className="mr-1 font-bold">{hotelReviewScore.toFixed(1)}</p>
+                <img src={Assets.Star} alt="Star" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm">{hotelInfo?.review_score_word}</p>
+                <div className="flex">
+                  <p className="text-[11px] text-gray-400 mr-2">
+                    {hotelInfo?.review_nr} reviews
+                  </p>
+                  {[...Array(hotelReviewScore)].map(() => (
+                    <img src={Assets.StarBlue} alt="star" />
+                  ))}
+                  {[...Array(5 - hotelReviewScore)].map(() => (
+                    <img src={Assets.StarGray} alt="star" />
+                  ))}
+                </div>
               </div>
             </div>
+            <p className="font-bold mt-5 mb-2">About</p>
+            <p className="text-xs text-gray-400 leading-5 w-[85%]">
+              {hotelDescription[0].description}
+            </p>
+            <p className="font-bold mt-5 mb-2">Popular Services</p>
+            <div className="flex">
+              {hotelFacilities.map((facility) => (
+                <LittleFacilityDisplay
+                  facility={facility}
+                  mapShown={false}
+                  key={facility.facility_name}
+                />
+              ))}
+            </div>
+            <div className="flex justify-between bg-covidBg rounded-lg py-2 px-7 mt-5">
+              <div className="flex">
+                <img src={Assets.SoapyHands} alt="SoapyHands" />
+                <p className="text-sm font-semibold ml-5">
+                  Travel safe during <br /> COVID-19
+                </p>
+              </div>
+              <img
+                src={Assets.InfoIcon}
+                alt="Info"
+                className="cursor-pointer"
+              />
+            </div>
           </div>
-          <p className="font-bold mt-5 mb-2">About</p>
-          <p className="text-xs text-gray-400 leading-5">
-            {hotelDescription[0].description}
-          </p>
-          <p className="font-bold mt-5 mb-2">Top Review</p>
-          <div className="flex flex-col items-end">
-            <blockquote className="text-sm text-gray-400">
-              <span className="caveat text-xl">&quot;</span>
-              {`  `}
-              {hotelReviews.result[0].title}
-              <span className="caveat text-xl">"</span>
-            </blockquote>
-            <img
-              src={hotelReviews.result[0].author.avatar}
-              alt="Person"
-              className="rounded-full h-9 w-9"
-            />
-            <p className="caveat">{hotelReviews.result[0].author.name}</p>
+        ) : (
+          <div className="w-[47%] h-[67vh] overflow-y-scroll">
+            <p className="font-bold mb-3">Top Reviews</p>
+            {hotelReviews.result.map((review) => (
+              <div key={review.author.user_id} className="flex justify-between">
+                <div className="w-[30%]">
+                  <div className="flex items-center">
+                    <img
+                      src={
+                        review.author.avatar === undefined
+                          ? Assets.PersonClipArt
+                          : review.author.avatar
+                      }
+                      alt="Person"
+                      className="rounded-full h-9 w-9 mr-3"
+                    />
+                    <div>
+                      <p className="font-sm font-semibold caveat">
+                        {review.author.name}
+                      </p>
+                      <div className="flex">
+                        <Flag
+                          code={review.countrycode}
+                          fallback={<span>Country flag</span>}
+                          height="16"
+                          width="32"
+                        />
+                        <p className="font-sm ml-2">
+                          {getCountryNameFromCountryCode(review.countrycode)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex text-gray-500 text-xs items-start my-3">
+                    <img
+                      src={review.stayed_room_info.photo.url_square60}
+                      alt="room"
+                      className="w-5 h-5 mr-2 rounded-sm"
+                    />
+                    <p>{review.stayed_room_info.room_name}</p>
+                  </div>
+                  <div className="flex text-gray-500 text-xs items-center my-3">
+                    <img
+                      src={Assets.Calendar}
+                      alt="Calendar"
+                      className="w-5 h-5 mr-2"
+                    />
+                    <p>
+                      {getNumberOfNights(
+                        review.stayed_room_info.checkin,
+                        review.stayed_room_info.checkout
+                      )}{" "}
+                      nights .{" "}
+                      {getMonthAndYearString(review.stayed_room_info.checkout)}
+                    </p>
+                  </div>
+                  <div className="flex text-gray-500 text-xs my-3">
+                    <img
+                      src={getAuthorTypeClipArt(review.author.type)}
+                      alt="author type"
+                      className="w-5 h-5 mr-2"
+                    />
+                    <p className="capitalize">{review.author.type}</p>
+                  </div>
+                </div>
+                <div className="w-[60%] flex-grow pl-4">
+                  <p className="font-xs">Reviewed: {review.date}</p>
+                  <p className="font-xs">{review.pros}</p>
+                  <p className="font-xs">{review.cons}</p>
+                  <p className="font-sm">{review.title}</p>
+                  <p>Hotel Response</p>
+                  <p>{review.hotelier_response}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -224,4 +322,30 @@ const getUniqueImages = (
     arrayUniqueByKey.length - 7,
     arrayUniqueByKey.length
   );
+};
+
+const getAuthorTypeClipArt = (type: string): string | undefined => {
+  return "";
+  // throw new Error("Function not implemented.");
+};
+
+const getNumberOfNights = (
+  checkin: string,
+  checkout: string
+): React.ReactNode => {
+  return 0;
+  // throw new Error("Function not implemented.");
+};
+
+const getMonthAndYearString = (checkout: string): React.ReactNode => {
+  return checkout;
+  // throw new Error("Function not implemented.");
+};
+
+const getCountryNameFromCountryCode = (
+  countrycode: string
+): React.ReactNode => {
+  //TODO fix . currently not working
+  let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+  return regionNames.of(countrycode);
 };

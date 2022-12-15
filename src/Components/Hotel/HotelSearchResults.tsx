@@ -10,7 +10,7 @@ import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
 import HotelActiveDataScreen from "./HotelActiveDataScreen";
-import { GoogleMapsCenter, HotelImagesType } from "../../Types/Hotel";
+import { Facility, GoogleMapsCenter, HotelImagesType } from "../../Types/Hotel";
 import HotelDetails from "./HotelDetails";
 
 type HotelSearchResultsProps = {
@@ -68,6 +68,9 @@ const HotelSearchResults = ({
   const [hotelDetailsId, setHotelDetailsId] = useState<number | null>(null);
   const [HotelDetailsImages, setHotelDetailsImages] =
     useState<HotelImagesType | null>(null);
+  const [hotelDetailsFacilities, setHotelDetailsFacilities] = useState<
+    Facility[]
+  >([]);
 
   return (
     <div>
@@ -85,6 +88,8 @@ const HotelSearchResults = ({
                 (hotel) => hotel.hotel_id === hotelDetailsId
               )}
               hotelImages={HotelDetailsImages}
+              hotelFacilities={hotelDetailsFacilities.slice(0, 4)}
+              showInfo={false}
             />
           ) : (
             <div className="flex justify-between">
@@ -105,6 +110,7 @@ const HotelSearchResults = ({
                     setDetailsShown={setDetailsShown}
                     setHotelDetailsId={setHotelDetailsId}
                     setHotelDetailsImages={setHotelDetailsImages}
+                    setHotelDetailsFacilities={setHotelDetailsFacilities}
                   />
                 ))}
               </div>
