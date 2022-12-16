@@ -49,8 +49,18 @@ import LocationPointerBlue from "./Location-pointer-blue.svg";
 import SoapyHands from "./SoapyHands.svg";
 import InfoIcon from "./Info.svg";
 import PersonClipArt from "./person-clipart.svg";
+import CoupleClipArt from "./CoupleClipArt.svg";
+import StandingManClipArt from "./PersonClipArt.svg";
+import FamilyClipArt from "./Family-clipart-black-and-white.svg";
+import SmilyFace from "./lol.svg";
+import SadFace from "./sadface.svg";
 
 export const Assets = {
+  SmilyFace,
+  SadFace,
+  CoupleClipArt,
+  StandingManClipArt,
+  FamilyClipArt,
   PersonClipArt,
   InfoIcon,
   SoapyHands,
