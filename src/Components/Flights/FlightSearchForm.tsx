@@ -1,8 +1,7 @@
-import React, { SetStateAction, useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
-import { Airport } from "../../Types/Flights";
 import { getDay } from "../../Util/Helpers";
 import { FlightSearchContext } from "./Flights";
 import { FromAirportInput } from "./FromAirportInput";
@@ -10,27 +9,19 @@ import { ToAirportInput } from "./ToAirportInput";
 import AirportSearch from "../SearchModals/AirportSearch";
 import { Link } from "react-router-dom";
 
-type SearchFormProps = {
-  setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
-  setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  setSearchType: React.Dispatch<SetStateAction<string>>;
-  searchType: string;
-  setFromAirport: React.Dispatch<React.SetStateAction<Airport>>;
-  setToAirport: React.Dispatch<React.SetStateAction<Airport>>;
-};
-
-const FlightSearchForm = ({
-  setFromAirport,
-  setToAirport,
-  setTypeOfTrip,
-  setDepartureDate,
-  setReturnDate,
-  setSearchType,
-  searchType,
-}: SearchFormProps) => {
-  const { typeOfTrip, outGoingFlights } = useContext(FlightSearchContext);
-  const { menuWide, setMenuWide } = useContext(MainContext);
+const FlightSearchForm = () => {
+  const {
+    typeOfTrip,
+    outGoingFlights,
+    setSearchType,
+    setTypeOfTrip,
+    setReturnDate,
+    searchType,
+    setToAirport,
+    setFromAirport,
+    setDepartureDate,
+  } = useContext(FlightSearchContext);
+  const { menuWide } = useContext(MainContext);
 
   const [airportSearchModal, setAirportSearchModal] = useState(false);
   const departureDateInput = useRef<HTMLInputElement | null>(null);
@@ -147,7 +138,6 @@ const FlightSearchForm = ({
           <Link
             to="flight-results"
             className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
-            onClick={() => setMenuWide((prev) => !prev)}
           >
             <p>SEARCH FLIGHT</p>
           </Link>

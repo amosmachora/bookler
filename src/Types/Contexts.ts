@@ -1,7 +1,8 @@
+import { SetStateAction } from "react";
 import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
 import { TravellerHotelInfo } from "./Hotel";
 
-export interface FlightSearchParametersContext {
+export interface FlightSearchParametersContext extends SearchFormProps {
   toAirport: Airport;
   returnDate: Date | null | undefined;
   departureDate: Date | null | undefined;
@@ -11,6 +12,16 @@ export interface FlightSearchParametersContext {
   searchAirports: Airport[];
   setSearchAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
 }
+
+type SearchFormProps = {
+  setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
+  setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
+  setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
+  setSearchType: React.Dispatch<SetStateAction<string>>;
+  searchType: string;
+  setFromAirport: React.Dispatch<React.SetStateAction<Airport>>;
+  setToAirport: React.Dispatch<React.SetStateAction<Airport>>;
+};
 
 export interface MainContextValue {
   isLoading: boolean;

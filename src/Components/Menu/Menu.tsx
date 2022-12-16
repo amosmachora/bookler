@@ -24,17 +24,16 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
         {menuWide && (
           <img src={Assets.Logo} alt="Logo" className="object-cover" />
         )}
-        <Link
+        <div
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
             menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
           onClick={() => setMenuWide((prev) => !prev)}
-          to="/flights"
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-full h-[3px] rounded-sm" />
-        </Link>
+        </div>
       </div>
       <ul
         className={`menu-items mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${

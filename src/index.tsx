@@ -9,15 +9,19 @@ import Flights from "./Components/Flights/Flights";
 import Hotel from "./Components/Hotel/Hotel";
 import Taxi from "./Components/Taxi/Taxi";
 import FlightResults from "./Components/Flights/FlightResults";
+import FlightSearchForm from "./Components/Flights/FlightSearchForm";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/flights" element={<Flights />}>
+            <Route index element={<FlightSearchForm />} />
             <Route path="flight-results" element={<FlightResults />} />
           </Route>
           <Route path="/hotels" element={<Hotel />} />

@@ -5,7 +5,6 @@ import { fetchAirportFlightData } from "../../Fetchers/FetchAirportFlightData";
 import { FlightSearchParametersContext } from "../../Types/Contexts";
 import { Airport, Departures } from "../../Types/Flights";
 import DevAirportFlightData from "../../Util/AirportFlightData.json";
-import FlightSearchForm from "./FlightSearchForm";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
   {
@@ -43,6 +42,13 @@ export const FlightSearchContext = createContext<FlightSearchParametersContext>(
     outGoingFlights: [],
     searchAirports: [],
     setSearchAirports: () => {},
+    searchType: "from",
+    setDepartureDate: () => {},
+    setFromAirport: () => {},
+    setReturnDate: () => {},
+    setSearchType: () => {},
+    setToAirport: () => {},
+    setTypeOfTrip: () => {},
   }
 );
 
@@ -89,6 +95,13 @@ const Flights = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [airports.length]);
 
+  const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <FlightSearchContext.Provider
       value={{
@@ -100,18 +113,16 @@ const Flights = () => {
         outGoingFlights,
         searchAirports,
         setSearchAirports,
+        setToAirport,
+        setFromAirport,
+        setTypeOfTrip,
+        setDepartureDate,
+        setReturnDate,
+        setSearchType,
+        searchType,
       }}
     >
-      <FlightSearchForm
-        setToAirport={setToAirport}
-        setFromAirport={setFromAirport}
-        setTypeOfTrip={setTypeOfTrip}
-        setDepartureDate={setDepartureDate}
-        setReturnDate={setReturnDate}
-        setSearchType={setSearchType}
-        searchType={searchType}
-      />
-      {/* <Outlet /> */}
+      <Outlet />
     </FlightSearchContext.Provider>
   );
 };

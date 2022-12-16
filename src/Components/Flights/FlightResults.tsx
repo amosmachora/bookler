@@ -14,6 +14,7 @@ import GoButton from "./GoButton";
 import PaymentOptions from "./PaymentOptions";
 import { FlightSearchContext } from "./Flights";
 import FlightSearchParameters from "./FlightSearchParameters";
+import { MainContext } from "../../App";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
@@ -37,6 +38,8 @@ const FlightResults = () => {
     (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
   );
 
+  const { setMenuWide } = useContext(MainContext);
+
   useEffect(() => {
     console.log(preferredStopAirport);
   }, [preferredStopAirport]);
@@ -51,10 +54,13 @@ const FlightResults = () => {
     } else {
       setFoundFlights(allUnfilteredFoundFlights);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferredAirline]);
 
   useEffect(() => {
     setFoundFlights(allUnfilteredFoundFlights);
+    setMenuWide(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFlightPrices = (flight: Departures): FlightPrices => {

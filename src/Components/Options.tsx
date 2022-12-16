@@ -2,11 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
 
-type propsType = {
-  menuWide: boolean;
-};
-
-const Options = ({ menuWide }: propsType) => {
+const Options = ({ menuWide }: { menuWide: boolean }) => {
   const { pathname } = useLocation();
   return (
     <div
