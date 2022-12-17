@@ -9,18 +9,19 @@ import FlightFilter from "./FlightFilter";
 import FoundFlight from "./FoundFlight";
 import { BookingContextType, FlightPrices } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
-import TravelerDetails from "./TravelerDetails";
 import GoButton from "./GoButton";
 import PaymentOptions from "./PaymentOptions";
 import { FlightSearchContext } from "./Flights";
 import FlightSearchParameters from "./FlightSearchParameters";
 import { MainContext } from "../../App";
+import { Outlet } from "react-router";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
   travelersInfo: null,
   flightPrice: { flightSurCharges: 0, baseFare: 0 },
   booking: false,
+  setTravelersInfo: () => {},
 });
 
 const FlightResults = () => {
@@ -76,9 +77,8 @@ const FlightResults = () => {
     setBooking(true);
     setFlightPrice(fetchFlightPrices(flight));
   };
-
-  const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
   const [showPayments, setShowPayments] = useState(false);
+  const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
 
   return (
     <BookingContext.Provider
@@ -87,6 +87,7 @@ const FlightResults = () => {
         travelersInfo,
         flightPrice,
         booking,
+        setTravelersInfo,
       }}
     >
       {showPayments ? (
@@ -153,12 +154,7 @@ const FlightResults = () => {
                     key={foundFlight.number}
                   />
                 ))}
-                {booking && (
-                  <TravelerDetails
-                    setTravelersInfo={setTravelersInfo}
-                    travelersInfo={travelersInfo}
-                  />
-                )}
+                <Outlet />
               </div>
             </div>
             {booking ? (

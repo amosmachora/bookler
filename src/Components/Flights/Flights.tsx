@@ -95,13 +95,6 @@ const Flights = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [airports.length]);
 
-  const { setMenuWide } = useContext(MainContext);
-
-  useEffect(() => {
-    setMenuWide(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <FlightSearchContext.Provider
       value={{

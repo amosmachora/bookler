@@ -1,5 +1,5 @@
 import React, { SetStateAction, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
 import "./Menu.css";
 
@@ -10,7 +10,7 @@ interface menuProps {
 
 const Menu = ({ menuWide, setMenuWide }: menuProps) => {
   const [activeTab, setActiveTab] = useState("home");
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
   // console.log(pathname);
   //TODO fix the base url link
 
@@ -24,16 +24,17 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
         {menuWide && (
           <img src={Assets.Logo} alt="Logo" className="object-cover" />
         )}
-        <div
+        <Link
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
             menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
-          onClick={() => setMenuWide((prev) => !prev)}
+          onClick={() => setMenuWide(true)}
+          to={getBaseUrl(pathname)}
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-full h-[3px] rounded-sm" />
-        </div>
+        </Link>
       </div>
       <ul
         className={`menu-items mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
@@ -111,3 +112,18 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
 };
 
 export default Menu;
+
+function getBaseUrl(pathname: string): string {
+  let baseUrl: string = "/";
+
+  for (let i = 1; i < pathname.length; i++) {
+    const char = pathname[i];
+    if (char !== "/") {
+      baseUrl = baseUrl + char;
+    } else {
+      return baseUrl;
+    }
+  }
+
+  return pathname;
+}

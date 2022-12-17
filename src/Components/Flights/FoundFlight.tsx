@@ -30,6 +30,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
       const flightData = fetchExtraFlightData(foundFlight.aircraft.reg);
       setExtraFlightData(flightData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

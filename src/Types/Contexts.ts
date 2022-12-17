@@ -39,6 +39,7 @@ export interface BookingContextType {
   travelersInfo: TravelerInfo | null;
   flightPrice: FlightPrices | null;
   booking: boolean;
+  setTravelersInfo: React.Dispatch<React.SetStateAction<TravelerInfo | null>>;
 }
 
 export type FlightPrices = {

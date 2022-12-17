@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
@@ -46,6 +46,13 @@ const FlightSearchForm = () => {
       )
     );
   };
+
+  const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
@@ -137,7 +144,7 @@ const FlightSearchForm = () => {
           <MoreButton />
           <Link
             to="flight-results"
-            className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
+            className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex items-center justify-center"
           >
             <p>SEARCH FLIGHT</p>
           </Link>

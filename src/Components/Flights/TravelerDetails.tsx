@@ -1,17 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Adult, Country, TravelerInfo } from "../../Types/Flights";
+import { Adult, Country } from "../../Types/Flights";
 import { BookingContext } from "./FlightResults";
 
-type TravelerDetailsProps = {
-  travelersInfo: TravelerInfo | null;
-  setTravelersInfo: React.Dispatch<React.SetStateAction<TravelerInfo | null>>;
-};
-
-const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
+const TravelerDetails = () => {
+  const { setTravelersInfo } = useContext(BookingContext);
   const [countryList, setCountryList] = useState<Country[]>([]);
   const adultNameInputRef = useRef<HTMLInputElement>(null);
-  const { travelersInfo, flightPrice } = useContext(BookingContext);
+  const { travelersInfo } = useContext(BookingContext);
 
   const fetchCountryCode = () => {
     const options = {
@@ -54,7 +50,7 @@ const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
   const removePerson = (personToBeRemoved: Adult): void => {
     setTravelersInfo((prevState) => {
       const newAdultList = prevState?.adultList?.filter(
-        (adult) => adult.name != personToBeRemoved.name
+        (adult) => adult.name !== personToBeRemoved.name
       );
       return { ...prevState, adultList: newAdultList };
     });
