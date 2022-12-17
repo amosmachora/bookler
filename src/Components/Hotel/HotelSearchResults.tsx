@@ -71,6 +71,7 @@ const HotelSearchResults = ({
   const [hotelDetailsFacilities, setHotelDetailsFacilities] = useState<
     Facility[]
   >([]);
+  const [showInfo, setShowInfo] = useState(true);
 
   return (
     <div>
@@ -81,6 +82,9 @@ const HotelSearchResults = ({
             sortBy={sortBy}
             propertyList={propertyList}
             setSortBy={setSortBy}
+            detailsShown={detailsShown}
+            setShowInfo={setShowInfo}
+            showInfo={showInfo}
           />
           {detailsShown ? (
             <HotelDetails
@@ -89,7 +93,7 @@ const HotelSearchResults = ({
               )}
               hotelImages={HotelDetailsImages}
               hotelFacilities={hotelDetailsFacilities.slice(0, 4)}
-              showInfo={false}
+              showInfo={showInfo}
             />
           ) : (
             <div className="flex justify-between">

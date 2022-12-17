@@ -112,11 +112,7 @@ const HotelDetails = ({
         </div>
       </div>
       <div className="flex justify-between">
-        <div
-          className={`${
-            showInfo ? "w-[55%]" : "w-45%"
-          } transition-all relative h-[67vh]`}
-        >
+        <div className={`w-[55%] transition-all relative h-[67vh]`}>
           <img
             src={arrayOfUniqueImages[activeImageIndex].img_url_large}
             alt="LocationPointerBlue"
@@ -221,7 +217,7 @@ const HotelDetails = ({
             </div>
           </div>
         ) : (
-          <div className="w-[47%] h-[67vh] overflow-y-scroll">
+          <div className="w-[43%] h-[67vh] overflow-y-scroll">
             <p className="font-bold mb-3">Top Reviews</p>
             {hotelReviews.result.map((review) => (
               <>
