@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
-import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
+import {
+  fetchHotelImages,
+  getCleanedArrayOfImageObjects,
+} from "../../Fetchers/FetchHotelImages";
 import {
   Facility,
   GoogleMapsCenter,
-  HotelImagesType,
+  HotelImage,
   HotelInfo,
 } from "../../Types/Hotel";
-import HotelImages from "../../Util/HotelImages.json";
+import DevHotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
@@ -34,11 +37,13 @@ const HotelData = ({
   setDetailsShown: React.Dispatch<React.SetStateAction<boolean>>;
   setHotelDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
   setHotelDetailsImages: React.Dispatch<
-    React.SetStateAction<HotelImagesType | null>
+    React.SetStateAction<HotelImage[] | null>
   >;
   setHotelDetailsFacilities: React.Dispatch<React.SetStateAction<Facility[]>>;
 }) => {
-  const [hotelImages, setHotelImages] = useState<HotelImagesType>(HotelImages);
+  const [hotelImages, setHotelImages] = useState<HotelImage[]>(
+    getCleanedArrayOfImageObjects(DevHotelImages)
+  );
   const { devMode } = useContext(MainContext);
   const [hotelFacilities, setHotelFacilities] =
     useState<Facility[]>(Facilities);
@@ -59,8 +64,6 @@ const HotelData = ({
     }
   }, [devMode, hotelInfo.hotel_id]);
 
-  const tempHotelId: number = 25924;
-
   const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
 
   const smallCircleClasses: string =
@@ -72,17 +75,8 @@ const HotelData = ({
    * @returns imageUrl of the specified image
    */
   const getSpecificImage = (image_type: string): string | undefined => {
-    const imageArray = hotelImages.data[tempHotelId].find((image) => {
-      const imageTags = image[1];
-      if (Array.isArray(imageTags) && imageTags.length > 0) {
-        return imageTags[0].tag_name === image_type;
-      }
-      return false;
-    });
-
-    if (imageArray !== undefined) {
-      return hotelImages.url_prefix + imageArray[4];
-    }
+    return hotelImages.find((image) => image.tag_name === image_type)
+      ?.img_url_large;
   };
 
   const possibleTags = [

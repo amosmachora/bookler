@@ -3,21 +3,13 @@ import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { fetchHotelDescription } from "../../Fetchers/FetchHotelDescription";
 import { fetchHotelReviews } from "../../Fetchers/FetchHotelReviews";
-import { Facility, HotelImagesType, HotelInfo, tags } from "../../Types/Hotel";
+import { Facility, HotelImage, HotelInfo } from "../../Types/Hotel";
 import { HotelReviews } from "../../Types/HotelReviews";
 import { HotelDescription } from "../../Types/HotelDescription";
 import DevHotelReviews from "../../Util/HotelReviews.json";
 import DevHotelDescription from "../../Util/DevHotelDescription.json";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
-
-export type HotelImage = {
-  tag_name: string | undefined | null;
-  img_url_large: string;
-  img_url_small: string;
-  img_url_medium: string;
-  img_url_tiny: string;
-};
 
 const HotelDetails = ({
   hotelInfo,
@@ -26,40 +18,11 @@ const HotelDetails = ({
   showInfo,
 }: {
   hotelInfo: HotelInfo | undefined;
-  hotelImages: HotelImagesType | null;
+  hotelImages: HotelImage[] | null;
   hotelFacilities: Facility[];
   showInfo: boolean;
 }) => {
-  const tempHotelId: number = 25924;
-
-  const getArrayOfImages = (): HotelImage[] | undefined => {
-    const ArrayOfImages = hotelImages?.data[tempHotelId].map((hotelImage) => {
-      return {
-        tag_name: getTagName(hotelImage[1]),
-        img_url_large: hotelImages.url_prefix + hotelImage[4],
-        img_url_small: hotelImages.url_prefix + hotelImage[5],
-        img_url_medium: hotelImages.url_prefix + hotelImage[6],
-        img_url_tiny: hotelImages.url_prefix + hotelImage[7],
-      };
-    });
-    return ArrayOfImages?.filter(
-      (hotelImage) => hotelImage.tag_name !== undefined
-    );
-  };
-
-  const getTagName = (
-    hotelImage: string | number | tags[]
-  ): string | null | undefined => {
-    if (
-      Array.isArray(hotelImage) &&
-      hotelImage.length > 0 &&
-      hotelImage[0] !== undefined
-    ) {
-      return hotelImage[0].tag_name;
-    }
-  };
-
-  const arrayOfUniqueImages: HotelImage[] = getUniqueImages(getArrayOfImages());
+  const arrayOfUniqueImages: HotelImage[] = getUniqueImages(hotelImages);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(
     Math.floor(7 / 2)
   );
@@ -319,9 +282,7 @@ const getKey = (arrayOfImages: HotelImage[]): string => {
   return Object.keys(firstObject as Object)[0];
 };
 
-const getUniqueImages = (
-  arrayOfImages: HotelImage[] | undefined
-): HotelImage[] => {
+const getUniqueImages = (arrayOfImages: HotelImage[] | null): HotelImage[] => {
   const arrayUniqueByKey: HotelImage[] = [
     ...new Map(
       arrayOfImages?.map((item) => [item[getKey(arrayOfImages)], item])

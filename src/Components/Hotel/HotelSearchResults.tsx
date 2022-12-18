@@ -10,7 +10,7 @@ import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
 import HotelActiveDataScreen from "./HotelActiveDataScreen";
-import { Facility, GoogleMapsCenter, HotelImagesType } from "../../Types/Hotel";
+import { Facility, GoogleMapsCenter, HotelImage } from "../../Types/Hotel";
 import HotelDetails from "./HotelDetails";
 import BookingReview from "./BookingReview";
 
@@ -67,8 +67,9 @@ const HotelSearchResults = ({
 
   const [detailsShown, setDetailsShown] = useState<boolean>(false);
   const [hotelDetailsId, setHotelDetailsId] = useState<number | null>(null);
-  const [HotelDetailsImages, setHotelDetailsImages] =
-    useState<HotelImagesType | null>(null);
+  const [HotelDetailsImages, setHotelDetailsImages] = useState<
+    HotelImage[] | null
+  >(null);
   const [hotelDetailsFacilities, setHotelDetailsFacilities] = useState<
     Facility[]
   >([]);
@@ -101,6 +102,7 @@ const HotelSearchResults = ({
                 hotelInfo={hotelList.find(
                   (hotel) => hotel.hotel_id === hotelDetailsId
                 )}
+                hotelImages={HotelDetailsImages}
               />
             </>
           ) : (

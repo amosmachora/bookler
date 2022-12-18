@@ -113,7 +113,7 @@ export type HotelInfo = {
   zip: string;
 };
 
-export interface HotelImagesType {
+export interface DirtyHotelImages {
   categories: any[];
   data: Data;
   url_prefix: string;
@@ -150,4 +150,12 @@ export interface Facility {
 export type GoogleMapsCenter = {
   lat: number;
   lng: number;
+};
+
+export type HotelImage = {
+  tag_name: string | undefined | null;
+  img_url_large: string;
+  img_url_small: string;
+  img_url_medium: string;
+  img_url_tiny: string;
 };

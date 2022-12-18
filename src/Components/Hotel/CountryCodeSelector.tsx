@@ -11,7 +11,7 @@ export function CountryCodeSelector({
     <select
       name="select-telephone"
       id="select-telephone"
-      className="font-medium border bg-gray-100 py-4 px-3 rounded-md w-full text-xs"
+      className="font-medium border bg-gray-100 py-3 px-3 rounded-md w-full text-xs"
       onChange={(e) => handleChange(e.target.value)}
     >
       {countryList.map((country) => (

@@ -84,7 +84,10 @@ const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
         ))}
       </div>
       <div className="flex justify-between">
-        <CountryCodeSelector handleChange={handleCountrySelection} />
+        <div>
+          <p className="font-medium text-sm my-4 mx-2">Country code</p>
+          <CountryCodeSelector handleChange={handleCountrySelection} />
+        </div>
         <div className="w-1/3">
           <p className="font-medium text-sm my-4 mx-2">Mobile</p>
           <input
