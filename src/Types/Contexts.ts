@@ -1,4 +1,4 @@
-import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
+import { Airline, Airport, Country, Departures, TravelerInfo } from "./Flights";
 import { TravellerHotelInfo } from "./Hotel";
 
 export interface FlightSearchParametersContext {
@@ -15,9 +15,9 @@ export interface MainContextValue {
   airports: Airport[];
   airlines: Airline[];
   devMode: boolean;
-  countriesList: object;
   searchAirports: Airport[];
   setSearchAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
+  countryList: Country[];
 }
 
 export interface BookingContextType {

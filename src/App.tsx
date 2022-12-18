@@ -11,7 +11,7 @@ import Reach from "./Components/Reach/Reach";
 import SearchForm from "./Components/SearchForm";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
-import { Airline, Airport, Departures } from "./Types/Flights";
+import { Airline, Airport, Country, Departures } from "./Types/Flights";
 import { fetchAirportFlightData } from "./Fetchers/FetchAirportFlightData";
 import { fetchAirports } from "./Fetchers/FetchAirports";
 import {
@@ -23,12 +23,9 @@ import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
 import HotelSearchForm from "./Components/Hotel/HotelSearchForm";
 import HotelSearchResults from "./Components/Hotel/HotelSearchResults";
-import {
-  CountriesWithStateAndCities,
-  fetchCountries,
-} from "./Fetchers/FetchCountries";
 import FlightSearchParameters from "./Components/Flights/FlightSearchParameters";
 import { TravellerHotelInfo } from "./Types/Hotel";
+import { fetchCountryList } from "./Fetchers/FetchCountryList";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
   {
@@ -72,9 +69,9 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
   airlines: [],
   devMode: false,
-  countriesList: {},
   searchAirports: [],
   setSearchAirports: () => {},
+  countryList: [],
 });
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
@@ -101,9 +98,9 @@ function App() {
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
   const [targetHotelLocation, setTargetHotelLocation] =
     useState<Airport | null>(null);
-  const [countriesList, setCountriesList] = useState<
-    CountriesWithStateAndCities[]
-  >([]);
+  // const [countriesList, setCountriesList] = useState<
+  //   CountriesWithStateAndCities[]
+  // >([]);
   const [travellerHotelInfo, setTravellerHotelInfo] =
     useState<TravellerHotelInfo>({
       Rooms: 1,
@@ -111,11 +108,13 @@ function App() {
       kids: 0,
     });
   const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);
+  const [countryList, setCountryList] = useState<Country[]>([]);
 
   useEffect(() => {
     const initializeApplication = async () => {
       await fetchAirports().then((res) => setAirports(res));
-      await fetchCountries().then((res) => setCountriesList(res));
+      await fetchCountryList().then((res) => setCountryList(res));
+      // await fetchCountries().then((res) => setCountriesList(res));
       setAirlines(fetchAirlines());
     };
     if (!devMode) {
@@ -123,6 +122,7 @@ function App() {
       initializeApplication();
       setIsLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [[], devMode]);
 
   useEffect(() => {
@@ -151,6 +151,7 @@ function App() {
   useEffect(() => {
     setFromAirport(getRandomAirport());
     setToAirport(getRandomAirport());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [airports.length]);
 
   const renderTab = (): JSX.Element | undefined => {
@@ -226,7 +227,7 @@ function App() {
         airports,
         airlines,
         devMode,
-        countriesList,
+        countryList,
         searchAirports,
         setSearchAirports,
       }}

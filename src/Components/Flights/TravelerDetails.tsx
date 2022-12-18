@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { Adult, Country, TravelerInfo } from "../../Types/Flights";
+import React, { useContext, useRef } from "react";
+import { Adult, TravelerInfo } from "../../Types/Flights";
 import { BookingContext } from "./FlightResults";
+import { CountryCodeSelector } from "../Hotel/CountryCodeSelector";
+import { MainContext } from "../../App";
 
 type TravelerDetailsProps = {
   travelersInfo: TravelerInfo | null;
@@ -9,33 +10,9 @@ type TravelerDetailsProps = {
 };
 
 const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
-  const [countryList, setCountryList] = useState<Country[]>([]);
   const adultNameInputRef = useRef<HTMLInputElement>(null);
-  const { travelersInfo, flightPrice } = useContext(BookingContext);
-
-  const fetchCountryCode = () => {
-    const options = {
-      method: "GET",
-      url: "https://country-info.p.rapidapi.com/",
-      headers: {
-        "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-        "X-RapidAPI-Host": "country-info.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then(function (response) {
-        setCountryList(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    fetchCountryCode();
-  }, []);
+  const { travelersInfo } = useContext(BookingContext);
+  const { countryList } = useContext(MainContext);
 
   const handleAdultNameInput = () => {
     const adult: Adult = {
@@ -54,9 +31,20 @@ const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
   const removePerson = (personToBeRemoved: Adult): void => {
     setTravelersInfo((prevState) => {
       const newAdultList = prevState?.adultList?.filter(
-        (adult) => adult.name != personToBeRemoved.name
+        (adult) => adult.name !== personToBeRemoved.name
       );
       return { ...prevState, adultList: newAdultList };
+    });
+  };
+
+  const handleCountrySelection = (currentSelection: string) => {
+    setTravelersInfo((prevState) => {
+      return {
+        ...prevState,
+        country: countryList.find(
+          (country) => country.code === currentSelection
+        ),
+      };
     });
   };
 
@@ -96,30 +84,7 @@ const TravelerDetails = ({ setTravelersInfo }: TravelerDetailsProps) => {
         ))}
       </div>
       <div className="flex justify-between">
-        <div className="w-1/4">
-          <p className="font-medium text-sm my-4 mx-2">Country-Code</p>
-          <select
-            name="select-telephone"
-            id="select-telephone"
-            className="font-medium border bg-gray-100 py-4 px-3 rounded-md w-full text-xs"
-            onChange={(e) =>
-              setTravelersInfo((prevState) => {
-                return {
-                  ...prevState,
-                  country: countryList.find(
-                    (country) => country.code === e.target.value
-                  ),
-                };
-              })
-            }
-          >
-            {countryList.map((country) => (
-              <option value={country.code} className="bg-gray-200">
-                +{country.code} ({country.name})
-              </option>
-            ))}
-          </select>
-        </div>
+        <CountryCodeSelector handleChange={handleCountrySelection} />
         <div className="w-1/3">
           <p className="font-medium text-sm my-4 mx-2">Mobile</p>
           <input

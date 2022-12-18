@@ -12,6 +12,7 @@ import HotelFilter from "./HotelFilter";
 import HotelActiveDataScreen from "./HotelActiveDataScreen";
 import { Facility, GoogleMapsCenter, HotelImagesType } from "../../Types/Hotel";
 import HotelDetails from "./HotelDetails";
+import BookingReview from "./BookingReview";
 
 type HotelSearchResultsProps = {
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
@@ -87,14 +88,21 @@ const HotelSearchResults = ({
             showInfo={showInfo}
           />
           {detailsShown ? (
-            <HotelDetails
-              hotelInfo={hotelList.find(
-                (hotel) => hotel.hotel_id === hotelDetailsId
-              )}
-              hotelImages={HotelDetailsImages}
-              hotelFacilities={hotelDetailsFacilities.slice(0, 4)}
-              showInfo={showInfo}
-            />
+            <>
+              <HotelDetails
+                hotelInfo={hotelList.find(
+                  (hotel) => hotel.hotel_id === hotelDetailsId
+                )}
+                hotelImages={HotelDetailsImages}
+                hotelFacilities={hotelDetailsFacilities.slice(0, 4)}
+                showInfo={showInfo}
+              />
+              <BookingReview
+                hotelInfo={hotelList.find(
+                  (hotel) => hotel.hotel_id === hotelDetailsId
+                )}
+              />
+            </>
           ) : (
             <div className="flex justify-between">
               <div
