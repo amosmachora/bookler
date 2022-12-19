@@ -49,6 +49,8 @@ const HotelDetails = ({
 
   const hotelReviewScore: number = (hotelInfo!.review_score / 10) * 5;
 
+  console.log(hotelReviewScore.toFixed(0));
+
   const [showInfo, setShowInfo] = useState(true);
 
   return (
@@ -166,12 +168,16 @@ const HotelDetails = ({
                     <p className="text-[11px] text-gray-400 mr-2">
                       {hotelInfo?.review_nr} reviews
                     </p>
-                    {[...Array(hotelReviewScore)].map(() => (
-                      <img src={Assets.StarBlue} alt="star" />
-                    ))}
-                    {[...Array(5 - hotelReviewScore)].map(() => (
-                      <img src={Assets.StarGray} alt="star" />
-                    ))}
+                    {[...Array(parseInt(hotelReviewScore.toFixed(0)))].map(
+                      () => (
+                        <img src={Assets.StarBlue} alt="star" />
+                      )
+                    )}
+                    {[...Array(5 - parseInt(hotelReviewScore.toFixed(0)))].map(
+                      () => (
+                        <img src={Assets.StarGray} alt="star" />
+                      )
+                    )}
                   </div>
                 </div>
               </div>
