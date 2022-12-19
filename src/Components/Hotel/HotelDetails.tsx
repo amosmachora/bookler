@@ -10,6 +10,7 @@ import DevHotelReviews from "../../Util/HotelReviews.json";
 import DevHotelDescription from "../../Util/DevHotelDescription.json";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
+import { monthNames } from "../../Util/Helpers";
 
 const HotelDetails = ({
   hotelInfo,
@@ -311,21 +312,6 @@ const getNumberOfNights = (checkin: string, checkout: string): number => {
   let checkOutDate: Date = new Date(checkout);
   return (checkOutDate.getTime() - checkInDate.getTime()) / 86400000;
 };
-
-const monthNames: string[] = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 const getMonthAndYearString = (checkout: string): string => {
   let date: Date = new Date(checkout);

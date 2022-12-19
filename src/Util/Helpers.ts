@@ -69,3 +69,18 @@ export function cleaned(filterBy: string[]): string {
 
   return text;
 }
+
+export const monthNames: string[] = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];

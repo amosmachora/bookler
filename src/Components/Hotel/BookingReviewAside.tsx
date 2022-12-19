@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { HotelSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { HotelImage, HotelInfo } from "../../Types/Hotel";
+import { getDay, monthNames } from "../../Util/Helpers";
 
 const BookingReviewAside = ({
   hotelInfo,
@@ -27,9 +28,45 @@ const BookingReviewAside = ({
         <p className="text-xs">{hotelInfo?.address_trans}</p>
       </div>
       <p className="mt-8 mb-5 text-sm">Check In</p>
-      <p>{checkInDate?.toString()}</p>
+      <div className="border text-sm font-semibold py-3 px-4">
+        <p>{`${
+          checkInDate?.getDate() +
+          " " +
+          monthNames[checkInDate!.getMonth()].substring(0, 3) +
+          ", " +
+          checkInDate?.getFullYear() +
+          ", " +
+          getDay(checkInDate)
+        }`}</p>
+      </div>
       <p className="mt-8 mb-5 text-sm">Check Out</p>
-      <p>{checkOutDate?.toString()}</p>
+      <div className="border text-sm font-semibold py-3 px-4">
+        <p>{`${
+          checkOutDate?.getDate() +
+          " " +
+          monthNames[checkOutDate!.getMonth()].substring(0, 3) +
+          ", " +
+          checkOutDate?.getFullYear() +
+          ", " +
+          getDay(checkOutDate)
+        }`}</p>
+      </div>
+      <div className="flex flex-col items-end mt-7">
+        <p className="font-bold text-3xl mb-3">
+          {hotelInfo?.price_breakdown.all_inclusive_price}{" "}
+          <span className="text-xs font-normal text-gray-400">
+            {hotelInfo?.price_breakdown.currency}
+          </span>
+        </p>
+        <a
+          className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white"
+          href={hotelInfo?.url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          PAY NOW
+        </a>
+      </div>
     </div>
   );
 };
