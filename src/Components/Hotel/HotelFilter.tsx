@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BaseFilter, RecommendedFilter } from "../../Types/PropertyList";
 
 const HotelFilter = ({
@@ -23,9 +23,22 @@ const HotelFilter = ({
       prevState.filter((element) => element !== filter)
     );
   };
+  const filterDiv = useRef<HTMLDivElement | null>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    if (filterDiv.current!.scrollHeight > filterDiv.current!.offsetHeight) {
+      setIsOverflowing(true);
+    } else {
+      setIsOverflowing(false);
+    }
+  }, []);
 
   return (
-    <div className="w-1/5 rounded-md overflow-hidden">
+    <div
+      className="w-1/5 rounded-md overflow-hidden h-full relative"
+      ref={filterDiv}
+    >
       <p className="font-bold text-lg bg-flightResultsBg py-3 px-5">Filters</p>
       <div className="p-5 bg-white text-sm rounded-b-md">
         <div className="flex justify-between font-semibold">
@@ -81,7 +94,14 @@ const HotelFilter = ({
             <p className="ml-2">{filter.name}</p>
           </div>
         ))}
-        <p className="text-center mt-4 mb-4">More</p>
+        {isOverflowing && (
+          <p
+            className="text-center absolute bottom-0 left-1/2 -translate-x-1/2 py-4 bg-white w-full cursor-pointer"
+            onClick={() => (filterDiv.current!.style.overflowY = "scroll")}
+          >
+            More
+          </p>
+        )}
       </div>
     </div>
   );

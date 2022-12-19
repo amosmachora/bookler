@@ -1,15 +1,13 @@
 import React from "react";
 import { Assets } from "../../Assets/Assets";
-import { HotelImage, HotelInfo } from "../../Types/Hotel";
+import { SelectedHotel } from "../../Types/Hotel";
 import BookingReviewAside from "./BookingReviewAside";
 import { CountryCodeSelector } from "./CountryCodeSelector";
 
 const BookingReview = ({
-  hotelInfo,
-  hotelImages,
+  selectedHotelInfo,
 }: {
-  hotelInfo: HotelInfo | undefined;
-  hotelImages: HotelImage[] | null;
+  selectedHotelInfo: SelectedHotel | null;
 }) => {
   const handleCountryCodeSelection = (currentValue: string) => {};
   return (
@@ -50,8 +48,9 @@ const BookingReview = ({
           <p className="text-xl font-bold">Your details</p>
           <p className="text-gray-400 leading-5 text-xs w-3/4">
             Whether you are in town for business or leisure,{" "}
-            {hotelInfo?.hotel_name} welcomes travelers to {hotelInfo?.city} with
-            exceptional service, spacious
+            {selectedHotelInfo!.hotelInfo?.hotel_name} welcomes travelers to{" "}
+            {selectedHotelInfo!.hotelInfo?.city} with exceptional service,
+            spacious
           </p>
           <div className="flex justify-between mt-6">
             <div className="w-1/4">
@@ -112,7 +111,7 @@ const BookingReview = ({
           </div>
         </div>
       </div>
-      <BookingReviewAside hotelInfo={hotelInfo} hotelImages={hotelImages} />
+      <BookingReviewAside selectedHotelInfo={selectedHotelInfo} />
     </div>
   );
 };

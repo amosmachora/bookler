@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
 import { HotelSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
-import { HotelImage, HotelInfo } from "../../Types/Hotel";
+import { SelectedHotel } from "../../Types/Hotel";
 import { getDay, monthNames } from "../../Util/Helpers";
 
 const BookingReviewAside = ({
-  hotelInfo,
-  hotelImages,
+  selectedHotelInfo,
 }: {
-  hotelInfo: HotelInfo | undefined;
-  hotelImages: HotelImage[] | null;
+  selectedHotelInfo: SelectedHotel | null;
 }) => {
   const { checkInDate, checkOutDate } = useContext(HotelSearchContext);
+
+  const hotelImages = selectedHotelInfo?.hotelImages;
+  const hotelInfo = selectedHotelInfo?.hotelInfo;
   return (
     <div className="w-1/5 bg-white rounded-md overflow-hidden p-3">
       <img

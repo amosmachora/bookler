@@ -159,3 +159,9 @@ export type HotelImage = {
   img_url_medium: string;
   img_url_tiny: string;
 };
+
+export type SelectedHotel = {
+  hotelInfo: HotelInfo;
+  hotelImages: HotelImage[];
+  hotelFacilities: Facility[];
+};

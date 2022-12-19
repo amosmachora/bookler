@@ -9,8 +9,7 @@ import HotelData from "./HotelData";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import HotelFilter from "./HotelFilter";
-import HotelActiveDataScreen from "./HotelActiveDataScreen";
-import { Facility, GoogleMapsCenter, HotelImage } from "../../Types/Hotel";
+import { GoogleMapsCenter, HotelInfo, SelectedHotel } from "../../Types/Hotel";
 import HotelDetails from "./HotelDetails";
 import BookingReview from "./BookingReview";
 
@@ -26,7 +25,7 @@ const HotelSearchResults = ({
     useContext(HotelSearchContext);
   const [propertyList, setPropertyList] =
     useState<PropertyListType>(PropertyList);
-  const [hotelList, setHotelList] = useState(propertyList.result);
+  const [hotelList, setHotelList] = useState<HotelInfo[]>(propertyList.result);
   const [sortBy, setSortBy] = useState<string>(
     propertyList.sorting.selected_identifier
   );
@@ -65,50 +64,57 @@ const HotelSearchResults = ({
     lng: 0,
   });
 
-  const [detailsShown, setDetailsShown] = useState<boolean>(false);
-  const [hotelDetailsId, setHotelDetailsId] = useState<number | null>(null);
-  const [HotelDetailsImages, setHotelDetailsImages] = useState<
-    HotelImage[] | null
-  >(null);
-  const [hotelDetailsFacilities, setHotelDetailsFacilities] = useState<
-    Facility[]
-  >([]);
-  const [showInfo, setShowInfo] = useState(true);
+  /**
+   * Stage state to define the different booking stages
+   * 1) HotelResults
+   * 2) HotelDetails
+   * 3) BookingReview
+   */
+  const [stage, setStage] = useState("HotelResults");
+  const [selectedHotelInfo, setSelectedHotelInfo] =
+    useState<SelectedHotel | null>(null);
 
   return (
     <div>
       <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
-      <div className="flex justify-between">
-        <div className={`${detailsShown ? "w-full" : "w-[78%]"} h-max`}>
-          <HotelActiveDataScreen
-            sortBy={sortBy}
-            propertyList={propertyList}
-            setSortBy={setSortBy}
-            detailsShown={detailsShown}
-            setShowInfo={setShowInfo}
-            showInfo={showInfo}
-          />
-          {detailsShown ? (
-            <>
-              <HotelDetails
-                hotelInfo={hotelList.find(
-                  (hotel) => hotel.hotel_id === hotelDetailsId
-                )}
-                hotelImages={HotelDetailsImages}
-                hotelFacilities={hotelDetailsFacilities.slice(0, 4)}
-                showInfo={showInfo}
-              />
-              <BookingReview
-                hotelInfo={hotelList.find(
-                  (hotel) => hotel.hotel_id === hotelDetailsId
-                )}
-                hotelImages={HotelDetailsImages}
-              />
-            </>
-          ) : (
-            <div className="flex justify-between">
+      {stage === "HotelResults" && (
+        <div className="flex justify-between h-[87vh] mb-8">
+          <div className="w-3/4 h-87vh flex flex-col justify-between overflow-hidden rounded-b-md">
+            <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
+              <p className="font-bold">Hotels</p>
+              <div className="h-5 w-[1px] bg-gray-300 mx-3" />
+              <p className="text-sm font-semibold">
+                Total{" "}
+                <span className="text-sky-500 font-normal">
+                  {propertyList.result.length} results
+                </span>
+              </p>
+              <div className="flex items-center flex-wrap text-xs text-gray-400 w-max">
+                {propertyList.sort.map((sortOption) => (
+                  <p
+                    className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
+                      sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
+                    }`}
+                    onClick={() => setSortBy(sortOption.id)}
+                    key={sortOption.id}
+                  >
+                    {sortOption.name}
+                  </p>
+                ))}
+                {propertyList.applied_filters.map((appliedFilter) => (
+                  <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
+                ))}
+              </div>
+              <div className="h-5 w-[1px] bg-gray-300 mx-3" />
+              <div className="flex items-center">
+                <p className="cursor-pointer text-blue-600 font-semibold text-sm ml-2">
+                  Map View
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between flex-grow h-[90%]">
               <div
-                className={`h-[87vh] overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
+                className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
                   mapShown ? "w-[44%]" : ""
                 } `}
               >
@@ -121,25 +127,31 @@ const HotelSearchResults = ({
                     setMapCenter={setMapCenter}
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
-                    setDetailsShown={setDetailsShown}
-                    setHotelDetailsId={setHotelDetailsId}
-                    setHotelDetailsImages={setHotelDetailsImages}
-                    setHotelDetailsFacilities={setHotelDetailsFacilities}
+                    setStage={setStage}
+                    setSelectedHotelInfo={setSelectedHotelInfo}
+                    hotelList={hotelList}
                   />
                 ))}
               </div>
               {mapShown && mapCenter !== null && <Map center={mapCenter} />}
             </div>
-          )}
-        </div>
-        {!detailsShown && (
+          </div>
           <HotelFilter
             baseFilters={propertyList.base_filters}
             recommendedFilters={propertyList.recommended_filters}
             setFilterBy={setFilterBy}
           />
-        )}
-      </div>
+        </div>
+      )}
+      {stage === "HotelDetails" && (
+        <HotelDetails
+          selectedHotelInfo={selectedHotelInfo}
+          setStage={setStage}
+        />
+      )}
+      {stage === "BookingReview" && (
+        <BookingReview selectedHotelInfo={selectedHotelInfo} />
+      )}
     </div>
   );
 };

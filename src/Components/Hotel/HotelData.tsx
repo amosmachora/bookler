@@ -10,6 +10,7 @@ import {
   GoogleMapsCenter,
   HotelImage,
   HotelInfo,
+  SelectedHotel,
 } from "../../Types/Hotel";
 import DevHotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
@@ -23,10 +24,9 @@ const HotelData = ({
   setMapCenter,
   activeTab,
   setActiveTab,
-  setDetailsShown,
-  setHotelDetailsId,
-  setHotelDetailsImages,
-  setHotelDetailsFacilities,
+  setStage,
+  setSelectedHotelInfo,
+  hotelList,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,12 +34,11 @@ const HotelData = ({
   setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
   activeTab: string | null;
   setActiveTab: React.Dispatch<React.SetStateAction<string | null>>;
-  setDetailsShown: React.Dispatch<React.SetStateAction<boolean>>;
-  setHotelDetailsId: React.Dispatch<React.SetStateAction<number | null>>;
-  setHotelDetailsImages: React.Dispatch<
-    React.SetStateAction<HotelImage[] | null>
+  setStage: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedHotelInfo: React.Dispatch<
+    React.SetStateAction<SelectedHotel | null>
   >;
-  setHotelDetailsFacilities: React.Dispatch<React.SetStateAction<Facility[]>>;
+  hotelList: HotelInfo[];
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImage[]>(
     getCleanedArrayOfImageObjects(DevHotelImages)
@@ -272,10 +271,12 @@ const HotelData = ({
                     : "bg-gray-300 hover:bg-gray-400 px-5 mr-4"
                 } rounded-md font-semibold transition-all border-2 border-transparent`}
                 onClick={() => {
-                  setHotelDetailsId(hotelInfo.hotel_id);
-                  setHotelDetailsImages(hotelImages);
-                  setHotelDetailsFacilities(hotelFacilities);
-                  setDetailsShown(true);
+                  setSelectedHotelInfo({
+                    hotelFacilities: hotelFacilities,
+                    hotelInfo: hotelInfo,
+                    hotelImages: hotelImages,
+                  });
+                  setStage("HotelDetails");
                 }}
               >
                 View Details
