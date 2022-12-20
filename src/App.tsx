@@ -26,6 +26,7 @@ import HotelSearchResults from "./Components/Hotel/HotelSearchResults";
 import FlightSearchParameters from "./Components/Flights/FlightSearchParameters";
 import { TravellerHotelInfo } from "./Types/Hotel";
 import { fetchCountryList } from "./Fetchers/FetchCountryList";
+import CarRentalSearchForm from "./Components/CarRental/CarRentalSearchForm";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
   {
@@ -191,6 +192,8 @@ function App() {
           travelingForWorkCheckBox={travelingForWorkCheckBox}
         />
       );
+    } else if (activeChoice === "taxi") {
+      return <CarRentalSearchForm />;
     }
   };
 

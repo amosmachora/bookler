@@ -54,8 +54,10 @@ import StandingManClipArt from "./PersonClipArt.svg";
 import FamilyClipArt from "./Family-clipart-black-and-white.svg";
 import SmilyFace from "./lol.svg";
 import SadFace from "./sadface.svg";
+import Clock from "./icons8-wall-clock-24.png";
 
 export const Assets = {
+  Clock,
   SmilyFace,
   SadFace,
   CoupleClipArt,

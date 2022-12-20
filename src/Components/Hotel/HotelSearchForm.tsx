@@ -3,7 +3,7 @@ import { HotelSearchContext, MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../../MoreButton";
 import { Airport } from "../../Types/Flights";
-import { getDay } from "../../Util/Helpers";
+import { DatePicker } from "../DatePicker";
 import AirportSearch from "../SearchModals/AirportSearch";
 import TravellerSelector from "./TravellersSelector";
 
@@ -56,7 +56,7 @@ const HotelSearchForm = ({
               : targetHotelLocation?.name}
           </p>
         </div>
-        <CheckInOrOutInput
+        <DatePicker
           setDate={setCheckInDate}
           date={checkInDate}
           name="Check In"
@@ -80,7 +80,7 @@ const HotelSearchForm = ({
         )}
       </div>
       <div className="flex justify-between relative">
-        <CheckInOrOutInput
+        <DatePicker
           setDate={setCheckOutDate}
           date={checkOutDate}
           name="Check out"
@@ -112,26 +112,3 @@ const HotelSearchForm = ({
 };
 
 export default HotelSearchForm;
-
-type CheckInOrOutInputProps = {
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  date: Date | null;
-  name: string;
-};
-
-function CheckInOrOutInput({ setDate, date, name }: CheckInOrOutInputProps) {
-  return (
-    <div className="rounded-md bg-gray-100 w-[32%] px-4 py-2">
-      <div className="flex">
-        <img src={Assets.Calendar} alt="Location" />
-        <p className="text-gray-300 ml-1 text-sm">{name}</p>
-      </div>
-      <input
-        className="font-bold mb-1 bg-gray-100"
-        type="date"
-        onChange={(e) => setDate(e.target.valueAsDate)}
-      />
-      <p className="text-xs text-gray-400">{getDay(date)}</p>
-    </div>
-  );
-}
