@@ -18,6 +18,7 @@ import {
   HotelSearch,
   MainContextValue,
   FlightSearchParametersContext,
+  CarRentalSearch,
 } from "./Types/Contexts";
 import Airlines from "./Util/Airlines.json";
 import { fetchAirlines } from "./Fetchers/FetchAirlines";
@@ -27,6 +28,7 @@ import FlightSearchParameters from "./Components/Flights/FlightSearchParameters"
 import { TravellerHotelInfo } from "./Types/Hotel";
 import { fetchCountryList } from "./Fetchers/FetchCountryList";
 import CarRentalSearchForm from "./Components/CarRental/CarRentalSearchForm";
+import CarRentalSearchResults from "./Components/CarRental/CarRentalSearchResults";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
   {
@@ -76,6 +78,9 @@ export const MainContext = createContext<MainContextValue>({
 });
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
+export const CarRentalSearchContext = createContext<CarRentalSearch>(
+  null as any
+);
 
 function App() {
   const [activeChoice, setActiveChoice] = useState("flights");
@@ -110,6 +115,13 @@ function App() {
     });
   const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);
   const [countryList, setCountryList] = useState<Country[]>([]);
+
+  const [pickUpDate, setPickUpDate] = useState<Date | null>(null);
+  const [dropOffDate, setDropOffDate] = useState<Date | null>(null);
+  const [pickUpTime, setPickUpTime] = useState<string>("");
+  const [dropOffTime, setDropOffTime] = useState<string>("");
+  const [dropCarAtDifferentLocation, setDropCarAtDifferentLocation] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const initializeApplication = async () => {
@@ -186,14 +198,44 @@ function App() {
       );
     } else if (activeChoice === "hotel") {
       return (
-        <HotelSearchForm
-          toAirport={toAirport}
-          setMenuWide={setMenuWide}
-          travelingForWorkCheckBox={travelingForWorkCheckBox}
-        />
+        <HotelSearchContext.Provider
+          value={{
+            checkInDate,
+            checkOutDate,
+            setCheckInDate,
+            setCheckOutDate,
+            targetHotelLocation,
+            setTargetHotelLocation,
+            travellerHotelInfo,
+            setTravellerHotelInfo,
+          }}
+        >
+          <HotelSearchForm
+            toAirport={toAirport}
+            setMenuWide={setMenuWide}
+            travelingForWorkCheckBox={travelingForWorkCheckBox}
+          />
+        </HotelSearchContext.Provider>
       );
     } else if (activeChoice === "taxi") {
-      return <CarRentalSearchForm />;
+      return (
+        <CarRentalSearchContext.Provider
+          value={{
+            pickUpDate,
+            setPickUpDate,
+            dropOffDate,
+            setDropOffDate,
+            pickUpTime,
+            setPickUpTime,
+            dropOffTime,
+            setDropOffTime,
+            dropCarAtDifferentLocation,
+            setDropCarAtDifferentLocation,
+          }}
+        >
+          <CarRentalSearchForm setMenuWide={setMenuWide} />
+        </CarRentalSearchContext.Provider>
+      );
     }
   };
 
@@ -216,9 +258,41 @@ function App() {
       );
     } else if (activeChoice === "hotel") {
       return (
-        <HotelSearchResults
-          travelingForWorkCheckBox={travelingForWorkCheckBox}
-        />
+        <HotelSearchContext.Provider
+          value={{
+            checkInDate,
+            checkOutDate,
+            setCheckInDate,
+            setCheckOutDate,
+            targetHotelLocation,
+            setTargetHotelLocation,
+            travellerHotelInfo,
+            setTravellerHotelInfo,
+          }}
+        >
+          <HotelSearchResults
+            travelingForWorkCheckBox={travelingForWorkCheckBox}
+          />
+        </HotelSearchContext.Provider>
+      );
+    } else if (activeChoice === "taxi") {
+      return (
+        <CarRentalSearchContext.Provider
+          value={{
+            pickUpDate,
+            setPickUpDate,
+            dropOffDate,
+            setDropOffDate,
+            pickUpTime,
+            setPickUpTime,
+            dropOffTime,
+            setDropOffTime,
+            dropCarAtDifferentLocation,
+            setDropCarAtDifferentLocation,
+          }}
+        >
+          <CarRentalSearchResults />;
+        </CarRentalSearchContext.Provider>
       );
     }
   };
@@ -263,20 +337,7 @@ function App() {
                 <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
               )}
             </div>
-            <HotelSearchContext.Provider
-              value={{
-                checkInDate,
-                checkOutDate,
-                setCheckInDate,
-                setCheckOutDate,
-                targetHotelLocation,
-                setTargetHotelLocation,
-                travellerHotelInfo,
-                setTravellerHotelInfo,
-              }}
-            >
-              {menuWide ? renderTab() : renderResults()}
-            </HotelSearchContext.Provider>
+            {menuWide ? renderTab() : renderResults()}
           </div>
         </div>
         <div className="flex absolute right-14 top-[34px]">

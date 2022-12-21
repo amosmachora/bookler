@@ -44,3 +44,16 @@ export interface HotelSearch {
     React.SetStateAction<TravellerHotelInfo>
   >;
 }
+
+export interface CarRentalSearch {
+  pickUpDate: Date | null;
+  setPickUpDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  dropOffDate: Date | null;
+  setDropOffDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  pickUpTime: string;
+  setPickUpTime: React.Dispatch<React.SetStateAction<string>>;
+  dropOffTime: string;
+  setDropOffTime: React.Dispatch<React.SetStateAction<string>>;
+  dropCarAtDifferentLocation: boolean;
+  setDropCarAtDifferentLocation: React.Dispatch<React.SetStateAction<boolean>>;
+}
