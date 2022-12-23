@@ -1,3 +1,4 @@
+import { Rating } from "../../Components/Rating";
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
@@ -185,23 +186,10 @@ const HotelData = ({
             <p className={`font-bold ${mapShown ? "text-sm" : "text-lg"}`}>
               {hotelInfo.hotel_name}
             </p>
-            <div
-              className={`${
-                mapShown
-                  ? "rounded font-semibold"
-                  : "rounded-tl-md rounded-bl-md font-bold right-0 absolute top-[15%]"
-              } text-white bg-blue-900`}
-            >
-              <div className="flex items-center px-3 py-1">
-                <p className={mapShown ? "text-xs" : ""}>
-                  {((hotelInfo.review_score / 10) * 5).toFixed(1)}
-                </p>
-                <img src={Assets.Star} alt="Star" className="ml-2" />
-              </div>
-              {mapShown ? null : (
-                <div className="w-full h-6 bg-white rounded-tr-3xl" />
-              )}
-            </div>
+            <Rating
+              mapShown={mapShown}
+              rating={((hotelInfo.review_score / 10) * 5).toFixed(1)}
+            />
           </div>
           <div className={`flex justify-between ${mapShown ? "mt-3" : ""}`}>
             <p className="font-semibold text-xs">{hotelInfo.address}</p>

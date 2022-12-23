@@ -48,13 +48,13 @@ const CarRentalSearchResults = () => {
             </p>
           </div>
           <div className="flex text-xs">
-            <p className="rounded-full py-1 mx-1 px-2 cursor-pointer transition-all bg-blue-900 text-white">
+            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
               Cheapest
             </p>
-            <p className="rounded-full py-1 mx-1 px-2 cursor-pointer transition-all bg-blue-900 text-white">
+            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
               Best
             </p>
-            <p className="rounded-full py-1 mx-1 px-2 cursor-pointer transition-all bg-blue-900 text-white">
+            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
               Quickest
             </p>
           </div>

@@ -1,5 +1,5 @@
 import React, { SetStateAction, useContext, useState } from "react";
-import { HotelSearchContext, MainContext } from "../../App";
+import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
 import "./AirportSearch.css";
@@ -20,7 +20,6 @@ const AirportSearch = ({
   const { searchAirports } = useContext(MainContext);
   const [localAirportList, setLocalAirportList] =
     useState<Airport[]>(searchAirports);
-  const { setTargetHotelLocation } = useContext(HotelSearchContext);
 
   const searchAirport = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
@@ -59,8 +58,6 @@ const AirportSearch = ({
       if (setFromAirport !== undefined) setFromAirport(airport);
     } else if (typeOfSearch === "to") {
       if (setToAirport !== undefined) setToAirport(airport);
-    } else if (typeOfSearch === "Choose your target location") {
-      setTargetHotelLocation(airport);
     }
     closeModalFunction(false);
   };
