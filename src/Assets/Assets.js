@@ -56,8 +56,12 @@ import SmilyFace from "./lol.svg";
 import SadFace from "./sadface.svg";
 import Clock from "./icons8-wall-clock-24.png";
 import AC from "./AirConditioning.svg";
+import PickUpLocation from "./PickUpLocation.svg";
+import OpeningHours from "./OpeningHours.svg";
 
 export const Assets = {
+  OpeningHours,
+  PickUpLocation,
   AC,
   Clock,
   SmilyFace,

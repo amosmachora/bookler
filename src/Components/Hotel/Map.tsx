@@ -2,7 +2,13 @@ import React from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { GoogleMapsCenter } from "../../Types/Hotel";
 
-const Map = ({ center }: { center: GoogleMapsCenter }) => {
+const Map = ({
+  center,
+  width,
+}: {
+  center: GoogleMapsCenter;
+  width: string;
+}) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyD0jlERSG3b0Ic6yP8jwYaaeT_CfTJtPbQ",
   });
@@ -12,7 +18,7 @@ const Map = ({ center }: { center: GoogleMapsCenter }) => {
   if (!isLoaded) return <p>Loading...</p>;
 
   return (
-    <div className="w-[55%] rounded-md">
+    <div className={`${width} rounded-md`}>
       <GoogleMap
         zoom={10}
         center={center}

@@ -291,7 +291,7 @@ function App() {
             setDropCarAtDifferentLocation,
           }}
         >
-          <CarRentalSearchResults />;
+          <CarRentalSearchResults />
         </CarRentalSearchContext.Provider>
       );
     }

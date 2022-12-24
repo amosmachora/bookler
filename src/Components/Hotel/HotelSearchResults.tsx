@@ -133,7 +133,9 @@ const HotelSearchResults = ({
                   />
                 ))}
               </div>
-              {mapShown && mapCenter !== null && <Map center={mapCenter} />}
+              {mapShown && mapCenter !== null && (
+                <Map center={mapCenter} width="w-[55%]" />
+              )}
             </div>
           </div>
           <HotelFilter

@@ -3,9 +3,19 @@ import { Assets } from "../../Assets/Assets";
 import { VehicleInformation } from "../../Types/CarRentals";
 import { Rating } from "../Rating";
 
-const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
+const Vehicle = ({
+  vehicle,
+  setStage,
+  setActiveVehicle,
+}: {
+  vehicle: VehicleInformation;
+  setStage: React.Dispatch<React.SetStateAction<string>>;
+  setActiveVehicle: React.Dispatch<
+    React.SetStateAction<VehicleInformation | null>
+  >;
+}) => {
   return (
-    <div className="bg-white rounded-md overflow-hidden my-1 flex relative py-2">
+    <div className="bg-white rounded-md overflow-hidden my-1 flex relative py-2 w-full">
       <img src={vehicle.vehicleInfo.images.SIZE268X144} alt="Car" />
       <div className="flex-grow ml-2">
         <p className="text-lg font-bold">
@@ -36,7 +46,13 @@ const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
             }
           </p>
           <div className="flex text-xs">
-            <button className="bg-gray-300 hover:bg-gray-400 px-5 mr-4 rounded-md font-semibold transition-all">
+            <button
+              className="bg-gray-300 hover:bg-gray-400 px-5 mr-4 rounded-md font-semibold transition-all"
+              onClick={() => {
+                setStage("Details");
+                setActiveVehicle(vehicle);
+              }}
+            >
               View Details
             </button>
             <button className="bg-blue-600 text-white px-5 hover:bg-blue-400 rounded-md transition-all py-3">

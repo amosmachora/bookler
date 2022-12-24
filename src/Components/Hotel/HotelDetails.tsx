@@ -1,3 +1,4 @@
+import { PayNowButton } from "../../Components/PayNowButton";
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
@@ -90,12 +91,7 @@ const HotelDetails = ({
               {hotelInfo?.price_breakdown.all_inclusive_price}{" "}
               <span className="text-gray-500 text-xs font-normal">USD</span>
             </p>
-            <button
-              className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white"
-              onClick={() => setStage("BookingReview")}
-            >
-              PAY NOW
-            </button>
+            <PayNowButton onClick={setStage} value="BookingReview" />
           </div>
         </div>
         <div className="flex justify-between">

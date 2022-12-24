@@ -5,11 +5,12 @@ import DevCarRentals from "../../Util/CarRentals.json";
 import {
   CarRentalSearchResultsType,
   VehicleInformation,
-  VehicleRates,
 } from "../../Types/CarRentals";
 import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
 import { CarRentalSearchContext, MainContext } from "../../App";
 import Vehicle from "./Vehicle";
+import CarRentalsFilter from "./CarRentalsFilter";
+import CarDetails from "./CarDetails";
 
 const CarRentalSearchResults = () => {
   const [carRentalData, setCarRentalData] =
@@ -18,7 +19,11 @@ const CarRentalSearchResults = () => {
   const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } = useContext(
     CarRentalSearchContext
   );
-  const SuggestedVehicles: VehicleInformation[] = getArrayOfCarObjects(
+  const [suggestedVehicles, setSuggestedVehicles] = useState<
+    VehicleInformation[]
+  >(getArrayOfObjects(carRentalData.vehicleRates));
+
+  const allUnfilteredVehicles: VehicleInformation[] = getArrayOfObjects(
     carRentalData.vehicleRates
   );
 
@@ -35,34 +40,65 @@ const CarRentalSearchResults = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [[], devMode]);
 
+  const [stage, setStage] = useState<string>("Results");
+  const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
+    null
+  );
+
   return (
     <>
       <CarRentalSearchParameters />
-      <div className="mt-4">
-        <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
-          <div className="flex items-center">
-            <p className="text-xl font-bold">Taxi</p>
-            <GraySeparator />
-            <p className="text-xs font-semibold">
-              Total <span className="text-sky-500">126 Results</span>
-            </p>
+      {stage === "Results" && (
+        <div className="mt-4 flex justify-between h-[60vh]">
+          <div className="w-3/4 h-full">
+            <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
+              <div className="flex items-center">
+                <p className="text-xl font-bold">Taxi</p>
+                <GraySeparator />
+                <p className="text-xs font-semibold">
+                  Total{" "}
+                  <span className="text-sky-500">
+                    {suggestedVehicles.length} Results
+                  </span>
+                </p>
+              </div>
+              <div className="flex text-xs">
+                <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
+                  Cheapest
+                </p>
+                <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
+                  Best
+                </p>
+                <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
+                  Quickest
+                </p>
+              </div>
+            </div>
+            <div className="overflow-y-scroll h-full">
+              {suggestedVehicles.map((vehicle) => (
+                <Vehicle
+                  vehicle={vehicle}
+                  setStage={setStage}
+                  setActiveVehicle={setActiveVehicle}
+                  key={vehicle.id}
+                />
+              ))}
+            </div>
           </div>
-          <div className="flex text-xs">
-            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
-              Cheapest
-            </p>
-            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
-              Best
-            </p>
-            <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white">
-              Quickest
-            </p>
-          </div>
+          <CarRentalsFilter
+            allUnfilteredVehicles={allUnfilteredVehicles}
+            setSuggestedVehicles={setSuggestedVehicles}
+            categories={getArrayOfObjects(carRentalData.vehicleCategories)}
+          />
         </div>
-        {SuggestedVehicles.map((vehicle) => (
-          <Vehicle vehicle={vehicle} />
-        ))}
-      </div>
+      )}
+      {stage === "Details" && (
+        <CarDetails
+          activeVehicle={activeVehicle}
+          carRentalData={carRentalData}
+          setStage={setStage}
+        />
+      )}
     </>
   );
 };
@@ -82,9 +118,9 @@ const getConcatenatedDate = (Date: Date | null, Time: string): string => {
   }`;
 };
 
-const getArrayOfCarObjects = (vehicles: VehicleRates): VehicleInformation[] => {
+export const getArrayOfObjects = (vehicles: any): any[] => {
   const keys = Object.keys(vehicles);
-  let myArray: VehicleInformation[] = [];
+  let myArray: any[] = [];
   keys.forEach((key) => myArray.push(vehicles[key]));
   return myArray;
 };
