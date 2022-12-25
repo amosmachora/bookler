@@ -4,6 +4,7 @@ import CarRentalSearchParameters from "./CarRentalSearchParameters";
 import DevCarRentals from "../../Util/CarRentals.json";
 import {
   CarRentalSearchResultsType,
+  PartnerLocation,
   VehicleInformation,
 } from "../../Types/CarRentals";
 import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
@@ -11,6 +12,7 @@ import { CarRentalSearchContext, MainContext } from "../../App";
 import Vehicle from "./Vehicle";
 import CarRentalsFilter from "./CarRentalsFilter";
 import CarDetails from "./CarDetails";
+import CarRentalReview from "./CarRentalReview";
 
 const CarRentalSearchResults = () => {
   const [carRentalData, setCarRentalData] =
@@ -99,6 +101,12 @@ const CarRentalSearchResults = () => {
           setStage={setStage}
         />
       )}
+      {stage === "Booking review" && (
+        <CarRentalReview
+          selectedVehicle={activeVehicle}
+          carRentalData={carRentalData}
+        />
+      )}
     </>
   );
 };
@@ -123,4 +131,18 @@ export const getArrayOfObjects = (vehicles: any): any[] => {
   let myArray: any[] = [];
   keys.forEach((key) => myArray.push(vehicles[key]));
   return myArray;
+};
+
+export const getPartnerLocation = (
+  partnerLocations: {
+    [key: string]: PartnerLocation;
+  },
+  partnerCode: string | undefined
+): PartnerLocation => {
+  const partnerLocationsArray: PartnerLocation[] =
+    getArrayOfObjects(partnerLocations);
+
+  return partnerLocationsArray.find(
+    (location) => location.partnerCode === partnerCode
+  )!;
 };

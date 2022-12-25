@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CarRentalSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import {
+  Airport,
   CarRentalSearchResultsType,
   Images,
   PartnerLocation,
@@ -8,7 +10,7 @@ import {
 } from "../../Types/CarRentals";
 import Map from "../Hotel/Map";
 import { PayNowButton } from "../PayNowButton";
-import { getArrayOfObjects } from "./CarRentalSearchResults";
+import { getPartnerLocation } from "./CarRentalSearchResults";
 
 const CarDetails = ({
   activeVehicle,
@@ -26,8 +28,19 @@ const CarDetails = ({
     carRentalData.partnerLocations,
     activeVehicle?.partnerCode
   );
+  const pickUpLocation: Airport =
+    carRentalData.airports[
+      activeVehicle!.partnerInfo.pickupLocationId.substring(3)
+    ];
+  const dropOffLocation: Airport =
+    carRentalData.airports[
+      activeVehicle!.partnerInfo.returnLocationId.substring(3)
+    ];
 
-  console.log(partnerLocation);
+  const { dropCarAtDifferentLocation } = useContext(CarRentalSearchContext);
+  // console.log(carRentalData.airports);
+  // console.log(activeVehicle);
+  const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (
     <div className="mt-4">
@@ -43,9 +56,7 @@ const CarDetails = ({
           <p className="text-3xl font-bold">
             {activeVehicle?.vehicleInfo.vehicleExample}
           </p>
-          <p className="text-sm">
-            {Object.entries(carRentalData.airports)[0][1].displayName}
-          </p>
+          <p className="text-sm">{pickUpLocation.displayName}</p>
           <div className="bg-blue-900 rounded-sm flex items-center text-white px-1 w-max text-sm py-1 my-2">
             <p>{activeVehicle?.vehicleInfo.vehicleClassRank}</p>
             <img src={Assets.Star} alt="Car" className="ml-2" />
@@ -69,6 +80,14 @@ const CarDetails = ({
             )}
           </div>
           <div className="h-[1px] bg-gray-400 my-5" />
+          <div className="flex">
+            {trueKeys.map((key) => (
+              <>
+                <input type="checkbox" className="mr-2 h-4 w-4" checked />
+                <p className="text-xs font-semibold mr-5">{key}</p>
+              </>
+            ))}
+          </div>
         </div>
         <div className="flex flex-col items-end">
           <p className="text-3xl font-bold mb-2">
@@ -91,8 +110,21 @@ const CarDetails = ({
             <div className="ml-4">
               <p className="font-semibold text-base">Pick Up & Drop Off</p>
               <p className="text-xs font-normal text-gray-400">
-                {Object.entries(carRentalData.airports)[0][1].displayName}
+                {dropCarAtDifferentLocation && "Pick Up: "}
+                {pickUpLocation.fullDisplayName + ", " + pickUpLocation.city}
               </p>
+              {dropCarAtDifferentLocation && (
+                <p className="text-xs font-normal text-gray-400">
+                  Drop Off:{" "}
+                  {dropOffLocation.displayName + ", " + dropOffLocation.city}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex">
+            <img src={Assets.OpeningHours} alt="Opening hours" />
+            <div className="ml-4">
+              <p className="font-semibold text-base">Address</p>
               <p className="text-xs font-normal text-gray-400">
                 {partnerLocation.address.addressLine1 +
                   ", " +
@@ -100,12 +132,6 @@ const CarDetails = ({
                   ", " +
                   partnerLocation.address.countryName}
               </p>
-            </div>
-          </div>
-          <div className="flex">
-            <img src={Assets.OpeningHours} alt="Opening hours" />
-            <div className="ml-4">
-              <p className="font-semibold text-base">Opening hours</p>
             </div>
           </div>
         </div>
@@ -133,16 +159,24 @@ const getLargestPossibleImage = (images: Images | undefined): string => {
   }
 };
 
-const getPartnerLocation = (
-  partnerLocations: {
-    [key: string]: PartnerLocation;
-  },
-  partnerCode: string | undefined
-): PartnerLocation => {
-  const partnerLocationsArray: PartnerLocation[] =
-    getArrayOfObjects(partnerLocations);
+const getTrueKeys = (activeVehicle: VehicleInformation | null): string[] => {
+  const keys: string[] = Object.keys(activeVehicle!);
+  const myArray: string[] = [];
+  keys.forEach((key) => {
+    const currentValue = activeVehicle![key];
+    if (typeof currentValue === "boolean" && currentValue === true) {
+      myArray.push(getNormalCaseString(key));
+    }
+  });
 
-  return partnerLocationsArray.find(
-    (location) => location.partnerCode === partnerCode
-  )!;
+  return myArray;
+};
+
+const getNormalCaseString = (key: string): string => {
+  const normalCaseString = key.replace(
+    /[A-Z]/g,
+    (match) => ` ${match.toLowerCase()}`
+  );
+
+  return normalCaseString.charAt(0).toUpperCase() + normalCaseString.slice(1);
 };
