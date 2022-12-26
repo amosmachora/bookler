@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FlightSearchContext } from "../App";
-import { Assets } from "../Assets/Assets";
+import { Assets } from "../../Assets/Assets";
+import { FlightSearchContext } from "./Flights";
 
 type ToAirportInputProps = {
   openToSearchModal: () => void;

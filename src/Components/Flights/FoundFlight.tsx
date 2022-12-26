@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext, FlightSearchContext } from "../../App";
+import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
 import BookButton from "./BookButton";
@@ -8,6 +8,7 @@ import DevExtraFlightData from "../../Util/DevExtraFlightData.json";
 import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
 import { BookingContext } from "./FlightResults";
+import { FlightSearchContext } from "./Flights";
 
 type FoundFlightProps = {
   foundFlight: Departures;
@@ -29,6 +30,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
       const flightData = fetchExtraFlightData(foundFlight.aircraft.reg);
       setExtraFlightData(flightData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -88,14 +90,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
           </div>
         </div>
       </div>
-      <div>
-        {showDetails && (
-          <FlightDetails
-            extraFlightData={extraFlightData}
-            foundFlight={foundFlight}
-          />
-        )}
-      </div>
+      <div>{showDetails && <FlightDetails foundFlight={foundFlight} />}</div>
     </>
   );
 };

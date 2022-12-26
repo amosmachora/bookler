@@ -6,30 +6,26 @@ import {
   TravelerInfo,
 } from "../../Types/Flights";
 import FlightFilter from "./FlightFilter";
-import { FlightSearchContext } from "../../App";
 import FoundFlight from "./FoundFlight";
 import { BookingContextType, FlightPrices } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
-import TravelerDetails from "./TravelerDetails";
 import GoButton from "./GoButton";
 import PaymentOptions from "./PaymentOptions";
+import { FlightSearchContext } from "./Flights";
+import FlightSearchParameters from "./FlightSearchParameters";
+import { MainContext } from "../../App";
+import { Outlet } from "react-router";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
   travelersInfo: null,
   flightPrice: { flightSurCharges: 0, baseFare: 0 },
   booking: false,
+  setTravelersInfo: () => {},
 });
 
 const FlightResults = () => {
-  const {
-    toAirport,
-    // returnDate,
-    // departureDate,
-    // typeOfTrip,
-    // fromAirport,
-    outGoingFlights,
-  } = useContext(FlightSearchContext);
+  const { toAirport, outGoingFlights } = useContext(FlightSearchContext);
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
   const [sortBy, setSortBy] = useState("cheapest");
   const [preferredStopAirport, setPreferredStopAirport] =
@@ -42,6 +38,8 @@ const FlightResults = () => {
   const allUnfilteredFoundFlights = outGoingFlights.filter(
     (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
   );
+
+  const { setMenuWide } = useContext(MainContext);
 
   useEffect(() => {
     console.log(preferredStopAirport);
@@ -57,10 +55,13 @@ const FlightResults = () => {
     } else {
       setFoundFlights(allUnfilteredFoundFlights);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferredAirline]);
 
   useEffect(() => {
     setFoundFlights(allUnfilteredFoundFlights);
+    setMenuWide(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchFlightPrices = (flight: Departures): FlightPrices => {
@@ -76,9 +77,8 @@ const FlightResults = () => {
     setBooking(true);
     setFlightPrice(fetchFlightPrices(flight));
   };
-
-  const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
   const [showPayments, setShowPayments] = useState(false);
+  const [travelersInfo, setTravelersInfo] = useState<TravelerInfo | null>(null);
 
   return (
     <BookingContext.Provider
@@ -87,6 +87,7 @@ const FlightResults = () => {
         travelersInfo,
         flightPrice,
         booking,
+        setTravelersInfo,
       }}
     >
       {showPayments ? (
@@ -97,81 +98,79 @@ const FlightResults = () => {
           setBooking={setBooking}
         />
       ) : (
-        <div className="flex sticky top-0 justify-between">
-          <div className="mt-4 w-3/4">
-            <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">
-              <div className="flex items-center">
-                <p className="font-bold inline text-xl">Flights</p>
-                <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-400" />
-                <p className="text-sm">
-                  Total{" "}
-                  <span className="text-blue-400">
-                    {foundFlights?.length} results
-                  </span>
-                </p>
+        <>
+          <FlightSearchParameters />
+          <div className="flex sticky top-0 justify-between">
+            <div className="mt-4 w-3/4">
+              <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">
+                <div className="flex items-center">
+                  <p className="font-bold inline text-xl">Flights</p>
+                  <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-400" />
+                  <p className="text-sm">
+                    Total{" "}
+                    <span className="text-blue-400">
+                      {foundFlights?.length} results
+                    </span>
+                  </p>
+                </div>
+                <div className="flex text-xs items-center">
+                  <p
+                    className={`${
+                      sortBy === "cheapest"
+                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
+                        : ""
+                    } cursor-pointer`}
+                    onClick={() => setSortBy("cheapest")}
+                  >
+                    Cheapest
+                  </p>
+                  <p
+                    className={`${
+                      sortBy === "best"
+                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
+                        : ""
+                    } mx-8 cursor-pointer`}
+                    onClick={() => setSortBy("best")}
+                  >
+                    Best
+                  </p>
+                  <p
+                    className={`${
+                      sortBy === "quickest"
+                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
+                        : ""
+                    } cursor-pointer`}
+                    onClick={() => setSortBy("quickest")}
+                  >
+                    Quickest
+                  </p>
+                </div>
               </div>
-              <div className="flex text-xs items-center">
-                <p
-                  className={`${
-                    sortBy === "cheapest"
-                      ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                      : ""
-                  } cursor-pointer`}
-                  onClick={() => setSortBy("cheapest")}
-                >
-                  Cheapest
-                </p>
-                <p
-                  className={`${
-                    sortBy === "best"
-                      ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                      : ""
-                  } mx-8 cursor-pointer`}
-                  onClick={() => setSortBy("best")}
-                >
-                  Best
-                </p>
-                <p
-                  className={`${
-                    sortBy === "quickest"
-                      ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                      : ""
-                  } cursor-pointer`}
-                  onClick={() => setSortBy("quickest")}
-                >
-                  Quickest
-                </p>
+              <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights">
+                {foundFlights?.map((foundFlight) => (
+                  <FoundFlight
+                    foundFlight={foundFlight}
+                    sortBy={sortBy}
+                    key={foundFlight.number}
+                  />
+                ))}
+                <Outlet />
               </div>
             </div>
-            <div className="rounded-lg mt-1 overflow-y-auto h-96 found-flights">
-              {foundFlights?.map((foundFlight) => (
-                <FoundFlight
-                  foundFlight={foundFlight}
-                  sortBy={sortBy}
-                  key={foundFlight.number}
-                />
-              ))}
-              {booking && (
-                <TravelerDetails
-                  setTravelersInfo={setTravelersInfo}
-                  travelersInfo={travelersInfo}
-                />
-              )}
-            </div>
+            {booking ? (
+              <div className="w-1/5 mr-6">
+                <FareSummary />
+                <GoButton setShowPayments={setShowPayments} />
+              </div>
+            ) : (
+              <FlightFilter
+                setPreferredStopAirport={setPreferredStopAirport}
+                preferredStopAirport={preferredStopAirport}
+                setPreferredAirline={setPreferredAirline}
+              />
+            )}
           </div>
-          {booking ? (
-            <div className="w-1/5 mr-6">
-              <FareSummary />
-              <GoButton setShowPayments={setShowPayments} />
-            </div>
-          ) : (
-            <FlightFilter
-              setPreferredStopAirport={setPreferredStopAirport}
-              preferredStopAirport={preferredStopAirport}
-              setPreferredAirline={setPreferredAirline}
-            />
-          )}
-        </div>
+        </>
       )}
     </BookingContext.Provider>
   );

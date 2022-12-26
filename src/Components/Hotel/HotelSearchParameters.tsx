@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { HotelSearchContext } from "../../App";
 import { Airport } from "../../Types/Flights";
 import { RedSearchButton } from "../RedSearchButton";
 import CheckInCheckOutDatePicker from "./CheckInCheckOutDatePicker";
+import { HotelSearchContext } from "./Hotel";
 
 type HotelSearchParametersProps = {
   targetHotelLocation: Airport | null;

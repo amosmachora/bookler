@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Departures } from "../../Types/Flights";
 import { BookingContext } from "./FlightResults";
 type BookButtonProps = {
@@ -7,13 +8,14 @@ type BookButtonProps = {
 const BookButton = ({ foundFlight }: BookButtonProps) => {
   const { initiateBooking } = useContext(BookingContext);
   return (
-    <button
+    <Link
       type="submit"
-      className="bg-blue-600 rounded-sm w-24 h-8 text-white text-xs cursor-pointer"
+      className="bg-blue-600 rounded-sm w-24 h-8 text-white text-xs cursor-pointer flex items-center justify-center"
       onClick={() => initiateBooking(foundFlight)}
+      to={foundFlight.number}
     >
       BOOK NOW
-    </button>
+    </Link>
   );
 };
 

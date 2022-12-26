@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import FlightResults from "./Components/Flights/FlightResults";
@@ -7,7 +7,6 @@ import Options from "./Components/Options";
 import Overlay from "./Components/Overlay";
 import UserProfileTabSmall from "./Components/UserProfileTabSmall";
 import Reach from "./Components/Reach/Reach";
-import SearchForm from "./Components/SearchForm";
 import DevAirports from "./Util/Airports.json";
 import DevAirportFlightData from "./Util/AirportFlightData.json";
 import { Airline, Airport, Country, Departures } from "./Types/Flights";
@@ -73,9 +72,10 @@ export const MainContext = createContext<MainContextValue>({
   airports: [],
   airlines: [],
   devMode: false,
-  searchAirports: [],
-  setSearchAirports: () => {},
-  countryList: [],
+  countriesList: {},
+  setDevMode: () => {},
+  setMenuWide: () => {},
+  menuWide: false,
 });
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
@@ -87,22 +87,11 @@ export const CarRentalSearchContext = createContext<CarRentalSearch>(
 export const AuthProvider = createContext<Authenticator>(null as any);
 
 function App() {
-  const [activeChoice, setActiveChoice] = useState("flights");
   const [overlay, setOverlay] = useState(false);
   const [airports, setAirports] = useState<Airport[]>(DevAirports.rows);
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
-  const [typeOfTrip, setTypeOfTrip] = useState("one-way");
-  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
-  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
-  const [departureDate, setDepartureDate] = useState<Date | null>();
-  const [returnDate, setReturnDate] = useState<Date | null>();
   const [devMode, setDevMode] = useState(true);
-  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
-  const [searchType, setSearchType] = useState("from");
-  const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
-    DevAirportFlightData.departures
-  );
   const [airlines, setAirlines] = useState<Airline[]>(Airlines.rows);
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
@@ -310,9 +299,10 @@ function App() {
         airports,
         airlines,
         devMode,
-        countryList,
-        searchAirports,
-        setSearchAirports,
+        countriesList,
+        setDevMode,
+        setMenuWide,
+        menuWide,
       }}
     >
       <AuthProvider.Provider

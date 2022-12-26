@@ -1,7 +1,7 @@
 import React, { SetStateAction, useContext, useState } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
+import { FlightSearchContext } from "../Flights/Flights";
 import "./AirportSearch.css";
 
 type AirportSearchProps = {
@@ -17,7 +17,8 @@ const AirportSearch = ({
   setFromAirport,
   setToAirport,
 }: AirportSearchProps) => {
-  const { searchAirports } = useContext(MainContext);
+  const { searchAirports } = useContext(FlightSearchContext);
+
   const [localAirportList, setLocalAirportList] =
     useState<Airport[]>(searchAirports);
 

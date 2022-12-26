@@ -1,46 +1,33 @@
-import React, { SetStateAction, useContext, useState, useRef } from "react";
-import { FlightSearchContext, MainContext } from "../App";
-import { Assets } from "../Assets/Assets";
+import React, { useContext, useState, useRef, useEffect } from "react";
+import { MainContext } from "../../App";
+import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
-import { Airport, Departures } from "../Types/Flights";
-import { getDay } from "../Util/Helpers";
+import { getDay } from "../../Util/Helpers";
+import { FlightSearchContext } from "./Flights";
 import { FromAirportInput } from "./FromAirportInput";
-import AirportSearch from "./SearchModals/AirportSearch";
 import { ToAirportInput } from "./ToAirportInput";
+import AirportSearch from "../SearchModals/AirportSearch";
+import { Link } from "react-router-dom";
 
-type SearchFormProps = {
-  setMenuWide: React.Dispatch<SetStateAction<boolean>>;
-  menuWide: boolean;
-  typeOfTrip: string;
-  setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
-  setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  searchAirports: Airport[];
-  setSearchType: React.Dispatch<SetStateAction<string>>;
-  searchType: string;
-  outGoingFlights: Departures[];
-  setFromAirport: React.Dispatch<React.SetStateAction<Airport>>;
-  setToAirport: React.Dispatch<React.SetStateAction<Airport>>;
-};
+const FlightSearchForm = () => {
+  const {
+    typeOfTrip,
+    outGoingFlights,
+    setSearchType,
+    setTypeOfTrip,
+    setReturnDate,
+    searchType,
+    setToAirport,
+    setFromAirport,
+    setDepartureDate,
+  } = useContext(FlightSearchContext);
+  const { menuWide } = useContext(MainContext);
 
-const SearchForm = ({
-  setMenuWide,
-  menuWide,
-  setFromAirport,
-  setToAirport,
-  typeOfTrip,
-  setTypeOfTrip,
-  setDepartureDate,
-  setReturnDate,
-  setSearchType,
-  searchType,
-  outGoingFlights,
-}: SearchFormProps) => {
   const [airportSearchModal, setAirportSearchModal] = useState(false);
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
   const { airports } = useContext(MainContext);
-  const { setSearchAirports } = useContext(MainContext);
+  const { setSearchAirports } = useContext(FlightSearchContext);
 
   const openFromSearchModal = () => {
     setSearchType("from");
@@ -60,13 +47,12 @@ const SearchForm = ({
     );
   };
 
-  /**
-   * Start the flight search
-   */
-  const searchFlight = (e: React.FormEvent) => {
-    e.preventDefault();
-    setMenuWide((prev) => !prev);
-  };
+  const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
@@ -156,12 +142,12 @@ const SearchForm = ({
             </p>
           </div>
           <MoreButton />
-          <input
-            type="submit"
-            value="SEARCH FLIGHT"
-            className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
-            onClick={(e) => searchFlight(e)}
-          />
+          <Link
+            to="flight-results"
+            className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex items-center justify-center"
+          >
+            <p>SEARCH FLIGHT</p>
+          </Link>
         </div>
       </form>
       {airportSearchModal && (
@@ -176,4 +162,4 @@ const SearchForm = ({
   );
 };
 
-export default SearchForm;
+export default FlightSearchForm;

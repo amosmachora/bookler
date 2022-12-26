@@ -1,15 +1,9 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
 
-const Options = ({
-  activeChoice,
-  setActiveChoice,
-  menuWide,
-}: {
-  activeChoice: string;
-  setActiveChoice: (choice: string) => void;
-  menuWide: boolean;
-}) => {
+const Options = ({ menuWide }: { menuWide: boolean }) => {
+  const { pathname } = useLocation();
   return (
     <div
       className={`options flex text-white uppercase text-xs [&>*]:mr-6 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:transition-all  ${
@@ -18,11 +12,11 @@ const Options = ({
           : "[&>*]:h-[46px] [&>*]:p-1 [&>*]:w-[46px]"
       }`}
     >
-      <div
+      <Link
+        to="/flights"
         className={`flex flex-col items-center justify-center ${
-          activeChoice === "flights" ? "bg-blue-700" : ""
+          pathname === "/flights" ? "bg-blue-700" : ""
         }`}
-        onClick={() => setActiveChoice("flights")}
       >
         <img
           src={Assets.PlaneSmall}
@@ -30,12 +24,12 @@ const Options = ({
           className={`${menuWide ? "mb-3" : ""} h-6 w-6`}
         />
         {menuWide && <p>Flights</p>}
-      </div>
-      <div
+      </Link>
+      <Link
         className={`flex flex-col items-center justify-center ${
-          activeChoice === "hotel" ? "bg-blue-700" : ""
+          pathname === "/hotels" ? "bg-blue-700" : ""
         }`}
-        onClick={() => setActiveChoice("hotel")}
+        to="hotels"
       >
         <img
           src={Assets.Hotel}
@@ -43,25 +37,12 @@ const Options = ({
           className={`${menuWide ? "mb-3" : ""} h-6 w-6`}
         />
         {menuWide && <p>Hotel</p>}
-      </div>
-      <div
+      </Link>
+      <Link
         className={`flex flex-col items-center justify-center ${
-          activeChoice === "villa" ? "bg-blue-700" : ""
+          pathname === "/taxi" ? "bg-blue-700" : ""
         }`}
-        onClick={() => setActiveChoice("villa")}
-      >
-        <img
-          src={Assets.Villa}
-          alt="Plane"
-          className={`${menuWide ? "mb-3" : ""} h-6 w-6`}
-        />
-        {menuWide && <p>Villa</p>}
-      </div>
-      <div
-        className={`flex flex-col items-center justify-center ${
-          activeChoice === "taxi" ? "bg-blue-700" : ""
-        }`}
-        onClick={() => setActiveChoice("taxi")}
+        to="taxi"
       >
         <img
           src={Assets.Taxi}
@@ -69,7 +50,7 @@ const Options = ({
           className={`${menuWide ? "mb-3" : ""} h-6 w-6`}
         />
         {menuWide && <p>Taxi</p>}
-      </div>
+      </Link>
     </div>
   );
 };
