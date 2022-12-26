@@ -1,7 +1,7 @@
 import React, { SetStateAction, useContext } from "react";
-import { MainContext } from "../../App";
 import { Airline, Airport } from "../../Types/Flights";
-import { FlightSearchContext } from "./Flights";
+import { MainContext } from "../Contexts/MainAppProvider";
+import { FlightSearchContext } from "./FlightsProvider";
 
 type FlightFilterProps = {
   setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;

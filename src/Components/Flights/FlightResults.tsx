@@ -11,10 +11,10 @@ import { BookingContextType, FlightPrices } from "../../Types/Contexts";
 import FareSummary from "./FareSummary";
 import GoButton from "./GoButton";
 import PaymentOptions from "./PaymentOptions";
-import { FlightSearchContext } from "./Flights";
 import FlightSearchParameters from "./FlightSearchParameters";
-import { MainContext } from "../../App";
 import { Outlet } from "react-router";
+import { FlightSearchContext } from "./FlightsProvider";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
@@ -90,6 +90,7 @@ const FlightResults = () => {
         setTravelersInfo,
       }}
     >
+      <FlightSearchParameters />
       {showPayments ? (
         <PaymentOptions
           setShowPayments={setShowPayments}
@@ -99,7 +100,6 @@ const FlightResults = () => {
         />
       ) : (
         <>
-          <FlightSearchParameters />
           <div className="flex sticky top-0 justify-between">
             <div className="mt-4 w-3/4">
               <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">

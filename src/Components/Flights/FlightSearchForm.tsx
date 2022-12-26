@@ -1,13 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
 import { getDay } from "../../Util/Helpers";
-import { FlightSearchContext } from "./Flights";
+import { FlightSearchContext } from "./FlightsProvider";
 import { FromAirportInput } from "./FromAirportInput";
 import { ToAirportInput } from "./ToAirportInput";
 import AirportSearch from "../SearchModals/AirportSearch";
 import { Link } from "react-router-dom";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 const FlightSearchForm = () => {
   const {

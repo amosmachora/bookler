@@ -1,7 +1,7 @@
 import React, { SetStateAction, useContext, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
-import { FlightSearchContext } from "../Flights/Flights";
+import { FlightSearchContext } from "../Flights/FlightsProvider";
 import "./AirportSearch.css";
 
 type AirportSearchProps = {

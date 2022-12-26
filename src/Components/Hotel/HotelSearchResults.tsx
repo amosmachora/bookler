@@ -1,6 +1,5 @@
 import Map from "./Map";
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext } from "../../App";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
 import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
@@ -12,6 +11,8 @@ import HotelFilter from "./HotelFilter";
 import { GoogleMapsCenter, HotelInfo, SelectedHotel } from "../../Types/Hotel";
 import HotelDetails from "./HotelDetails";
 import { HotelSearchContext } from "./Hotel";
+import BookingReview from "./BookingReview";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 type HotelSearchResultsProps = {
   travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;

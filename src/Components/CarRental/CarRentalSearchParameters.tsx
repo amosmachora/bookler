@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { CarRentalSearchContext } from "../../App";
 import { getFormattedDate } from "../../Util/Helpers";
 import { RedSearchButton } from "../RedSearchButton";
+import { CarRentalSearchContext } from "./CarRentalProvider";
 
 const TaxiSearchParameters = () => {
   const {

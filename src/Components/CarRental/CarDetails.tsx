@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { CarRentalSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import {
   Airport,
@@ -10,6 +9,7 @@ import {
 } from "../../Types/CarRentals";
 import Map from "../Hotel/Map";
 import { PayNowButton } from "../PayNowButton";
+import { CarRentalSearchContext } from "./CarRentalProvider";
 import { getPartnerLocation } from "./CarRentalSearchResults";
 
 const CarDetails = ({
@@ -38,8 +38,6 @@ const CarDetails = ({
     ];
 
   const { dropCarAtDifferentLocation } = useContext(CarRentalSearchContext);
-  // console.log(carRentalData.airports);
-  // console.log(activeVehicle);
   const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (

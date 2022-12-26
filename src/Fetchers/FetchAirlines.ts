@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Airline } from "../Types/Flights";
 
-export const fetchAirlines = (): Airline[] => {
-  let airlines: Airline[] = [];
+export const fetchAirlines = async (): Promise<Airline[]> => {
   const options = {
     method: "GET",
     url: "https://flight-radar1.p.rapidapi.com/airlines/list",
@@ -12,14 +11,12 @@ export const fetchAirlines = (): Airline[] => {
     },
   };
 
-  axios
+  return axios
     .request(options)
     .then(function (response) {
-      airlines = response.data.rows;
+      return response.data.rows;
     })
     .catch(function (error) {
       console.error(error);
     });
-
-  return airlines;
 };

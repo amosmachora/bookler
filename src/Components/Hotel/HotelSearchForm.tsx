@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
+import { MainContext } from "../Contexts/MainAppProvider";
+import { DatePicker } from "../DatePicker";
 import { MoreButton } from "../MoreButton";
-import { getDay } from "../../Util/Helpers";
 import AirportSearch from "../SearchModals/AirportSearch";
 import { HotelSearchContext } from "./Hotel";
 import TravellerSelector from "./TravellersSelector";

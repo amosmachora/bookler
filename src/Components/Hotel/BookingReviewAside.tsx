@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { HotelSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { SelectedHotel } from "../../Types/Hotel";
 import { getDay, monthNames } from "../../Util/Helpers";
+import { HotelSearchContext } from "./Hotel";
 
 const BookingReviewAside = ({
   selectedHotelInfo,

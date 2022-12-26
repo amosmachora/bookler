@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { getFormattedDate } from "../../Util/Helpers";
 import { RedSearchButton } from "../RedSearchButton";
-import { FlightSearchContext } from "./Flights";
+import { FlightSearchContext } from "./FlightsProvider";
 
 /**
  * @returns Display for chosen flight search parameters

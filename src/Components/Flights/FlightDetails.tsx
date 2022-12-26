@@ -3,7 +3,7 @@ import { Departures } from "../../Types/Flights";
 import { FlightTimes } from "./FoundFlight";
 import axios from "axios";
 import { Assets } from "../../Assets/Assets";
-import { FlightSearchContext } from "./Flights";
+import { FlightSearchContext } from "./FlightsProvider";
 
 type FlightDetailsProps = {
   foundFlight: Departures;

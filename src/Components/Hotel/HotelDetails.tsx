@@ -1,6 +1,5 @@
 import { PayNowButton } from "../../Components/PayNowButton";
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { fetchHotelDescription } from "../../Fetchers/FetchHotelDescription";
 import { fetchHotelReviews } from "../../Fetchers/FetchHotelReviews";
@@ -12,6 +11,7 @@ import DevHotelDescription from "../../Util/DevHotelDescription.json";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
 import { monthNames } from "../../Util/Helpers";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 const HotelDetails = ({
   setStage,
@@ -20,7 +20,6 @@ const HotelDetails = ({
   setStage: React.Dispatch<React.SetStateAction<string>>;
   selectedHotelInfo: SelectedHotel | null;
 }) => {
-  console.log(selectedHotelInfo);
   const arrayOfUniqueImages: HotelImage[] = getUniqueImages(
     selectedHotelInfo!.hotelImages
   );

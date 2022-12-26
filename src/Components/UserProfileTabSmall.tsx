@@ -3,10 +3,8 @@ import { AuthProvider } from "../App";
 import { Assets } from "../Assets/Assets";
 
 const UserProfileTabSmall = ({
-  setActiveChoice,
   setMenuWide,
 }: {
-  setActiveChoice: React.Dispatch<React.SetStateAction<string>>;
   setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { profilePicture, userName } = useContext(AuthProvider);
@@ -15,7 +13,6 @@ const UserProfileTabSmall = ({
     <div
       className="ml-5 rounded-full bg-white/40 backdrop-blur-lg w-44 pr-4 pl-1 pt-1 pb-1 text-white flex items-center justify-between cursor-pointer"
       onClick={() => {
-        setActiveChoice("Profile");
         setMenuWide(false);
       }}
     >

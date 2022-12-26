@@ -1,5 +1,5 @@
 import { SetStateAction } from "react";
-import { Airline, Airport, Departures, TravelerInfo } from "./Flights";
+import { Airline, Airport, Country, Departures, TravelerInfo } from "./Flights";
 import { TravellerHotelInfo } from "./Hotel";
 
 export interface FlightSearchParametersContext extends SearchFormProps {
@@ -24,13 +24,17 @@ type SearchFormProps = {
 };
 
 export interface MainContextValue {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
+  setAirlines: React.Dispatch<React.SetStateAction<Airline[]>>;
+  setDevMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
+  setCountryList: React.Dispatch<React.SetStateAction<Country[]>>;
   isLoading: boolean;
   airports: Airport[];
   airlines: Airline[];
   devMode: boolean;
-  countriesList: object;
-  setDevMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
+  countryList: Country[];
   menuWide: boolean;
 }
 

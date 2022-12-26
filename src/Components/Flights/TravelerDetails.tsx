@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { Adult, Country } from "../../Types/Flights";
+import React, { useContext, useRef } from "react";
+import { Adult } from "../../Types/Flights";
 import { BookingContext } from "./FlightResults";
 import { CountryCodeSelector } from "../Hotel/CountryCodeSelector";
-import { MainContext } from "../../App";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 const TravelerDetails = () => {
   const { setTravelersInfo } = useContext(BookingContext);
-  const [countryList, setCountryList] = useState<Country[]>([]);
   const adultNameInputRef = useRef<HTMLInputElement>(null);
   const { travelersInfo } = useContext(BookingContext);
   const { countryList } = useContext(MainContext);

@@ -1,6 +1,5 @@
 import { Rating } from "../../Components/Rating";
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import {
   fetchHotelImages,
@@ -17,6 +16,7 @@ import DevHotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 const HotelData = ({
   hotelInfo,

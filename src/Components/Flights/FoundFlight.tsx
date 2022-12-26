@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { MainContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
 import BookButton from "./BookButton";
@@ -8,7 +7,8 @@ import DevExtraFlightData from "../../Util/DevExtraFlightData.json";
 import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
 import { BookingContext } from "./FlightResults";
-import { FlightSearchContext } from "./Flights";
+import { FlightSearchContext } from "./FlightsProvider";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 type FoundFlightProps = {
   foundFlight: Departures;

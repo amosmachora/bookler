@@ -8,11 +8,12 @@ import {
   VehicleInformation,
 } from "../../Types/CarRentals";
 import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
-import { CarRentalSearchContext, MainContext } from "../../App";
 import Vehicle from "./Vehicle";
 import CarRentalsFilter from "./CarRentalsFilter";
 import CarDetails from "./CarDetails";
 import CarRentalReview from "./CarRentalReview";
+import { CarRentalSearchContext } from "./CarRentalProvider";
+import { MainContext } from "../Contexts/MainAppProvider";
 
 const CarRentalSearchResults = () => {
   const [carRentalData, setCarRentalData] =

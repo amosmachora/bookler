@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { CarRentalSearchContext } from "../../App";
 import { Assets } from "../../Assets/Assets";
 import { DatePicker } from "../DatePicker";
 import TimePicker from "../TimePicker";
+import { CarRentalSearchContext } from "./CarRentalProvider";
 
 const CarRentalSearchForm = ({
   setMenuWide,
