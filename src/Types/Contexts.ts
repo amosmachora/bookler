@@ -57,3 +57,19 @@ export interface CarRentalSearch {
   dropCarAtDifferentLocation: boolean;
   setDropCarAtDifferentLocation: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface Authenticator {
+  profilePicture: string | null;
+  userName: string | null;
+  accountType: string | null;
+  birthday: string | null;
+  gender: string | null;
+  address: string | null;
+  login: LoginDetails;
+}
+
+export type LoginDetails = {
+  emailAddress: string | null;
+  mobileNumber: string | null;
+  password: string | null;
+};

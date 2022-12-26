@@ -16,6 +16,7 @@ module.exports = {
         paymentOptions: "#F0F0F0",
         ratingBg: "#3C6097",
         covidBg: "#e6f0fb",
+        profileGreen: "#56B64E",
       },
     },
   },

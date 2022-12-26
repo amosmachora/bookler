@@ -84,3 +84,7 @@ export const monthNames: string[] = [
   "November",
   "December",
 ];
+
+export const getCapitalizedString = (field: string): string => {
+  return field.charAt(0).toUpperCase() + field.slice(1);
+};

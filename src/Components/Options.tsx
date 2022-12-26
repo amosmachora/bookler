@@ -1,13 +1,15 @@
 import React from "react";
 import { Assets } from "../Assets/Assets";
 
-type propsType = {
+const Options = ({
+  activeChoice,
+  setActiveChoice,
+  menuWide,
+}: {
   activeChoice: string;
   setActiveChoice: (choice: string) => void;
   menuWide: boolean;
-};
-
-const Options = ({ activeChoice, setActiveChoice, menuWide }: propsType) => {
+}) => {
   return (
     <div
       className={`options flex text-white uppercase text-xs [&>*]:mr-6 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:transition-all  ${
