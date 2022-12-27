@@ -1,24 +1,20 @@
-import React, { SetStateAction, useContext, useState } from "react";
+import React, { useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { Airport } from "../../Types/Flights";
-import { FlightSearchContext } from "../Flights/FlightsProvider";
+import { getCapitalizedString } from "../../Util/Helpers";
 import "./AirportSearch.css";
-
-type AirportSearchProps = {
-  typeOfSearch: string;
-  setFromAirport?: (airport: Airport) => void;
-  setToAirport?: (airport: Airport) => void;
-  closeModalFunction: React.Dispatch<SetStateAction<boolean>>;
-};
 
 const AirportSearch = ({
   closeModalFunction,
-  typeOfSearch,
-  setFromAirport,
-  setToAirport,
-}: AirportSearchProps) => {
-  const { searchAirports } = useContext(FlightSearchContext);
-
+  searchAirports,
+  searchFormText,
+  setFunction,
+}: {
+  searchAirports: Airport[];
+  closeModalFunction: React.Dispatch<React.SetStateAction<boolean>>;
+  searchFormText: string;
+  setFunction: React.Dispatch<React.SetStateAction<Airport | null>>;
+}) => {
   const [localAirportList, setLocalAirportList] =
     useState<Airport[]>(searchAirports);
 
@@ -42,32 +38,11 @@ const AirportSearch = ({
     }
   };
 
-  /**
-   * A function to capitalize first letter word.
-   * @param text text to be transformed.
-   * @returns capitalized text.
-   */
-  const capitalizeFirstLetter = (text: string) => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  };
-
-  /**
-   * @param airport
-   */
-  const handleAirportSelection = (airport: Airport) => {
-    if (typeOfSearch === "from") {
-      if (setFromAirport !== undefined) setFromAirport(airport);
-    } else if (typeOfSearch === "to") {
-      if (setToAirport !== undefined) setToAirport(airport);
-    }
-    closeModalFunction(false);
-  };
-
   return (
     <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 px-8 py-6 z-40 w-1/3 bg-white shadow-xl rounded-2xl">
       <div className="flex justify-between">
         <p className="font-medium text-2xl">
-          {capitalizeFirstLetter(typeOfSearch)}
+          {getCapitalizedString(searchFormText)}
         </p>
         <img
           src={Assets.Close}
@@ -93,7 +68,10 @@ const AirportSearch = ({
           <div
             key={airport.id}
             className="flex justify-between cursor-pointer"
-            onClick={() => handleAirportSelection(airport)}
+            onClick={() => {
+              setFunction(airport);
+              closeModalFunction(false);
+            }}
           >
             <p className="font-bold text-sm ho">{airport.country}</p>
             <p className="text-xs">{airport.name}</p>

@@ -85,8 +85,13 @@ export const monthNames: string[] = [
   "December",
 ];
 
-export const getCapitalizedString = (field: string): string => {
-  return field.charAt(0).toUpperCase() + field.slice(1);
+/**
+ * A function to capitalize first letter word.
+ * @param text text to be transformed.
+ * @returns capitalized text.
+ */
+export const getCapitalizedString = (text: string): string => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
 export const getBaseUrl = (pathname: string): string => {
@@ -102,4 +107,13 @@ export const getBaseUrl = (pathname: string): string => {
   }
 
   return pathname;
+};
+
+export const isLinkClickable = (...inputs: any[]): boolean => {
+  for (const input of inputs) {
+    if (input === null) {
+      return false;
+    }
+  }
+  return true;
 };

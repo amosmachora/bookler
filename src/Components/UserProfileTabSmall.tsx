@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthProvider } from "../App";
 import { Assets } from "../Assets/Assets";
+import { AuthProvider } from "./Contexts/AuthenticationProvider";
 
 const UserProfileTabSmall = ({
   setMenuWide,

@@ -5,7 +5,7 @@ const TimePicker = ({
   setTime,
 }: {
   name: string;
-  setTime: React.Dispatch<React.SetStateAction<string>>;
+  setTime: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   return (
     <div className="rounded-md bg-gray-100 w-[32%] px-4 py-2">

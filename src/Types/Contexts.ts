@@ -2,26 +2,19 @@ import { SetStateAction } from "react";
 import { Airline, Airport, Country, Departures, TravelerInfo } from "./Flights";
 import { TravellerHotelInfo } from "./Hotel";
 
-export interface FlightSearchParametersContext extends SearchFormProps {
-  toAirport: Airport;
-  returnDate: Date | null | undefined;
-  departureDate: Date | null | undefined;
+export interface FlightSearchParametersContext {
+  toAirport: Airport | null;
+  returnDate: Date | null;
+  departureDate: Date | null;
   typeOfTrip: string;
-  fromAirport: Airport;
+  fromAirport: Airport | null;
   outGoingFlights: Departures[];
-  searchAirports: Airport[];
-  setSearchAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
-}
-
-type SearchFormProps = {
   setTypeOfTrip: React.Dispatch<SetStateAction<string>>;
-  setDepartureDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  setReturnDate: React.Dispatch<SetStateAction<Date | null | undefined>>;
-  setSearchType: React.Dispatch<SetStateAction<string>>;
-  searchType: string;
-  setFromAirport: React.Dispatch<React.SetStateAction<Airport>>;
-  setToAirport: React.Dispatch<React.SetStateAction<Airport>>;
-};
+  setDepartureDate: React.Dispatch<SetStateAction<Date | null>>;
+  setReturnDate: React.Dispatch<SetStateAction<Date | null>>;
+  setFromAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
+  setToAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
+}
 
 export interface MainContextValue {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,12 +63,16 @@ export interface CarRentalSearch {
   setPickUpDate: React.Dispatch<React.SetStateAction<Date | null>>;
   dropOffDate: Date | null;
   setDropOffDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  pickUpTime: string;
-  setPickUpTime: React.Dispatch<React.SetStateAction<string>>;
-  dropOffTime: string;
-  setDropOffTime: React.Dispatch<React.SetStateAction<string>>;
+  pickUpTime: string | null;
+  setPickUpTime: React.Dispatch<React.SetStateAction<string | null>>;
+  dropOffTime: string | null;
+  setDropOffTime: React.Dispatch<React.SetStateAction<string | null>>;
   dropCarAtDifferentLocation: boolean;
   setDropCarAtDifferentLocation: React.Dispatch<React.SetStateAction<boolean>>;
+  pickUpLocation: Airport | null;
+  dropOffLocation: Airport | null;
+  setPickUpLocation: React.Dispatch<React.SetStateAction<Airport | null>>;
+  setDropOffLocation: React.Dispatch<React.SetStateAction<Airport | null>>;
 }
 
 export interface Authenticator {

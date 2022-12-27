@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
+import { isLinkClickable } from "../../Util/Helpers";
 import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import { MoreButton } from "../MoreButton";
+import OffPageLink from "../OffPageLink";
 import AirportSearch from "../SearchModals/AirportSearch";
 import { HotelSearchContext } from "./HotelProvider";
 import TravellerSelector from "./TravellersSelector";
@@ -11,33 +12,37 @@ import TravellerSelector from "./TravellersSelector";
 const HotelSearchForm = () => {
   const {
     setCheckInDate,
-    checkInDate,
     setCheckOutDate,
+    checkInDate,
     checkOutDate,
     targetHotelLocation,
     travellerHotelInfo,
     travelingForWorkCheckBox,
+    setTargetHotelLocation,
   } = useContext(HotelSearchContext);
 
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide, airports } = useContext(MainContext);
 
   useEffect(() => {
     setMenuWide(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [showHotelSearchModal, setShowHotelSearchModal] =
-    useState<boolean>(false);
   const [showTravelSelector, setShowTravelSelector] = useState<boolean>(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+
+  const isClickable = isLinkClickable(
+    targetHotelLocation,
+    checkInDate,
+    checkOutDate
+  );
 
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5 relative">
       <div className="flex justify-between [&>*]:bg-gray-100 [&>*]:px-4 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg mb-4">
         <div
           className="bg-gray-200 rounded-md w-[32%]"
-          onClick={() => {
-            setShowHotelSearchModal(true);
-          }}
+          onClick={() => setShowSearchModal(true)}
         >
           <div className="flex">
             <img src={Assets.LocationPointer} alt="Location pointer" />
@@ -92,19 +97,18 @@ const HotelSearchForm = () => {
           <p>I`m traveling for work</p>
         </div>
         <MoreButton />
-        <Link
-          to="hotel-results"
-          className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex justify-center items-center"
-        >
-          Search
-        </Link>
+        <OffPageLink to="hotel-results" isClickable={isClickable}>
+          SEARCH FLIGHT
+        </OffPageLink>
+        {showSearchModal && (
+          <AirportSearch
+            closeModalFunction={setShowSearchModal}
+            searchAirports={airports}
+            searchFormText="Hotel"
+            setFunction={setTargetHotelLocation}
+          />
+        )}
       </div>
-      {showHotelSearchModal && (
-        <AirportSearch
-          closeModalFunction={setShowHotelSearchModal}
-          typeOfSearch="Choose your target location"
-        />
-      )}
     </div>
   );
 };

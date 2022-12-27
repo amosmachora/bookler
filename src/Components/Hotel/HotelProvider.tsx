@@ -13,7 +13,7 @@ const HotelProvider = ({ children }: { children: React.ReactNode }) => {
   const [travellerHotelInfo, setTravellerHotelInfo] =
     useState<TravellerHotelInfo>({
       Rooms: 1,
-      adults: 0,
+      adults: 1,
       kids: 0,
     });
   const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);

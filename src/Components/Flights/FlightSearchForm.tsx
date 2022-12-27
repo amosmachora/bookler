@@ -1,43 +1,44 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { MoreButton } from "../MoreButton";
-import { getDay } from "../../Util/Helpers";
+import { getDay, isLinkClickable } from "../../Util/Helpers";
 import { FlightSearchContext } from "./FlightsProvider";
 import { FromAirportInput } from "./FromAirportInput";
 import { ToAirportInput } from "./ToAirportInput";
-import AirportSearch from "../SearchModals/AirportSearch";
-import { Link } from "react-router-dom";
 import { MainContext } from "../Contexts/MainAppProvider";
+import OffPageLink from "../OffPageLink";
+import AirportSearch from "../SearchModals/AirportSearch";
+import { Airport } from "../../Types/Flights";
 
 const FlightSearchForm = () => {
   const {
     typeOfTrip,
-    outGoingFlights,
-    setSearchType,
+    fromAirport,
+    departureDate,
+    returnDate,
+    toAirport,
     setTypeOfTrip,
     setReturnDate,
-    searchType,
-    setToAirport,
-    setFromAirport,
     setDepartureDate,
+    setFromAirport,
+    setToAirport,
+    outGoingFlights,
   } = useContext(FlightSearchContext);
-  const { menuWide } = useContext(MainContext);
-
-  const [airportSearchModal, setAirportSearchModal] = useState(false);
+  const { menuWide, setMenuWide, airports } = useContext(MainContext);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
+  const [searchFormText, setSearchFormText] = useState("");
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
-  const { airports } = useContext(MainContext);
-  const { setSearchAirports } = useContext(FlightSearchContext);
 
   const openFromSearchModal = () => {
-    setSearchType("from");
-    setAirportSearchModal(true);
+    setSearchFormText("From");
     setSearchAirports(airports);
+    setShowSearchModal(true);
   };
 
   const openToSearchModal = () => {
-    setSearchType("to");
-    setAirportSearchModal(true);
+    setSearchFormText("To");
     setSearchAirports(
       airports.filter((airport) =>
         outGoingFlights
@@ -45,14 +46,20 @@ const FlightSearchForm = () => {
           .includes(airport.icao)
       )
     );
+    setShowSearchModal(true);
   };
-
-  const { setMenuWide } = useContext(MainContext);
 
   useEffect(() => {
     setMenuWide(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const isClickable: boolean = isLinkClickable(
+    fromAirport,
+    departureDate,
+    returnDate,
+    toAirport
+  );
 
   return (
     <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
@@ -78,8 +85,8 @@ const FlightSearchForm = () => {
           </p>
         </div>
         <div className="flex mt-5 [&>*]:bg-gray-100 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:border [&>*]:px-4 [&>*]:py-2 justify-between">
-          <FromAirportInput openFromSearchModal={openFromSearchModal} />
-          <ToAirportInput openToSearchModal={openToSearchModal} />
+          <FromAirportInput openSearchModal={openFromSearchModal} />
+          <ToAirportInput openSearchModal={openToSearchModal} />
           <div className="Option w-1/4">
             <div className="flex">
               <img src={Assets.Class} alt="Location Pointer" />
@@ -142,22 +149,21 @@ const FlightSearchForm = () => {
             </p>
           </div>
           <MoreButton />
-          <Link
-            to="flights/flight-results"
-            className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex items-center justify-center"
-          >
-            <p>SEARCH FLIGHT</p>
-          </Link>
+          <OffPageLink to="flights/flight-results" isClickable={isClickable}>
+            SEARCH FLIGHT
+          </OffPageLink>
+          {showSearchModal && (
+            <AirportSearch
+              closeModalFunction={setShowSearchModal}
+              searchAirports={searchAirports}
+              searchFormText={searchFormText}
+              setFunction={
+                searchFormText === "From" ? setFromAirport : setToAirport
+              }
+            />
+          )}
         </div>
       </form>
-      {airportSearchModal && (
-        <AirportSearch
-          closeModalFunction={setAirportSearchModal}
-          typeOfSearch={searchType}
-          setToAirport={setToAirport}
-          setFromAirport={setFromAirport}
-        />
-      )}
     </div>
   );
 };

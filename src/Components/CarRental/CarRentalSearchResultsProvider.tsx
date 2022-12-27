@@ -51,8 +51,8 @@ const CarRentalSearchResultsProvider = () => {
     if (!devMode) {
       fetchCarRentals(
         "JFK",
-        getConcatenatedDate(dropOffDate, dropOffTime),
-        getConcatenatedDate(pickUpDate, pickUpTime),
+        getConcatenatedDate(dropOffDate, dropOffTime!),
+        getConcatenatedDate(pickUpDate, pickUpTime!),
         "JFK"
       ).then((res) => setCarRentalData(res));
     }

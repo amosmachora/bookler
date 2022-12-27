@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthProvider } from "../App";
 import { Authenticator, LoginDetails } from "../Types/Contexts";
+import { AuthProvider } from "./Contexts/AuthenticationProvider";
 import NonNullUserInput from "./NonNullUserInput";
 import NullUserFieldInput from "./NullUserFieldInput";
 import ProfileCompleteness from "./ProfileCompleteness";

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthProvider } from "../App";
+import { AuthProvider } from "./Contexts/AuthenticationProvider";
 
 export function UserProfileTabLarge() {
   const { profilePicture, userName, accountType } = useContext(AuthProvider);

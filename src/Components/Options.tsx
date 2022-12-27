@@ -17,7 +17,7 @@ const Options = ({ menuWide }: { menuWide: boolean }) => {
       <Link
         to="/flights"
         className={`flex flex-col items-center justify-center ${
-          baseUrl === "/flights" || "/" ? "bg-blue-700" : ""
+          baseUrl === "/flights" ? "bg-blue-700" : ""
         }`}
       >
         <img

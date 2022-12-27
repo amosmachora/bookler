@@ -1,15 +1,8 @@
 import React from "react";
 
-type OverlayProps = {
-  setOverlay: (state: boolean) => void;
-};
-
-const Overlay = ({ setOverlay }: OverlayProps) => {
+const Overlay = () => {
   return (
-    <div
-      className="overlay fixed top-0 left-0 w-full h-screen bg-black z-30 opacity-30 transition-all"
-      onClick={() => setOverlay(false)}
-    />
+    <div className="overlay fixed top-0 left-0 w-full h-screen bg-black z-30 opacity-30 transition-all" />
   );
 };
 

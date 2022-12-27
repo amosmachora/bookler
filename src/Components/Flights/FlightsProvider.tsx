@@ -39,34 +39,28 @@ export const FlightSearchContext = createContext<FlightSearchParametersContext>(
       timezone: null,
     },
     outGoingFlights: [],
-    searchAirports: [],
-    setSearchAirports: () => {},
-    searchType: "from",
     setDepartureDate: () => {},
     setFromAirport: () => {},
     setReturnDate: () => {},
-    setSearchType: () => {},
     setToAirport: () => {},
     setTypeOfTrip: () => {},
   }
 );
 
 const FlightsProvider = ({ children }: { children: React.ReactNode }) => {
-  const { airports, devMode, setDevMode } = useContext(MainContext);
-  const [toAirport, setToAirport] = useState<Airport>(airports[0]);
+  const { devMode, setDevMode } = useContext(MainContext);
+  const [toAirport, setToAirport] = useState<Airport | null>(null);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
-  const [fromAirport, setFromAirport] = useState<Airport>(airports[0]);
-  const [departureDate, setDepartureDate] = useState<Date | null>();
-  const [returnDate, setReturnDate] = useState<Date | null>();
-  const [searchType, setSearchType] = useState("from");
+  const [fromAirport, setFromAirport] = useState<Airport | null>(null);
+  const [departureDate, setDepartureDate] = useState<Date | null>(null);
+  const [returnDate, setReturnDate] = useState<Date | null>(null);
   const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>(
     DevAirportFlightData.departures
   );
-  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
 
   useEffect(() => {
     if (!devMode) {
-      const outGoingFlights = fetchAirportFlightData(fromAirport);
+      const outGoingFlights = fetchAirportFlightData(fromAirport!);
       if (outGoingFlights.length === 0) {
         setDevMode(true);
       } else {
@@ -76,42 +70,20 @@ const FlightsProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromAirport, devMode]);
 
-  /**
-   * A function to randomly decide a default airport.
-   * @Returns A random airport object.
-   */
-  function getRandomAirport(): Airport {
-    const min = 0;
-    const max = airports.length;
-    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
-    const randomAirport = airports[randomNumber];
-    return randomAirport;
-  }
-
-  useEffect(() => {
-    setFromAirport(getRandomAirport());
-    setToAirport(getRandomAirport());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [airports.length]);
-
   return (
     <FlightSearchContext.Provider
       value={{
         typeOfTrip,
         fromAirport,
+        toAirport,
         departureDate,
         returnDate,
-        toAirport,
         outGoingFlights,
-        searchAirports,
-        setSearchAirports,
         setToAirport,
         setFromAirport,
         setTypeOfTrip,
         setDepartureDate,
         setReturnDate,
-        setSearchType,
-        searchType,
       }}
     >
       {children}

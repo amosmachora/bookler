@@ -61,8 +61,8 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
             </p>
             <FlightTimes
               foundFlight={foundFlight}
-              fromAirport={fromAirport}
-              toAirport={toAirport}
+              fromAirport={fromAirport!}
+              toAirport={toAirport!}
               extraFlightData={extraFlightData}
             />
             <p className="font-bold mx-6">00H 00M</p>

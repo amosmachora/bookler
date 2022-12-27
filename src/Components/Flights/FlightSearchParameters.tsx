@@ -22,13 +22,13 @@ const FlightSearchParameters = () => {
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">FROM</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {fromAirport.city + ", " + fromAirport.country}
+          {fromAirport!.city + ", " + fromAirport!.country}
         </p>
       </div>
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">TO</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
-          {toAirport.city + ", " + toAirport.country}
+          {toAirport!.city + ", " + toAirport!.country}
         </p>
       </div>
       <div>

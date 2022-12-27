@@ -58,10 +58,10 @@ const FlightFilter = ({
           name="stop-airport-selector"
           id="stop-airport-selector"
           className="pl-7 py-2 border rounded-md cursor-pointer w-full outline-none font-semibold"
-          defaultValue={toAirport.city}
+          defaultValue={toAirport!.city}
           onChange={(e) => handleStopAirportSelect(e)}
         >
-          <option value={toAirport.city}>NO STOP</option>
+          <option value={toAirport!.city}>NO STOP</option>
           {getStopSelectCities().map((airport) => (
             <option value={airport.city} key={airport.id}>
               {airport.city + ", " + airport.country}

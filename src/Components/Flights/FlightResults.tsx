@@ -36,7 +36,7 @@ const FlightResults = () => {
   const [booking, setBooking] = useState(false);
 
   const allUnfilteredFoundFlights = outGoingFlights.filter(
-    (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport.icao
+    (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport!.icao
   );
 
   const { setMenuWide } = useContext(MainContext);
