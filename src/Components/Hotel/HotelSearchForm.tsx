@@ -1,19 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
 import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import { MoreButton } from "../MoreButton";
 import AirportSearch from "../SearchModals/AirportSearch";
-import { HotelSearchContext } from "./Hotel";
+import { HotelSearchContext } from "./HotelProvider";
 import TravellerSelector from "./TravellersSelector";
 
-type HotelSearchFormProps = {
-  travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
-};
-
-const HotelSearchForm = ({
-  travelingForWorkCheckBox,
-}: HotelSearchFormProps) => {
+const HotelSearchForm = () => {
   const {
     setCheckInDate,
     checkInDate,
@@ -21,9 +16,16 @@ const HotelSearchForm = ({
     checkOutDate,
     targetHotelLocation,
     travellerHotelInfo,
+    travelingForWorkCheckBox,
   } = useContext(HotelSearchContext);
 
   const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [showHotelSearchModal, setShowHotelSearchModal] =
     useState<boolean>(false);
   const [showTravelSelector, setShowTravelSelector] = useState<boolean>(false);
@@ -90,12 +92,12 @@ const HotelSearchForm = ({
           <p>I`m traveling for work</p>
         </div>
         <MoreButton />
-        <input
-          type="submit"
-          value="SEARCH HOTELS"
-          className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer"
-          onClick={() => setMenuWide(false)}
-        />
+        <Link
+          to="hotel-results"
+          className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex justify-center items-center"
+        >
+          Search
+        </Link>
       </div>
       {showHotelSearchModal && (
         <AirportSearch

@@ -1,19 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
 import { VehicleInformation } from "../../Types/CarRentals";
 import { Rating } from "../Rating";
+import { CarRentalSearchResultsContext } from "./CarRentalSearchResultsProvider";
 
-const Vehicle = ({
-  vehicle,
-  setStage,
-  setActiveVehicle,
-}: {
-  vehicle: VehicleInformation;
-  setStage: React.Dispatch<React.SetStateAction<string>>;
-  setActiveVehicle: React.Dispatch<
-    React.SetStateAction<VehicleInformation | null>
-  >;
-}) => {
+const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
+  const { setActiveVehicle } = useContext(CarRentalSearchResultsContext);
   return (
     <div className="bg-white rounded-md overflow-hidden my-1 flex relative py-2 w-full">
       <img src={vehicle.vehicleInfo.images.SIZE268X144} alt="Car" />
@@ -46,15 +39,15 @@ const Vehicle = ({
             }
           </p>
           <div className="flex text-xs">
-            <button
-              className="bg-gray-300 hover:bg-gray-400 px-5 mr-4 rounded-md font-semibold transition-all"
+            <Link
+              className="bg-gray-300 hover:bg-gray-400 px-5 mr-4 rounded-md font-semibold transition-all flex justify-center items-center"
               onClick={() => {
-                setStage("Details");
                 setActiveVehicle(vehicle);
               }}
+              to="car-details"
             >
               View Details
-            </button>
+            </Link>
             <button className="bg-blue-600 text-white px-5 hover:bg-blue-400 rounded-md transition-all py-3">
               Book Now
             </button>

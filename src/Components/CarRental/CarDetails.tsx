@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Assets } from "../../Assets/Assets";
 import {
   Airport,
-  CarRentalSearchResultsType,
   Images,
   PartnerLocation,
   VehicleInformation,
@@ -10,17 +9,16 @@ import {
 import Map from "../Hotel/Map";
 import { PayNowButton } from "../PayNowButton";
 import { CarRentalSearchContext } from "./CarRentalProvider";
-import { getPartnerLocation } from "./CarRentalSearchResults";
+import {
+  CarRentalSearchResultsContext,
+  getPartnerLocation,
+} from "./CarRentalSearchResultsProvider";
 
-const CarDetails = ({
-  activeVehicle,
-  carRentalData,
-  setStage,
-}: {
-  activeVehicle: VehicleInformation | null;
-  carRentalData: CarRentalSearchResultsType;
-  setStage: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const CarDetails = () => {
+  const { activeVehicle, carRentalData } = useContext(
+    CarRentalSearchResultsContext
+  );
+
   const image: string = getLargestPossibleImage(
     activeVehicle?.vehicleInfo.images
   );
@@ -97,7 +95,7 @@ const CarDetails = ({
               {activeVehicle?.posCurrencyCode}
             </span>
           </p>
-          <PayNowButton onClick={setStage} value="Booking review" />
+          <PayNowButton linkTo="booking-review" />
         </div>
       </div>
       <div className="flex bg-white py-3 px-5 rounded-md justify-between mt-4">

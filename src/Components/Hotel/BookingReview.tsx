@@ -1,15 +1,14 @@
 import { UserDetailsForm } from "../../Components/UserDetailsForm";
-import React from "react";
+import React, { useContext } from "react";
 import { Assets } from "../../Assets/Assets";
-import { SelectedHotel } from "../../Types/Hotel";
 import BookingReviewAside from "./BookingReviewAside";
+import { HotelSearchResultsContext } from "./HotelSearchResults";
 
-const BookingReview = ({
-  selectedHotelInfo,
-}: {
-  selectedHotelInfo: SelectedHotel | null;
-}) => {
+const BookingReview = () => {
   const handleCountryCodeSelection = (currentValue: string) => {};
+
+  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+
   return (
     <div className="flex justify-between">
       <div className="w-3/4">

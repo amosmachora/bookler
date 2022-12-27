@@ -1,39 +1,50 @@
-import Map from "./Map";
-import React, { useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
 import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
 import PropertyList from "../../Util/PropertyListByDestId.json";
-import HotelData from "./HotelData";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
-import HotelFilter from "./HotelFilter";
-import { GoogleMapsCenter, HotelInfo, SelectedHotel } from "../../Types/Hotel";
-import HotelDetails from "./HotelDetails";
-import { HotelSearchContext } from "./Hotel";
-import BookingReview from "./BookingReview";
+import { HotelInfo, SelectedHotel } from "../../Types/Hotel";
+import { HotelSearchContext } from "./HotelProvider";
 import { MainContext } from "../Contexts/MainAppProvider";
+import { Outlet } from "react-router";
 
-type HotelSearchResultsProps = {
-  travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
-};
+export const HotelSearchResultsContext = createContext<{
+  hotelList: HotelInfo[];
+  selectedHotelInfo: SelectedHotel | null;
+  propertyList: PropertyListType;
+  sortBy: string;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  setFilterBy: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedHotelInfo: React.Dispatch<
+    React.SetStateAction<SelectedHotel | null>
+  >;
+}>(null as any);
 
-const HotelSearchResults = ({
-  travelingForWorkCheckBox,
-}: HotelSearchResultsProps) => {
+const HotelSearchResults = () => {
   const { devMode } = useContext(MainContext);
-  const { checkInDate, checkOutDate, travellerHotelInfo, targetHotelLocation } =
-    useContext(HotelSearchContext);
+  const {
+    checkInDate,
+    checkOutDate,
+    travellerHotelInfo,
+    targetHotelLocation,
+    travelingForWorkCheckBox,
+  } = useContext(HotelSearchContext);
+
   const [propertyList, setPropertyList] =
     useState<PropertyListType>(PropertyList);
   const [hotelList, setHotelList] = useState<HotelInfo[]>(propertyList.result);
   const [sortBy, setSortBy] = useState<string>(
     propertyList.sorting.selected_identifier
   );
-
-  //Selected filters array
   const [filterBy, setFilterBy] = useState<Array<string>>([]);
-  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!devMode) {
@@ -59,103 +70,24 @@ const HotelSearchResults = ({
     setHotelList(propertyList.result);
   }, [propertyList]);
 
-  const [mapShown, setMapShown] = useState<boolean>(false);
-  const [mapCenter, setMapCenter] = useState<GoogleMapsCenter>({
-    lat: 0,
-    lng: 0,
-  });
-
-  /**
-   * Stage state to define the different booking stages
-   * 1) HotelResults
-   * 2) HotelDetails
-   * 3) BookingReview
-   */
-  const [stage, setStage] = useState("HotelResults");
   const [selectedHotelInfo, setSelectedHotelInfo] =
     useState<SelectedHotel | null>(null);
 
   return (
-    <div>
-      <HotelSearchParameters targetHotelLocation={targetHotelLocation} />
-      {stage === "HotelResults" && (
-        <div className="flex justify-between h-[87vh] mb-8">
-          <div className="w-3/4 h-87vh flex flex-col justify-between overflow-hidden rounded-b-md">
-            <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
-              <p className="font-bold">Hotels</p>
-              <div className="h-5 w-[1px] bg-gray-300 mx-3" />
-              <p className="text-sm font-semibold">
-                Total{" "}
-                <span className="text-sky-500 font-normal">
-                  {propertyList.result.length} results
-                </span>
-              </p>
-              <div className="flex items-center flex-wrap text-xs text-gray-400 w-max">
-                {propertyList.sort.map((sortOption) => (
-                  <p
-                    className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
-                      sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
-                    }`}
-                    onClick={() => setSortBy(sortOption.id)}
-                    key={sortOption.id}
-                  >
-                    {sortOption.name}
-                  </p>
-                ))}
-                {propertyList.applied_filters.map((appliedFilter) => (
-                  <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
-                ))}
-              </div>
-              <div className="h-5 w-[1px] bg-gray-300 mx-3" />
-              <div className="flex items-center">
-                <p className="cursor-pointer text-blue-600 font-semibold text-sm ml-2">
-                  Map View
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-between flex-grow h-[90%]">
-              <div
-                className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
-                  mapShown ? "w-[44%]" : ""
-                } `}
-              >
-                {hotelList.map((hotelInfo) => (
-                  <HotelData
-                    hotelInfo={hotelInfo}
-                    key={hotelInfo.hotel_id}
-                    setShowMapFunction={setMapShown}
-                    mapShown={mapShown}
-                    setMapCenter={setMapCenter}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                    setStage={setStage}
-                    setSelectedHotelInfo={setSelectedHotelInfo}
-                    hotelList={hotelList}
-                  />
-                ))}
-              </div>
-              {mapShown && mapCenter !== null && (
-                <Map center={mapCenter} width="w-[55%]" />
-              )}
-            </div>
-          </div>
-          <HotelFilter
-            baseFilters={propertyList.base_filters}
-            recommendedFilters={propertyList.recommended_filters}
-            setFilterBy={setFilterBy}
-          />
-        </div>
-      )}
-      {stage === "HotelDetails" && (
-        <HotelDetails
-          selectedHotelInfo={selectedHotelInfo}
-          setStage={setStage}
-        />
-      )}
-      {stage === "BookingReview" && (
-        <BookingReview selectedHotelInfo={selectedHotelInfo} />
-      )}
-    </div>
+    <HotelSearchResultsContext.Provider
+      value={{
+        hotelList,
+        setFilterBy,
+        setSelectedHotelInfo,
+        setSortBy,
+        selectedHotelInfo,
+        propertyList,
+        sortBy,
+      }}
+    >
+      <HotelSearchParameters />
+      <Outlet />
+    </HotelSearchResultsContext.Provider>
   );
 };
 

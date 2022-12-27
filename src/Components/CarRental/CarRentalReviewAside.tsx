@@ -4,7 +4,7 @@ import {
   CarRentalSearchResultsType,
   VehicleInformation,
 } from "../../Types/CarRentals";
-import { getPartnerLocation } from "./CarRentalSearchResults";
+import { getPartnerLocation } from "./CarRentalSearchResultsProvider";
 
 const CarRentalReviewAside = ({
   selectedVehicle,

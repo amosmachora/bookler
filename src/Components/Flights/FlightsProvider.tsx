@@ -94,8 +94,6 @@ const FlightsProvider = ({ children }: { children: React.ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [airports.length]);
 
-  console.log(airports);
-
   return (
     <FlightSearchContext.Provider
       value={{

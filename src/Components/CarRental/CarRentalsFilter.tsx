@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { VehicleCategory, VehicleInformation } from "../../Types/CarRentals";
+import {
+  CarRentalSearchResultsContext,
+  getArrayOfObjects,
+} from "./CarRentalSearchResultsProvider";
 
-const CarRentalsFilter = ({
-  categories,
-  allUnfilteredVehicles,
-  setSuggestedVehicles,
-}: {
-  categories: VehicleCategory[];
-  allUnfilteredVehicles: VehicleInformation[];
-  setSuggestedVehicles: React.Dispatch<
-    React.SetStateAction<VehicleInformation[]>
-  >;
-}) => {
+const CarRentalsFilter = () => {
   const [appliedFilters, setAppliedFilters] = useState<string | null>(null);
+  const { setSuggestedVehicles, allUnfilteredVehicles, carRentalData } =
+    useContext(CarRentalSearchResultsContext);
+  const categories: VehicleCategory[] = getArrayOfObjects(
+    carRentalData.vehicleCategories
+  );
 
   useEffect(() => {
     if (appliedFilters !== null && appliedFilters !== "No filter") {

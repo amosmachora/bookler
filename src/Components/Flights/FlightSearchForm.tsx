@@ -143,7 +143,7 @@ const FlightSearchForm = () => {
           </div>
           <MoreButton />
           <Link
-            to="flight-results"
+            to="flights/flight-results"
             className="bg-red-600 text-white rounded-lg w-[22.4%] cursor-pointer flex items-center justify-center"
           >
             <p>SEARCH FLIGHT</p>

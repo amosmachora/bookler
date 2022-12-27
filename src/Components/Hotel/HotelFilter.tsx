@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { BaseFilter, RecommendedFilter } from "../../Types/PropertyList";
+import { HotelSearchResultsContext } from "./HotelSearchResults";
 
 const HotelFilter = ({
   baseFilters,
   recommendedFilters,
-  setFilterBy,
 }: {
   baseFilters: BaseFilter[];
   recommendedFilters: RecommendedFilter[];
-  setFilterBy: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   const [activeFilter, setActiveFilter] = useState<BaseFilter | undefined>(
     baseFilters[0]
   );
+
+  const { setFilterBy } = useContext(HotelSearchResultsContext);
 
   const addFilter = (filter_id: string) => {
     setFilterBy((prevState) => [...prevState, filter_id]);

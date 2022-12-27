@@ -1,20 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Assets } from "../../Assets/Assets";
-import {
-  CarRentalSearchResultsType,
-  VehicleInformation,
-} from "../../Types/CarRentals";
 import { UserDetailsForm } from "../UserDetailsForm";
 import CarRentalReviewAside from "./CarRentalReviewAside";
+import { CarRentalSearchResultsContext } from "./CarRentalSearchResultsProvider";
 
-const CarRentalReview = ({
-  selectedVehicle,
-  carRentalData,
-}: {
-  selectedVehicle: VehicleInformation | null;
-  carRentalData: CarRentalSearchResultsType;
-}) => {
+const CarRentalReview = () => {
   const handleCountryCodeSelection = (value: string) => {};
+
+  const { activeVehicle, carRentalData } = useContext(
+    CarRentalSearchResultsContext
+  );
+
   return (
     <div className="mt-4 flex justify-between">
       <div className="w-3/4">
@@ -51,7 +47,7 @@ const CarRentalReview = ({
         />
       </div>
       <CarRentalReviewAside
-        selectedVehicle={selectedVehicle}
+        selectedVehicle={activeVehicle}
         carRentalData={carRentalData}
       />
     </div>

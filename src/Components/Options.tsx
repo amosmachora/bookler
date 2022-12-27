@@ -40,9 +40,9 @@ const Options = ({ menuWide }: { menuWide: boolean }) => {
       </Link>
       <Link
         className={`flex flex-col items-center justify-center ${
-          pathname === "/taxi" ? "bg-blue-700" : ""
+          pathname === "/car-rental" ? "bg-blue-700" : ""
         }`}
-        to="taxi"
+        to="car-rental"
       >
         <img
           src={Assets.Taxi}

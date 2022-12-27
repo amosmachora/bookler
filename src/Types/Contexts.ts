@@ -62,6 +62,7 @@ export interface HotelSearch {
   setTravellerHotelInfo: React.Dispatch<
     React.SetStateAction<TravellerHotelInfo>
   >;
+  travelingForWorkCheckBox: React.MutableRefObject<HTMLInputElement | null>;
 }
 
 export interface CarRentalSearch {

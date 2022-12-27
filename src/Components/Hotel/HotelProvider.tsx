@@ -2,10 +2,10 @@ import React, { createContext, useRef, useState } from "react";
 import { HotelSearch } from "../../Types/Contexts";
 import { Airport } from "../../Types/Flights";
 import { TravellerHotelInfo } from "../../Types/Hotel";
-import HotelSearchForm from "./HotelSearchForm";
 
 export const HotelSearchContext = createContext<HotelSearch>(null as any);
-const Hotel = () => {
+
+const HotelProvider = ({ children }: { children: React.ReactNode }) => {
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
   const [targetHotelLocation, setTargetHotelLocation] =
@@ -29,11 +29,12 @@ const Hotel = () => {
         setTargetHotelLocation,
         travellerHotelInfo,
         setTravellerHotelInfo,
+        travelingForWorkCheckBox,
       }}
     >
-      <HotelSearchForm travelingForWorkCheckBox={travelingForWorkCheckBox} />
+      {children}
     </HotelSearchContext.Provider>
   );
 };
 
-export default Hotel;
+export default HotelProvider;

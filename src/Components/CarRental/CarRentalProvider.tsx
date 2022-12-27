@@ -1,12 +1,11 @@
 import React, { createContext, useState } from "react";
 import { CarRentalSearch } from "../../Types/Contexts";
-import CarRentalSearchResults from "./CarRentalSearchResults";
 
 export const CarRentalSearchContext = createContext<CarRentalSearch>(
   null as any
 );
 
-const CarRentalProvider = () => {
+const CarRentalProvider = ({ children }: { children: React.ReactNode }) => {
   const [pickUpDate, setPickUpDate] = useState<Date | null>(null);
   const [dropOffDate, setDropOffDate] = useState<Date | null>(null);
   const [pickUpTime, setPickUpTime] = useState<string>("");
@@ -29,7 +28,7 @@ const CarRentalProvider = () => {
         setDropCarAtDifferentLocation,
       }}
     >
-      <CarRentalSearchResults />
+      {children}
     </CarRentalSearchContext.Provider>
   );
 };

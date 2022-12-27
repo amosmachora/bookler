@@ -1,21 +1,16 @@
 import React, { useContext } from "react";
-import { Airport } from "../../Types/Flights";
 import { RedSearchButton } from "../RedSearchButton";
 import CheckInCheckOutDatePicker from "./CheckInCheckOutDatePicker";
-import { HotelSearchContext } from "./Hotel";
+import { HotelSearchContext } from "./HotelProvider";
 
-type HotelSearchParametersProps = {
-  targetHotelLocation: Airport | null;
-};
-const HotelSearchParameters = ({
-  targetHotelLocation,
-}: HotelSearchParametersProps) => {
+const HotelSearchParameters = () => {
   const {
     setCheckInDate,
     checkInDate,
     setCheckOutDate,
     checkOutDate,
     travellerHotelInfo,
+    targetHotelLocation,
   } = useContext(HotelSearchContext);
   return (
     <div className="flex justify-between items-center bg-white py-4 px-5 mt-10 rounded-b-lg text-sm mb-5">

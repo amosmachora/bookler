@@ -10,13 +10,14 @@ import {
   GoogleMapsCenter,
   HotelImage,
   HotelInfo,
-  SelectedHotel,
 } from "../../Types/Hotel";
 import DevHotelImages from "../../Util/HotelImages.json";
 import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import { MainContext } from "../Contexts/MainAppProvider";
+import { Link } from "react-router-dom";
+import { HotelSearchResultsContext } from "./HotelSearchResults";
 
 const HotelData = ({
   hotelInfo,
@@ -25,9 +26,6 @@ const HotelData = ({
   setMapCenter,
   activeTab,
   setActiveTab,
-  setStage,
-  setSelectedHotelInfo,
-  hotelList,
 }: {
   hotelInfo: HotelInfo;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,11 +33,6 @@ const HotelData = ({
   setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
   activeTab: string | null;
   setActiveTab: React.Dispatch<React.SetStateAction<string | null>>;
-  setStage: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedHotelInfo: React.Dispatch<
-    React.SetStateAction<SelectedHotel | null>
-  >;
-  hotelList: HotelInfo[];
 }) => {
   const [hotelImages, setHotelImages] = useState<HotelImage[]>(
     getCleanedArrayOfImageObjects(DevHotelImages)
@@ -47,8 +40,8 @@ const HotelData = ({
   const { devMode } = useContext(MainContext);
   const [hotelFacilities, setHotelFacilities] =
     useState<Facility[]>(Facilities);
-
   const [showAllFacilities, setShowAllFacilities] = useState<boolean>(false);
+  const { setSelectedHotelInfo } = useContext(HotelSearchResultsContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -252,7 +245,7 @@ const HotelData = ({
               </p>
             </div>
             <div className={`text-xs ${mapShown ? "w-[70%]" : ""} flex`}>
-              <button
+              <Link
                 className={`py-3 ${
                   mapShown
                     ? "px-1 hover:border-gray-400 transition-all mr-2"
@@ -264,11 +257,11 @@ const HotelData = ({
                     hotelInfo: hotelInfo,
                     hotelImages: hotelImages,
                   });
-                  setStage("HotelDetails");
                 }}
+                to="hotel-details"
               >
                 View Details
-              </button>
+              </Link>
               {isBookingAllowed ? (
                 <a
                   className={`${

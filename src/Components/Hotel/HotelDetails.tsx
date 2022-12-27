@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { fetchHotelDescription } from "../../Fetchers/FetchHotelDescription";
 import { fetchHotelReviews } from "../../Fetchers/FetchHotelReviews";
-import { HotelImage, SelectedHotel } from "../../Types/Hotel";
+import { HotelImage } from "../../Types/Hotel";
 import { HotelReviews } from "../../Types/HotelReviews";
 import { HotelDescription } from "../../Types/HotelDescription";
 import DevHotelReviews from "../../Util/HotelReviews.json";
@@ -12,14 +12,11 @@ import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
 import { monthNames } from "../../Util/Helpers";
 import { MainContext } from "../Contexts/MainAppProvider";
+import { HotelSearchResultsContext } from "./HotelSearchResults";
 
-const HotelDetails = ({
-  setStage,
-  selectedHotelInfo,
-}: {
-  setStage: React.Dispatch<React.SetStateAction<string>>;
-  selectedHotelInfo: SelectedHotel | null;
-}) => {
+const HotelDetails = () => {
+  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+
   const arrayOfUniqueImages: HotelImage[] = getUniqueImages(
     selectedHotelInfo!.hotelImages
   );
@@ -90,7 +87,7 @@ const HotelDetails = ({
               {hotelInfo?.price_breakdown.all_inclusive_price}{" "}
               <span className="text-gray-500 text-xs font-normal">USD</span>
             </p>
-            <PayNowButton onClick={setStage} value="BookingReview" />
+            <PayNowButton linkTo="booking-review" />
           </div>
         </div>
         <div className="flex justify-between">

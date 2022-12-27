@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
+import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import TimePicker from "../TimePicker";
 import { CarRentalSearchContext } from "./CarRentalProvider";
 
-const CarRentalSearchForm = ({
-  setMenuWide,
-}: {
-  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const CarRentalSearchForm = () => {
   const {
     dropCarAtDifferentLocation,
     pickUpDate,
@@ -19,6 +17,13 @@ const CarRentalSearchForm = ({
     setDropOffTime,
     setDropCarAtDifferentLocation,
   } = useContext(CarRentalSearchContext);
+
+  const { setMenuWide } = useContext(MainContext);
+
+  useEffect(() => {
+    setMenuWide(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="bg-white flex flex-wrap justify-between items-center rounded-lg py-8 px-9 mt-5 gap-y-4 transition-all">
@@ -52,12 +57,12 @@ const CarRentalSearchForm = ({
       />
       <TimePicker name="Pick-up time" setTime={setPickUpTime} />
       <TimePicker name="Drop-off time" setTime={setDropOffTime} />
-      <button
-        className="bg-red-600 text-white rounded-lg cursor-pointer w-1/4 h-16"
-        onClick={() => setMenuWide(false)}
+      <Link
+        className="bg-red-600 text-white rounded-lg cursor-pointer w-1/4 h-16 text-center flex items-center justify-center"
+        to="car-rental-results"
       >
         Search
-      </button>
+      </Link>
       <div className="flex items-center text-white bg-blue-600 px-3 py-1 rounded-md text-sm">
         <input
           type="checkbox"
