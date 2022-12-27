@@ -1,6 +1,7 @@
 import React, { SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
+import { getBaseUrl } from "../../Util/Helpers";
 import "./Menu.css";
 
 interface menuProps {
@@ -11,9 +12,6 @@ interface menuProps {
 const Menu = ({ menuWide, setMenuWide }: menuProps) => {
   const [activeTab, setActiveTab] = useState("home");
   const { pathname } = useLocation();
-  // console.log(pathname);
-  //TODO fix the base url link
-
   return (
     <div
       className={`menu ${
@@ -112,18 +110,3 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
 };
 
 export default Menu;
-
-function getBaseUrl(pathname: string): string {
-  let baseUrl: string = "/";
-
-  for (let i = 1; i < pathname.length; i++) {
-    const char = pathname[i];
-    if (char !== "/") {
-      baseUrl = baseUrl + char;
-    } else {
-      return baseUrl;
-    }
-  }
-
-  return pathname;
-}

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
+import { getBaseUrl } from "../Util/Helpers";
 
 const Options = ({ menuWide }: { menuWide: boolean }) => {
   const { pathname } = useLocation();
+  const baseUrl = getBaseUrl(pathname);
   return (
     <div
       className={`options flex text-white uppercase text-xs [&>*]:mr-6 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:transition-all  ${
@@ -15,7 +17,7 @@ const Options = ({ menuWide }: { menuWide: boolean }) => {
       <Link
         to="/flights"
         className={`flex flex-col items-center justify-center ${
-          pathname === "/flights" ? "bg-blue-700" : ""
+          baseUrl === "/flights" || "/" ? "bg-blue-700" : ""
         }`}
       >
         <img
@@ -27,7 +29,7 @@ const Options = ({ menuWide }: { menuWide: boolean }) => {
       </Link>
       <Link
         className={`flex flex-col items-center justify-center ${
-          pathname === "/hotels" ? "bg-blue-700" : ""
+          baseUrl === "/hotels" ? "bg-blue-700" : ""
         }`}
         to="hotels"
       >
@@ -40,7 +42,7 @@ const Options = ({ menuWide }: { menuWide: boolean }) => {
       </Link>
       <Link
         className={`flex flex-col items-center justify-center ${
-          pathname === "/car-rental" ? "bg-blue-700" : ""
+          baseUrl === "/car-rental" ? "bg-blue-700" : ""
         }`}
         to="car-rental"
       >
