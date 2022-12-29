@@ -76,17 +76,24 @@ export interface CarRentalSearch {
 }
 
 export interface Authenticator {
-  profilePicture: string | null;
-  userName: string | null;
+  email: string | null;
+  picture: string | null;
+  name: string | null;
   accountType: string | null;
   birthday: string | null;
   gender: string | null;
   address: string | null;
-  login: LoginDetails;
+  aud?: string;
+  azp?: string;
+  email_verified?: boolean;
+  exp?: number;
+  family_name?: string;
+  given_name?: string;
+  iat?: number;
+  iss?: string;
+  jti?: string;
+  nbf?: string;
+  sub?: string;
+  mobileNumber?: string | null;
+  password?: string | null;
 }
-
-export type LoginDetails = {
-  emailAddress: string | null;
-  mobileNumber: string | null;
-  password: string | null;
-};

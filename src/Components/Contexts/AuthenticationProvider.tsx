@@ -1,27 +1,45 @@
-import React, { createContext } from "react";
-import { Assets } from "../../Assets/Assets";
+import React, { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Authenticator } from "../../Types/Contexts";
 
-export const AuthProvider = createContext<Authenticator>(null as any);
+export const AuthProvider = createContext<{
+  userData: Authenticator;
+  setUserData: React.Dispatch<React.SetStateAction<Authenticator>>;
+  isLoggedIn: boolean;
+}>(null as any);
 const AuthenticationProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
+  const [userData, setUserData] = useState<Authenticator>({
+    accountType: "Personal Account",
+    picture: null,
+    name: "",
+    email: null,
+    birthday: null,
+    address: null,
+    gender: null,
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData.email !== null) {
+      setIsLoggedIn(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
+
   return (
     <AuthProvider.Provider
       value={{
-        accountType: "Personal Account",
-        profilePicture: Assets.ProfilePicture,
-        userName: "Mansurul Haque",
-        birthday: null,
-        gender: null,
-        address: null,
-        login: {
-          emailAddress: "Myemail@test.gmail.com",
-          mobileNumber: null,
-          password: "sysvysmoom",
-        },
+        userData,
+        setUserData,
+        isLoggedIn,
       }}
     >
       {children}

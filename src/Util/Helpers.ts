@@ -106,6 +106,10 @@ export const getBaseUrl = (pathname: string): string => {
     }
   }
 
+  if (baseUrl === "/profile") {
+    return "/";
+  }
+
   return pathname;
 };
 

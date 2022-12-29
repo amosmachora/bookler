@@ -17,6 +17,7 @@ module.exports = {
         ratingBg: "#3C6097",
         covidBg: "#e6f0fb",
         profileGreen: "#56B64E",
+        loginPageBg: "#f5f5f5",
       },
     },
   },

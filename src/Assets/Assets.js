@@ -60,8 +60,16 @@ import PickUpLocation from "./PickUpLocation.svg";
 import OpeningHours from "./OpeningHours.svg";
 import Plus from "./Plus.svg";
 import Edit from "./Edit.svg";
+import LoginPageImage from "./Rectangle.png";
+import InteractiveStar from "./Interactive-star.svg";
+import Google from "./Google.svg";
+import NewYork from "./pexels-praneeth-koduru-6320208.jpg";
 
 export const Assets = {
+  NewYork,
+  Google,
+  InteractiveStar,
+  LoginPageImage,
   Edit,
   Plus,
   OpeningHours,

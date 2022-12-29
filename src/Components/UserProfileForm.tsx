@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Authenticator, LoginDetails } from "../Types/Contexts";
+import { Authenticator } from "../Types/Contexts";
 import { AuthProvider } from "./Contexts/AuthenticationProvider";
 import NonNullUserInput from "./NonNullUserInput";
 import NullUserFieldInput from "./NullUserFieldInput";
@@ -7,12 +7,13 @@ import ProfileCompleteness from "./ProfileCompleteness";
 import { UserProfileTabLarge } from "./UserProfileTabLarge";
 
 const UserProfileForm = () => {
-  const auth = useContext(AuthProvider);
-  const nullUserFields: string[] = getNullUserFields(auth);
-  const nonNullUserFields: string[] = getNonNullUserFields(auth);
+  const { userData } = useContext(AuthProvider);
+  const nullUserFields: string[] = getNullUserFields(userData);
+  const nonNullUserFields: string[] = getNonNullUserFields(userData);
 
   const percentage: string = (
-    (nonNullUserFields.length / Object.keys(auth).length) *
+    (nonNullUserFields.length /
+      (nullUserFields.length + nonNullUserFields.length)) *
     100
   ).toFixed(0);
 
@@ -44,24 +45,30 @@ const UserProfileForm = () => {
             Basic info, for a faster booking experience
           </p>
           {nonNullUserFields.map((field) => (
-            <NonNullUserInput defaultValue={auth[field]} field={field} />
+            <NonNullUserInput
+              defaultValue={userData[field]}
+              field={field}
+              key={field}
+            />
           ))}
           {nullUserFields.map((field) => (
-            <NullUserFieldInput field={field} />
-          ))}
-        </div>
-        <div className="bg-white rounded-md p-8 text-xs mt-4">
-          <p className="font-bold text-lg">Login details</p>
-          <p className="font-normal text-gray-400">
-            Manage your email address mobile number and password
-          </p>
-          {getNullUserFields(auth.login).map((field) => (
             <NullUserFieldInput field={field} key={field} />
           ))}
-          {getNonNullUserFields(auth.login).map((field) => (
-            <NonNullUserInput defaultValue={auth.login[field]} field={field} />
-          ))}
         </div>
+        {!userData.hasOwnProperty("iss") && (
+          <div className="bg-white rounded-md p-8 text-xs mt-4">
+            <p className="font-bold text-lg">Login details</p>
+            <p className="font-normal text-gray-400">
+              Manage your email address mobile number and password
+            </p>
+            {/* {getNullUserFields(userData).map((field) => (
+              <NullUserFieldInput field={field} key={field} />
+            ))}
+            {getNonNullUserFields(userData).map((field) => (
+              <NonNullUserInput defaultValue={userData[field]} field={field} />
+            ))} */}
+          </div>
+        )}
       </div>
       <UserProfileTabLarge />
     </div>
@@ -70,19 +77,36 @@ const UserProfileForm = () => {
 
 export default UserProfileForm;
 
-const getNullUserFields = (auth: Authenticator | LoginDetails): string[] => {
-  const keys = Object.keys(auth);
-  const myArray: string[] = [];
-  keys.forEach((key) => (auth[key] === null ? myArray.push(key) : null));
+const googleAuthKeys: string[] = [
+  "aud",
+  "azp",
+  "email_verified",
+  "exp",
+  "family_name",
+  "given_name",
+  "iat",
+  "iss",
+  "jti",
+  "nbf",
+  "sub",
+];
 
-  return myArray;
-};
-
-const getNonNullUserFields = (auth: Authenticator | LoginDetails): string[] => {
+const getNullUserFields = (auth: Authenticator): string[] => {
   const keys = Object.keys(auth);
   const myArray: string[] = [];
   keys.forEach((key) =>
-    auth[key] !== null && key !== "profilePicture" && key !== "login"
+    auth[key] === null && !googleAuthKeys.includes(key)
+      ? myArray.push(key)
+      : null
+  );
+  return myArray;
+};
+
+const getNonNullUserFields = (auth: Authenticator): string[] => {
+  const keys = Object.keys(auth);
+  const myArray: string[] = [];
+  keys.forEach((key) =>
+    auth[key] !== null && key !== "picture" && !googleAuthKeys.includes(key)
       ? myArray.push(key)
       : null
   );

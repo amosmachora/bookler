@@ -18,6 +18,10 @@ import HotelSearchResults from "./Components/Hotel/HotelSearchResults";
 import HotelDetails from "./Components/Hotel/HotelDetails";
 import HotelResults from "./Components/Hotel/HotelResults";
 import BookingReview from "./Components/Hotel/BookingReview";
+import UserProfileForm from "./Components/UserProfileForm";
+import LogIn from "./Components/OnBoarding/LogIn";
+import SignUp from "./Components/OnBoarding/SignUp";
+import AuthenticationProvider from "./Components/Contexts/AuthenticationProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -26,38 +30,46 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <MainAppProvider>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route element={<FlightSearchForm />} index />
-            <Route path="flights" element={<FlightSearchForm />} index />
-            <Route path="flights/flight-results" element={<FlightResults />}>
-              <Route path=":flightId" element={<TravelerDetails />} />
-            </Route>
-            <Route path="hotels" element={<HotelSearchForm />} />
-            <Route path="hotels/hotel-results" element={<HotelSearchResults />}>
-              <Route element={<HotelResults />} index />
-              <Route path="hotel-details" element={<HotelDetails />} />
+      <AuthenticationProvider>
+        <MainAppProvider>
+          <Routes>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/onboarding" element={<SignUp />} />
+            <Route path="/" element={<App />}>
+              <Route element={<FlightSearchForm />} index />
+              <Route path="flights" element={<FlightSearchForm />} index />
+              <Route path="flights/flight-results" element={<FlightResults />}>
+                <Route path=":flightId" element={<TravelerDetails />} />
+              </Route>
+              <Route path="hotels" element={<HotelSearchForm />} />
               <Route
-                path="hotel-details/booking-review"
-                element={<BookingReview />}
-              />
-            </Route>
-            <Route path="car-rental" element={<CarRentalSearchForm />} />
-            <Route
-              path="car-rental/car-rental-results"
-              element={<CarRentalSearchResultsProvider />}
-            >
-              <Route element={<CarRentalResults />} index />
-              <Route path="car-details" element={<CarDetails />} />
+                path="hotels/hotel-results"
+                element={<HotelSearchResults />}
+              >
+                <Route element={<HotelResults />} index />
+                <Route path="hotel-details" element={<HotelDetails />} />
+                <Route
+                  path="hotel-details/booking-review"
+                  element={<BookingReview />}
+                />
+              </Route>
+              <Route path="car-rental" element={<CarRentalSearchForm />} />
               <Route
-                path="car-details/booking-review"
-                element={<CarRentalReview />}
-              />
+                path="car-rental/car-rental-results"
+                element={<CarRentalSearchResultsProvider />}
+              >
+                <Route element={<CarRentalResults />} index />
+                <Route path="car-details" element={<CarDetails />} />
+                <Route
+                  path="car-details/booking-review"
+                  element={<CarRentalReview />}
+                />
+              </Route>
+              <Route path="profile" element={<UserProfileForm />} />
             </Route>
-          </Route>
-        </Routes>
-      </MainAppProvider>
+          </Routes>
+        </MainAppProvider>
+      </AuthenticationProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
