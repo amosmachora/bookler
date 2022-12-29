@@ -24,6 +24,8 @@ const AuthenticationProvider = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  console.log(isLoggedIn);
+  console.log(userData);
   useEffect(() => {
     if (userData.email !== null) {
       setIsLoggedIn(true);

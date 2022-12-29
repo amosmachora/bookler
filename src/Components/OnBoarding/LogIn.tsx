@@ -19,8 +19,8 @@ const LogIn = () => {
     setUserData((prevState) => {
       return {
         ...prevState,
-        userName: "Test user",
-        emailAddress: email,
+        name: "Test user",
+        email: email,
         password: password,
       };
     });
@@ -73,6 +73,10 @@ const LogIn = () => {
         </div>
       </div>
       <div className="bg-loginPageBg w-1/2 py-20 px-28 relative">
+        <p className="text-red-500 absolute top-0">
+          Currently the app is in test mode , if google sign in doesnt work just
+          type random characters and hit login
+        </p>
         <div className="flex items-center">
           <img src={Assets.InteractiveStar} alt="star" className="mr-2" />
           <p className="font-semibold text-sm">Interactive Brand</p>
