@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
+import { Dispatch } from "react";
 import { useNavigate } from "react-router";
+import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import { Authenticator } from "../../Types/Contexts";
 
 export const AuthProvider = createContext<{
@@ -12,20 +14,21 @@ const AuthenticationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [userData, setUserData] = useState<Authenticator>({
-    accountType: "Personal Account",
-    picture: null,
-    name: "",
-    email: null,
-    birthday: null,
-    address: null,
-    gender: null,
-  });
+  const [userData, setUserData] = useLocalStorage<Authenticator>(
+    {
+      accountType: "Personal Account",
+      picture: null,
+      name: "",
+      email: null,
+      birthday: null,
+      address: null,
+      gender: null,
+    },
+    "userData"
+  ) as [Authenticator, Dispatch<React.SetStateAction<Authenticator>>];
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  console.log(isLoggedIn);
-  console.log(userData);
   useEffect(() => {
     if (userData.email !== null) {
       setIsLoggedIn(true);

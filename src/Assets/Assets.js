@@ -64,8 +64,10 @@ import LoginPageImage from "./Rectangle.png";
 import InteractiveStar from "./Interactive-star.svg";
 import Google from "./Google.svg";
 import NewYork from "./pexels-praneeth-koduru-6320208.jpg";
+import LogOut from "./icons8-logout-50.png";
 
 export const Assets = {
+  LogOut,
   NewYork,
   Google,
   InteractiveStar,

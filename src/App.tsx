@@ -51,6 +51,11 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [[], devMode]);
 
+  const handleLogOut = () => {
+    localStorage.removeItem("userData");
+    navigate("/login");
+  };
+
   return (
     <FlightsProvider>
       <CarRentalProvider>
@@ -81,13 +86,24 @@ function App() {
                 <Outlet />
               </div>
             </div>
-            <div className="flex absolute right-14 top-[34px]">
+            <div className="flex absolute right-14 top-[34px] items-center">
               <div className="ml-5 rounded-full bg-white/30 backdrop-blur-lg w-44 pr-4 pl-1 pt-1 pb-1 text-white flex items-center justify-between cursor-pointer">
                 <img src={Assets.House} alt="House" />
                 <p className="text-xs">Become A Partner</p>
                 <img src={Assets.DropDown} alt="Drop down" />
               </div>
               <UserProfileTabSmall setMenuWide={setMenuWide} />
+              <div
+                className="ml-2 text-xs flex items-center cursor-pointer"
+                onClick={handleLogOut}
+              >
+                <p className="text-red-600 font-semibold">Log out </p>
+                <img
+                  src={Assets.LogOut}
+                  alt="Log out"
+                  className="h-4 w-4 ml-1"
+                />
+              </div>
             </div>
           </div>
         </HotelProvider>
