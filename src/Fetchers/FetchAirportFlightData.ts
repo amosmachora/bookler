@@ -1,8 +1,9 @@
 import { Airport, Departures } from "../Types/Flights";
 import axios from "axios";
+import DevAirportFlightData from "../Util/AirportFlightData.json";
 
 function getZeroPadded(secondDateHour: number) {
-  if (secondDateHour.toString().length != 2) {
+  if (secondDateHour.toString().length !== 2) {
     return 0 + secondDateHour.toString();
   }
   return secondDateHour.toString();
@@ -30,10 +31,10 @@ const getSearchDates = () => {
   return [firstDate, secondDate];
 };
 
-export const fetchAirportFlightData = (fromAirport: Airport): Departures[] => {
+export const fetchAirportFlightData = async (
+  fromAirport: Airport
+): Promise<Departures[]> => {
   console.log("Searching data for " + fromAirport.name);
-  let departures: Departures[] = [];
-
   const options = {
     method: "GET",
     url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
@@ -53,14 +54,13 @@ export const fetchAirportFlightData = (fromAirport: Airport): Departures[] => {
     },
   };
 
-  axios
+  return await axios
     .request(options)
     .then(function (response) {
-      departures = response.data;
+      return response.data.departures;
     })
     .catch(function (error) {
       console.error(error);
+      return DevAirportFlightData.departures;
     });
-
-  return departures;
 };

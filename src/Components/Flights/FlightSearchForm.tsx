@@ -7,8 +7,9 @@ import { FromAirportInput } from "./FromAirportInput";
 import { ToAirportInput } from "./ToAirportInput";
 import { MainContext } from "../Contexts/MainAppProvider";
 import OffPageLink from "../OffPageLink";
-import AirportSearch from "../SearchModals/AirportSearch";
-import { Airport } from "../../Types/Flights";
+import AirportSearch, {
+  AirportSearchConfig,
+} from "../SearchModals/AirportSearch";
 
 const FlightSearchForm = () => {
   const {
@@ -22,30 +23,39 @@ const FlightSearchForm = () => {
     setDepartureDate,
     setFromAirport,
     setToAirport,
-    outGoingFlights,
   } = useContext(FlightSearchContext);
-  const { menuWide, setMenuWide, airports } = useContext(MainContext);
+  const { menuWide, setMenuWide } = useContext(MainContext);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [searchAirports, setSearchAirports] = useState<Airport[]>(airports);
-  const [searchFormText, setSearchFormText] = useState("");
+  const [config, setConfig] = useState<AirportSearchConfig>({
+    closeFunction: setShowSearchModal,
+    inputPlaceHolder: "Search your desired take off location",
+    mainText: "From Airport",
+    name: "From",
+    setFunction: setFromAirport,
+  });
+
   const departureDateInput = useRef<HTMLInputElement | null>(null);
   const returnDateInput = useRef<HTMLInputElement | null>(null);
 
   const openFromSearchModal = () => {
-    setSearchFormText("From");
-    setSearchAirports(airports);
+    setConfig({
+      ...config,
+      inputPlaceHolder: "Search your desired take off location",
+      mainText: "From Airport",
+      name: "From",
+      setFunction: setFromAirport,
+    });
     setShowSearchModal(true);
   };
 
   const openToSearchModal = () => {
-    setSearchFormText("To");
-    setSearchAirports(
-      airports.filter((airport) =>
-        outGoingFlights
-          .map((flight) => flight.arrival.airport.icao)
-          .includes(airport.icao)
-      )
-    );
+    setConfig({
+      ...config,
+      inputPlaceHolder: "Search your decided  landing location",
+      mainText: "To airport",
+      name: "To",
+      setFunction: setToAirport,
+    });
     setShowSearchModal(true);
   };
 
@@ -149,19 +159,10 @@ const FlightSearchForm = () => {
             </p>
           </div>
           <MoreButton />
-          <OffPageLink to="flights/flight-results" isClickable={isClickable}>
+          <OffPageLink to="/flights/flight-results" isClickable={isClickable}>
             SEARCH FLIGHT
           </OffPageLink>
-          {showSearchModal && (
-            <AirportSearch
-              closeModalFunction={setShowSearchModal}
-              searchAirports={searchAirports}
-              searchFormText={searchFormText}
-              setFunction={
-                searchFormText === "From" ? setFromAirport : setToAirport
-              }
-            />
-          )}
+          {showSearchModal && <AirportSearch config={config} />}
         </div>
       </form>
     </div>

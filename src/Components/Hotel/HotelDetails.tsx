@@ -4,15 +4,14 @@ import { Assets } from "../../Assets/Assets";
 import { fetchHotelDescription } from "../../Fetchers/FetchHotelDescription";
 import { fetchHotelReviews } from "../../Fetchers/FetchHotelReviews";
 import { HotelImage } from "../../Types/Hotel";
-import { HotelReviews } from "../../Types/HotelReviews";
 import { HotelDescription } from "../../Types/HotelDescription";
-import DevHotelReviews from "../../Util/HotelReviews.json";
 import DevHotelDescription from "../../Util/DevHotelDescription.json";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
 import { monthNames } from "../../Util/Helpers";
 import { MainContext } from "../Contexts/MainAppProvider";
 import { HotelSearchResultsContext } from "./HotelSearchResults";
+import { HotelReviews } from "../../Types/HotelReviews";
 
 const HotelDetails = () => {
   const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
@@ -24,7 +23,7 @@ const HotelDetails = () => {
     Math.floor(7 / 2)
   );
   const [hotelReviews, setHotelReviews] =
-    useState<HotelReviews>(DevHotelReviews);
+    useState<HotelReviews>({} as any);
   const [hotelDescription, setHotelDescription] =
     useState<HotelDescription[]>(DevHotelDescription);
 

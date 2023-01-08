@@ -4,7 +4,9 @@ import { isLinkClickable } from "../../Util/Helpers";
 import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import OffPageLink from "../OffPageLink";
-import AirportSearch from "../SearchModals/AirportSearch";
+import AirportSearch, {
+  AirportSearchConfig,
+} from "../SearchModals/AirportSearch";
 import TimePicker from "../TimePicker";
 import { CarRentalSearchContext } from "./CarRentalProvider";
 
@@ -26,10 +28,9 @@ const CarRentalSearchForm = () => {
     setPickUpLocation,
   } = useContext(CarRentalSearchContext);
 
-  const { setMenuWide, airports } = useContext(MainContext);
+  const { setMenuWide } = useContext(MainContext);
 
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [searchFormText, setSearchFormText] = useState("");
 
   useEffect(() => {
     setMenuWide(true);
@@ -50,14 +51,19 @@ const CarRentalSearchForm = () => {
 
   const isClickable: boolean = isLinkClickable(...args);
 
+  let config: AirportSearchConfig = {
+    closeFunction: setShowSearchModal,
+    inputPlaceHolder: "Search pick up location",
+    mainText: "Pick Up location",
+    name: "Pick up location",
+    setFunction: setPickUpLocation,
+  };
+
   return (
     <div className="bg-white flex flex-wrap justify-between rounded-lg py-8 px-9 mt-5 gap-y-4 transition-all">
       <div
         className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
-        onClick={() => {
-          setSearchFormText("Pick up location");
-          setShowSearchModal(true);
-        }}
+        onClick={() => setShowSearchModal(true)}
       >
         <div className="flex">
           <img src={Assets.LocationPointer} alt="Location pointer" />
@@ -76,7 +82,13 @@ const CarRentalSearchForm = () => {
         <div
           className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
           onClick={() => {
-            setSearchFormText("Drop off location");
+            config = {
+              ...config,
+              inputPlaceHolder: "Search drop off location",
+              mainText: "Drop off location",
+              setFunction: setDropOffLocation,
+              name: "Drop off location",
+            };
             setShowSearchModal(true);
           }}
         >
@@ -121,18 +133,7 @@ const CarRentalSearchForm = () => {
         />
         <p>Drop car off at different location</p>
       </div>
-      {showSearchModal && (
-        <AirportSearch
-          closeModalFunction={setShowSearchModal}
-          searchAirports={airports}
-          searchFormText={searchFormText}
-          setFunction={
-            searchFormText === "Pick up location"
-              ? setPickUpLocation
-              : setDropOffLocation
-          }
-        />
-      )}
+      {showSearchModal && <AirportSearch config={config} />}
     </div>
   );
 };

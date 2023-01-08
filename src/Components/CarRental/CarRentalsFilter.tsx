@@ -4,6 +4,7 @@ import {
   CarRentalSearchResultsContext,
   getArrayOfObjects,
 } from "./CarRentalSearchResultsProvider";
+import LineGraph from "./LineGraph";
 
 const CarRentalsFilter = () => {
   const [appliedFilters, setAppliedFilters] = useState<string | null>(null);
@@ -49,7 +50,7 @@ const CarRentalsFilter = () => {
     <div className="w-1/5 overflow-hidden rounded-md h-[68vh] relative">
       <p className="bg-flightResultsBg font-bold text-lg py-3 px-5">Filters</p>
       <div className="p-5 bg-white text-sm rounded-b-md">
-        <p className="font-semibold">Price</p>
+        {/* <LineGraph prices={prices} /> */}
         <input type="range" className="w-full" />
         <p className="font-semibold mt-7 mb-5">Looking for</p>
         <select

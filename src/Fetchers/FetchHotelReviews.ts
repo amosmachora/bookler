@@ -1,5 +1,6 @@
 import axios from "axios";
 import { HotelReviews } from "../Types/HotelReviews";
+import DevHotelReviews from "../Util/HotelReviews.json";
 
 export const fetchHotelReviews = (hotel_id: string): Promise<HotelReviews> => {
   const options = {
@@ -27,5 +28,6 @@ export const fetchHotelReviews = (hotel_id: string): Promise<HotelReviews> => {
     })
     .catch(function (error) {
       console.error(error);
+      return DevHotelReviews;
     });
 };

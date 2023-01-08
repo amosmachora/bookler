@@ -34,7 +34,7 @@ export type SuggestedLocations = {
  * @param Location A location string.
  */
 export const fetchSuggestedLocations = async (
-  Location: string | undefined
+  Location: string
 ): Promise<SuggestedLocations[]> => {
   const options = {
     method: "GET",

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import CarRentalSearchParameters from "./CarRentalSearchParameters";
-import DevCarRentals from "../../Util/CarRentals.json";
 import {
   CarRentalSearchResultsType,
   PartnerLocation,
@@ -26,7 +25,7 @@ export const CarRentalSearchResultsContext = createContext<{
 
 const CarRentalSearchResultsProvider = () => {
   const [carRentalData, setCarRentalData] =
-    useState<CarRentalSearchResultsType>(DevCarRentals);
+    useState<CarRentalSearchResultsType>({} as any);
   const { devMode } = useContext(MainContext);
   const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } = useContext(
     CarRentalSearchContext
@@ -39,7 +38,7 @@ const CarRentalSearchResultsProvider = () => {
     carRentalData.vehicleRates
   );
 
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide, setIsLoading } = useContext(MainContext);
 
   useEffect(() => {
     setMenuWide(false);
@@ -49,12 +48,14 @@ const CarRentalSearchResultsProvider = () => {
   //TODO Remember to fix locations.
   useEffect(() => {
     if (!devMode) {
+      setIsLoading(true);
       fetchCarRentals(
         "JFK",
         getConcatenatedDate(dropOffDate, dropOffTime!),
         getConcatenatedDate(pickUpDate, pickUpTime!),
         "JFK"
       ).then((res) => setCarRentalData(res));
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [[], devMode]);

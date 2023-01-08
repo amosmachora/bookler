@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
 import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
-import PropertyList from "../../Util/PropertyListByDestId.json";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import { HotelInfo, SelectedHotel } from "../../Types/Hotel";
@@ -32,14 +31,13 @@ const HotelSearchResults = () => {
     travelingForWorkCheckBox,
   } = useContext(HotelSearchContext);
 
-  const [propertyList, setPropertyList] =
-    useState<PropertyListType>(PropertyList);
+  const [propertyList, setPropertyList] = useState<PropertyListType>({} as any);
   const [hotelList, setHotelList] = useState<HotelInfo[]>(propertyList.result);
   const [sortBy, setSortBy] = useState<string>(
     propertyList.sorting.selected_identifier
   );
   const [filterBy, setFilterBy] = useState<Array<string>>([]);
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide, setIsLoading } = useContext(MainContext);
 
   useEffect(() => {
     setMenuWide(false);
@@ -48,7 +46,8 @@ const HotelSearchResults = () => {
 
   useEffect(() => {
     if (!devMode) {
-      fetchSuggestedLocations(targetHotelLocation?.city).then((res) => {
+      setIsLoading(true);
+      fetchSuggestedLocations(targetHotelLocation?.city!).then((res) => {
         const cityLocation = res.filter((res) => res.dest_type === "city");
         fetchPropertyListByDestId(
           getDateFromIsoString(checkInDate),
@@ -62,6 +61,7 @@ const HotelSearchResults = () => {
           cleaned(filterBy)
         ).then((res) => setPropertyList(res));
       });
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [devMode, sortBy, filterBy]);

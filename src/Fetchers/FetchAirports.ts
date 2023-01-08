@@ -1,22 +1,24 @@
+import axios from "axios";
 import { Airport } from "../Types/Flights";
+import DevAirports from "../Util/Airports.json";
 
 export const fetchAirports = async (): Promise<Airport[]> => {
-  let airports: Airport[] = [];
-
   const options = {
     method: "GET",
+    url: "https://flight-radar1.p.rapidapi.com/airports/list",
     headers: {
-      "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
+      "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
       "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
     },
   };
 
-  return fetch("https://flight-radar1.p.rapidapi.com/airports/list", options)
-    .then((response) => response.json())
-    .then((response) => {
-      return (airports = response.rows);
+  return await axios
+    .request(options)
+    .then(function (response) {
+      return response.data.rows;
     })
-    .catch((err) => {
-      console.error(err);
+    .catch(function (error) {
+      console.error(error);
+      return DevAirports.rows;
     });
 };

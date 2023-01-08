@@ -3,12 +3,7 @@ import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
-import Overlay from "./Components/Overlay";
 import UserProfileTabSmall from "./Components/UserProfileTabSmall";
-import Reach from "./Components/Reach/Reach";
-import { fetchAirports } from "./Fetchers/FetchAirports";
-import { fetchAirlines } from "./Fetchers/FetchAirlines";
-import { fetchCountryList } from "./Fetchers/FetchCountryList";
 import { Outlet, useNavigate } from "react-router";
 import { MainContext } from "./Components/Contexts/MainAppProvider";
 import FlightsProvider from "./Components/Flights/FlightsProvider";
@@ -17,16 +12,7 @@ import HotelProvider from "./Components/Hotel/HotelProvider";
 import { AuthProvider } from "./Components/Contexts/AuthenticationProvider";
 
 function App() {
-  const {
-    setAirports,
-    setCountryList,
-    setAirlines,
-    setIsLoading,
-    setMenuWide,
-    isLoading,
-    menuWide,
-    devMode,
-  } = useContext(MainContext);
+  const { setMenuWide, menuWide } = useContext(MainContext);
 
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(AuthProvider);
@@ -37,31 +23,11 @@ function App() {
     }
   }, [isLoggedIn, navigate]);
 
-  useEffect(() => {
-    const initializeApplication = async () => {
-      await fetchAirports().then((res) => setAirports(res));
-      await fetchCountryList().then((res) => setCountryList(res));
-      await fetchAirlines().then((res) => setAirlines(res));
-    };
-    if (!devMode) {
-      setIsLoading(true);
-      initializeApplication();
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [[], devMode]);
-
   return (
     <FlightsProvider>
       <CarRentalProvider>
         <HotelProvider>
           <div className="App w-full">
-            {isLoading && (
-              <>
-                <Overlay />
-                <Reach />
-              </>
-            )}
             <BackGround menuWide={menuWide} />
             <div className="flex relative">
               <Menu menuWide={menuWide} setMenuWide={setMenuWide} />

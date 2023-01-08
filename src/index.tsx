@@ -36,7 +36,6 @@ root.render(
             <Route path="/login" element={<LogIn />} />
             <Route path="/onboarding" element={<SignUp />} />
             <Route path="/" element={<App />}>
-              <Route element={<FlightSearchForm />} index />
               <Route path="flights" element={<FlightSearchForm />} index />
               <Route path="flights/flight-results" element={<FlightResults />}>
                 <Route path=":flightId" element={<TravelerDetails />} />

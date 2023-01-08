@@ -1,10 +1,10 @@
 import axios from "axios";
 import { SingleFlightData } from "../Types/Flights";
+import DevExtraFlightData from "../Util/DevExtraFlightData.json";
 
-export const fetchExtraFlightData = (
-  flightNumber: string | undefined
-): SingleFlightData | undefined => {
-  let flightData: SingleFlightData | undefined = undefined;
+export const fetchExtraFlightData = async (
+  flightNumber: string
+): Promise<SingleFlightData> => {
   const options = {
     method: "GET",
     url: "https://flight-radar1.p.rapidapi.com/flights/get-more-info",
@@ -14,13 +14,13 @@ export const fetchExtraFlightData = (
       "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
     },
   };
-  axios
+  return await axios
     .request(options)
     .then(function (response) {
-      flightData = response.data;
+      return response.data;
     })
     .catch(function (error) {
       console.error(error);
+      return DevExtraFlightData;
     });
-  return flightData;
 };

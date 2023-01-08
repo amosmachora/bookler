@@ -21,7 +21,7 @@ const HotelSearchForm = () => {
     setTargetHotelLocation,
   } = useContext(HotelSearchContext);
 
-  const { setMenuWide, airports } = useContext(MainContext);
+  const { setMenuWide } = useContext(MainContext);
 
   useEffect(() => {
     setMenuWide(true);
@@ -102,10 +102,13 @@ const HotelSearchForm = () => {
         </OffPageLink>
         {showSearchModal && (
           <AirportSearch
-            closeModalFunction={setShowSearchModal}
-            searchAirports={airports}
-            searchFormText="Hotel"
-            setFunction={setTargetHotelLocation}
+            config={{
+              closeFunction: setShowSearchModal,
+              inputPlaceHolder: "Search hotel location",
+              mainText: "Hotel",
+              name: "Hotel",
+              setFunction: setTargetHotelLocation,
+            }}
           />
         )}
       </div>

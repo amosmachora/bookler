@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Airline } from "../Types/Flights";
+import devAirlines from "../Util/Airlines.json";
 
 export const fetchAirlines = async (): Promise<Airline[]> => {
   const options = {
@@ -18,5 +19,6 @@ export const fetchAirlines = async (): Promise<Airline[]> => {
     })
     .catch(function (error) {
       console.error(error);
+      return devAirlines.rows;
     });
 };

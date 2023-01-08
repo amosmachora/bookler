@@ -1,18 +1,13 @@
 import { Rating } from "../../Components/Rating";
 import React, { useContext, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
-import {
-  fetchHotelImages,
-  getCleanedArrayOfImageObjects,
-} from "../../Fetchers/FetchHotelImages";
+import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
 import {
   Facility,
   GoogleMapsCenter,
   HotelImage,
   HotelInfo,
 } from "../../Types/Hotel";
-import DevHotelImages from "../../Util/HotelImages.json";
-import Facilities from "../../Util/Facilities.json";
 import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import { MainContext } from "../Contexts/MainAppProvider";
@@ -34,12 +29,9 @@ const HotelData = ({
   activeTab: string | null;
   setActiveTab: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
-  const [hotelImages, setHotelImages] = useState<HotelImage[]>(
-    getCleanedArrayOfImageObjects(DevHotelImages)
-  );
-  const { devMode } = useContext(MainContext);
-  const [hotelFacilities, setHotelFacilities] =
-    useState<Facility[]>(Facilities);
+  const [hotelImages, setHotelImages] = useState<HotelImage[]>([]);
+  const { devMode, setIsLoading } = useContext(MainContext);
+  const [hotelFacilities, setHotelFacilities] = useState<Facility[]>([]);
   const [showAllFacilities, setShowAllFacilities] = useState<boolean>(false);
   const { setSelectedHotelInfo } = useContext(HotelSearchResultsContext);
 
@@ -53,9 +45,12 @@ const HotelData = ({
       );
     };
     if (!devMode) {
+      setIsLoading(true);
       fetchData();
+      setIsLoading(false);
     }
-  }, [devMode, hotelInfo.hotel_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
 

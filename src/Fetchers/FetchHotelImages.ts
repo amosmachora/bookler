@@ -1,5 +1,6 @@
 import axios from "axios";
 import { DirtyHotelImages, HotelImage, tags } from "../Types/Hotel";
+import DevHotelImages from "../Util/HotelImages.json";
 
 /**
  * @JsDoc
@@ -21,13 +22,14 @@ export const fetchHotelImages = async (
     },
   };
 
-  let response = await axios
+  let response: DirtyHotelImages = await axios
     .request(options)
     .then(function (response) {
       return response.data;
     })
     .catch(function (error) {
       console.error(error);
+      return DevHotelImages;
     });
 
   return getCleanedArrayOfImageObjects(response);

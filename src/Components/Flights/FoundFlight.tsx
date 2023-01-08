@@ -3,7 +3,6 @@ import { Assets } from "../../Assets/Assets";
 import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
 import BookButton from "./BookButton";
 import { Airline } from "../../Types/Flights";
-import DevExtraFlightData from "../../Util/DevExtraFlightData.json";
 import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
 import { BookingContext } from "./FlightResults";
@@ -19,16 +18,17 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
   const { fromAirport, toAirport } = useContext(FlightSearchContext);
   const { airlines } = useContext(MainContext);
   const { booking } = useContext(BookingContext);
-  const [extraFlightData, setExtraFlightData] = useState<
-    SingleFlightData | undefined
-  >(DevExtraFlightData);
-  const { devMode } = useContext(MainContext);
+  const [extraFlightData, setExtraFlightData] = useState<SingleFlightData>();
+  const { devMode, setIsLoading } = useContext(MainContext);
   const [showDetails, setShowDetails] = useState<Boolean>(false);
 
   useEffect(() => {
     if (!devMode) {
-      const flightData = fetchExtraFlightData(foundFlight.aircraft.reg);
-      setExtraFlightData(flightData);
+      setIsLoading(true);
+      fetchExtraFlightData(foundFlight.aircraft.reg!).then((res) =>
+        setExtraFlightData(res)
+      );
+      setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

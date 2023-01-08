@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CarRentalSearchResultsType } from "../Types/CarRentals";
+import DevCarRentals from "../Util/CarRentals.json";
 
 /**
  * @param pickUpLocation String of the format "JFK"
@@ -36,5 +37,6 @@ export const fetchCarRentals = async (
     })
     .catch(function (error) {
       console.error(error);
+      return DevCarRentals;
     });
 };

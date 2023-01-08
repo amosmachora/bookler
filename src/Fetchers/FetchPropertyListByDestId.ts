@@ -1,5 +1,6 @@
 import axios from "axios";
 import { PropertyListType } from "../Types/PropertyList";
+import PropertyList from "../Util/PropertyListByDestId.json";
 
 /**
  * List properties having type of resorts, hotels, motels, hostels, etc as on official site
@@ -55,5 +56,6 @@ export const fetchPropertyListByDestId = async (
     })
     .catch(function (error) {
       console.error(error);
+      return PropertyList;
     });
 };
