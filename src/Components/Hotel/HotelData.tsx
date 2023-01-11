@@ -1,69 +1,39 @@
 import { Rating } from "../../Components/Rating";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Assets } from "../../Assets/Assets";
-import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
-import {
-  Facility,
-  GoogleMapsCenter,
-  HotelImage,
-  HotelInfo,
-} from "../../Types/Hotel";
-import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
+import { CompleteHotel, GoogleMapsCenter } from "../../Types/Hotel";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
-import { MainContext } from "../Contexts/MainAppProvider";
 import { Link } from "react-router-dom";
 import { HotelSearchResultsContext } from "./HotelSearchResults";
 
 const HotelData = ({
-  hotelInfo,
+  hotelData,
   setShowMapFunction,
   mapShown,
   setMapCenter,
   activeTab,
   setActiveTab,
 }: {
-  hotelInfo: HotelInfo;
+  hotelData: CompleteHotel;
   setShowMapFunction: React.Dispatch<React.SetStateAction<boolean>>;
   mapShown: boolean;
   setMapCenter: React.Dispatch<React.SetStateAction<GoogleMapsCenter>>;
   activeTab: string | null;
   setActiveTab: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
-  const [hotelImages, setHotelImages] = useState<HotelImage[]>([]);
-  const { devMode, setIsLoading } = useContext(MainContext);
-  const [hotelFacilities, setHotelFacilities] = useState<Facility[]>([]);
   const [showAllFacilities, setShowAllFacilities] = useState<boolean>(false);
   const { setSelectedHotelInfo } = useContext(HotelSearchResultsContext);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchHotelImages(hotelInfo.hotel_id).then((res) =>
-        setHotelImages(res)
-      );
-      await fetchHotelFacilities(hotelInfo.hotel_id.toString()).then((res) =>
-        setHotelFacilities(res)
-      );
-    };
-    if (!devMode) {
-      setIsLoading(true);
-      fetchData();
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const isBookingAllowed: boolean = hotelInfo.soldout === 0 ? true : false;
-
+  const isBookingAllowed: boolean =
+    hotelData.hotelInfo.soldout === 0 ? true : false;
   const smallCircleClasses: string =
     "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
 
   /**
-   *
    * @param image_type A image type string e.g "Property Building"
    * @returns imageUrl of the specified image
    */
   const getSpecificImage = (image_type: string): string | undefined => {
-    return hotelImages.find((image) => image.tag_name === image_type)
+    return hotelData.hotelImages.find((image) => image.tag_name === image_type)
       ?.img_url_large;
   };
 
@@ -98,7 +68,7 @@ const HotelData = ({
   return (
     <div
       className={`bg-white rounded-md h-48 ${
-        activeTab === hotelInfo.hotel_name
+        activeTab === hotelData.hotelInfo.hotel_name
           ? "shadow-md border-2 my-2 border-red-400"
           : "mb-1 border-0"
       } transition-all`}
@@ -172,16 +142,18 @@ const HotelData = ({
             className={`${mapShown ? "flex justify-between items-start" : ""}`}
           >
             <p className={`font-bold ${mapShown ? "text-sm" : "text-lg"}`}>
-              {hotelInfo.hotel_name}
+              {hotelData.hotelInfo.hotel_name}
             </p>
             <Rating
               mapShown={mapShown}
-              rating={((hotelInfo.review_score / 10) * 5).toFixed(1)}
+              rating={((hotelData.hotelInfo.review_score / 10) * 5).toFixed(1)}
             />
           </div>
           <div className={`flex justify-between ${mapShown ? "mt-3" : ""}`}>
-            <p className="font-semibold text-xs">{hotelInfo.address}</p>
-            {activeTab === hotelInfo.hotel_name ? (
+            <p className="font-semibold text-xs">
+              {hotelData.hotelInfo.address}
+            </p>
+            {activeTab === hotelData.hotelInfo.hotel_name ? (
               <p
                 className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
                 onClick={() => {
@@ -196,10 +168,10 @@ const HotelData = ({
                 className="text-xs uppercase text-red-600 font-bold cursor-pointer hover:text-red-500"
                 onClick={() => {
                   setShowMapFunction(true);
-                  setActiveTab(hotelInfo.hotel_name);
+                  setActiveTab(hotelData.hotelInfo.hotel_name);
                   setMapCenter({
-                    lat: hotelInfo.latitude,
-                    lng: hotelInfo.longitude,
+                    lat: hotelData.hotelInfo.latitude,
+                    lng: hotelData.hotelInfo.longitude,
                   });
                 }}
               >
@@ -214,7 +186,7 @@ const HotelData = ({
                 : `h-4 overflow-y-hidden`
             } w-full flex flex-wrap my-3 relative`}
           >
-            {hotelFacilities.map((facility, index) => (
+            {hotelData.hotelFacilities.map((facility, index) => (
               <LittleFacilityDisplay
                 facility={facility}
                 key={index}
@@ -236,7 +208,7 @@ const HotelData = ({
             <div className={`${mapShown ? "w-[30%]" : "flex"}`}>
               <p className="text-yellow-500 text-xs font-light mr-2">25% off</p>
               <p className="font-bold">
-                ${hotelInfo.price_breakdown.all_inclusive_price}
+                ${hotelData.hotelInfo.price_breakdown.all_inclusive_price}
               </p>
             </div>
             <div className={`text-xs ${mapShown ? "w-[70%]" : ""} flex`}>
@@ -248,9 +220,9 @@ const HotelData = ({
                 } rounded-md font-semibold transition-all border-2 border-transparent`}
                 onClick={() => {
                   setSelectedHotelInfo({
-                    hotelFacilities: hotelFacilities,
-                    hotelInfo: hotelInfo,
-                    hotelImages: hotelImages,
+                    hotelFacilities: hotelData.hotelFacilities,
+                    hotelInfo: hotelData.hotelInfo,
+                    hotelImages: hotelData.hotelImages,
                   });
                 }}
                 to="hotel-details"
@@ -264,7 +236,7 @@ const HotelData = ({
                       ? "text-blue-600 font-semibold px-1 hover:border-blue-600 transition-all"
                       : "bg-blue-600 text-white px-5 hover:bg-blue-400"
                   } rounded-md transition-all disabled:cursor-not-allowed py-3 border-2 border-transparent`}
-                  href={hotelInfo.url}
+                  href={hotelData.hotelInfo.url}
                   target="_blank"
                   rel="noreferrer"
                 >

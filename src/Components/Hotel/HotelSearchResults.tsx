@@ -4,15 +4,15 @@ import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
 import HotelSearchParameters from "./HotelSearchParameters";
 import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
-import { HotelInfo, SelectedHotel } from "../../Types/Hotel";
+import { SelectedHotel } from "../../Types/Hotel";
 import { HotelSearchContext } from "./HotelProvider";
 import { MainContext } from "../Contexts/MainAppProvider";
 import { Outlet } from "react-router";
+import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
 
 export const HotelSearchResultsContext = createContext<{
-  hotelList: HotelInfo[];
   selectedHotelInfo: SelectedHotel | null;
-  propertyList: PropertyListType;
+  propertyList: PropertyListType | null;
   sortBy: string;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   setFilterBy: React.Dispatch<React.SetStateAction<string[]>>;
@@ -30,19 +30,20 @@ const HotelSearchResults = () => {
     targetHotelLocation,
     travelingForWorkCheckBox,
   } = useContext(HotelSearchContext);
-
-  const [propertyList, setPropertyList] = useState<PropertyListType>({} as any);
-  const [hotelList, setHotelList] = useState<HotelInfo[]>(propertyList.result);
-  const [sortBy, setSortBy] = useState<string>(
-    propertyList.sorting.selected_identifier
-  );
-  const [filterBy, setFilterBy] = useState<Array<string>>([]);
   const { setMenuWide, setIsLoading } = useContext(MainContext);
+
+  const [propertyList, setPropertyList] = useState<PropertyListType | null>(
+    null
+  );
+  const [sortBy, setSortBy] = useState<string>("");
+  const [filterBy, setFilterBy] = useState<Array<string>>([]);
 
   useEffect(() => {
     setMenuWide(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useUpdateLogger(propertyList, "PropertyList");
 
   useEffect(() => {
     if (!devMode) {
@@ -66,17 +67,12 @@ const HotelSearchResults = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [devMode, sortBy, filterBy]);
 
-  useEffect(() => {
-    setHotelList(propertyList.result);
-  }, [propertyList]);
-
   const [selectedHotelInfo, setSelectedHotelInfo] =
     useState<SelectedHotel | null>(null);
 
   return (
     <HotelSearchResultsContext.Provider
       value={{
-        hotelList,
         setFilterBy,
         setSelectedHotelInfo,
         setSortBy,

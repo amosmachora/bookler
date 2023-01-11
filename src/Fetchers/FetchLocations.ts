@@ -29,6 +29,8 @@ export type SuggestedLocations = {
   city_name: string;
 };
 
+//todo add json data back up.
+
 /**
  * List of suggested locations by countries, cities, districts, places name.
  * @param Location A location string.

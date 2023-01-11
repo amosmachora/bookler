@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Facility } from "../Types/Hotel";
-import Facilities from "../Util/Facilities.json";
+import DevFacilities from "../Util/Facilities.json";
 
 /**
  * @param hotel_id hotel_id of the hotel whose facilities you want to get.
@@ -26,6 +26,6 @@ export const fetchHotelFacilities = async (
     })
     .catch(function (error) {
       console.error(error);
-      return Facilities;
+      return DevFacilities;
     });
 };

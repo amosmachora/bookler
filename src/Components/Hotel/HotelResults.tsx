@@ -1,12 +1,15 @@
-import React, { useContext, useState } from "react";
-import { GoogleMapsCenter } from "../../Types/Hotel";
+import React, { useContext, useEffect, useState } from "react";
+import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
+import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
+import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
+import { CompleteHotel, GoogleMapsCenter, HotelInfo } from "../../Types/Hotel";
 import HotelData from "./HotelData";
 import HotelFilter from "./HotelFilter";
 import { HotelSearchResultsContext } from "./HotelSearchResults";
 import Map from "./Map";
 
 const HotelResults = () => {
-  const { propertyList, setSortBy, sortBy, hotelList } = useContext(
+  const { propertyList, setSortBy, sortBy } = useContext(
     HotelSearchResultsContext
   );
   const [mapShown, setMapShown] = useState<boolean>(false);
@@ -15,6 +18,23 @@ const HotelResults = () => {
     lng: 0,
   });
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [completeHotelsList, setCompleteHotelsList] = useState<CompleteHotel[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  useUpdateLogger(completeHotelsList, "CompleteHotelsList");
+
+  useEffect(() => {
+    if (propertyList) {
+      setIsLoading(true);
+      fetchExtraHotelsData(propertyList.result).then((res) => {
+        setCompleteHotelsList(res);
+        setIsLoading(false);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propertyList]);
 
   return (
     <div className="flex justify-between h-[87vh] mb-8">
@@ -25,24 +45,28 @@ const HotelResults = () => {
           <p className="text-sm font-semibold">
             Total{" "}
             <span className="text-sky-500 font-normal">
-              {propertyList.result.length} results
+              {propertyList === null ? 0 : propertyList.result.length} results
             </span>
           </p>
           <div className="flex items-center flex-wrap text-xs text-gray-400 w-max">
-            {propertyList.sort.map((sortOption) => (
-              <p
-                className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
-                  sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
-                }`}
-                onClick={() => setSortBy(sortOption.id)}
-                key={sortOption.id}
-              >
-                {sortOption.name}
-              </p>
-            ))}
-            {propertyList.applied_filters.map((appliedFilter) => (
-              <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
-            ))}
+            {propertyList === null
+              ? null
+              : propertyList.sort.map((sortOption) => (
+                  <p
+                    className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
+                      sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
+                    }`}
+                    onClick={() => setSortBy(sortOption.id)}
+                    key={sortOption.id}
+                  >
+                    {sortOption.name}
+                  </p>
+                ))}
+            {propertyList === null
+              ? null
+              : propertyList.applied_filters.map((appliedFilter) => (
+                  <p className="text-xs py-1 mx-1 px-2">{appliedFilter.name}</p>
+                ))}
           </div>
           <div className="h-5 w-[1px] bg-gray-300 mx-3" />
           <div className="flex items-center">
@@ -57,17 +81,19 @@ const HotelResults = () => {
               mapShown ? "w-[44%]" : ""
             } `}
           >
-            {hotelList.map((hotelInfo) => (
-              <HotelData
-                hotelInfo={hotelInfo}
-                key={hotelInfo.hotel_id}
-                setShowMapFunction={setMapShown}
-                mapShown={mapShown}
-                setMapCenter={setMapCenter}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            ))}
+            {isLoading
+              ? "Is Loading!!!"
+              : completeHotelsList.map((hotel) => (
+                  <HotelData
+                    hotelData={hotel}
+                    key={hotel.hotelInfo.hotel_id}
+                    setShowMapFunction={setMapShown}
+                    mapShown={mapShown}
+                    setMapCenter={setMapCenter}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                  />
+                ))}
           </div>
           {mapShown && mapCenter !== null && (
             <Map center={mapCenter} width="w-[55%]" />
@@ -75,11 +101,42 @@ const HotelResults = () => {
         </div>
       </div>
       <HotelFilter
-        baseFilters={propertyList.base_filters}
-        recommendedFilters={propertyList.recommended_filters}
+        baseFilters={propertyList === null ? [] : propertyList.base_filters}
+        recommendedFilters={
+          propertyList === null ? [] : propertyList.recommended_filters
+        }
       />
     </div>
   );
 };
 
 export default HotelResults;
+
+function fetchExtraHotelsData(
+  hotelList: HotelInfo[]
+): Promise<CompleteHotel[]> {
+  const CompleteHotelArray: CompleteHotel[] = [];
+  return new Promise<CompleteHotel[]>((resolve, reject) => {
+    hotelList.forEach((hotel, index) => {
+      setTimeout(() => {
+        fetchHotelImages(parseInt(hotel.hotel_id.toString()))
+          .then((hotelImages) => {
+            console.log(hotelImages, hotel.hotel_name + "`s images");
+            fetchHotelFacilities(hotel.hotel_id.toString()).then((facilities) =>
+              CompleteHotelArray.push({
+                hotelFacilities: facilities,
+                hotelImages: hotelImages,
+                hotelInfo: hotel,
+              })
+            );
+          })
+          .then(() => {
+            if (index === hotelList.length - 1) {
+              resolve(CompleteHotelArray);
+            }
+          })
+          .catch((error) => reject(error));
+      }, 2000 * index);
+    });
+  });
+}

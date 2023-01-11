@@ -1,5 +1,6 @@
 import axios from "axios";
 import { HotelDescription } from "../Types/HotelDescription";
+import DevHotelDescription from "../Util/DevHotelDescription.json";
 
 export const fetchHotelDescription = (
   hotel_id: string
@@ -21,5 +22,6 @@ export const fetchHotelDescription = (
     })
     .catch(function (error) {
       console.error(error);
+      return DevHotelDescription;
     });
 };

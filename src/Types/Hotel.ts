@@ -113,6 +113,12 @@ export type HotelInfo = {
   zip: string;
 };
 
+export type CompleteHotel = {
+  hotelInfo: HotelInfo;
+  hotelImages: HotelImage[];
+  hotelFacilities: Facility[];
+};
+
 export interface DirtyHotelImages {
   categories: any[];
   data: Data;

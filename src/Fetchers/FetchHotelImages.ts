@@ -32,11 +32,8 @@ export const fetchHotelImages = async (
       return DevHotelImages;
     });
 
-  return getCleanedArrayOfImageObjects(response);
+  return getCleanedArrayOfImageObjects(response, hotel_id.toString());
 };
-
-//TODO don`t forget to fix this
-const tempHotelId: number = 25924;
 
 /**
  *  The getCleanedArrayOfImageObjects function takes a single argument, hotelImages,
@@ -45,12 +42,13 @@ const tempHotelId: number = 25924;
  *  The getTagName function is used to extract the tag_name from the input data.
  */
 export const getCleanedArrayOfImageObjects = (
-  hotelImages: DirtyHotelImages
+  hotelImages: DirtyHotelImages,
+  hotelId: string
 ): HotelImage[] => {
-  if (!hotelImages || !hotelImages.data || !hotelImages.data[tempHotelId]) {
+  if (!hotelImages || !hotelImages.data || !hotelImages.data[hotelId]) {
     return [];
   }
-  return hotelImages.data[tempHotelId]
+  return hotelImages.data[hotelId]
     .map((hotelImage) => {
       return {
         tag_name: getTagName(hotelImage[1]),
