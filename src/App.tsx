@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
@@ -20,8 +21,10 @@ function App() {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
+    } else {
+      navigate("/flights");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn]);
 
   return (
     <FlightsProvider>

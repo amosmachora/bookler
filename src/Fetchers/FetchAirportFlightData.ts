@@ -28,7 +28,10 @@ const getSearchDates = () => {
     getZeroPadded(secondDateHour) +
     firstDate.substring(13);
 
-  return [firstDate, secondDate];
+  return {
+    firstDate,
+    secondDate,
+  };
 };
 
 export const fetchAirportFlightData = async (
@@ -39,7 +42,7 @@ export const fetchAirportFlightData = async (
     method: "GET",
     url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
       fromAirport.icao
-    }/${getSearchDates()[0]}/${getSearchDates()[1]}`,
+    }/${getSearchDates().firstDate}/${getSearchDates().secondDate}`,
     params: {
       withLeg: "true",
       withCancelled: "true",
