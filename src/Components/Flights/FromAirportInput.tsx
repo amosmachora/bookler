@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Assets } from "../../Assets/Assets";
-import { FlightSearchContext } from "./FlightsProvider";
+import { useUserFlightData } from "./useUserFlightData";
 
 export function FromAirportInput({
   openSearchModal,
 }: {
   openSearchModal: () => void;
 }) {
-  const { fromAirport } = useContext(FlightSearchContext);
+  const { fromAirport } = useUserFlightData();
   return (
     <div className="Option w-[32.8%]" onClick={() => openSearchModal()}>
       <div className="flex">

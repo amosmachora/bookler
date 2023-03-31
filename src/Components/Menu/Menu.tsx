@@ -1,43 +1,43 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Assets } from "../../Assets/Assets";
-import { getBaseUrl, shouldMenuBeWide } from "../../Util/Helpers";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Assets } from '../../Assets/Assets';
+import { getBaseUrl, shouldMenuBeWide } from '../../Util/Helpers';
 
 const menuLinks = [
   {
-    to: "/",
+    to: '/',
     imgSrc: Assets.Home,
-    name: "Home",
+    name: 'Home',
   },
   {
-    to: "/profile",
+    to: '/profile',
     imgSrc: Assets.PersonClipArt,
-    name: "Profile",
+    name: 'Profile',
   },
   {
-    to: "/wallet",
+    to: '/wallet',
     imgSrc: Assets.Wallet,
-    name: "Wallet",
+    name: 'Wallet',
   },
   {
-    to: "/booking",
+    to: '/booking',
     imgSrc: Assets.Booking,
-    name: "Booking",
+    name: 'Booking',
   },
   {
-    to: "/business",
+    to: '/business',
     imgSrc: Assets.Business,
-    name: "Business",
+    name: 'Business',
   },
   {
-    to: "/explore",
+    to: '/explore',
     imgSrc: Assets.Explore,
-    name: "Explore",
+    name: 'Explore',
   },
   {
-    to: "/support",
+    to: '/support',
     imgSrc: Assets.Support,
-    name: "Support",
+    name: 'Support',
   },
 ];
 
@@ -47,9 +47,9 @@ const Menu = () => {
 
   return (
     <div
-      className={`h-[90vh] ${
-        menuWide ? `w-[17.14%]` : `w-[5.71%]`
-      } bg-blue-600 text-white text-sm z-0 fixed top-0 ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
+      className={`h-[90vh]  bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all relative ${
+        menuWide ? 'w-[19%]' : 'w-[5%]'
+      }`}
     >
       <div className="flex items-center justify-between">
         {menuWide && (
@@ -69,8 +69,8 @@ const Menu = () => {
       <div
         className={`mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
           menuWide
-            ? "[&>*]:rounded-full [&>*]:px-3 [&>*]:py-2"
-            : "[&>*]:rounded [&>*]:p-2"
+            ? '[&>*]:rounded-full [&>*]:px-3 [&>*]:py-2'
+            : '[&>*]:rounded [&>*]:p-2'
         }`}
       >
         {menuLinks.map((item) => (
@@ -119,7 +119,7 @@ export const MenuLink = ({
 }) => {
   return (
     <Link
-      className={`${pathName === menuItem.to ? "bg-blueTab" : ""}`}
+      className={`${pathName === menuItem.to ? 'bg-blueTab' : ''}`}
       to={menuItem.to}
     >
       <img src={menuItem.imgSrc} alt="Home" className="mr-2 w-5 h-5" />

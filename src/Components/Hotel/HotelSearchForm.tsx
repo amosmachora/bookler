@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Assets } from "../../Assets/Assets";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { isLinkClickable } from "../../Util/Helpers";
-import { DatePicker } from "../DatePicker";
-import { MoreButton } from "../MoreButton";
-import OffPageLink from "../OffPageLink";
-import AirportSearch from "../SearchModals/AirportSearch";
-import { HotelSearchContext } from "./HotelProvider";
-import TravellerSelector from "./TravellersSelector";
+import React, { useEffect, useState } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { isLinkClickable } from '../../Util/Helpers';
+import { DatePicker } from '../DatePicker';
+import { MoreButton } from '../MoreButton';
+import OffPageLink from '../OffPageLink';
+import AirportSearch from '../SearchModals/AirportSearch';
+import { useUserHotelData } from './useUserHotelData';
+import TravellerSelector from './TravellersSelector';
 
 const HotelSearchForm = () => {
   const {
@@ -19,7 +19,7 @@ const HotelSearchForm = () => {
     travellerHotelInfo,
     travelingForWorkCheckBox,
     setTargetHotelLocation,
-  } = useContext(HotelSearchContext);
+  } = useUserHotelData();
 
   const { setMenuWide } = useGlobalData();
 
@@ -50,12 +50,12 @@ const HotelSearchForm = () => {
           </div>
           <p className="text-black font-bold">
             {targetHotelLocation === null
-              ? "No Location Selected"
-              : targetHotelLocation?.city + " ," + targetHotelLocation?.country}
+              ? 'No Location Selected'
+              : targetHotelLocation?.city + ' ,' + targetHotelLocation?.country}
           </p>
           <p className="text-xs text-gray-400">
             {targetHotelLocation === null
-              ? "No Location Selected"
+              ? 'No Location Selected'
               : targetHotelLocation?.name}
           </p>
         </div>
@@ -73,7 +73,7 @@ const HotelSearchForm = () => {
             <p className="text-gray-300 ml-1 text-sm">TO</p>
           </div>
           <p className="font-bold mb-2">
-            {travellerHotelInfo.adults} adult - {travellerHotelInfo.kids}{" "}
+            {travellerHotelInfo.adults} adult - {travellerHotelInfo.kids}{' '}
             children - {travellerHotelInfo.Rooms} room
           </p>
           <p className="text-xs text-gray-400">Person</p>
@@ -104,9 +104,9 @@ const HotelSearchForm = () => {
           <AirportSearch
             config={{
               closeFunction: setShowSearchModal,
-              inputPlaceHolder: "Search hotel location",
-              mainText: "Hotel",
-              name: "Hotel",
+              inputPlaceHolder: 'Search hotel location',
+              mainText: 'Hotel',
+              name: 'Hotel',
               setFunction: setTargetHotelLocation,
             }}
           />

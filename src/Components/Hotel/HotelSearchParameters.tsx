@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { RedSearchButton } from "../RedSearchButton";
 import CheckInCheckOutDatePicker from "./CheckInCheckOutDatePicker";
-import { HotelSearchContext } from "./HotelProvider";
+import { useUserHotelData } from "./useUserHotelData";
 
 const HotelSearchParameters = () => {
   const {
@@ -11,7 +11,7 @@ const HotelSearchParameters = () => {
     checkOutDate,
     travellerHotelInfo,
     targetHotelLocation,
-  } = useContext(HotelSearchContext);
+  } = useUserHotelData();
   return (
     <div className="flex justify-between items-center bg-white py-4 px-5 mt-10 rounded-b-lg text-sm mb-5">
       <div>

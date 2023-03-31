@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import CarRentalSearchParameters from "./CarRentalSearchParameters";
 import {
   CarRentalSearchResultsType,
@@ -6,7 +6,7 @@ import {
   VehicleInformation,
 } from "../../Types/CarRentals";
 import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
-import { CarRentalSearchContext } from "./CarRentalProvider";
+import { useUserCarRentalData } from "./useUserCarRentalData";
 import { useGlobalData } from "../../Hooks/useGlobalData";
 import { Outlet } from "react-router";
 
@@ -26,9 +26,8 @@ export const CarRentalSearchResultsContext = createContext<{
 const CarRentalSearchResultsProvider = () => {
   const [carRentalData, setCarRentalData] =
     useState<CarRentalSearchResultsType>({} as any);
-  const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } = useContext(
-    CarRentalSearchContext
-  );
+  const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } =
+    useUserCarRentalData();
   const [suggestedVehicles, setSuggestedVehicles] = useState<
     VehicleInformation[]
   >(getArrayOfObjects(carRentalData.vehicleRates));

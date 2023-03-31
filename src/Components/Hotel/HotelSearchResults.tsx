@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchPropertyListByDestId } from "../../Fetchers/FetchPropertyListByDestId";
-import { cleaned, getDateFromIsoString } from "../../Util/Helpers";
-import HotelSearchParameters from "./HotelSearchParameters";
-import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
-import { PropertyListType } from "../../Types/PropertyList";
-import { SelectedHotel } from "../../Types/Hotel";
-import { HotelSearchContext } from "./HotelProvider";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { Outlet } from "react-router";
-import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
+import React, { createContext, useEffect, useState } from 'react';
+import { fetchPropertyListByDestId } from '../../Fetchers/FetchPropertyListByDestId';
+import { cleaned, getDateFromIsoString } from '../../Util/Helpers';
+import HotelSearchParameters from './HotelSearchParameters';
+import { fetchSuggestedLocations } from '../../Fetchers/FetchLocations';
+import { PropertyListType } from '../../Types/PropertyList';
+import { SelectedHotel } from '../../Types/Hotel';
+import { useUserHotelData } from './useUserHotelData';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { Outlet } from 'react-router';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
 
 export const HotelSearchResultsContext = createContext<{
   selectedHotelInfo: SelectedHotel | null;
@@ -28,12 +28,12 @@ const HotelSearchResults = () => {
     travellerHotelInfo,
     targetHotelLocation,
     travelingForWorkCheckBox,
-  } = useContext(HotelSearchContext);
+  } = useUserHotelData();
   const { setIsLoading, setMenuWide } = useGlobalData();
   const [propertyList, setPropertyList] = useState<PropertyListType | null>(
     null
   );
-  const [sortBy, setSortBy] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>('');
   const [filterBy, setFilterBy] = useState<Array<string>>([]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const HotelSearchResults = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useUpdateLogger(propertyList, "PropertyList");
+  useUpdateLogger(propertyList, 'PropertyList');
 
   const fetchHotelInfo = async () => {
     setIsLoading(true);
@@ -49,7 +49,7 @@ const HotelSearchResults = () => {
       targetHotelLocation?.city!
     );
     const cityLocation = suggestedLocations.filter(
-      (res) => res.dest_type === "city"
+      (res) => res.dest_type === 'city'
     );
     const propertyListByDestId = await fetchPropertyListByDestId(
       getDateFromIsoString(checkInDate),
@@ -58,7 +58,7 @@ const HotelSearchResults = () => {
       travellerHotelInfo.Rooms.toString(),
       cityLocation[0].dest_id,
       travellerHotelInfo.kids.toString(),
-      travelingForWorkCheckBox.current?.checked ? "business" : "leisure",
+      travelingForWorkCheckBox.current?.checked ? 'business' : 'leisure',
       sortBy,
       cleaned(filterBy)
     );

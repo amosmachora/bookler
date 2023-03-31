@@ -6,8 +6,8 @@ import { Airline } from "../../Types/Flights";
 import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
 import { BookingContext } from "./FlightResults";
-import { FlightSearchContext } from "./FlightsProvider";
 import { useGlobalData } from "../../Hooks/useGlobalData";
+import { useUserFlightData } from "./useUserFlightData";
 
 type FoundFlightProps = {
   foundFlight: Departures;
@@ -15,7 +15,7 @@ type FoundFlightProps = {
 };
 
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
-  const { fromAirport, toAirport } = useContext(FlightSearchContext);
+  const { fromAirport, toAirport } = useUserFlightData();
   const { airlines, setIsLoading } = useGlobalData();
   const { booking } = useContext(BookingContext);
   const [extraFlightData, setExtraFlightData] = useState<SingleFlightData>();

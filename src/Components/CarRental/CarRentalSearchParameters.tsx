@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { getFormattedDate } from "../../Util/Helpers";
 import { RedSearchButton } from "../RedSearchButton";
-import { CarRentalSearchContext } from "./CarRentalProvider";
+import { useUserCarRentalData } from "./useUserCarRentalData";
 
 const TaxiSearchParameters = () => {
   const {
@@ -10,7 +10,7 @@ const TaxiSearchParameters = () => {
     dropOffDate,
     dropOffTime,
     dropCarAtDifferentLocation,
-  } = useContext(CarRentalSearchContext);
+  } = useUserCarRentalData();
 
   //TODO remember to fix location
   const pickUpLocation = "London , United Kingdom";

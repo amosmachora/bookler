@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import {
   Airline,
   Airport,
@@ -13,7 +13,7 @@ import GoButton from "./GoButton";
 import PaymentOptions from "./PaymentOptions";
 import FlightSearchParameters from "./FlightSearchParameters";
 import { Outlet } from "react-router";
-import { FlightSearchContext } from "./FlightsProvider";
+import { useUserFlightData } from "./useUserFlightData";
 import { useGlobalData } from "../../Hooks/useGlobalData";
 
 export const BookingContext = createContext<BookingContextType>({
@@ -25,7 +25,7 @@ export const BookingContext = createContext<BookingContextType>({
 });
 
 const FlightResults = () => {
-  const { toAirport, outGoingFlights } = useContext(FlightSearchContext);
+  const { toAirport, outGoingFlights } = useUserFlightData();
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
   const [sortBy, setSortBy] = useState("cheapest");
   const [preferredStopAirport, setPreferredStopAirport] =

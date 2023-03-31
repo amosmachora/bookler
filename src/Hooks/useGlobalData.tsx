@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Airline, Airport, Country } from "../Types/Flights";
-import { fetchCountries } from "../Fetchers/FetchCountries";
-import { fetchAirports } from "../Fetchers/FetchAirports";
-import { fetchAirlines } from "../Fetchers/FetchAirlines";
-import { useUpdateLogger } from "./useUpdateLogger";
-import { useLocalStorage } from "./useLocalStorage";
+import React, { useEffect, useState } from 'react';
+import { Airline, Airport, Country } from '../Types/Flights';
+import { fetchCountries } from '../Fetchers/FetchCountries';
+import { fetchAirports } from '../Fetchers/FetchAirports';
+import { fetchAirlines } from '../Fetchers/FetchAirlines';
+import { useUpdateLogger } from './useUpdateLogger';
+import { useLocalStorage } from './useLocalStorage';
+import { useLocation } from 'react-router';
+import { shouldMenuBeWide } from '../Util/Helpers';
 
 export interface GlobalData {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,22 +19,23 @@ export interface GlobalData {
 }
 
 export const useGlobalData = (): GlobalData => {
-  const [airports, setAirports] = useLocalStorage<Airport[]>([], "airports");
+  const [airports, setAirports] = useLocalStorage<Airport[]>([], 'airports');
   const [isLoading, setIsLoading] = useState(false);
   const [menuWide, setMenuWide] = useState(true);
-  const [airlines, setAirlines] = useLocalStorage<Airline[]>([], "airlines");
-  const [countries, setCountries] = useLocalStorage<Country[]>([], "countries");
+  const [airlines, setAirlines] = useLocalStorage<Airline[]>([], 'airlines');
+  const [countries, setCountries] = useLocalStorage<Country[]>([], 'countries');
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const initializeApplication = async () => {
       setIsLoading(true);
-      const lastFetched = localStorage.getItem("lastFetched");
+      const lastFetched = localStorage.getItem('lastFetched');
       const oneWeek = 7 * 24 * 60 * 60 * 1000; // One week in milliseconds
       if (!lastFetched || Date.now() - Number(lastFetched) > oneWeek) {
         await fetchAirports().then((airports) => setAirports(airports));
         await fetchAirlines().then((airlines) => setAirlines(airlines));
         await fetchCountries().then((countries) => setCountries(countries));
-        localStorage.setItem("lastFetched", String(Date.now()));
+        localStorage.setItem('lastFetched', String(Date.now()));
       }
       setIsLoading(false);
     };
@@ -40,9 +43,13 @@ export const useGlobalData = (): GlobalData => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useUpdateLogger(airports, "airports");
+  useEffect(() => {
+    setMenuWide(shouldMenuBeWide(pathname));
+  }, [pathname]);
 
-  useUpdateLogger(isLoading, "isLoading");
+  useUpdateLogger(airports, 'airports');
+
+  useUpdateLogger(isLoading, 'isLoading');
 
   return {
     setIsLoading,

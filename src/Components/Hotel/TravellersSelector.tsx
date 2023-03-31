@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { HotelSearchContext } from "./HotelProvider";
+import React from "react";
+import { useUserHotelData } from "./useUserHotelData";
 
 /**
  * @param closeModalFunction a function to close the modal
@@ -10,8 +10,7 @@ const TravellerSelector = ({
 }: {
   closeModalFunction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { travellerHotelInfo, setTravellerHotelInfo } =
-    useContext(HotelSearchContext);
+  const { travellerHotelInfo, setTravellerHotelInfo } = useUserHotelData();
   const circle =
     "rounded-[50%] border px-2 border-gray-500 cursor-pointer hover:border-sky-500 transition-all mx-2 my-1";
   return (

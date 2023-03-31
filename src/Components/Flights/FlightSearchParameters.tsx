@@ -1,15 +1,14 @@
 import React from "react";
-import { useContext } from "react";
 import { getFormattedDate } from "../../Util/Helpers";
 import { RedSearchButton } from "../RedSearchButton";
-import { FlightSearchContext } from "./FlightsProvider";
+import { useUserFlightData } from "./useUserFlightData";
 
 /**
  * @returns Display for chosen flight search parameters
  */
 const FlightSearchParameters = () => {
   const { typeOfTrip, fromAirport, departureDate, returnDate, toAirport } =
-    useContext(FlightSearchContext);
+    useUserFlightData();
 
   return (
     <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg mr-6">

@@ -1,15 +1,15 @@
-import React, { useContext, useRef, useEffect, useState } from "react";
-import { Assets } from "../../Assets/Assets";
-import { MoreButton } from "../MoreButton";
-import { getDay, isLinkClickable } from "../../Util/Helpers";
-import { FlightSearchContext } from "./FlightsProvider";
-import { FromAirportInput } from "./FromAirportInput";
-import { ToAirportInput } from "./ToAirportInput";
-import OffPageLink from "../OffPageLink";
+import React, { useRef, useEffect, useState } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { MoreButton } from '../MoreButton';
+import { getDay, isLinkClickable } from '../../Util/Helpers';
+import { useUserFlightData } from './useUserFlightData';
+import { FromAirportInput } from './FromAirportInput';
+import { ToAirportInput } from './ToAirportInput';
+import OffPageLink from '../OffPageLink';
 import AirportSearch, {
   AirportSearchConfig,
-} from "../SearchModals/AirportSearch";
-import { useGlobalData } from "../../Hooks/useGlobalData";
+} from '../SearchModals/AirportSearch';
+import { useGlobalData } from '../../Hooks/useGlobalData';
 
 const FlightSearchForm = () => {
   const {
@@ -23,14 +23,15 @@ const FlightSearchForm = () => {
     setDepartureDate,
     setFromAirport,
     setToAirport,
-  } = useContext(FlightSearchContext);
+  } = useUserFlightData();
   const { menuWide, setMenuWide } = useGlobalData();
   const [showSearchModal, setShowSearchModal] = useState(false);
+
   const [config, setConfig] = useState<AirportSearchConfig>({
     closeFunction: setShowSearchModal,
-    inputPlaceHolder: "Search your desired take off location",
-    mainText: "From Airport",
-    name: "From",
+    inputPlaceHolder: 'Search your desired take off location',
+    mainText: 'From Airport',
+    name: 'From',
     setFunction: setFromAirport,
   });
 
@@ -40,9 +41,9 @@ const FlightSearchForm = () => {
   const openFromSearchModal = () => {
     setConfig({
       ...config,
-      inputPlaceHolder: "Search your desired take off location",
-      mainText: "From Airport",
-      name: "From",
+      inputPlaceHolder: 'Search your desired take off location',
+      mainText: 'From Airport',
+      name: 'From',
       setFunction: setFromAirport,
     });
     setShowSearchModal(true);
@@ -51,9 +52,9 @@ const FlightSearchForm = () => {
   const openToSearchModal = () => {
     setConfig({
       ...config,
-      inputPlaceHolder: "Search your decided  landing location",
-      mainText: "To airport",
-      name: "To",
+      inputPlaceHolder: 'Search your decided  landing location',
+      mainText: 'To airport',
+      name: 'To',
       setFunction: setToAirport,
     });
     setShowSearchModal(true);
@@ -72,24 +73,24 @@ const FlightSearchForm = () => {
   );
 
   return (
-    <div className={`bg-white p-10 rounded-2xl ${menuWide ? "mt-5" : "mt-10"}`}>
+    <div className={`bg-white p-10 rounded-2xl ${menuWide ? 'mt-5' : 'mt-10'}`}>
       <form>
         <div className="type-of-trip flex [&>*]:rounded-full [&>*]:text-sm [&>*]:py-2 [&>*]:px-6 [&>*]:mr-8 [&>*]:cursor-pointer">
           <p
-            className={`${typeOfTrip === "one-way" ? "bg-gray-100" : ""}`}
-            onClick={() => setTypeOfTrip("one-way")}
+            className={`${typeOfTrip === 'one-way' ? 'bg-gray-100' : ''}`}
+            onClick={() => setTypeOfTrip('one-way')}
           >
             One way
           </p>
           <p
-            className={`${typeOfTrip === "round-trip" ? "bg-gray-100" : ""}`}
-            onClick={() => setTypeOfTrip("round-trip")}
+            className={`${typeOfTrip === 'round-trip' ? 'bg-gray-100' : ''}`}
+            onClick={() => setTypeOfTrip('round-trip')}
           >
             Round Trip
           </p>
           <p
-            className={`${typeOfTrip === "multi-city" ? "bg-gray-100" : ""}`}
-            onClick={() => setTypeOfTrip("multi-city")}
+            className={`${typeOfTrip === 'multi-city' ? 'bg-gray-100' : ''}`}
+            onClick={() => setTypeOfTrip('multi-city')}
           >
             Multi City
           </p>

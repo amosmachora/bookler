@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
 import { useGlobalData } from "../../Hooks/useGlobalData";
 import { isLinkClickable } from "../../Util/Helpers";
@@ -8,7 +8,7 @@ import AirportSearch, {
   AirportSearchConfig,
 } from "../SearchModals/AirportSearch";
 import TimePicker from "../TimePicker";
-import { CarRentalSearchContext } from "./CarRentalProvider";
+import { useUserCarRentalData } from "./useUserCarRentalData";
 
 const CarRentalSearchForm = () => {
   const {
@@ -26,7 +26,7 @@ const CarRentalSearchForm = () => {
     setDropCarAtDifferentLocation,
     setDropOffLocation,
     setPickUpLocation,
-  } = useContext(CarRentalSearchContext);
+  } = useUserCarRentalData();
 
   const { setMenuWide } = useGlobalData();
 

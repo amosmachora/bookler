@@ -8,11 +8,11 @@ import {
 } from "../../Types/CarRentals";
 import Map from "../Hotel/Map";
 import { PayNowButton } from "../PayNowButton";
-import { CarRentalSearchContext } from "./CarRentalProvider";
 import {
   CarRentalSearchResultsContext,
   getPartnerLocation,
 } from "./CarRentalSearchResultsProvider";
+import { useUserCarRentalData } from "./useUserCarRentalData";
 
 const CarDetails = () => {
   const { activeVehicle, carRentalData } = useContext(
@@ -35,7 +35,7 @@ const CarDetails = () => {
       activeVehicle!.partnerInfo.returnLocationId.substring(3)
     ];
 
-  const { dropCarAtDifferentLocation } = useContext(CarRentalSearchContext);
+  const { dropCarAtDifferentLocation } = useUserCarRentalData();
   const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (
