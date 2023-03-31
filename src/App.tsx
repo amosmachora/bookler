@@ -1,39 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Assets } from "./Assets/Assets";
 import BackGround from "./Components/BackGround/BackGround";
 import Menu from "./Components/Menu/Menu";
 import Options from "./Components/Options";
 import UserProfileTabSmall from "./Components/UserProfileTabSmall";
 import { Outlet, useNavigate } from "react-router";
-import { MainContext } from "./Components/Contexts/MainAppProvider";
 import FlightsProvider from "./Components/Flights/FlightsProvider";
 import CarRentalProvider from "./Components/CarRental/CarRentalProvider";
 import HotelProvider from "./Components/Hotel/HotelProvider";
-import { AuthProvider } from "./Components/Contexts/AuthenticationProvider";
+import { shouldMenuBeWide } from "./Util/Helpers";
+import { useLocation } from "react-router";
+// import { useAuth } from "./Hooks/useAuth";
 
 function App() {
-  const { setMenuWide, menuWide } = useContext(MainContext);
-
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AuthProvider);
-
+  const { pathname } = useLocation();
+  const menuWide = shouldMenuBeWide(pathname);
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    } else {
-      navigate("/flights");
-    }
-  }, [isLoggedIn]);
+    navigate("/flights");
+  }, []);
 
   return (
     <FlightsProvider>
       <CarRentalProvider>
         <HotelProvider>
           <div className="App w-full">
-            <BackGround menuWide={menuWide} />
+            <BackGround />
             <div className="flex relative">
-              <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
+              <Menu />
               <div
                 className={`h-min ${
                   menuWide
@@ -42,7 +37,7 @@ function App() {
                 } transition-all`}
               >
                 <div className="flex justify-between">
-                  <Options menuWide={menuWide} />
+                  <Options />
                   {menuWide && (
                     <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
                   )}
@@ -56,7 +51,7 @@ function App() {
                 <p className="text-xs">Become A Partner</p>
                 <img src={Assets.DropDown} alt="Drop down" />
               </div>
-              <UserProfileTabSmall setMenuWide={setMenuWide} />
+              <UserProfileTabSmall />
             </div>
           </div>
         </HotelProvider>

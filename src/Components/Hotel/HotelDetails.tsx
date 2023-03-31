@@ -8,7 +8,6 @@ import { HotelDescription } from "../../Types/HotelDescription";
 import LittleFacilityDisplay from "./LittleFacilityDisplay";
 import Flag from "react-world-flags";
 import { monthNames } from "../../Util/Helpers";
-import { MainContext } from "../Contexts/MainAppProvider";
 import { HotelSearchResultsContext } from "./HotelSearchResults";
 import { HotelReviews } from "../../Types/HotelReviews";
 
@@ -26,21 +25,24 @@ const HotelDetails = () => {
     HotelDescription[] | null
   >(null);
 
-  const { devMode } = useContext(MainContext);
-
   const hotelInfo = selectedHotelInfo?.hotelInfo;
 
+  const fetchHotelDetails = async () => {
+    const hotelReviews = await fetchHotelReviews(
+      hotelInfo?.hotel_id.toString()!
+    );
+    setHotelReviews(hotelReviews);
+
+    const hotelDescription = await fetchHotelDescription(
+      hotelInfo?.hotel_id.toString()!
+    );
+    setHotelDescription(hotelDescription);
+  };
+
   useEffect(() => {
-    if (!devMode) {
-      fetchHotelReviews(hotelInfo?.hotel_id.toString()!).then((res) =>
-        setHotelReviews(res)
-      );
-      fetchHotelDescription(hotelInfo?.hotel_id.toString()!).then((res) =>
-        setHotelDescription(res)
-      );
-    }
+    fetchHotelDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [devMode, []]);
+  }, []);
 
   const hotelReviewScore: number = (hotelInfo!.review_score / 10) * 5;
 

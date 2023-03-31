@@ -7,7 +7,7 @@ import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
 import FlightDetails from "./FlightDetails";
 import { BookingContext } from "./FlightResults";
 import { FlightSearchContext } from "./FlightsProvider";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 
 type FoundFlightProps = {
   foundFlight: Departures;
@@ -16,20 +16,17 @@ type FoundFlightProps = {
 
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
   const { fromAirport, toAirport } = useContext(FlightSearchContext);
-  const { airlines } = useContext(MainContext);
+  const { airlines, setIsLoading } = useGlobalData();
   const { booking } = useContext(BookingContext);
   const [extraFlightData, setExtraFlightData] = useState<SingleFlightData>();
-  const { devMode, setIsLoading } = useContext(MainContext);
   const [showDetails, setShowDetails] = useState<Boolean>(false);
 
   useEffect(() => {
-    if (!devMode) {
-      setIsLoading(true);
-      fetchExtraFlightData(foundFlight.aircraft.reg!).then((res) =>
-        setExtraFlightData(res)
-      );
+    setIsLoading(true);
+    fetchExtraFlightData(foundFlight.aircraft.reg!).then((res) => {
+      setExtraFlightData(res);
       setIsLoading(false);
-    }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

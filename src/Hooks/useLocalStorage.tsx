@@ -12,10 +12,11 @@ function getSavedValue<T>(key: string, initialValue: T): T {
   return initialValue;
 }
 
-export function useLocalStorage<T>(initialValue: T, key: string) {
-  const [value, setValue] = useState<T>(() =>
-    getSavedValue<T>(key, initialValue)
-  );
+export function useLocalStorage<T>(
+  initialValue: T,
+  key: string
+): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [value, setValue] = useState<T>(getSavedValue<T>(key, initialValue));
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));

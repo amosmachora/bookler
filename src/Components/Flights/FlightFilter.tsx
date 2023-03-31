@@ -1,6 +1,6 @@
 import React, { SetStateAction, useContext } from "react";
 import { Airline, Airport } from "../../Types/Flights";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { FlightSearchContext } from "./FlightsProvider";
 
 type FlightFilterProps = {
@@ -14,9 +14,10 @@ const FlightFilter = ({
   preferredStopAirport,
   setPreferredAirline,
 }: FlightFilterProps) => {
-  const { airports, airlines } = useContext(MainContext);
+  const { airports, airlines } = useGlobalData();
   const { toAirport } = useContext(FlightSearchContext);
 
+  //TODO FIX THIS.
   const getStopSelectCities = (): Airport[] => {
     /**
      * TODO get unique airports.

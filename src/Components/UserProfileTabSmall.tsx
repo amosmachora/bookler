@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
-import { AuthProvider } from "./Contexts/AuthenticationProvider";
+import { useAuth } from "../Hooks/useAuth";
+import { useGlobalData } from "../Hooks/useGlobalData";
 
-const UserProfileTabSmall = ({
-  setMenuWide,
-}: {
-  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const { userData } = useContext(AuthProvider);
+const UserProfileTabSmall = () => {
+  const { user } = useAuth();
+  const { setMenuWide } = useGlobalData();
   const navigate = useNavigate();
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -26,13 +24,11 @@ const UserProfileTabSmall = ({
         }}
       >
         <img
-          src={
-            userData.picture === null ? Assets.PersonClipArt : userData.picture
-          }
+          src={user.picture === null ? Assets.PersonClipArt : user.picture}
           alt="Profile pic"
           className="w-8 h-8 rounded-full"
         />
-        <p className="text-xs">{userData.name}</p>
+        <p className="text-xs">{user.name}</p>
         <img src={Assets.DropDown} alt="Drop down" />
       </div>
       {showOptions && (

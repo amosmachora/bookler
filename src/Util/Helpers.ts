@@ -121,3 +121,8 @@ export const isLinkClickable = (...inputs: any[]): boolean => {
   }
   return true;
 };
+
+export const shouldMenuBeWide = (pathName: string): boolean => {
+  const smallScreenLinks = ["/home", "/flights", "/hotels", "/car-rental", "/"];
+  return smallScreenLinks.includes(pathName);
+};

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Assets } from "../../Assets/Assets";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { Airport } from "../../Types/Flights";
 import { getCapitalizedString } from "../../Util/Helpers";
-import { MainContext } from "../Contexts/MainAppProvider";
 import { FlightSearchContext } from "../Flights/FlightsProvider";
 import "./AirportSearch.css";
 
@@ -15,7 +15,7 @@ export type AirportSearchConfig = {
 };
 
 const AirportSearch = ({ config }: { config: AirportSearchConfig }) => {
-  const { airports } = useContext(MainContext);
+  const { airports } = useGlobalData();
   const { outGoingFlights } = useContext(FlightSearchContext);
 
   const getDefaultAirportList = (): Airport[] | (() => Airport[]) => {

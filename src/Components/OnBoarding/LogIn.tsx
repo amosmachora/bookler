@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
 import { isLinkClickable } from "../../Util/Helpers";
-import { AuthProvider } from "../Contexts/AuthenticationProvider";
 import jwt_decode from "jwt-decode";
-import { Authenticator } from "../../Types/Contexts";
+import { useAuth, User } from "../../Hooks/useAuth";
 
 const LogIn = () => {
   const [email, setEmail] = useState<string | null>(null);
@@ -12,7 +11,8 @@ const LogIn = () => {
   const [rememberForThirtyDays, setRememberForThirtyDays] =
     useState<boolean>(false);
   const isClickable = isLinkClickable(email, password);
-  const { setUserData } = useContext(AuthProvider);
+
+  const { setUserData } = useAuth();
 
   const handleLogin = () => {
     //Here is where maybe i call a backend service or something
@@ -27,7 +27,7 @@ const LogIn = () => {
   };
 
   const handleCallBackResponse = (response: any) => {
-    const userObject: Authenticator = jwt_decode(response.credential);
+    const userObject: User = jwt_decode(response.credential);
     console.log(userObject);
     setUserData((prev) => {
       return {
@@ -73,10 +73,6 @@ const LogIn = () => {
         </div>
       </div>
       <div className="bg-loginPageBg w-1/2 py-20 px-28 relative">
-        <p className="text-red-500 absolute top-0">
-          Currently the app is in test mode , if google sign in doesnt work just
-          type random characters and hit login
-        </p>
         <div className="flex items-center">
           <img src={Assets.InteractiveStar} alt="star" className="mr-2" />
           <p className="font-semibold text-sm">Interactive Brand</p>
@@ -115,6 +111,7 @@ const LogIn = () => {
               className="mr-1"
               name="RememberForThirtyDays"
               onChange={(e) => setRememberForThirtyDays(e.target.checked)}
+              checked
             />
             <p>Remember for 30 days</p>
           </div>

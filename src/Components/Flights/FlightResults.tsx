@@ -14,7 +14,7 @@ import PaymentOptions from "./PaymentOptions";
 import FlightSearchParameters from "./FlightSearchParameters";
 import { Outlet } from "react-router";
 import { FlightSearchContext } from "./FlightsProvider";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
@@ -39,7 +39,7 @@ const FlightResults = () => {
     (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport!.icao
   );
 
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide } = useGlobalData();
 
   useEffect(() => {
     console.log(preferredStopAirport);

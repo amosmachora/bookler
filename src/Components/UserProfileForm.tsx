@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
-import { Authenticator } from "../Types/Contexts";
-import { AuthProvider } from "./Contexts/AuthenticationProvider";
+import React from "react";
+import { useAuth, User } from "../Hooks/useAuth";
 import NonNullUserInput from "./NonNullUserInput";
 import NullUserFieldInput from "./NullUserFieldInput";
 import ProfileCompleteness from "./ProfileCompleteness";
 import { UserProfileTabLarge } from "./UserProfileTabLarge";
 
 const UserProfileForm = () => {
-  const { userData } = useContext(AuthProvider);
-  const nullUserFields: string[] = getNullUserFields(userData);
-  const nonNullUserFields: string[] = getNonNullUserFields(userData);
+  const { user } = useAuth();
+  const nullUserFields: string[] = getNullUserFields(user);
+  const nonNullUserFields: string[] = getNonNullUserFields(user);
 
   const percentage: string = (
     (nonNullUserFields.length /
@@ -46,7 +45,7 @@ const UserProfileForm = () => {
           </p>
           {nonNullUserFields.map((field) => (
             <NonNullUserInput
-              defaultValue={userData[field]}
+              defaultValue={user[field]}
               field={field}
               key={field}
             />
@@ -55,7 +54,7 @@ const UserProfileForm = () => {
             <NullUserFieldInput field={field} key={field} />
           ))}
         </div>
-        {!userData.hasOwnProperty("iss") && (
+        {!user.hasOwnProperty("iss") && (
           <div className="bg-white rounded-md p-8 text-xs mt-4">
             <p className="font-bold text-lg">Login details</p>
             <p className="font-normal text-gray-400">
@@ -91,18 +90,18 @@ const googleAuthKeys: string[] = [
   "sub",
 ];
 
-const getNullUserFields = (auth: Authenticator): string[] => {
-  const keys = Object.keys(auth);
+const getNullUserFields = (user: User): string[] => {
+  const keys = Object.keys(user);
   const myArray: string[] = [];
   keys.forEach((key) =>
-    auth[key] === null && !googleAuthKeys.includes(key)
+    user[key] === null && !googleAuthKeys.includes(key)
       ? myArray.push(key)
       : null
   );
   return myArray;
 };
 
-const getNonNullUserFields = (auth: Authenticator): string[] => {
+const getNonNullUserFields = (auth: User): string[] => {
   const keys = Object.keys(auth);
   const myArray: string[] = [];
   keys.forEach((key) =>

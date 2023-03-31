@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { isLinkClickable } from "../../Util/Helpers";
-import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import OffPageLink from "../OffPageLink";
 import AirportSearch, {
@@ -28,7 +28,7 @@ const CarRentalSearchForm = () => {
     setPickUpLocation,
   } = useContext(CarRentalSearchContext);
 
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide } = useGlobalData();
 
   const [showSearchModal, setShowSearchModal] = useState(false);
 

@@ -6,7 +6,7 @@ import { fetchSuggestedLocations } from "../../Fetchers/FetchLocations";
 import { PropertyListType } from "../../Types/PropertyList";
 import { SelectedHotel } from "../../Types/Hotel";
 import { HotelSearchContext } from "./HotelProvider";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { Outlet } from "react-router";
 import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
 
@@ -22,7 +22,6 @@ export const HotelSearchResultsContext = createContext<{
 }>(null as any);
 
 const HotelSearchResults = () => {
-  const { devMode } = useContext(MainContext);
   const {
     checkInDate,
     checkOutDate,
@@ -30,8 +29,7 @@ const HotelSearchResults = () => {
     targetHotelLocation,
     travelingForWorkCheckBox,
   } = useContext(HotelSearchContext);
-  const { setMenuWide, setIsLoading } = useContext(MainContext);
-
+  const { setIsLoading, setMenuWide } = useGlobalData();
   const [propertyList, setPropertyList] = useState<PropertyListType | null>(
     null
   );
@@ -45,27 +43,33 @@ const HotelSearchResults = () => {
 
   useUpdateLogger(propertyList, "PropertyList");
 
+  const fetchHotelInfo = async () => {
+    setIsLoading(true);
+    const suggestedLocations = await fetchSuggestedLocations(
+      targetHotelLocation?.city!
+    );
+    const cityLocation = suggestedLocations.filter(
+      (res) => res.dest_type === "city"
+    );
+    const propertyListByDestId = await fetchPropertyListByDestId(
+      getDateFromIsoString(checkInDate),
+      getDateFromIsoString(checkOutDate),
+      travellerHotelInfo.adults.toString(),
+      travellerHotelInfo.Rooms.toString(),
+      cityLocation[0].dest_id,
+      travellerHotelInfo.kids.toString(),
+      travelingForWorkCheckBox.current?.checked ? "business" : "leisure",
+      sortBy,
+      cleaned(filterBy)
+    );
+    setPropertyList(propertyListByDestId);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    if (!devMode) {
-      setIsLoading(true);
-      fetchSuggestedLocations(targetHotelLocation?.city!).then((res) => {
-        const cityLocation = res.filter((res) => res.dest_type === "city");
-        fetchPropertyListByDestId(
-          getDateFromIsoString(checkInDate),
-          getDateFromIsoString(checkOutDate),
-          travellerHotelInfo.adults.toString(),
-          travellerHotelInfo.Rooms.toString(),
-          cityLocation[0].dest_id,
-          travellerHotelInfo.kids.toString(),
-          travelingForWorkCheckBox.current?.checked ? "business" : "leisure",
-          sortBy,
-          cleaned(filterBy)
-        ).then((res) => setPropertyList(res));
-      });
-      setIsLoading(false);
-    }
+    fetchHotelInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [devMode, sortBy, filterBy]);
+  }, [sortBy, filterBy]);
 
   const [selectedHotelInfo, setSelectedHotelInfo] =
     useState<SelectedHotel | null>(null);

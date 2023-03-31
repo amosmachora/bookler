@@ -1,4 +1,5 @@
 import axios from "axios";
+import DevLocations from "../Util/Locations.json";
 
 export type SuggestedLocations = {
   b_max_los_data: {
@@ -29,8 +30,6 @@ export type SuggestedLocations = {
   city_name: string;
 };
 
-//todo add json data back up.
-
 /**
  * List of suggested locations by countries, cities, districts, places name.
  * @param Location A location string.
@@ -55,5 +54,6 @@ export const fetchSuggestedLocations = async (
     })
     .catch(function (error) {
       console.error(error);
+      return DevLocations;
     });
 };

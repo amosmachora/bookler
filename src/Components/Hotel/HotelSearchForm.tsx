@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Assets } from "../../Assets/Assets";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { isLinkClickable } from "../../Util/Helpers";
-import { MainContext } from "../Contexts/MainAppProvider";
 import { DatePicker } from "../DatePicker";
 import { MoreButton } from "../MoreButton";
 import OffPageLink from "../OffPageLink";
@@ -21,7 +21,7 @@ const HotelSearchForm = () => {
     setTargetHotelLocation,
   } = useContext(HotelSearchContext);
 
-  const { setMenuWide } = useContext(MainContext);
+  const { setMenuWide } = useGlobalData();
 
   useEffect(() => {
     setMenuWide(true);

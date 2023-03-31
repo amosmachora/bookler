@@ -2,13 +2,13 @@ import React, { useContext, useRef } from "react";
 import { Adult } from "../../Types/Flights";
 import { BookingContext } from "./FlightResults";
 import { CountryCodeSelector } from "../Hotel/CountryCodeSelector";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 
 const TravelerDetails = () => {
   const { setTravelersInfo } = useContext(BookingContext);
   const adultNameInputRef = useRef<HTMLInputElement>(null);
   const { travelersInfo } = useContext(BookingContext);
-  const { countryList } = useContext(MainContext);
+  const { countries } = useGlobalData();
 
   const handleAdultNameInput = () => {
     const adult: Adult = {
@@ -37,9 +37,7 @@ const TravelerDetails = () => {
     setTravelersInfo((prevState) => {
       return {
         ...prevState,
-        country: countryList.find(
-          (country) => country.code === currentSelection
-        ),
+        country: countries.find((country) => country.cioc === currentSelection),
       };
     });
   };

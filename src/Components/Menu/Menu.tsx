@@ -1,22 +1,55 @@
-import React, { SetStateAction, useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../../Assets/Assets";
-import { getBaseUrl } from "../../Util/Helpers";
-import "./Menu.css";
+import { getBaseUrl, shouldMenuBeWide } from "../../Util/Helpers";
 
-interface menuProps {
-  menuWide: boolean;
-  setMenuWide: React.Dispatch<SetStateAction<boolean>>;
-}
+const menuLinks = [
+  {
+    to: "/",
+    imgSrc: Assets.Home,
+    name: "Home",
+  },
+  {
+    to: "/profile",
+    imgSrc: Assets.PersonClipArt,
+    name: "Profile",
+  },
+  {
+    to: "/wallet",
+    imgSrc: Assets.Wallet,
+    name: "Wallet",
+  },
+  {
+    to: "/booking",
+    imgSrc: Assets.Booking,
+    name: "Booking",
+  },
+  {
+    to: "/business",
+    imgSrc: Assets.Business,
+    name: "Business",
+  },
+  {
+    to: "/explore",
+    imgSrc: Assets.Explore,
+    name: "Explore",
+  },
+  {
+    to: "/support",
+    imgSrc: Assets.Support,
+    name: "Support",
+  },
+];
 
-const Menu = ({ menuWide, setMenuWide }: menuProps) => {
-  const [activeTab, setActiveTab] = useState("home");
+const Menu = () => {
   const { pathname } = useLocation();
+  const menuWide = shouldMenuBeWide(pathname);
+
   return (
     <div
-      className={`menu ${
+      className={`h-[90vh] ${
         menuWide ? `w-[17.14%]` : `w-[5.71%]`
-      } bg-blue-600 text-white z-0 fixed top-0 ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
+      } bg-blue-600 text-white text-sm z-0 fixed top-0 ml-[40px] mt-[34px] rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all`}
     >
       <div className="flex items-center justify-between">
         {menuWide && (
@@ -26,7 +59,6 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
             menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
-          onClick={() => setMenuWide(true)}
           to={getBaseUrl(pathname)}
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
@@ -34,56 +66,17 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
           <span className="bg-white w-full h-[3px] rounded-sm" />
         </Link>
       </div>
-      <ul
-        className={`menu-items mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
+      <div
+        className={`mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
           menuWide
-            ? "large-menu [&>*]:rounded-full"
-            : "small-menu [&>*]:rounded"
+            ? "[&>*]:rounded-full [&>*]:px-3 [&>*]:py-2"
+            : "[&>*]:rounded [&>*]:p-2"
         }`}
       >
-        <div
-          className={`${activeTab === "home" ? "active" : ""}`}
-          onClick={() => setActiveTab("home")}
-        >
-          <img src={Assets.Home} alt="Home" className="tab-icon" />
-          {menuWide && <p>Home</p>}
-        </div>
-        <div
-          className={`${activeTab === "wallet" ? "active" : ""}`}
-          onClick={() => setActiveTab("wallet")}
-        >
-          <img src={Assets.Wallet} alt="Wallet" className="tab-icon" />
-          {menuWide && <p>Wallet</p>}
-        </div>
-        <div
-          className={`${activeTab === "booking" ? "active" : ""}`}
-          onClick={() => setActiveTab("booking")}
-        >
-          <img src={Assets.Booking} alt="Booking" className="tab-icon" />
-          {menuWide && <p>Booking</p>}
-        </div>
-        <div
-          className={`${activeTab === "business" ? "active" : ""}`}
-          onClick={() => setActiveTab("business")}
-        >
-          <img src={Assets.Business} alt="Business" className="tab-icon" />
-          {menuWide && <p>Business</p>}
-        </div>
-        <div
-          className={`${activeTab === "explore" ? "active" : ""}`}
-          onClick={() => setActiveTab("explore")}
-        >
-          <img src={Assets.Explore} alt="Explore" className="tab-icon" />
-          {menuWide && <p>Explore</p>}
-        </div>
-        <div
-          className={`${activeTab === "support" ? "active" : ""}`}
-          onClick={() => setActiveTab("support")}
-        >
-          <img src={Assets.Support} alt="Support" className="tab-icon" />
-          {menuWide && <p>Support</p>}
-        </div>
-      </ul>
+        {menuLinks.map((item) => (
+          <MenuLink pathName={pathname} menuItem={item} menuWide={menuWide} />
+        ))}
+      </div>
       <div className="get-premium bg-white flex items-center rounded-full absolute w-48 h-11 pr-4 cursor-pointer bottom-10 z-10">
         <img
           src={Assets.Premium}
@@ -110,3 +103,27 @@ const Menu = ({ menuWide, setMenuWide }: menuProps) => {
 };
 
 export default Menu;
+
+export const MenuLink = ({
+  pathName,
+  menuItem,
+  menuWide,
+}: {
+  pathName: string;
+  menuItem: {
+    to: string;
+    imgSrc: string;
+    name: string;
+  };
+  menuWide: boolean;
+}) => {
+  return (
+    <Link
+      className={`${pathName === menuItem.to ? "bg-blueTab" : ""}`}
+      to={menuItem.to}
+    >
+      <img src={menuItem.imgSrc} alt="Home" className="mr-2 w-5 h-5" />
+      {menuWide && <p>{menuItem.name}</p>}
+    </Link>
+  );
+};

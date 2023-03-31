@@ -1,11 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Assets } from "../Assets/Assets";
+import { useGlobalData } from "../Hooks/useGlobalData";
 import { getBaseUrl } from "../Util/Helpers";
 
-const Options = ({ menuWide }: { menuWide: boolean }) => {
+const Options = () => {
   const { pathname } = useLocation();
+  const { menuWide } = useGlobalData();
   const baseUrl = getBaseUrl(pathname);
+
   return (
     <div
       className={`options flex text-white uppercase text-xs [&>*]:mr-6 [&>*]:rounded-lg [&>*]:cursor-pointer [&>*]:transition-all  ${

@@ -5,11 +5,11 @@ import { getDay, isLinkClickable } from "../../Util/Helpers";
 import { FlightSearchContext } from "./FlightsProvider";
 import { FromAirportInput } from "./FromAirportInput";
 import { ToAirportInput } from "./ToAirportInput";
-import { MainContext } from "../Contexts/MainAppProvider";
 import OffPageLink from "../OffPageLink";
 import AirportSearch, {
   AirportSearchConfig,
 } from "../SearchModals/AirportSearch";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 
 const FlightSearchForm = () => {
   const {
@@ -24,7 +24,7 @@ const FlightSearchForm = () => {
     setFromAirport,
     setToAirport,
   } = useContext(FlightSearchContext);
-  const { menuWide, setMenuWide } = useContext(MainContext);
+  const { menuWide, setMenuWide } = useGlobalData();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [config, setConfig] = useState<AirportSearchConfig>({
     closeFunction: setShowSearchModal,

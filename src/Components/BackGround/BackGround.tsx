@@ -1,12 +1,10 @@
 import React from "react";
 import { Assets } from "../../Assets/Assets";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import "./BackGround.css";
 
-type BackGroundProps = {
-  menuWide: boolean;
-};
-
-const BackGround = ({ menuWide }: BackGroundProps) => {
+const BackGround = () => {
+  const { menuWide } = useGlobalData();
   return (
     <div
       className={` fixed top-0 left-0 right-0 flex flex-row overflow-hidden w-full z-0 ${

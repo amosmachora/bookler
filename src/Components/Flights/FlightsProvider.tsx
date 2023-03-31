@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { fetchAirportFlightData } from "../../Fetchers/FetchAirportFlightData";
 import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
 import { FlightSearchParametersContext } from "../../Types/Contexts";
 import { Airport, Departures } from "../../Types/Flights";
-import { MainContext } from "../Contexts/MainAppProvider";
 import LoadingScreen from "../LoadingScreen";
 
 export const FlightSearchContext = createContext<FlightSearchParametersContext>(
@@ -49,7 +48,6 @@ export const FlightSearchContext = createContext<FlightSearchParametersContext>(
 );
 
 const FlightsProvider = ({ children }: { children: React.ReactNode }) => {
-  const { devMode } = useContext(MainContext);
   const [toAirport, setToAirport] = useState<Airport | null>(null);
   const [typeOfTrip, setTypeOfTrip] = useState("one-way");
   const [fromAirport, setFromAirport] = useState<Airport | null>(null);
@@ -59,12 +57,17 @@ const FlightsProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!devMode && fromAirport) {
+    if (fromAirport) {
       setIsLoading(true);
-      fetchAirportFlightData(fromAirport).then((res) =>
-        setOutGoingFlights(res)
-      );
-      setIsLoading(false);
+      fetchAirportFlightData(fromAirport)
+        .then((res) => {
+          setOutGoingFlights(res);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromAirport]);

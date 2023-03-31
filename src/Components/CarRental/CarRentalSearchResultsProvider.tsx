@@ -7,7 +7,7 @@ import {
 } from "../../Types/CarRentals";
 import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
 import { CarRentalSearchContext } from "./CarRentalProvider";
-import { MainContext } from "../Contexts/MainAppProvider";
+import { useGlobalData } from "../../Hooks/useGlobalData";
 import { Outlet } from "react-router";
 
 export const CarRentalSearchResultsContext = createContext<{
@@ -26,7 +26,6 @@ export const CarRentalSearchResultsContext = createContext<{
 const CarRentalSearchResultsProvider = () => {
   const [carRentalData, setCarRentalData] =
     useState<CarRentalSearchResultsType>({} as any);
-  const { devMode } = useContext(MainContext);
   const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } = useContext(
     CarRentalSearchContext
   );
@@ -38,7 +37,7 @@ const CarRentalSearchResultsProvider = () => {
     carRentalData.vehicleRates
   );
 
-  const { setMenuWide, setIsLoading } = useContext(MainContext);
+  const { setMenuWide, setIsLoading } = useGlobalData();
 
   useEffect(() => {
     setMenuWide(false);
@@ -47,18 +46,18 @@ const CarRentalSearchResultsProvider = () => {
 
   //TODO Remember to fix locations.
   useEffect(() => {
-    if (!devMode) {
-      setIsLoading(true);
-      fetchCarRentals(
-        "JFK",
-        getConcatenatedDate(dropOffDate, dropOffTime!),
-        getConcatenatedDate(pickUpDate, pickUpTime!),
-        "JFK"
-      ).then((res) => setCarRentalData(res));
+    setIsLoading(true);
+    fetchCarRentals(
+      "JFK",
+      getConcatenatedDate(dropOffDate, dropOffTime!),
+      getConcatenatedDate(pickUpDate, pickUpTime!),
+      "JFK"
+    ).then((res) => {
+      setCarRentalData(res);
       setIsLoading(false);
-    }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [[], devMode]);
+  }, []);
 
   const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
     null
