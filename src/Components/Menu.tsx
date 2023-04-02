@@ -6,7 +6,7 @@ import { getBaseUrl } from '../Util/Helpers';
 
 const menuLinks = [
   {
-    to: '/',
+    to: '/flights',
     imgSrc: Assets.Home,
     name: 'Home',
   },
@@ -83,8 +83,8 @@ const Menu = () => {
           />
         ))}
       </div>
-      <div className="bg-white flex items-center justify-between px-3 py-2 rounded-full cursor-pointer z-10 mt-10">
-        <img src={Assets.Premium} alt="Premium" className="w-6 h-6 show" />
+      <div className="bg-white flex items-center justify-between px-5 py-2 rounded-full cursor-pointer z-10 mt-10">
+        <img src={Assets.Premium} alt="Premium" className="w-6 h-6" />
         {menuWide && (
           <React.Fragment>
             <div>
