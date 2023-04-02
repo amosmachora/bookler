@@ -1,15 +1,16 @@
 import React from 'react';
 import { Assets } from '../../Assets/Assets';
+import { useHotelDataContext } from '../../Hooks/useHotelData';
 import { SelectedHotel } from '../../Types/Hotel';
 import { getDay, monthNames } from '../../Util/Helpers';
-import { useUserHotelData } from './useUserHotelData';
 
 const BookingReviewAside = ({
   selectedHotelInfo,
 }: {
   selectedHotelInfo: SelectedHotel | null;
 }) => {
-  const { checkInDate, checkOutDate } = useUserHotelData();
+  const { userHotelChoices } = useHotelDataContext();
+  const { checkInDate, checkOutDate } = userHotelChoices!;
 
   const hotelImages = selectedHotelInfo?.hotelImages;
   const hotelInfo = selectedHotelInfo?.hotelInfo;

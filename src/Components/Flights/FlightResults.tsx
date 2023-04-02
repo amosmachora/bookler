@@ -1,20 +1,20 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from 'react';
 import {
   Airline,
   Airport,
   Departures,
   TravelerInfo,
-} from "../../Types/Flights";
-import FlightFilter from "./FlightFilter";
-import FoundFlight from "./FoundFlight";
-import { BookingContextType, FlightPrices } from "../../Types/Contexts";
-import FareSummary from "./FareSummary";
-import GoButton from "./GoButton";
-import PaymentOptions from "./PaymentOptions";
-import FlightSearchParameters from "./FlightSearchParameters";
-import { Outlet } from "react-router";
-import { useUserFlightData } from "./useUserFlightData";
-import { useGlobalData } from "../../Hooks/useGlobalData";
+} from '../../Types/Flights';
+import FlightFilter from './FlightFilter';
+import FoundFlight from './FoundFlight';
+import { BookingContextType, FlightPrices } from '../../Types/Contexts';
+import FareSummary from './FareSummary';
+import GoButton from './GoButton';
+import PaymentOptions from './PaymentOptions';
+import FlightSearchParameters from './FlightSearchParameters';
+import { Outlet } from 'react-router';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
 
 export const BookingContext = createContext<BookingContextType>({
   initiateBooking() {},
@@ -25,9 +25,10 @@ export const BookingContext = createContext<BookingContextType>({
 });
 
 const FlightResults = () => {
-  const { toAirport, outGoingFlights } = useUserFlightData();
+  const { userFlightChoices, outGoingFlights } = useFlightDataContext();
+  const { toAirport } = userFlightChoices!;
   const [foundFlights, setFoundFlights] = useState<Departures[]>();
-  const [sortBy, setSortBy] = useState("cheapest");
+  const [sortBy, setSortBy] = useState('cheapest');
   const [preferredStopAirport, setPreferredStopAirport] =
     useState<Airport | null>(null);
   const [preferredAirline, setPreferredAirline] = useState<Airline | null>(
@@ -107,7 +108,7 @@ const FlightResults = () => {
                   <p className="font-bold inline text-xl">Flights</p>
                   <div className="h-[14px] w-[1px] mx-3 my-auto bg-gray-400" />
                   <p className="text-sm">
-                    Total{" "}
+                    Total{' '}
                     <span className="text-blue-400">
                       {foundFlights?.length} results
                     </span>
@@ -116,31 +117,31 @@ const FlightResults = () => {
                 <div className="flex text-xs items-center">
                   <p
                     className={`${
-                      sortBy === "cheapest"
-                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                        : ""
+                      sortBy === 'cheapest'
+                        ? 'bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all'
+                        : ''
                     } cursor-pointer`}
-                    onClick={() => setSortBy("cheapest")}
+                    onClick={() => setSortBy('cheapest')}
                   >
                     Cheapest
                   </p>
                   <p
                     className={`${
-                      sortBy === "best"
-                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                        : ""
+                      sortBy === 'best'
+                        ? 'bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all'
+                        : ''
                     } mx-8 cursor-pointer`}
-                    onClick={() => setSortBy("best")}
+                    onClick={() => setSortBy('best')}
                   >
                     Best
                   </p>
                   <p
                     className={`${
-                      sortBy === "quickest"
-                        ? "bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all"
-                        : ""
+                      sortBy === 'quickest'
+                        ? 'bg-blueBgMainSm text-white px-3 py-2 rounded-full transition-all'
+                        : ''
                     } cursor-pointer`}
-                    onClick={() => setSortBy("quickest")}
+                    onClick={() => setSortBy('quickest')}
                   >
                     Quickest
                   </p>

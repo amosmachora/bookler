@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Assets } from '../../Assets/Assets';
-import { getBaseUrl, shouldMenuBeWide } from '../../Util/Helpers';
+import { Assets } from '../Assets/Assets';
+import { useGlobalData } from '../Hooks/useGlobalData';
+import { getBaseUrl } from '../Util/Helpers';
 
 const menuLinks = [
   {
@@ -43,12 +44,12 @@ const menuLinks = [
 
 const Menu = () => {
   const { pathname } = useLocation();
-  const menuWide = shouldMenuBeWide(pathname);
+  const { menuWide } = useGlobalData();
 
   return (
     <div
-      className={`h-[90vh]  bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 pl-7 pr-5 overflow-hidden transition-all relative ${
-        menuWide ? 'w-[19%]' : 'w-[5%]'
+      className={`h-[90vh]  bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 px-5 overflow-hidden transition-all relative ${
+        menuWide ? 'w-1/5' : 'w-1/12'
       }`}
     >
       <div className="flex items-center justify-between">
@@ -73,23 +74,24 @@ const Menu = () => {
             : '[&>*]:rounded [&>*]:p-2'
         }`}
       >
-        {menuLinks.map((item) => (
-          <MenuLink pathName={pathname} menuItem={item} menuWide={menuWide} />
+        {menuLinks.map((item, i) => (
+          <MenuLink
+            pathName={pathname}
+            menuItem={item}
+            menuWide={menuWide}
+            key={i}
+          />
         ))}
       </div>
-      <div className="get-premium bg-white flex items-center rounded-full absolute w-48 h-11 pr-4 cursor-pointer bottom-10 z-10">
-        <img
-          src={Assets.Premium}
-          alt="Premium"
-          className="w-14 h-14 absolute left-0 top-[4px]"
-        />
+      <div className="bg-white flex items-center justify-between px-3 py-2 rounded-full cursor-pointer z-10 mt-10">
+        <img src={Assets.Premium} alt="Premium" className="w-6 h-6 show" />
         {menuWide && (
           <React.Fragment>
-            <div className="ml-auto -mr-3">
+            <div>
               <p className="text-black text-xs font-bold">Get premium</p>
               <p className="text-gray-400 text-[10px]">$39/m</p>
             </div>
-            <img src={Assets.PremiumArrow} alt="Arrow" className="ml-9" />
+            <img src={Assets.PremiumArrow} alt="Arrow" className="" />
           </React.Fragment>
         )}
       </div>

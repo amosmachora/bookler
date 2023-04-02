@@ -5,10 +5,10 @@ import HotelSearchParameters from './HotelSearchParameters';
 import { fetchSuggestedLocations } from '../../Fetchers/FetchLocations';
 import { PropertyListType } from '../../Types/PropertyList';
 import { SelectedHotel } from '../../Types/Hotel';
-import { useUserHotelData } from './useUserHotelData';
 import { useGlobalData } from '../../Hooks/useGlobalData';
 import { Outlet } from 'react-router';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
+import { useHotelDataContext } from '../../Hooks/useHotelData';
 
 export const HotelSearchResultsContext = createContext<{
   selectedHotelInfo: SelectedHotel | null;
@@ -22,13 +22,9 @@ export const HotelSearchResultsContext = createContext<{
 }>(null as any);
 
 const HotelSearchResults = () => {
-  const {
-    checkInDate,
-    checkOutDate,
-    travellerHotelInfo,
-    targetHotelLocation,
-    travelingForWorkCheckBox,
-  } = useUserHotelData();
+  const { userHotelChoices, travelingForWorkCheckBox } = useHotelDataContext();
+  const { checkInDate, checkOutDate, travellerHotelInfo, targetHotelLocation } =
+    userHotelChoices;
   const { setIsLoading, setMenuWide } = useGlobalData();
   const [propertyList, setPropertyList] = useState<PropertyListType | null>(
     null

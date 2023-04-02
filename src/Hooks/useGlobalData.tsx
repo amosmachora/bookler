@@ -3,7 +3,7 @@ import { Airline, Airport, Country } from '../Types/Flights';
 import { fetchCountries } from '../Fetchers/FetchCountries';
 import { fetchAirports } from '../Fetchers/FetchAirports';
 import { fetchAirlines } from '../Fetchers/FetchAirlines';
-import { useUpdateLogger } from './useUpdateLogger';
+// import { useUpdateLogger } from './useUpdateLogger';
 import { useLocalStorage } from './useLocalStorage';
 import { useLocation } from 'react-router';
 import { shouldMenuBeWide } from '../Util/Helpers';
@@ -47,9 +47,9 @@ export const useGlobalData = (): GlobalData => {
     setMenuWide(shouldMenuBeWide(pathname));
   }, [pathname]);
 
-  useUpdateLogger(airports, 'airports');
+  // useUpdateLogger(airports, 'airports');
 
-  useUpdateLogger(isLoading, 'isLoading');
+  // useUpdateLogger(isLoading, 'isLoading');
 
   return {
     setIsLoading,

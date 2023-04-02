@@ -1,62 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { Assets } from "../../Assets/Assets";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { isLinkClickable } from "../../Util/Helpers";
-import { DatePicker } from "../DatePicker";
-import OffPageLink from "../OffPageLink";
-import AirportSearch, {
-  AirportSearchConfig,
-} from "../SearchModals/AirportSearch";
-import TimePicker from "../TimePicker";
-import { useUserCarRentalData } from "./useUserCarRentalData";
+import React, { useState } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
+import { isLinkClickable } from '../../Util/Helpers';
+import { DatePicker } from '../DatePicker';
+import OffPageLink from '../OffPageLink';
+import { CarRentalSearch } from '../SearchModals/AirportSearch.cars';
+import TimePicker from './TimePicker';
+
+export type ModalConfig = {
+  inputPlaceHolder: string;
+  mainText: string;
+  name: string;
+  type: 'pick-up' | 'drop-off';
+  closeFunction: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const CarRentalSearchForm = () => {
-  const {
-    dropCarAtDifferentLocation,
-    pickUpDate,
-    dropOffDate,
-    pickUpTime,
-    dropOffTime,
-    dropOffLocation,
-    pickUpLocation,
-    setPickUpDate,
-    setDropOffDate,
-    setPickUpTime,
-    setDropOffTime,
-    setDropCarAtDifferentLocation,
-    setDropOffLocation,
-    setPickUpLocation,
-  } = useUserCarRentalData();
+  const { userCarRentalChoices } = useCarRentalDataContext();
 
-  const { setMenuWide } = useGlobalData();
-
+  const [dropCarAtDifferentLocation, setDropCarAtDifferentLocation] =
+    useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
-  useEffect(() => {
-    setMenuWide(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const args = [
-    pickUpDate,
-    dropOffDate,
-    pickUpTime,
-    dropOffTime,
-    pickUpLocation,
+    userCarRentalChoices?.pickUpDate,
+    userCarRentalChoices?.dropOffDate,
+    userCarRentalChoices?.pickUpTime,
+    userCarRentalChoices?.dropOffTime,
+    userCarRentalChoices?.pickUpLocation,
   ];
 
   if (dropCarAtDifferentLocation) {
-    args.push(dropOffLocation);
+    args.push(userCarRentalChoices?.dropOffLocation);
   }
 
   const isClickable: boolean = isLinkClickable(...args);
 
-  let config: AirportSearchConfig = {
+  let config: ModalConfig = {
+    inputPlaceHolder: 'Search pick up location',
+    mainText: 'Pick Up location',
+    name: 'Pick up location',
     closeFunction: setShowSearchModal,
-    inputPlaceHolder: "Search pick up location",
-    mainText: "Pick Up location",
-    name: "Pick up location",
-    setFunction: setPickUpLocation,
+    type: 'pick-up',
   };
 
   return (
@@ -70,12 +55,16 @@ const CarRentalSearchForm = () => {
           <p className="text-gray-300 text-sm ml-1">Pick up location</p>
         </div>
         <p className="text-black font-bold">
-          {pickUpLocation === null
-            ? "No location selected"
-            : pickUpLocation.city + ", " + pickUpLocation.country}
+          {userCarRentalChoices?.pickUpLocation === null
+            ? 'No location selected'
+            : userCarRentalChoices?.pickUpLocation.city +
+              ', ' +
+              userCarRentalChoices?.pickUpLocation.country}
         </p>
         <p className="text-xs text-gray-400">
-          {pickUpLocation === null ? "No location picked" : pickUpLocation.name}
+          {userCarRentalChoices?.pickUpLocation === null
+            ? 'No location picked'
+            : userCarRentalChoices?.pickUpLocation.name}
         </p>
       </div>
       {dropCarAtDifferentLocation && (
@@ -84,10 +73,9 @@ const CarRentalSearchForm = () => {
           onClick={() => {
             config = {
               ...config,
-              inputPlaceHolder: "Search drop off location",
-              mainText: "Drop off location",
-              setFunction: setDropOffLocation,
-              name: "Drop off location",
+              inputPlaceHolder: 'Search drop off location',
+              mainText: 'Drop off location',
+              name: 'Drop off location',
             };
             setShowSearchModal(true);
           }}
@@ -97,29 +85,33 @@ const CarRentalSearchForm = () => {
             <p className="text-gray-300 text-sm ml-1">Drop off location</p>
           </div>
           <p className="text-black font-bold">
-            {dropOffLocation === null
-              ? "No location selected"
-              : dropOffLocation.city + ", " + dropOffLocation.country}
+            {userCarRentalChoices?.dropOffLocation === null
+              ? 'No location selected'
+              : userCarRentalChoices?.dropOffLocation.city +
+                ', ' +
+                userCarRentalChoices?.dropOffLocation.country}
           </p>
           <p className="text-xs text-gray-400">
-            {dropOffLocation === null
-              ? "No location picked"
-              : dropOffLocation.name}
+            {userCarRentalChoices?.dropOffLocation === null
+              ? 'No location picked'
+              : userCarRentalChoices?.dropOffLocation.name}
           </p>
         </div>
       )}
       <DatePicker
-        date={pickUpDate}
+        date={userCarRentalChoices!.pickUpDate}
         name="Pick-up date"
-        setDate={setPickUpDate}
+        type="pick-up-date"
+        source="CarRental"
       />
       <DatePicker
-        date={dropOffDate}
+        date={userCarRentalChoices!.dropOffDate}
         name="Drop-off Date"
-        setDate={setDropOffDate}
+        type="drop-off-date"
+        source="CarRental"
       />
-      <TimePicker name="Pick-up time" setTime={setPickUpTime} />
-      <TimePicker name="Drop-off time" setTime={setDropOffTime} />
+      <TimePicker name="Pick-up time" type="pick-up-time" />
+      <TimePicker name="Drop-off time" type="drop-off-time" />
       <OffPageLink
         isClickable={isClickable}
         to="car-rental-results"
@@ -133,7 +125,7 @@ const CarRentalSearchForm = () => {
         />
         <p>Drop car off at different location</p>
       </div>
-      {showSearchModal && <AirportSearch config={config} />}
+      {showSearchModal && <CarRentalSearch config={config} />}
     </div>
   );
 };

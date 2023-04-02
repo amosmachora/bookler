@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Assets } from "../../Assets/Assets";
-import { Airport, Departures, SingleFlightData } from "../../Types/Flights";
-import BookButton from "./BookButton";
-import { Airline } from "../../Types/Flights";
-import { fetchExtraFlightData } from "../../Fetchers/FetchExtraFlightData";
-import FlightDetails from "./FlightDetails";
-import { BookingContext } from "./FlightResults";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { useUserFlightData } from "./useUserFlightData";
+import React, { useContext, useEffect, useState } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { Airport, Departures, SingleFlightData } from '../../Types/Flights';
+import BookButton from './BookButton';
+import { Airline } from '../../Types/Flights';
+import { fetchExtraFlightData } from '../../Fetchers/FetchExtraFlightData';
+import FlightDetails from './FlightDetails';
+import { BookingContext } from './FlightResults';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
 
 type FoundFlightProps = {
   foundFlight: Departures;
@@ -15,7 +15,8 @@ type FoundFlightProps = {
 };
 
 const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
-  const { fromAirport, toAirport } = useUserFlightData();
+  const { userFlightChoices } = useFlightDataContext();
+  const { fromAirport, toAirport } = userFlightChoices!;
   const { airlines, setIsLoading } = useGlobalData();
   const { booking } = useContext(BookingContext);
   const [extraFlightData, setExtraFlightData] = useState<SingleFlightData>();
@@ -34,7 +35,7 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
     <>
       <div
         className={`flex ${
-          showDetails ? "rounded-t-lg" : "rounded-lg mb-2"
+          showDetails ? 'rounded-t-lg' : 'rounded-lg mb-2'
         } overflow-hidden transition-all`}
         key={foundFlight.number}
       >
@@ -132,9 +133,9 @@ export function FlightTimes({
         <p className="font-bold text-lg">
           {getActualTime(foundFlight.departure.scheduledTimeUtc)}
         </p>
-        <p className={`text-gray-400 ${showLocations ? "text-xs" : "text-sm"}`}>
+        <p className={`text-gray-400 ${showLocations ? 'text-xs' : 'text-sm'}`}>
           {showLocations
-            ? fromAirport.city + ", " + fromAirport.country
+            ? fromAirport.city + ', ' + fromAirport.country
             : fromAirport.icao}
         </p>
       </div>
@@ -148,11 +149,11 @@ export function FlightTimes({
         </p>
         <p
           className={`mr-2 text-gray-400 ${
-            showLocations ? "text-xs" : "text-sm"
+            showLocations ? 'text-xs' : 'text-sm'
           }`}
         >
           {showLocations
-            ? toAirport.city + ", " + toAirport.country
+            ? toAirport.city + ', ' + toAirport.country
             : toAirport.icao}
         </p>
       </div>

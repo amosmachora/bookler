@@ -1,7 +1,7 @@
-import React, { SetStateAction } from "react";
-import { Airline, Airport } from "../../Types/Flights";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { useUserFlightData } from "./useUserFlightData";
+import React, { SetStateAction } from 'react';
+import { Airline, Airport } from '../../Types/Flights';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
 
 type FlightFilterProps = {
   setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
@@ -15,7 +15,8 @@ const FlightFilter = ({
   setPreferredAirline,
 }: FlightFilterProps) => {
   const { airports, airlines } = useGlobalData();
-  const { toAirport } = useUserFlightData();
+  const { userFlightChoices } = useFlightDataContext();
+  const { toAirport } = userFlightChoices!;
 
   //TODO FIX THIS.
   const getStopSelectCities = (): Airport[] => {
@@ -34,7 +35,7 @@ const FlightFilter = ({
   const handleAirlinePreferenceSelect = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    if (e.target.value === "No preference") {
+    if (e.target.value === 'No preference') {
       setPreferredAirline(null);
     } else {
       setPreferredAirline(
@@ -65,7 +66,7 @@ const FlightFilter = ({
           <option value={toAirport!.city}>NO STOP</option>
           {getStopSelectCities().map((airport) => (
             <option value={airport.city} key={airport.id}>
-              {airport.city + ", " + airport.country}
+              {airport.city + ', ' + airport.country}
             </option>
           ))}
         </select>

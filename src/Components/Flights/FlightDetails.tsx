@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Departures } from "../../Types/Flights";
-import { FlightTimes } from "./FoundFlight";
-import axios from "axios";
-import { Assets } from "../../Assets/Assets";
-import { useUserFlightData } from "./useUserFlightData";
+import React, { useEffect, useState } from 'react';
+import { Departures } from '../../Types/Flights';
+import { FlightTimes } from './FoundFlight';
+import axios from 'axios';
+import { Assets } from '../../Assets/Assets';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
 
 type FlightDetailsProps = {
   foundFlight: Departures;
 };
 
 const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
-  const { toAirport, fromAirport } = useUserFlightData();
+  const { userFlightChoices } = useFlightDataContext();
+  const { toAirport, fromAirport } = userFlightChoices!;
   const [details, setDetails] = useState(true);
   const [aircraftImage, setAircraftImage] = useState<string>();
   const [loading, setLoading] = useState(true);
@@ -19,12 +20,12 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
     const getAircraftImage = async (): Promise<string> => {
       setLoading(true);
       const options = {
-        method: "GET",
+        method: 'GET',
         url: `https://aerodatabox.p.rapidapi.com/aircrafts/reg/${foundFlight.aircraft.reg}/image/beta`,
         headers: {
-          "X-RapidAPI-Key":
-            "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
-          "X-RapidAPI-Host": "aerodatabox.p.rapidapi.com",
+          'X-RapidAPI-Key':
+            '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',
+          'X-RapidAPI-Host': 'aerodatabox.p.rapidapi.com',
         },
       };
 
@@ -55,7 +56,7 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
           onClick={() => setDetails(true)}
           className={`uppercase ${
             details
-              ? "text-detailsText border border-b-detailsText"
+              ? 'text-detailsText border border-b-detailsText'
               : `text-gray-700`
           } font-semibold text-sm px-4 py-2 mr-5`}
         >
@@ -65,7 +66,7 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
           onClick={() => setDetails(false)}
           className={`uppercase  ${
             details
-              ? "text-gray-700"
+              ? 'text-gray-700'
               : `text-detailsText border-b-detailsText border`
           } font-semibold text-sm px-4 py-2`}
         >
@@ -91,20 +92,20 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
               <div className="flex justify-between">
                 <p className="font-bold text-sm">
                   <span className="text-gray-500 font-medium text-sm">
-                    Baggage:{" "}
+                    Baggage:{' '}
                   </span>
                   Adult
                 </p>
                 <p className="font-bold text-sm">
                   <span className="text-gray-500 font-medium text-sm">
-                    Check In:{" "}
+                    Check In:{' '}
                   </span>
                   40kgs
                 </p>
               </div>
               <p className="font-bold text-sm mt-1">
                 <span className="text-gray-500 font-medium text-sm">
-                  Cabin:{" "}
+                  Cabin:{' '}
                 </span>
                 40kgs
               </p>

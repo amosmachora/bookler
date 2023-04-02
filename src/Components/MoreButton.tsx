@@ -1,4 +1,4 @@
-import { Assets } from "../Assets/Assets";
+import { Assets } from '../Assets/Assets';
 
 export function MoreButton() {
   return (
@@ -11,7 +11,7 @@ export function MoreButton() {
         <img src={Assets.DropDownGray} alt="Drop down" />
       </div>
       <p className="font-bold text-base mb-1">More</p>
-      <div>...</div>
+      <p>...</p>
     </div>
   );
 }

@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
-import { Assets } from "../../Assets/Assets";
+import React, { useContext } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 import {
   Airport,
   Images,
   PartnerLocation,
   VehicleInformation,
-} from "../../Types/CarRentals";
-import Map from "../Hotel/Map";
-import { PayNowButton } from "../PayNowButton";
+} from '../../Types/CarRentals';
+import Map from '../Hotel/Map';
+import { PayNowButton } from '../PayNowButton';
 import {
   CarRentalSearchResultsContext,
   getPartnerLocation,
-} from "./CarRentalSearchResultsProvider";
-import { useUserCarRentalData } from "./useUserCarRentalData";
+} from './CarRentalSearchResultsProvider';
 
 const CarDetails = () => {
   const { activeVehicle, carRentalData } = useContext(
@@ -35,7 +35,7 @@ const CarDetails = () => {
       activeVehicle!.partnerInfo.returnLocationId.substring(3)
     ];
 
-  const { dropCarAtDifferentLocation } = useUserCarRentalData();
+  const { dropCarAtDifferentLocation } = useCarRentalDataContext();
   const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (
@@ -66,7 +66,7 @@ const CarDetails = () => {
             )}
             <div className="flex">
               <img src={Assets.Class} alt="Class" className="mr-1 ml-3" />
-              <p>{activeVehicle!.vehicleInfo.peopleCapacity + " seat"}</p>
+              <p>{activeVehicle!.vehicleInfo.peopleCapacity + ' seat'}</p>
             </div>
             {activeVehicle!.vehicleInfo.airConditioning && (
               <>
@@ -106,13 +106,13 @@ const CarDetails = () => {
             <div className="ml-4">
               <p className="font-semibold text-base">Pick Up & Drop Off</p>
               <p className="text-xs font-normal text-gray-400">
-                {dropCarAtDifferentLocation && "Pick Up: "}
-                {pickUpLocation.fullDisplayName + ", " + pickUpLocation.city}
+                {dropCarAtDifferentLocation && 'Pick Up: '}
+                {pickUpLocation.fullDisplayName + ', ' + pickUpLocation.city}
               </p>
               {dropCarAtDifferentLocation && (
                 <p className="text-xs font-normal text-gray-400">
-                  Drop Off:{" "}
-                  {dropOffLocation.displayName + ", " + dropOffLocation.city}
+                  Drop Off:{' '}
+                  {dropOffLocation.displayName + ', ' + dropOffLocation.city}
                 </p>
               )}
             </div>
@@ -123,9 +123,9 @@ const CarDetails = () => {
               <p className="font-semibold text-base">Address</p>
               <p className="text-xs font-normal text-gray-400">
                 {partnerLocation.address.addressLine1 +
-                  ", " +
+                  ', ' +
                   partnerLocation.address.cityName +
-                  ", " +
+                  ', ' +
                   partnerLocation.address.countryName}
               </p>
             </div>
@@ -160,7 +160,7 @@ const getTrueKeys = (activeVehicle: VehicleInformation | null): string[] => {
   const myArray: string[] = [];
   keys.forEach((key) => {
     const currentValue = activeVehicle![key];
-    if (typeof currentValue === "boolean" && currentValue === true) {
+    if (typeof currentValue === 'boolean' && currentValue === true) {
       myArray.push(getNormalCaseString(key));
     }
   });

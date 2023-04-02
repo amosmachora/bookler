@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Assets } from '../../Assets/Assets';
 import { useGlobalData } from '../../Hooks/useGlobalData';
+import { useHotelDataContext } from '../../Hooks/useHotelData';
 import { isLinkClickable } from '../../Util/Helpers';
 import { DatePicker } from '../DatePicker';
 import { MoreButton } from '../MoreButton';
 import OffPageLink from '../OffPageLink';
-import AirportSearch from '../SearchModals/AirportSearch';
-import { useUserHotelData } from './useUserHotelData';
+import { HotelsSearch } from '../SearchModals/AirportSearch.hotels';
 import TravellerSelector from './TravellersSelector';
 
 const HotelSearchForm = () => {
-  const {
-    setCheckInDate,
-    setCheckOutDate,
-    checkInDate,
-    checkOutDate,
-    targetHotelLocation,
-    travellerHotelInfo,
-    travelingForWorkCheckBox,
-    setTargetHotelLocation,
-  } = useUserHotelData();
+  const { userHotelChoices, travelingForWorkCheckBox } = useHotelDataContext();
+  const { targetHotelLocation, travellerHotelInfo, checkInDate, checkOutDate } =
+    userHotelChoices;
 
   const { setMenuWide } = useGlobalData();
 
@@ -32,9 +25,9 @@ const HotelSearchForm = () => {
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const isClickable = isLinkClickable(
-    targetHotelLocation,
-    checkInDate,
-    checkOutDate
+    userHotelChoices.targetHotelLocation,
+    userHotelChoices.checkInDate,
+    userHotelChoices.checkOutDate
   );
 
   return (
@@ -60,9 +53,10 @@ const HotelSearchForm = () => {
           </p>
         </div>
         <DatePicker
-          setDate={setCheckInDate}
           date={checkInDate}
           name="Check In"
+          source="Hotels"
+          type="check-in-date"
         />
         <div
           className="rounded-md bg-gray-100 w-[32%] relative z-0"
@@ -84,9 +78,10 @@ const HotelSearchForm = () => {
       </div>
       <div className="flex justify-between relative">
         <DatePicker
-          setDate={setCheckOutDate}
           date={checkOutDate}
           name="Check out"
+          source="Hotels"
+          type="check-out-date"
         />
         <div className="flex h-max mt-auto">
           <input
@@ -101,13 +96,13 @@ const HotelSearchForm = () => {
           SEARCH FLIGHT
         </OffPageLink>
         {showSearchModal && (
-          <AirportSearch
+          <HotelsSearch
             config={{
               closeFunction: setShowSearchModal,
               inputPlaceHolder: 'Search hotel location',
               mainText: 'Hotel',
               name: 'Hotel',
-              setFunction: setTargetHotelLocation,
+              type: 'drop-off', // TODO plastering wounds
             }}
           />
         )}

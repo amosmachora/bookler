@@ -1,14 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
-import CarRentalSearchParameters from "./CarRentalSearchParameters";
+import React, { createContext, useEffect, useState } from 'react';
+import CarRentalSearchParameters from './CarRentalSearchParameters';
 import {
   CarRentalSearchResultsType,
   PartnerLocation,
   VehicleInformation,
-} from "../../Types/CarRentals";
-import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
-import { useUserCarRentalData } from "./useUserCarRentalData";
-import { useGlobalData } from "../../Hooks/useGlobalData";
-import { Outlet } from "react-router";
+} from '../../Types/CarRentals';
+import { fetchCarRentals } from '../../Fetchers/FetchCarRentals';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { Outlet } from 'react-router';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 
 export const CarRentalSearchResultsContext = createContext<{
   activeVehicle: VehicleInformation | null;
@@ -26,8 +26,9 @@ export const CarRentalSearchResultsContext = createContext<{
 const CarRentalSearchResultsProvider = () => {
   const [carRentalData, setCarRentalData] =
     useState<CarRentalSearchResultsType>({} as any);
+  const { userCarRentalChoices } = useCarRentalDataContext();
   const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } =
-    useUserCarRentalData();
+    userCarRentalChoices!;
   const [suggestedVehicles, setSuggestedVehicles] = useState<
     VehicleInformation[]
   >(getArrayOfObjects(carRentalData.vehicleRates));
@@ -47,10 +48,10 @@ const CarRentalSearchResultsProvider = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchCarRentals(
-      "JFK",
+      'JFK',
       getConcatenatedDate(dropOffDate, dropOffTime!),
       getConcatenatedDate(pickUpDate, pickUpTime!),
-      "JFK"
+      'JFK'
     ).then((res) => {
       setCarRentalData(res);
       setIsLoading(false);
@@ -90,13 +91,13 @@ export default CarRentalSearchResultsProvider;
 const getConcatenatedDate = (Date: Date | null, Time: string): string => {
   return `${
     Date?.getFullYear() +
-    "-" +
+    '-' +
     (Date!.getMonth() + 1) +
-    "-" +
+    '-' +
     Date?.getDate() +
-    " " +
+    ' ' +
     Time +
-    ":00"
+    ':00'
   }`;
 };
 

@@ -1,34 +1,34 @@
-import React from "react";
-import { getFormattedDate } from "../../Util/Helpers";
-import { RedSearchButton } from "../RedSearchButton";
-import { useUserCarRentalData } from "./useUserCarRentalData";
+import React from 'react';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
+import { getFormattedDate } from '../../Util/Helpers';
+import { RedSearchButton } from '../RedSearchButton';
 
 const TaxiSearchParameters = () => {
+  const { dropCarAtDifferentLocation, userCarRentalChoices } =
+    useCarRentalDataContext();
+
   const {
+    pickUpLocation,
+    dropOffLocation,
     pickUpDate,
-    pickUpTime,
     dropOffDate,
     dropOffTime,
-    dropCarAtDifferentLocation,
-  } = useUserCarRentalData();
-
-  //TODO remember to fix location
-  const pickUpLocation = "London , United Kingdom";
-  const dropOffLocation = "London , United Kingdom";
+    pickUpTime,
+  } = userCarRentalChoices!;
 
   return (
     <div className="bg-white rounded-b-lg flex justify-between mt-10 py-4 px-5 items-center">
       <div>
         <p className="text-xs text-gray-400">FROM</p>
         <div className="rounded-full bg-gray-200 text-sm py-1 px-2">
-          {pickUpLocation}
+          {pickUpLocation?.city + ' , ' + pickUpLocation?.country}
         </div>
       </div>
       {dropCarAtDifferentLocation && (
         <div>
           <p className="text-xs text-gray-400">TO</p>
           <p className="rounded-full bg-gray-200 text-sm py-1 px-2">
-            {dropOffLocation}
+            {dropOffLocation?.city + ' , ' + dropOffLocation?.country}
           </p>
         </div>
       )}
