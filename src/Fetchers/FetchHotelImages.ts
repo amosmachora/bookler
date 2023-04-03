@@ -1,6 +1,6 @@
-import axios from "axios";
-import { DirtyHotelImages, HotelImage, tags } from "../Types/Hotel";
-import DevHotelImages from "../Util/HotelImages.json";
+import axios from 'axios';
+import { DirtyHotelImages, HotelImage, tags } from '../Types/Hotel';
+import BackedUpImages from '../Util/HotelImages.json';
 
 /**
  * @JsDoc
@@ -13,26 +13,28 @@ export const fetchHotelImages = async (
   hotel_id: number
 ): Promise<HotelImage[]> => {
   const options = {
-    method: "GET",
-    url: "https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos",
-    params: { hotel_ids: hotel_id.toString(), languagecode: "en-us" },
+    method: 'GET',
+    // url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos',
+    url: 'https://invalid-url',
+    params: { hotel_ids: hotel_id.toString(), languagecode: 'en-us' },
     headers: {
-      "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
-      "X-RapidAPI-Host": "apidojo-booking-v1.p.rapidapi.com",
+      'X-RapidAPI-Key': '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',
+      'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   };
 
-  let response: DirtyHotelImages = await axios
-    .request(options)
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.error(error);
-      return DevHotelImages;
-    });
+  try {
+    let response: DirtyHotelImages = await axios
+      .request(options)
+      .then(function (response) {
+        return response.data;
+      });
 
-  return getCleanedArrayOfImageObjects(response, hotel_id.toString());
+    return getCleanedArrayOfImageObjects(response, hotel_id.toString());
+  } catch (error) {
+    console.error(error);
+    return getCleanedArrayOfImageObjects(BackedUpImages, '25924');
+  }
 };
 
 /**

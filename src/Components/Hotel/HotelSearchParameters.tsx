@@ -1,6 +1,8 @@
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useHotelDataContext } from '../../Hooks/useHotelData';
-import { DatePicker } from '../DatePicker';
+import { getFormattedDate } from '../../Util/Helpers';
 import { RedSearchButton } from '../RedSearchButton';
 
 const HotelSearchParameters = () => {
@@ -15,18 +17,8 @@ const HotelSearchParameters = () => {
           {targetHotelLocation?.city + ', ' + targetHotelLocation?.country}
         </p>
       </div>
-      <DatePicker
-        date={checkInDate}
-        source="Hotels"
-        type="check-in-date"
-        name="CHECK-IN"
-      />
-      <DatePicker
-        date={checkOutDate}
-        name="CHECK-OUT"
-        source="Hotels"
-        type="check-out-date"
-      />
+      <HotelSearchFormDatePicker date={checkInDate} text="CHECK-IN" />
+      <HotelSearchFormDatePicker date={checkOutDate} text="CHECK-OUT" />
       <div>
         <p className="text-xs text-gray-300 ml-2">Rooms & Guests</p>
         <p className="flex bg-gray-100 py-2 px-6 rounded-full mt-1">
@@ -40,3 +32,21 @@ const HotelSearchParameters = () => {
 };
 
 export default HotelSearchParameters;
+
+const HotelSearchFormDatePicker = ({
+  date,
+  text,
+}: {
+  date: Date | null;
+  text: string;
+}) => {
+  return (
+    <div>
+      <p className="text-xs text-gray-300 ml-2">{text}</p>
+      <div className="py-2 px-6 flex justify-between items-center bg-gray-100 rounded-full">
+        <p>{getFormattedDate(date)}</p>
+        <FontAwesomeIcon icon={faCalendarDays} className="text-gray-400 ml-2" />
+      </div>
+    </div>
+  );
+};

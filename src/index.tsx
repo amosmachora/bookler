@@ -13,7 +13,6 @@ import CarRentalSearchResultsProvider from './Components/CarRental/CarRentalSear
 import CarRentalResults from './Components/CarRental/CarRentalResults';
 import CarRentalReview from './Components/CarRental/CarRentalReview';
 import HotelSearchForm from './Components/Hotel/HotelSearchForm';
-import HotelSearchResults from './Components/Hotel/HotelSearchResults';
 import HotelDetails from './Components/Hotel/HotelDetails';
 import HotelResults from './Components/Hotel/HotelResults';
 import BookingReview from './Components/Hotel/BookingReview';
@@ -23,6 +22,7 @@ import SignUp from './Components/OnBoarding/SignUp';
 import { FlightDataProvider } from './Hooks/useFlightData';
 import { CarRentalDataContextProvider } from './Hooks/useCarRentalData';
 import { HotelDataContextProvider } from './Hooks/useHotelData';
+import { HotelSearchResults } from './Components/Hotel/HotelSearchResultsProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

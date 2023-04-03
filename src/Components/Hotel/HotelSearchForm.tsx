@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Assets } from '../../Assets/Assets';
-import { useGlobalData } from '../../Hooks/useGlobalData';
 import { useHotelDataContext } from '../../Hooks/useHotelData';
 import { isLinkClickable } from '../../Util/Helpers';
 import { DatePicker } from '../DatePicker';
@@ -13,13 +12,6 @@ const HotelSearchForm = () => {
   const { userHotelChoices, travelingForWorkCheckBox } = useHotelDataContext();
   const { targetHotelLocation, travellerHotelInfo, checkInDate, checkOutDate } =
     userHotelChoices;
-
-  const { setMenuWide } = useGlobalData();
-
-  useEffect(() => {
-    setMenuWide(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const [showTravelSelector, setShowTravelSelector] = useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState(false);

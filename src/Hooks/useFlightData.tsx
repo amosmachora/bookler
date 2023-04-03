@@ -55,7 +55,7 @@ const useFlightData = () => {
 
   useUpdateLogger(userFlightChoices, 'userFlightChoices');
 
-  // useUpdateLogger(outGoingFlights, 'outGoingFlights');
+  useUpdateLogger(outGoingFlights, 'outGoingFlights');
 
   return {
     userFlightChoices,

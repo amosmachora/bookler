@@ -21,7 +21,7 @@ export const HotelSearchResultsContext = createContext<{
   >;
 }>(null as any);
 
-const HotelSearchResults = () => {
+export const HotelSearchResults = () => {
   const { userHotelChoices, travelingForWorkCheckBox } = useHotelDataContext();
   const { checkInDate, checkOutDate, travellerHotelInfo, targetHotelLocation } =
     userHotelChoices;
@@ -86,5 +86,3 @@ const HotelSearchResults = () => {
     </HotelSearchResultsContext.Provider>
   );
 };
-
-export default HotelSearchResults;

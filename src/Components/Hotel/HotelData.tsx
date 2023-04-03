@@ -1,10 +1,10 @@
-import { Rating } from "../../Components/Rating";
-import React, { useContext, useState } from "react";
-import { Assets } from "../../Assets/Assets";
-import { CompleteHotel, GoogleMapsCenter } from "../../Types/Hotel";
-import LittleFacilityDisplay from "./LittleFacilityDisplay";
-import { Link } from "react-router-dom";
-import { HotelSearchResultsContext } from "./HotelSearchResults";
+import { Rating } from '../../Components/Rating';
+import React, { useContext, useState } from 'react';
+import { Assets } from '../../Assets/Assets';
+import { CompleteHotel, GoogleMapsCenter } from '../../Types/Hotel';
+import LittleFacilityDisplay from './LittleFacilityDisplay';
+import { Link } from 'react-router-dom';
+import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
 
 const HotelData = ({
   hotelData,
@@ -26,7 +26,7 @@ const HotelData = ({
   const isBookingAllowed: boolean =
     hotelData.hotelInfo.soldout === 0 ? true : false;
   const smallCircleClasses: string =
-    "rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7";
+    'rounded-[50%] border-white h-6 w-6 cursor-pointer mr-1 border hover:border-2 transition-all hover:h-7 hover:w-7';
 
   /**
    * @param image_type A image type string e.g "Property Building"
@@ -38,20 +38,20 @@ const HotelData = ({
   };
 
   const possibleTags = [
-    "Bathroom",
-    "Kitchen/Kitchenette",
-    "Property Building",
-    "Lobby/Reception",
-    "TV/Entertainment Center",
-    "Bed",
-    "Restaurant/Places to Eat",
-    "Fitness Center/Facilities",
-    "Lobby/Reception",
-    "Lounge/Bar",
-    "Room Photo",
-    "View",
-    "Buffet breakfast",
-    "Property logo or sign",
+    'Bathroom',
+    'Kitchen/Kitchenette',
+    'Property Building',
+    'Lobby/Reception',
+    'TV/Entertainment Center',
+    'Bed',
+    'Restaurant/Places to Eat',
+    'Fitness Center/Facilities',
+    'Lobby/Reception',
+    'Lounge/Bar',
+    'Room Photo',
+    'View',
+    'Buffet breakfast',
+    'Property logo or sign',
   ];
 
   /**
@@ -63,48 +63,48 @@ const HotelData = ({
     return getSpecificImage(possibleTags[randomIndex]);
   };
 
-  const [image, setImage] = useState(getSpecificImage("Property Building"));
+  const [image, setImage] = useState(getSpecificImage('Property Building'));
 
   return (
     <div
       className={`bg-white rounded-md h-48 ${
         activeTab === hotelData.hotelInfo.hotel_name
-          ? "shadow-md border-2 my-2 border-red-400"
-          : "mb-1 border-0"
+          ? 'shadow-md border-2 my-2 border-red-400'
+          : 'mb-1 border-0'
       } transition-all`}
     >
       <div className="flex h-full">
-        <div className={`h-full ${mapShown ? "w-[33%]" : "w-[30%]"} relative`}>
+        <div className={`h-full ${mapShown ? 'w-[33%]' : 'w-[30%]'} relative`}>
           <img
             src={image}
             alt="Hotel main"
             className={`h-full object-cover ${
-              mapShown ? "rounded-l-md" : "rounded-md"
+              mapShown ? 'rounded-l-md' : 'rounded-md'
             } w-full`}
           />
           {mapShown ? null : (
             <div className="absolute z-50 flex bottom-4 w-full px-5 justify-between h-7 items-center">
               <div className="flex items-center">
                 <img
-                  src={getSpecificImage("Room Photo")}
+                  src={getSpecificImage('Room Photo')}
                   alt="Random hotel"
                   className={smallCircleClasses}
-                  onClick={() => setImage(getSpecificImage("Room Photo"))}
+                  onClick={() => setImage(getSpecificImage('Room Photo'))}
                 />
                 <img
-                  src={getSpecificImage("Restaurant/Places to Eat")}
+                  src={getSpecificImage('Restaurant/Places to Eat')}
                   alt="Random hotel"
                   className={smallCircleClasses}
                   onClick={() =>
-                    setImage(getSpecificImage("Restaurant/Places to Eat"))
+                    setImage(getSpecificImage('Restaurant/Places to Eat'))
                   }
                 />
                 <img
-                  src={getSpecificImage("Fitness Center/Facilities")}
+                  src={getSpecificImage('Fitness Center/Facilities')}
                   alt="Random hotel"
                   className={smallCircleClasses}
                   onClick={() =>
-                    setImage(getSpecificImage("Fitness Center/Facilities"))
+                    setImage(getSpecificImage('Fitness Center/Facilities'))
                   }
                 />
               </div>
@@ -135,13 +135,13 @@ const HotelData = ({
         </div>
         <div
           className={`py-6 flex-grow relative ${
-            mapShown ? "w-[67%] px-2" : "pr-20 w-[70%] pl-6"
+            mapShown ? 'w-[67%] px-2' : 'pr-20 w-[70%] pl-6'
           }`}
         >
           <div
-            className={`${mapShown ? "flex justify-between items-start" : ""}`}
+            className={`${mapShown ? 'flex justify-between items-start' : ''}`}
           >
-            <p className={`font-bold ${mapShown ? "text-sm" : "text-lg"}`}>
+            <p className={`font-bold ${mapShown ? 'text-sm' : 'text-lg'}`}>
               {hotelData.hotelInfo.hotel_name}
             </p>
             <Rating
@@ -149,7 +149,7 @@ const HotelData = ({
               rating={((hotelData.hotelInfo.review_score / 10) * 5).toFixed(1)}
             />
           </div>
-          <div className={`flex justify-between ${mapShown ? "mt-3" : ""}`}>
+          <div className={`flex justify-between ${mapShown ? 'mt-3' : ''}`}>
             <p className="font-semibold text-xs">
               {hotelData.hotelInfo.address}
             </p>
@@ -182,7 +182,7 @@ const HotelData = ({
           <div
             className={`${
               showAllFacilities
-                ? "h-11 overflow-y-scroll"
+                ? 'h-11 overflow-y-scroll'
                 : `h-4 overflow-y-hidden`
             } w-full flex flex-wrap my-3 relative`}
           >
@@ -197,26 +197,26 @@ const HotelData = ({
               className="font-bold text-xs right-1 absolute cursor-pointer"
               onClick={() => setShowAllFacilities((prev) => !prev)}
             >
-              {showAllFacilities ? "Less -" : "More +"}
+              {showAllFacilities ? 'Less -' : 'More +'}
             </p>
           </div>
           <div
             className={`flex justify-between items-center absolute bottom-3 ${
-              mapShown ? "w-full" : "w-[95%]"
+              mapShown ? 'w-full' : 'w-[95%]'
             }`}
           >
-            <div className={`${mapShown ? "w-[30%]" : "flex"}`}>
+            <div className={`${mapShown ? 'w-[30%]' : 'flex'}`}>
               <p className="text-yellow-500 text-xs font-light mr-2">25% off</p>
               <p className="font-bold">
                 ${hotelData.hotelInfo.price_breakdown.all_inclusive_price}
               </p>
             </div>
-            <div className={`text-xs ${mapShown ? "w-[70%]" : ""} flex`}>
+            <div className={`text-xs ${mapShown ? 'w-[70%]' : ''} flex`}>
               <Link
                 className={`py-3 ${
                   mapShown
-                    ? "px-1 hover:border-gray-400 transition-all mr-2"
-                    : "bg-gray-300 hover:bg-gray-400 px-5 mr-4"
+                    ? 'px-1 hover:border-gray-400 transition-all mr-2'
+                    : 'bg-gray-300 hover:bg-gray-400 px-5 mr-4'
                 } rounded-md font-semibold transition-all border-2 border-transparent`}
                 onClick={() => {
                   setSelectedHotelInfo({
@@ -233,8 +233,8 @@ const HotelData = ({
                 <a
                   className={`${
                     mapShown
-                      ? "text-blue-600 font-semibold px-1 hover:border-blue-600 transition-all"
-                      : "bg-blue-600 text-white px-5 hover:bg-blue-400"
+                      ? 'text-blue-600 font-semibold px-1 hover:border-blue-600 transition-all'
+                      : 'bg-blue-600 text-white px-5 hover:bg-blue-400'
                   } rounded-md transition-all disabled:cursor-not-allowed py-3 border-2 border-transparent`}
                   href={hotelData.hotelInfo.url}
                   target="_blank"

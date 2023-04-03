@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Assets } from "../Assets/Assets";
-import { useAuth } from "../Hooks/useAuth";
-import { useGlobalData } from "../Hooks/useGlobalData";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Assets } from '../Assets/Assets';
+import { useAuth } from '../Hooks/useAuth';
+import { useGlobalData } from '../Hooks/useGlobalData';
 
 const UserProfileTabSmall = () => {
   const { user } = useAuth();
@@ -11,8 +11,8 @@ const UserProfileTabSmall = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const handleLogOut = () => {
-    localStorage.removeItem("userData");
-    navigate("/login");
+    localStorage.removeItem('userData');
+    navigate('/login');
   };
 
   return (

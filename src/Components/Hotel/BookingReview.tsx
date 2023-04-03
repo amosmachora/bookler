@@ -1,8 +1,8 @@
-import { UserDetailsForm } from "../../Components/UserDetailsForm";
-import React, { useContext } from "react";
-import { Assets } from "../../Assets/Assets";
-import BookingReviewAside from "./BookingReviewAside";
-import { HotelSearchResultsContext } from "./HotelSearchResults";
+import { UserDetailsForm } from '../../Components/UserDetailsForm';
+import React, { useContext } from 'react';
+import { Assets } from '../../Assets/Assets';
+import BookingReviewAside from './BookingReviewAside';
+import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
 
 const BookingReview = () => {
   const handleCountryCodeSelection = (currentValue: string) => {};

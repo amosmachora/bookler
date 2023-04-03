@@ -49,10 +49,7 @@ const TravellerSelector = ({
                   ...prev,
                   travellerHotelInfo: {
                     ...prev.travellerHotelInfo,
-                    adults:
-                      prev.travellerHotelInfo.adults === 0
-                        ? 0
-                        : prev.travellerHotelInfo.adults + 1,
+                    adults: prev.travellerHotelInfo.adults + 1,
                   },
                 };
               })
@@ -96,10 +93,7 @@ const TravellerSelector = ({
                   ...prev,
                   travellerHotelInfo: {
                     ...prev.travellerHotelInfo,
-                    kids:
-                      prev.travellerHotelInfo.kids === 0
-                        ? 0
-                        : prev.travellerHotelInfo.kids + 1,
+                    kids: prev.travellerHotelInfo.kids + 1,
                   },
                 };
               })

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
 import { Airport } from '../Types/Flights';
 import { TravellerHotelInfo } from '../Types/Hotel';
+import { useUpdateLogger } from './useUpdateLogger';
 
 export type UserHotelChoices = {
   checkInDate: Date | null;
@@ -30,6 +31,8 @@ const useHotelData = () => {
       kids: 0,
     },
   });
+
+  useUpdateLogger(userHotelChoices, 'userHotelChoices');
 
   const travelingForWorkCheckBox = useRef<HTMLInputElement | null>(null);
 

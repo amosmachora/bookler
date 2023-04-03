@@ -1,43 +1,17 @@
-import React from "react";
-import { Assets } from "../../Assets/Assets";
-import { Departures } from "../../Types/Flights";
+import React from 'react';
+import { Assets } from '../../Assets/Assets';
 
-type ProgressBarProps = {
-  setShowPayments: React.Dispatch<React.SetStateAction<boolean>>;
-  setFoundFlights: React.Dispatch<
-    React.SetStateAction<Departures[] | undefined>
-  >;
-  allUnfilteredFoundFlights: Departures[];
-  setBooking: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const ProgressBar = ({
-  setShowPayments,
-  setFoundFlights,
-  allUnfilteredFoundFlights,
-  setBooking,
-}: ProgressBarProps) => {
+const ProgressBar = () => {
   return (
     <div className="flex justify-between bg-white rounded-md py-3 px-12 mt-2 items-center text-xs">
       <div className="flex items-center">
         <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
-        <p
-          className="cursor-pointer"
-          onClick={() => {
-            setShowPayments(false);
-            setFoundFlights(allUnfilteredFoundFlights);
-            setBooking(false);
-          }}
-        >
-          Flight selected
-        </p>
+        <p className="cursor-pointer">Flight selected</p>
       </div>
       <div className="h-[1px] w-1/4 bg-gray-300" />
       <div className="flex items-center">
         <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
-        <p className="cursor-pointer" onClick={() => setShowPayments(false)}>
-          Flight details
-        </p>
+        <p className="cursor-pointer">Flight details</p>
       </div>
       <div className="h-[1px] w-1/4 bg-gray-300" />
       <div className="flex items-center">

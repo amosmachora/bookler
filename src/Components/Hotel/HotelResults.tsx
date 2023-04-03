@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { fetchHotelFacilities } from "../../Fetchers/FetchHotelFacilities";
-import { fetchHotelImages } from "../../Fetchers/FetchHotelImages";
-import { useUpdateLogger } from "../../Hooks/useUpdateLogger";
-import { CompleteHotel, GoogleMapsCenter, HotelInfo } from "../../Types/Hotel";
-import HotelData from "./HotelData";
-import HotelFilter from "./HotelFilter";
-import { HotelSearchResultsContext } from "./HotelSearchResults";
-import Map from "./Map";
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useContext, useEffect, useState } from 'react';
+import { fetchHotelFacilities } from '../../Fetchers/FetchHotelFacilities';
+import { fetchHotelImages } from '../../Fetchers/FetchHotelImages';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
+import { CompleteHotel, GoogleMapsCenter, HotelInfo } from '../../Types/Hotel';
+import HotelData from './HotelData';
+import HotelFilter from './HotelFilter';
+import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
+import Map from './Map';
 
 const HotelResults = () => {
   const { propertyList, setSortBy, sortBy } = useContext(
@@ -23,7 +25,7 @@ const HotelResults = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
-  useUpdateLogger(completeHotelsList, "CompleteHotelsList");
+  useUpdateLogger(completeHotelsList, 'CompleteHotelsList');
 
   useEffect(() => {
     if (propertyList) {
@@ -43,7 +45,7 @@ const HotelResults = () => {
           <p className="font-bold">Hotels</p>
           <div className="h-5 w-[1px] bg-gray-300 mx-3" />
           <p className="text-sm font-semibold">
-            Total{" "}
+            Total{' '}
             <span className="text-sky-500 font-normal">
               {propertyList === null ? 0 : propertyList.result.length} results
             </span>
@@ -54,7 +56,7 @@ const HotelResults = () => {
               : propertyList.sort.map((sortOption) => (
                   <p
                     className={`rounded-full py-1 mx-1 px-2 cursor-pointer transition-all ${
-                      sortOption.id === sortBy ? "bg-blue-900 text-white" : ""
+                      sortOption.id === sortBy ? 'bg-blue-900 text-white' : ''
                     }`}
                     onClick={() => setSortBy(sortOption.id)}
                     key={sortOption.id}
@@ -76,25 +78,30 @@ const HotelResults = () => {
           </div>
         </div>
         <div className="flex justify-between flex-grow h-[90%]">
-          <div
-            className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
-              mapShown ? "w-[44%]" : ""
-            } `}
-          >
-            {isLoading
-              ? "Is Loading!!!"
-              : completeHotelsList.map((hotel) => (
-                  <HotelData
-                    hotelData={hotel}
-                    key={hotel.hotelInfo.hotel_id}
-                    setShowMapFunction={setMapShown}
-                    mapShown={mapShown}
-                    setMapCenter={setMapCenter}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                  />
-                ))}
-          </div>
+          {isLoading ? (
+            <FontAwesomeIcon
+              icon={faCircleNotch}
+              className="mx-auto spin mt-10"
+            />
+          ) : (
+            <div
+              className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
+                mapShown ? 'w-[44%]' : ''
+              } `}
+            >
+              {completeHotelsList.map((hotel) => (
+                <HotelData
+                  hotelData={hotel}
+                  key={hotel.hotelInfo.hotel_id}
+                  setShowMapFunction={setMapShown}
+                  mapShown={mapShown}
+                  setMapCenter={setMapCenter}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              ))}
+            </div>
+          )}
           {mapShown && mapCenter !== null && (
             <Map center={mapCenter} width="w-[55%]" />
           )}
@@ -121,7 +128,7 @@ function fetchExtraHotelsData(
       setTimeout(() => {
         fetchHotelImages(parseInt(hotel.hotel_id.toString()))
           .then((hotelImages) => {
-            console.log(hotelImages, hotel.hotel_name + "`s images");
+            console.log(hotelImages, hotel.hotel_name + '`s images');
             fetchHotelFacilities(hotel.hotel_id.toString()).then((facilities) =>
               CompleteHotelArray.push({
                 hotelFacilities: facilities,

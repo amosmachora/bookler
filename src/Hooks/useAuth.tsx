@@ -1,13 +1,14 @@
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from './useLocalStorage';
 
 export interface User {
+  id: string;
   email: string | null;
   picture: string | null;
-  name: string | null;
-  accountType: string | null;
-  birthday: string | null;
-  gender: string | null;
-  address: string | null;
+  name: string;
+  accountType?: string | null;
+  birthday?: string | null;
+  gender?: string | null;
+  address?: string | null;
   aud?: string;
   azp?: string;
   email_verified?: boolean;
@@ -20,21 +21,22 @@ export interface User {
   nbf?: string;
   sub?: string;
   mobileNumber?: string | null;
-  password?: string | null;
+  phoneNumber?: string | null;
 }
 
 export const useAuth = () => {
   const [user, setUserData] = useLocalStorage<User>(
     {
-      accountType: "",
+      id: '',
+      accountType: '',
       picture: null,
-      name: "",
+      name: '',
       email: null,
       birthday: null,
       address: null,
       gender: null,
     },
-    "userData"
+    'userData'
   );
   return {
     user,

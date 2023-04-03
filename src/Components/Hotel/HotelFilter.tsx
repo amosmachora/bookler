@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { BaseFilter, RecommendedFilter } from "../../Types/PropertyList";
-import { HotelSearchResultsContext } from "./HotelSearchResults";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { BaseFilter, RecommendedFilter } from '../../Types/PropertyList';
+import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
 
 const HotelFilter = ({
   baseFilters,
@@ -98,7 +98,7 @@ const HotelFilter = ({
         {isOverflowing && (
           <p
             className="text-center absolute bottom-0 left-1/2 -translate-x-1/2 py-4 bg-white w-full cursor-pointer"
-            onClick={() => (filterDiv.current!.style.overflowY = "scroll")}
+            onClick={() => (filterDiv.current!.style.overflowY = 'scroll')}
           >
             More
           </p>

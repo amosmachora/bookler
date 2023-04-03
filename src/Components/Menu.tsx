@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Assets } from '../Assets/Assets';
 import { useGlobalData } from '../Hooks/useGlobalData';
-import { getBaseUrl } from '../Util/Helpers';
 
 const menuLinks = [
   {
@@ -60,7 +59,7 @@ const Menu = () => {
           className={`hamburger w-5 h-5 flex flex-col justify-around ${
             menuWide ? `items-end` : `items-start`
           } cursor-pointer`}
-          to={getBaseUrl(pathname)}
+          to="/flights"
         >
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
           <span className="bg-white w-3/4 h-[3px] rounded-sm" />
