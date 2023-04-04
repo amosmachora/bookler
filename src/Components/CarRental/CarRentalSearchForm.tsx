@@ -45,7 +45,7 @@ const CarRentalSearchForm = () => {
   };
 
   return (
-    <div className="bg-white flex flex-wrap justify-between rounded-lg py-8 px-9 mt-5 gap-y-4 transition-all">
+    <div className="bg-white flex flex-wrap rounded-lg p-9 mt-5 gap-3 transition-all">
       <div
         className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
         onClick={() => setShowSearchModal(true)}
@@ -112,11 +112,6 @@ const CarRentalSearchForm = () => {
       />
       <TimePicker name="Pick-up time" type="pick-up-time" />
       <TimePicker name="Drop-off time" type="drop-off-time" />
-      <OffPageLink
-        isClickable={isClickable}
-        to="car-rental-results"
-        children="SEARCH CARS"
-      />
       <div className="flex items-center text-white bg-blue-600 px-3 py-1 rounded-md text-sm max-h-[30px]">
         <input
           type="checkbox"
@@ -125,6 +120,11 @@ const CarRentalSearchForm = () => {
         />
         <p>Drop car off at different location</p>
       </div>
+      <OffPageLink
+        isClickable={isClickable}
+        to="car-rental-results"
+        children="SEARCH CARS"
+      />
       {showSearchModal && <CarRentalSearch config={config} />}
     </div>
   );

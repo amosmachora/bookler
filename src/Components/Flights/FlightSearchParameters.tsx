@@ -12,7 +12,7 @@ const FlightSearchParameters = () => {
     userFlightChoices;
 
   return (
-    <div className="flex items-center justify-between bg-white mt-10 py-4 px-12 rounded-lg mr-6">
+    <div className="flex items-center justify-between bg-white mt-2 py-4 px-12 rounded-lg mr-6">
       <div>
         <p className="text-gray-400 text-xs font-medium ml-3">TYPE</p>
         <p className="bg-gray-100 px-3 py-1 font-medium rounded-full">
@@ -41,7 +41,7 @@ const FlightSearchParameters = () => {
             getFormattedDate(returnDate)}
         </p>
       </div>
-      <RedSearchButton text="Search FlIGhT" />
+      <RedSearchButton text="Search FlIGhT" to="flights/flight-results" />
     </div>
   );
 };

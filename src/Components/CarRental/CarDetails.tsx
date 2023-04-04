@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Assets } from '../../Assets/Assets';
 import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 import {
@@ -8,30 +9,28 @@ import {
   VehicleInformation,
 } from '../../Types/CarRentals';
 import Map from '../Hotel/Map';
-import { PayNowButton } from '../PayNowButton';
+import CarRentalSearchParameters from './CarRentalSearchParameters';
 import {
-  CarRentalSearchResultsContext,
   getPartnerLocation,
+  useCarRentalSearchResults,
 } from './CarRentalSearchResultsProvider';
 
 const CarDetails = () => {
-  const { activeVehicle, carRentalData } = useContext(
-    CarRentalSearchResultsContext
-  );
+  const { activeVehicle, carRentalData } = useCarRentalSearchResults();
 
   const image: string = getLargestPossibleImage(
     activeVehicle?.vehicleInfo.images
   );
   const partnerLocation: PartnerLocation = getPartnerLocation(
-    carRentalData.partnerLocations,
+    carRentalData!.partnerLocations,
     activeVehicle?.partnerCode
   );
   const pickUpLocation: Airport =
-    carRentalData.airports[
+    carRentalData!.airports[
       activeVehicle!.partnerInfo.pickupLocationId.substring(3)
     ];
   const dropOffLocation: Airport =
-    carRentalData.airports[
+    carRentalData!.airports[
       activeVehicle!.partnerInfo.returnLocationId.substring(3)
     ];
 
@@ -39,8 +38,9 @@ const CarDetails = () => {
   const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (
-    <div className="mt-4">
-      <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
+    <div>
+      <CarRentalSearchParameters />
+      <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-2 mt-4 items-center justify-between">
         <p className="font-bold">Car Details</p>
         <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white text-sm">
           Info and price
@@ -95,7 +95,12 @@ const CarDetails = () => {
               {activeVehicle?.posCurrencyCode}
             </span>
           </p>
-          <PayNowButton linkTo="booking-review" />
+          <Link
+            className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white"
+            to={'booking-review'}
+          >
+            Review And Book
+          </Link>
         </div>
       </div>
       <div className="flex bg-white py-3 px-5 rounded-md justify-between mt-4">

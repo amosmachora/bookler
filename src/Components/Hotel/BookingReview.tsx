@@ -1,12 +1,10 @@
-import { UserDetailsForm } from '../../Components/UserDetailsForm';
 import React, { useContext } from 'react';
 import { Assets } from '../../Assets/Assets';
+import { FinalBookingStage } from '../FinalBookingStage';
 import BookingReviewAside from './BookingReviewAside';
 import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
 
 const BookingReview = () => {
-  const handleCountryCodeSelection = (currentValue: string) => {};
-
   const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
 
   return (
@@ -43,13 +41,7 @@ const BookingReview = () => {
             <p className="text-xs">Hotel booking</p>
           </div>
         </div>
-        <UserDetailsForm
-          text={{
-            textA: selectedHotelInfo?.hotelInfo?.hotel_name!,
-            textB: selectedHotelInfo?.hotelInfo?.city!,
-          }}
-          handleCountryCodeSelection={handleCountryCodeSelection}
-        />
+        <FinalBookingStage bookingType="Hotels" />
       </div>
       <BookingReviewAside selectedHotelInfo={selectedHotelInfo} />
     </div>

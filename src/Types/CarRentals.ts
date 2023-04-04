@@ -40,7 +40,7 @@ export interface PickUpOrDropOffLocations {
   postalCode?: string;
 }
 
-export interface CarRentalSearchResultsType {
+export interface CarRentalData {
   pickupDateTime: string;
   returnDateTime: string;
   discountCodesFailed: boolean;
@@ -195,15 +195,15 @@ export interface Display {
 }
 
 export interface VehicleCategoryGroups {
-  "medium-size": CarType;
-  "suv-size": CarType;
-  "van-size": CarType;
-  "van-type": CarType;
-  "large-size": CarType;
-  "small-size": CarType;
-  "car-type": CarType;
-  "luxury-size": CarType;
-  "suv-type": CarType;
+  'medium-size': CarType;
+  'suv-size': CarType;
+  'van-size': CarType;
+  'van-type': CarType;
+  'large-size': CarType;
+  'small-size': CarType;
+  'car-type': CarType;
+  'luxury-size': CarType;
+  'suv-type': CarType;
 }
 
 export interface CarType {

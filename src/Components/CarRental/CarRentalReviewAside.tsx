@@ -1,17 +1,14 @@
-import React from "react";
-import { Assets } from "../../Assets/Assets";
-import {
-  CarRentalSearchResultsType,
-  VehicleInformation,
-} from "../../Types/CarRentals";
-import { getPartnerLocation } from "./CarRentalSearchResultsProvider";
+import React from 'react';
+import { Assets } from '../../Assets/Assets';
+import { CarRentalData, VehicleInformation } from '../../Types/CarRentals';
+import { getPartnerLocation } from './CarRentalSearchResultsProvider';
 
-const CarRentalReviewAside = ({
+export const CarRentalReviewSummary = ({
   selectedVehicle,
   carRentalData,
 }: {
   selectedVehicle: VehicleInformation | null;
-  carRentalData: CarRentalSearchResultsType;
+  carRentalData: CarRentalData;
 }) => {
   const partnerLocation = getPartnerLocation(
     carRentalData.partnerLocations,
@@ -19,7 +16,7 @@ const CarRentalReviewAside = ({
   );
 
   return (
-    <div className="overflow-hidden w-1/5 rounded-md bg-white">
+    <div className="overflow-hidden w-1/4 rounded-md bg-white">
       <p className="font-bold text-lg bg-flightResultsBg py-2 px-5">
         Fare Summary
       </p>
@@ -32,9 +29,9 @@ const CarRentalReviewAside = ({
           <img src={Assets.LocationPointerBlue} alt="LocationPointerBlue" />
           <p className="text-xs ml-2">
             {partnerLocation.address.addressLine1 +
-              ", " +
+              ', ' +
               partnerLocation.address.cityName +
-              ", " +
+              ', ' +
               partnerLocation.address.countryName}
           </p>
         </div>
@@ -58,7 +55,7 @@ const CarRentalReviewAside = ({
             selectedVehicle!.rates[selectedVehicle!.posCurrencyCode]
               .totalAllInclusivePrice
           ) + 30}
-          <span className="text-xs font-normal text-gray-400">
+          <span className="text-xs font-normal text-gray-400 ml-2">
             {selectedVehicle?.posCurrencyCode}
           </span>
         </p>
@@ -66,5 +63,3 @@ const CarRentalReviewAside = ({
     </div>
   );
 };
-
-export default CarRentalReviewAside;

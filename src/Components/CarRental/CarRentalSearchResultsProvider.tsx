@@ -1,52 +1,49 @@
-import React, { createContext, useEffect, useState } from 'react';
-import CarRentalSearchParameters from './CarRentalSearchParameters';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
-  CarRentalSearchResultsType,
+  CarRentalData,
   PartnerLocation,
   VehicleInformation,
 } from '../../Types/CarRentals';
 import { fetchCarRentals } from '../../Fetchers/FetchCarRentals';
-import { useGlobalData } from '../../Hooks/useGlobalData';
-import { Outlet } from 'react-router';
 import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
 
-export const CarRentalSearchResultsContext = createContext<{
+const CarRentalSearchResultsContext = createContext<{
   activeVehicle: VehicleInformation | null;
-  carRentalData: CarRentalSearchResultsType;
-  suggestedVehicles: VehicleInformation[];
-  allUnfilteredVehicles: VehicleInformation[];
+  carRentalData: CarRentalData | null;
+  suggestedVehicles: VehicleInformation[] | null;
+  allUnfilteredVehicles: VehicleInformation[] | null;
   setActiveVehicle: React.Dispatch<
     React.SetStateAction<VehicleInformation | null>
   >;
   setSuggestedVehicles: React.Dispatch<
-    React.SetStateAction<VehicleInformation[]>
+    React.SetStateAction<VehicleInformation[] | null>
   >;
 }>(null as any);
 
-const CarRentalSearchResultsProvider = () => {
-  const [carRentalData, setCarRentalData] =
-    useState<CarRentalSearchResultsType>({} as any);
+export const CarRentalSearchResultsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [carRentalData, setCarRentalData] = useState<CarRentalData | null>(
+    null
+  );
   const { userCarRentalChoices } = useCarRentalDataContext();
   const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } =
     userCarRentalChoices!;
   const [suggestedVehicles, setSuggestedVehicles] = useState<
-    VehicleInformation[]
-  >(getArrayOfObjects(carRentalData.vehicleRates));
+    VehicleInformation[] | null
+  >(getArrayOfObjects(carRentalData?.vehicleRates));
 
-  const allUnfilteredVehicles: VehicleInformation[] = getArrayOfObjects(
-    carRentalData.vehicleRates
+  const allUnfilteredVehicles: VehicleInformation[] | null = getArrayOfObjects(
+    carRentalData?.vehicleRates
   );
 
-  const { setMenuWide, setIsLoading } = useGlobalData();
-
-  useEffect(() => {
-    setMenuWide(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useUpdateLogger(carRentalData, 'CarRentalData');
 
   //TODO Remember to fix locations.
   useEffect(() => {
-    setIsLoading(true);
     fetchCarRentals(
       'JFK',
       getConcatenatedDate(dropOffDate, dropOffTime!),
@@ -54,7 +51,6 @@ const CarRentalSearchResultsProvider = () => {
       'JFK'
     ).then((res) => {
       setCarRentalData(res);
-      setIsLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -67,41 +63,41 @@ const CarRentalSearchResultsProvider = () => {
     <CarRentalSearchResultsContext.Provider
       value={{
         activeVehicle,
+        suggestedVehicles,
         carRentalData,
         allUnfilteredVehicles,
         setActiveVehicle,
         setSuggestedVehicles,
-        suggestedVehicles,
       }}
     >
-      <CarRentalSearchParameters />
-      <Outlet />
-      {/* {stage === "Booking review" && (
-        <CarRentalReview
-          selectedVehicle={activeVehicle}
-          carRentalData={carRentalData}
-        />
-      )} */}
+      {children}
     </CarRentalSearchResultsContext.Provider>
   );
 };
 
-export default CarRentalSearchResultsProvider;
+export const useCarRentalSearchResults = () =>
+  useContext(CarRentalSearchResultsContext);
 
-const getConcatenatedDate = (Date: Date | null, Time: string): string => {
+const getConcatenatedDate = (date: Date | null, Time: string): string => {
+  if (!date) {
+    return '';
+  }
   return `${
-    Date?.getFullYear() +
+    date!.getFullYear() +
     '-' +
-    (Date!.getMonth() + 1) +
+    (date!.getMonth() + 1) +
     '-' +
-    Date?.getDate() +
+    date!.getDate() +
     ' ' +
     Time +
     ':00'
   }`;
 };
 
-export const getArrayOfObjects = (vehicles: any): any[] => {
+export const getArrayOfObjects = (vehicles: any): any => {
+  if (!vehicles) {
+    return null;
+  }
   const keys = Object.keys(vehicles);
   let myArray: any[] = [];
   keys.forEach((key) => myArray.push(vehicles[key]));

@@ -100,29 +100,34 @@ const SignUp = () => {
           </p>
         </div>
         <div className="flex items-center gap-x-2 mb-4">
-          <CountryCodeSelector handleChange={handleCountrySelection} />
-          <input
-            type="tel"
-            name="tel"
-            id="tel"
-            className="border-b border-gray-400 bg-gray-100 p-3 text-xs w-full"
-            placeholder="+8801 4454 4544"
-            onChange={(e) => handlePhone(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center gap-x-2 mb-4">
           <input
             type="text"
             placeholder="first name"
-            className="bg-transparent w-full text-black border-b border-gray-400 px-2 py-1 focus:outline-none text-sm placeholder:text-black"
+            className="bg-transparent w-full text-black border-b border-gray-400 px-2 py-1 focus:outline-none text-sm"
             ref={firstNameRef}
           />
           <input
             type="text"
             placeholder="last name"
-            className="bg-transparent w-full text-black border-b border-gray-400 px-2 py-1 focus:outline-none text-sm placeholder:text-black"
+            className="bg-transparent w-full text-black border-b border-gray-400 px-2 py-1 focus:outline-none text-sm"
             ref={lastNameRef}
           />
+        </div>
+        <div className="flex items-center gap-x-2 mb-4">
+          <CountryCodeSelector handleChange={handleCountrySelection} />
+          <input
+            type="tel"
+            name="tel"
+            id="tel"
+            className="border-b border-gray-400 bg-gray-100 p-3 text-xs w-full outline-none"
+            placeholder="+8801 4454 4544"
+            onChange={(e) => handlePhone(e.target.value)}
+          />
+          <select className="font-medium bg-gray-100 p-3 border-b border-gray-400 w-full text-xs outline-none">
+            <option value="null">Pronoun</option>
+            <option value="null">Mr</option>
+            <option value="null">Mrs</option>
+          </select>
         </div>
         <input
           type="email"

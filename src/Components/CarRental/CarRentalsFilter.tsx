@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { VehicleCategory, VehicleInformation } from "../../Types/CarRentals";
+import React, { useEffect, useState } from 'react';
+import { VehicleCategory, VehicleInformation } from '../../Types/CarRentals';
 import {
-  CarRentalSearchResultsContext,
   getArrayOfObjects,
-} from "./CarRentalSearchResultsProvider";
-import LineGraph from "./LineGraph";
+  useCarRentalSearchResults,
+} from './CarRentalSearchResultsProvider';
+import LineGraph from './LineGraph';
 
 const CarRentalsFilter = () => {
   const [appliedFilters, setAppliedFilters] = useState<string | null>(null);
   const { setSuggestedVehicles, allUnfilteredVehicles, carRentalData } =
-    useContext(CarRentalSearchResultsContext);
+    useCarRentalSearchResults();
   const categories: VehicleCategory[] = getArrayOfObjects(
-    carRentalData.vehicleCategories
+    carRentalData!.vehicleCategories
   );
 
   useEffect(() => {
-    if (appliedFilters !== null && appliedFilters !== "No filter") {
+    if (appliedFilters !== null && appliedFilters !== 'No filter') {
       setSuggestedVehicles(
-        allUnfilteredVehicles.filter((vehicle) =>
+        allUnfilteredVehicles!.filter((vehicle) =>
           vehicle.vehicleCategoryIds.includes(appliedFilters!)
         )
       );
@@ -27,30 +27,15 @@ const CarRentalsFilter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appliedFilters]);
 
-  const prices: number[] = getPrices(allUnfilteredVehicles);
-
-  const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles);
-
-  const popularFiltersRef = useRef<HTMLDivElement | null>(null);
-  const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (
-      popularFiltersRef.current!.scrollHeight >
-        popularFiltersRef.current!.offsetHeight &&
-      popularFiltersRef.current?.style.overflowY !== "scroll"
-    ) {
-      setIsOverflowing(true);
-    } else {
-      setIsOverflowing(false);
-    }
-  }, [popularFiltersRef.current?.style.overflowY]);
+  const prices: number[] = getPrices(allUnfilteredVehicles!);
+  const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles!);
 
   return (
-    <div className="w-1/5 overflow-hidden rounded-md h-[68vh] relative">
+    <div className="w-1/4 overflow-hidden rounded-md h-full relative">
       <p className="bg-flightResultsBg font-bold text-lg py-3 px-5">Filters</p>
-      <div className="p-5 bg-white text-sm rounded-b-md">
-        {/* <LineGraph prices={prices} /> */}
+      <div className="px-5 pt-2 pb-5 bg-white text-sm rounded-b-md">
+        <p className="text-xs">Prices</p>
+        <LineGraph prices={prices} />
         <input type="range" className="w-full" />
         <p className="font-semibold mt-7 mb-5">Looking for</p>
         <select
@@ -65,14 +50,14 @@ const CarRentalsFilter = () => {
           ))}
         </select>
         <p className="mt-7 mb-5">Popular Filters</p>
-        <div className="h-[20vh] overflow-hidden" ref={popularFiltersRef}>
+        <div className="h-[20vh] overflow-hidden">
           <div className="flex text-xs text-gray-400 mb-3">
             <input
               type="checkbox"
               onChange={(e) => {
                 if (e.target.checked) {
                   setSuggestedVehicles(
-                    allUnfilteredVehicles.filter(
+                    allUnfilteredVehicles!.filter(
                       (vehicle) => vehicle.vehicleInfo.airConditioning
                     )
                   );
@@ -89,7 +74,7 @@ const CarRentalsFilter = () => {
               onChange={(e) => {
                 if (e.target.checked) {
                   setSuggestedVehicles(
-                    allUnfilteredVehicles.filter(
+                    allUnfilteredVehicles!.filter(
                       (vehicle) => vehicle.vehicleInfo.automatic
                     )
                   );
@@ -106,7 +91,7 @@ const CarRentalsFilter = () => {
               onChange={(e) => {
                 if (e.target.checked) {
                   setSuggestedVehicles(
-                    allUnfilteredVehicles.filter(
+                    allUnfilteredVehicles!.filter(
                       (vehicle) => vehicle.vehicleInfo.manual
                     )
                   );
@@ -124,7 +109,7 @@ const CarRentalsFilter = () => {
                 onChange={(e) => {
                   if (e.target.checked) {
                     setSuggestedVehicles(
-                      allUnfilteredVehicles.filter(
+                      allUnfilteredVehicles!.filter(
                         (vehicle) => vehicle.vehicleInfo.peopleCapacity === seat
                       )
                     );
@@ -137,16 +122,6 @@ const CarRentalsFilter = () => {
             </div>
           ))}
         </div>
-        {isOverflowing && (
-          <p
-            className="text-center absolute bottom-0 left-1/2 -translate-x-1/2 py-2 bg-white w-full cursor-pointer"
-            onClick={() =>
-              (popularFiltersRef.current!.style.overflowY = "scroll")
-            }
-          >
-            More
-          </p>
-        )}
       </div>
     </div>
   );
@@ -175,7 +150,7 @@ const getNumberOfSeatsArray = (
   );
 
   const filteredArray = myArray.filter(
-    (s) => s !== undefined && typeof s === "string"
+    (s) => s !== undefined && typeof s === 'string'
   );
 
   return [...new Set(filteredArray)];

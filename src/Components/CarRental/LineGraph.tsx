@@ -1,62 +1,21 @@
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  ChartDatasetProperties,
-  Filler,
-  Legend,
-  LinearScale,
-  LineElement,
-  Point,
-  PointElement,
-  Title,
-  Tooltip,
-} from "chart.js";
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
 const LineGraph = ({ prices }: { prices: number[] }) => {
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler
+  const arrayOfPriceObjects: { price: number }[] = [];
+
+  prices.forEach((price) =>
+    arrayOfPriceObjects.push({
+      price: price,
+    })
   );
-  const options = {
-    tension: 0.4,
-    title: {
-      display: true,
-      text: "linechart",
-    },
-    scales: {
-      y: [
-        {
-          display: true,
-          stacked: true,
-          ticks: {
-            beginAtZero: true,
-            steps: 10,
-            stepValue: 5,
-            min: 0,
-            max: 100,
-          },
-        },
-      ],
-    },
-  };
+
   return (
-    <Line
-      data={{
-        datasets: prices as unknown as ChartDatasetProperties<
-          "line",
-          number | Point | null
-        >[],
-      }}
-      //   options={options}
-    />
+    <ResponsiveContainer width="100%" height={80}>
+      <LineChart data={arrayOfPriceObjects}>
+        <Line type="monotone" dataKey="price" stroke="#8884d8" />
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 
