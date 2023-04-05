@@ -24,9 +24,9 @@ const HotelSearchForm = () => {
 
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5 relative">
-      <div className="flex justify-between [&>*]:bg-gray-100 [&>*]:px-4 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg mb-4">
+      <div className="flex flex-wrap gap-3 [&>*]:px-3 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg">
         <div
-          className="bg-gray-200 rounded-md w-[32%]"
+          className="bg-gray-200 rounded-md"
           onClick={() => setShowSearchModal(true)}
         >
           <div className="flex">
@@ -50,13 +50,19 @@ const HotelSearchForm = () => {
           source="Hotels"
           type="check-in-date"
         />
+        <DatePicker
+          date={checkOutDate}
+          name="Check out"
+          source="Hotels"
+          type="check-out-date"
+        />
         <div
-          className="rounded-md bg-gray-100 w-[32%] relative z-0"
+          className="rounded-md bg-gray-100 relative z-0"
           onClick={() => setShowTravelSelector(true)}
         >
           <div className="flex">
             <img src={Assets.LocationPointer} alt="Location" />
-            <p className="text-gray-300 ml-1 text-sm">TO</p>
+            <p className="text-gray-300 ml-1 text-sm">Travellers</p>
           </div>
           <p className="font-bold mb-2">
             {travellerHotelInfo.adults} adult - {travellerHotelInfo.kids}{' '}
@@ -67,15 +73,8 @@ const HotelSearchForm = () => {
         {showTravelSelector && (
           <TravellerSelector closeModalFunction={setShowTravelSelector} />
         )}
-      </div>
-      <div className="flex justify-between relative">
-        <DatePicker
-          date={checkOutDate}
-          name="Check out"
-          source="Hotels"
-          type="check-out-date"
-        />
-        <div className="flex h-max mt-auto">
+        <MoreButton />
+        <div className="flex h-max mt-auto p-2">
           <input
             type="checkbox"
             className="h-5 w-5 mr-2 cursor-pointer"
@@ -83,7 +82,6 @@ const HotelSearchForm = () => {
           />
           <p>I`m traveling for work</p>
         </div>
-        <MoreButton />
         <OffPageLink to="hotel-results" isClickable={isClickable}>
           SEARCH FLIGHT
         </OffPageLink>

@@ -1,18 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Assets } from '../../Assets/Assets';
-import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
+import { useHotelSearchResults } from './HotelSearchResultsProvider';
 import { HotelDetailsImages } from './HotelDetailsImages';
 import { HotelDetailsOverview } from './HotelDetailsOverview';
 import GuestRatings from './GuestRatings';
 import { PayNowButton } from '../PayNowButton';
+import HotelSearchParameters from './HotelSearchParameters';
 
 const HotelDetails = () => {
-  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+  const { selectedHotelInfo } = useHotelSearchResults();
   const hotelInfo = selectedHotelInfo?.hotelInfo;
   const [showInfo, setShowInfo] = useState(true);
 
   return (
-    <>
+    <div>
+      <HotelSearchParameters />
       <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
         <p className="font-bold">Hotel Details</p>
         <div className="flex">
@@ -56,7 +58,7 @@ const HotelDetails = () => {
           {showInfo ? <HotelDetailsOverview /> : <GuestRatings />}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -31,7 +31,7 @@ const CarRentalsFilter = () => {
   const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles!);
 
   return (
-    <div className="w-1/4 overflow-hidden rounded-md h-full relative">
+    <div className="w-1/5 overflow-hidden rounded-md h-full relative">
       <p className="bg-flightResultsBg font-bold text-lg py-3 px-5">Filters</p>
       <div className="px-5 pt-2 pb-5 bg-white text-sm rounded-b-md">
         <p className="text-xs">Prices</p>

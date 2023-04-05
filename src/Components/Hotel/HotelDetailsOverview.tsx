@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Assets } from '../../Assets/Assets';
 import { fetchHotelDescription } from '../../Fetchers/FetchHotelDescription';
 
 import { HotelDescription } from '../../Types/HotelDescription';
-import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
+import { useHotelSearchResults } from './HotelSearchResultsProvider';
 import LittleFacilityDisplay from './LittleFacilityDisplay';
 
 export const HotelDetailsOverview = () => {
-  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+  const { selectedHotelInfo } = useHotelSearchResults();
   const hotelInfo = selectedHotelInfo?.hotelInfo;
   const hotelReviewScore: number = (hotelInfo!.review_score / 10) * 5;
 
@@ -15,15 +15,10 @@ export const HotelDetailsOverview = () => {
     HotelDescription[] | null
   >(null);
 
-  const fetchHotelDetails = async () => {
-    const hotelDescription = await fetchHotelDescription(
-      hotelInfo?.hotel_id.toString()!
-    );
-    setHotelDescription(hotelDescription);
-  };
-
   useEffect(() => {
-    fetchHotelDetails();
+    fetchHotelDescription(hotelInfo?.hotel_id.toString()!).then((res) =>
+      setHotelDescription(res)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

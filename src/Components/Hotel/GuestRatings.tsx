@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Flag from 'react-world-flags';
 import { Assets } from '../../Assets/Assets';
 import { fetchHotelReviews } from '../../Fetchers/FetchHotelReviews';
 import { HotelReviews } from '../../Types/HotelReviews';
 import { monthNames } from '../../Util/Helpers';
-import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
+import { useHotelSearchResults } from './HotelSearchResultsProvider';
 
 const GuestRatings = () => {
-  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+  const { selectedHotelInfo } = useHotelSearchResults();
   const [hotelReviews, setHotelReviews] = useState<HotelReviews | null>(null);
   const hotelInfo = selectedHotelInfo?.hotelInfo;
 

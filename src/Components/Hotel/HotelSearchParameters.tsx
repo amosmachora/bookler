@@ -10,7 +10,7 @@ const HotelSearchParameters = () => {
   const { checkInDate, checkOutDate, travellerHotelInfo, targetHotelLocation } =
     userHotelChoices;
   return (
-    <div className="flex justify-between items-center bg-white py-4 px-5 mt-2 rounded-b-lg text-sm mb-5">
+    <div className="flex justify-between items-center bg-white py-4 px-5 my-2 rounded-lg text-sm">
       <div>
         <p className="text-xs text-gray-300 ml-2">WHERE</p>
         <p className="bg-gray-100 py-2 px-6 rounded-full mt-1">

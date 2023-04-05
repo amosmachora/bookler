@@ -21,7 +21,7 @@ import SignUp from './Components/OnBoarding/SignUp';
 import { FlightDataProvider } from './Hooks/useFlightData';
 import { CarRentalDataContextProvider } from './Hooks/useCarRentalData';
 import { HotelDataContextProvider } from './Hooks/useHotelData';
-import { HotelSearchResults } from './Components/Hotel/HotelSearchResultsProvider';
+import { HotelSearchResultsProvider } from './Components/Hotel/HotelSearchResultsProvider';
 import { CarRentalSearchResultsProvider } from './Components/CarRental/CarRentalSearchResultsProvider';
 
 const root = ReactDOM.createRoot(
@@ -35,45 +35,56 @@ root.render(
         <CarRentalDataContextProvider>
           <HotelDataContextProvider>
             <CarRentalSearchResultsProvider>
-              <Routes>
-                <Route path="/" element={<App />}>
-                  <Route path="flights" element={<FlightSearchForm />} index />
-                  <Route
-                    path="flights/flight-results"
-                    element={<FlightResults />}
-                  >
-                    <Route path=":flightId" element={<TravelerDetails />} />
-                  </Route>
-                  <Route path="hotels" element={<HotelSearchForm />} />
-                  <Route
-                    path="hotels/hotel-results"
-                    element={<HotelSearchResults />}
-                  >
-                    <Route element={<HotelResults />} index />
-                    <Route path="hotel-details" element={<HotelDetails />} />
+              <HotelSearchResultsProvider>
+                <Routes>
+                  <Route path="/" element={<App />}>
+                    <Route
+                      path="flights"
+                      element={<FlightSearchForm />}
+                      index
+                    />
+                    <Route
+                      path="flights/flight-results"
+                      element={<FlightResults />}
+                    >
+                      <Route path=":flightId" element={<TravelerDetails />} />
+                    </Route>
+                    <Route path="hotels" element={<HotelSearchForm />} />
+                    <Route
+                      element={<HotelResults />}
+                      path="hotels/hotel-results"
+                    />
+                    <Route
+                      path="/hotels/hotel-results/hotel-details"
+                      element={<HotelDetails />}
+                    />
                     <Route
                       path="hotel-details/booking-review"
                       element={<BookingReview />}
                     />
+
+                    <Route
+                      path="car-rental"
+                      element={<CarRentalSearchForm />}
+                    />
+                    <Route
+                      element={<CarRentalResults />}
+                      path="car-rental/car-rental-results"
+                    />
+                    <Route
+                      path="/car-rental/car-rental-results/car-details"
+                      element={<CarDetails />}
+                    />
+                    <Route
+                      path="/car-rental/car-rental-results/car-details/booking-review"
+                      element={<CarRentalReview />}
+                    />
+                    <Route path="profile" element={<UserProfileForm />} />
                   </Route>
-                  <Route path="car-rental" element={<CarRentalSearchForm />} />
-                  <Route
-                    element={<CarRentalResults />}
-                    path="car-rental/car-rental-results"
-                  />
-                  <Route
-                    path="/car-rental/car-rental-results/car-details"
-                    element={<CarDetails />}
-                  />
-                  <Route
-                    path="/car-rental/car-rental-results/car-details/booking-review"
-                    element={<CarRentalReview />}
-                  />
-                  <Route path="profile" element={<UserProfileForm />} />
-                </Route>
-                <Route path="/login" element={<LogIn />} />
-                <Route path="/onboarding" element={<SignUp />} />
-              </Routes>
+                  <Route path="/login" element={<LogIn />} />
+                  <Route path="/onboarding" element={<SignUp />} />
+                </Routes>
+              </HotelSearchResultsProvider>
             </CarRentalSearchResultsProvider>
           </HotelDataContextProvider>
         </CarRentalDataContextProvider>

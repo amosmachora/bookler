@@ -15,7 +15,7 @@ const TravellerSelector = ({
   const circle =
     'rounded-[50%] border px-2 border-gray-500 cursor-pointer hover:border-sky-500 transition-all mx-2 my-1';
   return (
-    <div className="absolute -top-1 right-1/3 -translate-y-full bg-white w-1/3 shadow-md rounded-md p-4 cursor-auto z-10">
+    <div className="absolute bg-white left-0 right-0 -translate-y-full -top-2 w-1/2 shadow-md rounded-md p-4 cursor-auto z-10">
       <p className="font-bold text-md">Travellers</p>
       <p className="font-semibold">Room 1</p>
       <div className="flex justify-between items-center my-3">

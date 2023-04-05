@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Assets } from '../../Assets/Assets';
 import { HotelImage } from '../../Types/Hotel';
-import { HotelSearchResultsContext } from './HotelSearchResultsProvider';
+import { useHotelSearchResults } from './HotelSearchResultsProvider';
 
 export const HotelDetailsImages = () => {
-  const { selectedHotelInfo } = useContext(HotelSearchResultsContext);
+  const { selectedHotelInfo } = useHotelSearchResults();
 
   const arrayOfUniqueImages: HotelImage[] = getUniqueImages(
     selectedHotelInfo!.hotelImages
