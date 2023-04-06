@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Assets } from '../../Assets/Assets';
-import { HotelImage } from '../../Types/Hotel';
 import { useHotelSearchResults } from './HotelSearchResultsProvider';
 
 export const HotelDetailsImages = () => {
   const { selectedHotelInfo } = useHotelSearchResults();
+  const { hotelImages } = selectedHotelInfo!;
 
-  const arrayOfUniqueImages: HotelImage[] = getUniqueImages(
-    selectedHotelInfo!.hotelImages
-  );
-  const [activeImageIndex, setActiveImageIndex] = useState<number>(
-    Math.floor(7 / 2)
-  );
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const imgElement = document.getElementById(`image-${activeImageIndex}`);
+    imgElement!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, [activeImageIndex]);
+
   return (
-    <div className={`w-[55%] transition-all relative h-[67vh]`}>
+    <div className="w-3/5 transition-all relative h-full">
       <img
-        src={arrayOfUniqueImages[activeImageIndex].img_url_large}
+        src={hotelImages[activeImageIndex].img_url_large}
         alt="LocationPointerBlue"
         className="w-full rounded-md object-cover h-full"
       />
       <div
         onClick={() =>
           setActiveImageIndex((prev) =>
-            prev !== 0 ? prev - 1 : arrayOfUniqueImages.length - 1
+            prev !== 0 ? prev - 1 : hotelImages.length - 1
           )
         }
         className="absolute top-1/3 left-0 cursor-pointer h-16 flex items-center w-6 justify-center [&>*]:hover:h-4 image-switch"
@@ -36,7 +40,7 @@ export const HotelDetailsImages = () => {
       <div
         onClick={() =>
           setActiveImageIndex((prev) =>
-            prev !== arrayOfUniqueImages.length - 1 ? prev + 1 : 0
+            prev !== hotelImages.length - 1 ? prev + 1 : 0
           )
         }
         className="absolute top-1/3 right-0 cursor-pointer h-16 flex items-center w-6 justify-center [&>*]:hover:h-4 image-switch"
@@ -51,7 +55,7 @@ export const HotelDetailsImages = () => {
         className="flex justify-between w-full absolute bottom-6 overflow-x-scroll items-baseline"
         id="image-tape"
       >
-        {arrayOfUniqueImages.map((hotelImage, index) => (
+        {hotelImages.map((hotelImage, index) => (
           <img
             src={hotelImage.img_url_large}
             alt="Random hotel img"
@@ -62,24 +66,10 @@ export const HotelDetailsImages = () => {
                 : 'w-16 h-12'
             }`}
             onClick={() => setActiveImageIndex(index)}
+            id={`image-${index}`}
           />
         ))}
       </div>
     </div>
   );
-};
-
-const getKey = (arrayOfImages: HotelImage[]): string => {
-  const firstObject = arrayOfImages?.find(() => true);
-  return Object.keys(firstObject as Object)[0];
-};
-
-const getUniqueImages = (arrayOfImages: HotelImage[] | null): HotelImage[] => {
-  const arrayUniqueByKey: HotelImage[] = [
-    ...new Map(
-      arrayOfImages?.map((item) => [item[getKey(arrayOfImages)], item])
-    ).values(),
-  ];
-
-  return arrayOfImages!;
 };

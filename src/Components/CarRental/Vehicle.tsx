@@ -42,7 +42,7 @@ const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
             }
           </p>
           <Link
-            className="bg-blue-600 text-xs hover:bg-blue-400 transition-all text-white px-5 py-3 rounded-md font-semibold transition-all"
+            className="bg-blue-600 text-xs hover:bg-blue-400 text-white px-5 py-3 rounded-md font-semibold transition-all"
             onClick={() => {
               setActiveVehicle(vehicle);
             }}

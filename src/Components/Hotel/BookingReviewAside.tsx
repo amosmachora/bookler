@@ -3,6 +3,7 @@ import { Assets } from '../../Assets/Assets';
 import { useHotelDataContext } from '../../Hooks/useHotelData';
 import { SelectedHotel } from '../../Types/Hotel';
 import { getDay, monthNames } from '../../Util/Helpers';
+import { getMainImage } from './HotelData';
 
 const BookingReviewAside = ({
   selectedHotelInfo,
@@ -12,15 +13,11 @@ const BookingReviewAside = ({
   const { userHotelChoices } = useHotelDataContext();
   const { checkInDate, checkOutDate } = userHotelChoices!;
 
-  const hotelImages = selectedHotelInfo?.hotelImages;
-  const hotelInfo = selectedHotelInfo?.hotelInfo;
+  const { hotelImages, hotelInfo } = selectedHotelInfo!;
   return (
     <div className="w-1/5 bg-white rounded-md overflow-hidden p-3">
       <img
-        src={
-          hotelImages?.find((image) => image.tag_name === 'Property Building')
-            ?.img_url_large
-        }
+        src={getMainImage(hotelImages)}
         alt="hotel view"
         className="rounded-md"
       />
@@ -66,7 +63,7 @@ const BookingReviewAside = ({
           target="_blank"
           rel="noreferrer"
         >
-          PAY NOW
+          BOOK NOW
         </a>
       </div>
     </div>

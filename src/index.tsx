@@ -13,8 +13,7 @@ import CarRentalResults from './Components/CarRental/CarRentalResults';
 import CarRentalReview from './Components/CarRental/CarRentalReview';
 import HotelSearchForm from './Components/Hotel/HotelSearchForm';
 import HotelDetails from './Components/Hotel/HotelDetails';
-import HotelResults from './Components/Hotel/HotelResults';
-import BookingReview from './Components/Hotel/BookingReview';
+import { HotelBookingReview } from './Components/Hotel/HotelBookingReview';
 import UserProfileForm from './Components/UserProfileForm';
 import LogIn from './Components/OnBoarding/LogIn';
 import SignUp from './Components/OnBoarding/SignUp';
@@ -23,6 +22,7 @@ import { CarRentalDataContextProvider } from './Hooks/useCarRentalData';
 import { HotelDataContextProvider } from './Hooks/useHotelData';
 import { HotelSearchResultsProvider } from './Components/Hotel/HotelSearchResultsProvider';
 import { CarRentalSearchResultsProvider } from './Components/CarRental/CarRentalSearchResultsProvider';
+import { HotelResults } from './Components/Hotel/HotelResults';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -59,10 +59,9 @@ root.render(
                       element={<HotelDetails />}
                     />
                     <Route
-                      path="hotel-details/booking-review"
-                      element={<BookingReview />}
+                      path="/hotels/hotel-results/hotel-details/booking-review"
+                      element={<HotelBookingReview />}
                     />
-
                     <Route
                       path="car-rental"
                       element={<CarRentalSearchForm />}

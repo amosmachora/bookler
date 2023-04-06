@@ -1,10 +1,10 @@
-import { Rating } from '../../Components/Rating';
 import React, { useState } from 'react';
 import { Assets } from '../../Assets/Assets';
-import { CompleteHotel, GoogleMapsCenter } from '../../Types/Hotel';
+import { CompleteHotel, GoogleMapsCenter, HotelImage } from '../../Types/Hotel';
 import LittleFacilityDisplay from './LittleFacilityDisplay';
 import { Link } from 'react-router-dom';
 import { useHotelSearchResults } from './HotelSearchResultsProvider';
+import { Rating } from '../Rating';
 
 const HotelData = ({
   mapCenter,
@@ -24,34 +24,7 @@ const HotelData = ({
   const isBookingAllowed: boolean =
     hotelData.hotelInfo.soldout === 0 ? true : false;
 
-  /**
-   * @param image_type A image type string e.g "Property Building"
-   * @returns imageUrl of the specified image
-   */
-  const getMainImage = (): string => {
-    const image = hotelData.hotelImages.find(
-      (image) => image.tag_name === 'Property Building'
-    )?.img_url_large;
-
-    return image ?? getRandomImage();
-  };
-
-  const possibleTags: string[] = Array.from(
-    new Set(
-      hotelData.hotelImages
-        .filter((image) => image.tag_name != null)
-        .map((image) => image.tag_name as string)
-    )
-  );
-
-  const getRandomImage = (): string => {
-    const randomIndex: number = Math.floor(Math.random() * 10);
-    return hotelData.hotelImages.find(
-      (image) => image.tag_name === possibleTags[randomIndex]
-    )!.img_url_large;
-  };
-
-  const [image, setImage] = useState(getMainImage());
+  const [image, setImage] = useState(getMainImage(hotelData.hotelImages));
 
   return (
     <div
@@ -85,7 +58,9 @@ const HotelData = ({
               <div>
                 <button
                   className="text-white w-6 h-6 rounded-sm mr-2 text-lg toggle-image-buttons"
-                  onClick={() => setImage(getRandomImage())}
+                  onClick={() =>
+                    setImage(getRandomImage(hotelData.hotelImages))
+                  }
                 >
                   <img
                     src={Assets.ArrowWhiteLeft}
@@ -95,7 +70,9 @@ const HotelData = ({
                 </button>
                 <button
                   className="w-6 h-6 rounded-sm text-white text-lg toggle-image-buttons"
-                  onClick={() => setImage(getRandomImage())}
+                  onClick={() =>
+                    setImage(getRandomImage(hotelData.hotelImages))
+                  }
                 >
                   <img
                     src={Assets.ArrowWhiteRight}
@@ -146,39 +123,45 @@ const HotelData = ({
             />
           </div>
           <p className="font-semibold text-xs">{hotelData.hotelInfo.address}</p>
-          <div
-            className={`${
-              showAllFacilities
-                ? 'h-11 overflow-y-scroll'
-                : `h-4 overflow-y-hidden`
-            } w-full flex flex-wrap my-3 relative`}
-          >
-            {hotelData.hotelFacilities.map((facility, index) => (
-              <LittleFacilityDisplay
-                facility={facility}
-                key={index}
-                mapShown={mapCenter !== null}
-              />
-            ))}
-            <p
-              className="font-bold text-xs right-1 top-0 absolute cursor-pointer"
-              onClick={() => setShowAllFacilities((prev) => !prev)}
+          {!mapCenter && (
+            <div
+              className={`${
+                showAllFacilities
+                  ? 'h-11 overflow-y-scroll'
+                  : `h-4 overflow-y-hidden`
+              } w-full flex flex-wrap my-3 relative`}
             >
-              {showAllFacilities ? 'Less -' : 'More +'}
-            </p>
-          </div>
+              {hotelData.hotelFacilities.map((facility, index) => (
+                <LittleFacilityDisplay
+                  facility={facility}
+                  key={index}
+                  mapShown={mapCenter !== null}
+                />
+              ))}
+              <p
+                className="font-bold text-xs right-1 top-0 absolute cursor-pointer"
+                onClick={() => setShowAllFacilities((prev) => !prev)}
+              >
+                {showAllFacilities ? 'Less -' : 'More +'}
+              </p>
+            </div>
+          )}
           <div
             className={`flex justify-between items-center absolute bottom-3 ${
               mapCenter ? 'w-full' : 'w-[95%]'
             }`}
           >
-            <div className={`${mapCenter ? 'w-[30%]' : 'flex items-center'}`}>
+            <div
+              className={`flex items-center ${
+                mapCenter ? 'w-[30%]' : 'w-auto'
+              }`}
+            >
               <p className="text-yellow-500 text-xs font-light mr-2">25% off</p>
               <p className="font-bold">
                 ${hotelData.hotelInfo.price_breakdown.all_inclusive_price}
               </p>
             </div>
-            <div className={`text-xs ${mapCenter ? 'w-[70%]' : ''} flex`}>
+            <div className={`text-xs flex items-center`}>
               <Link
                 className={`py-3 ${
                   mapCenter
@@ -196,24 +179,26 @@ const HotelData = ({
               >
                 View Details
               </Link>
-              {isBookingAllowed ? (
-                <a
-                  className={`${
-                    mapCenter
-                      ? 'text-blue-600 font-semibold px-1 hover:border-blue-600 transition-all'
-                      : 'bg-blue-600 text-white px-5 hover:bg-blue-400'
-                  } rounded-md transition-all disabled:cursor-not-allowed py-3 border-2 border-transparent`}
-                  href={hotelData.hotelInfo.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  BOOK NOW
-                </a>
-              ) : (
-                <button className="text-white bg-blue-600 px-5 py-3 rounded-md hover:bg-blue-400 transition-all disabled:cursor-not-allowed">
-                  SOLD OUT 😥
-                </button>
-              )}
+              {mapCenter === null ? (
+                isBookingAllowed ? (
+                  <a
+                    className={`rounded-md transition-all disabled:cursor-not-allowed py-3 border-2 border-transparent ${
+                      mapCenter
+                        ? 'text-blue-600 font-semibold px-1 hover:border-blue-600 transition-all'
+                        : 'bg-blue-600 text-white px-5 hover:bg-blue-400'
+                    }`}
+                    href={hotelData.hotelInfo.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    BOOK NOW
+                  </a>
+                ) : (
+                  <button className="text-white bg-blue-600 px-5 py-3 rounded-md hover:bg-blue-400 transition-all disabled:cursor-not-allowed">
+                    SOLD OUT 😥
+                  </button>
+                )
+              ) : null}
             </div>
           </div>
         </div>
@@ -223,3 +208,30 @@ const HotelData = ({
 };
 
 export default HotelData;
+
+/**
+ * @param image_type A image type string e.g "Property Building"
+ * @returns imageUrl of the specified image
+ */
+export const getMainImage = (hotelImages: HotelImage[]): string => {
+  const image = hotelImages.find(
+    (image) => image.tag_name === 'Property Building'
+  )?.img_url_large;
+
+  return image ?? getRandomImage(hotelImages);
+};
+
+const getRandomImage = (hotelImages: HotelImage[]): string => {
+  const randomIndex: number = Math.floor(Math.random() * 10);
+
+  const possibleTags: string[] = Array.from(
+    new Set(
+      hotelImages
+        .filter((image) => image.tag_name != null)
+        .map((image) => image.tag_name as string)
+    )
+  );
+  return hotelImages.find(
+    (image) => image.tag_name === possibleTags[randomIndex]
+  )!.img_url_large;
+};

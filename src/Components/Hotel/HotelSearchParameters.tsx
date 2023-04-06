@@ -26,7 +26,7 @@ const HotelSearchParameters = () => {
           {travellerHotelInfo.kids} Kids
         </p>
       </div>
-      <RedSearchButton text="Search Hotels" to="hotels/hotel-results" />
+      <RedSearchButton text="Search Hotels" to="/hotels/hotel-results" />
     </div>
   );
 };

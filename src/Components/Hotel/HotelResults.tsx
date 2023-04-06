@@ -10,7 +10,7 @@ import HotelSearchParameters from './HotelSearchParameters';
 import { useHotelSearchResults } from './HotelSearchResultsProvider';
 import Map from './Map';
 
-const HotelResults = () => {
+export const HotelResults = () => {
   const { propertyList, setSortBy, sortBy } = useHotelSearchResults();
   const [mapCenter, setMapCenter] = useState<GoogleMapsCenter | null>(null);
   const [activeTab, setActiveTab] = useState<string | null>(null);
@@ -99,11 +99,9 @@ const HotelResults = () => {
   );
 };
 
-export default HotelResults;
-
-function fetchExtraHotelsData(
+const fetchExtraHotelsData = (
   hotelList: HotelInfo[]
-): Promise<CompleteHotel[]> {
+): Promise<CompleteHotel[]> => {
   const CompleteHotelArray: CompleteHotel[] = [];
   return new Promise<CompleteHotel[]>((resolve, reject) => {
     hotelList.forEach((hotel, index) => {
@@ -128,7 +126,7 @@ function fetchExtraHotelsData(
       }, 2000 * index);
     });
   });
-}
+};
 const getPricesArray = (
   completeHotelsList: CompleteHotel[] | null
 ): number[] => {

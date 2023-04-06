@@ -1,6 +1,7 @@
 import React from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { GoogleMapsCenter } from '../../Types/Hotel';
+import LoadingScreen from '../LoadingScreen';
 
 const Map = ({
   center,
@@ -13,7 +14,7 @@ const Map = ({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
   });
 
-  if (!isLoaded) return <p>Loading...</p>;
+  if (!isLoaded) return <LoadingScreen />;
 
   return (
     <div className={`${width} rounded-md`}>

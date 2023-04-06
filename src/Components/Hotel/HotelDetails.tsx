@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Assets } from '../../Assets/Assets';
 import { useHotelSearchResults } from './HotelSearchResultsProvider';
 import { HotelDetailsImages } from './HotelDetailsImages';
-import { HotelDetailsOverview } from './HotelDetailsOverview';
+import { HotelReview } from './HotelReview';
 import GuestRatings from './GuestRatings';
 import { PayNowButton } from '../PayNowButton';
 import HotelSearchParameters from './HotelSearchParameters';
@@ -37,7 +37,7 @@ const HotelDetails = () => {
         </div>
       </div>
       <div className="bg-white rounded-md px-3 py-6">
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-2">
           <div>
             <p className="font-bold text-2xl">{hotelInfo?.hotel_name}</p>
             <div className="flex">
@@ -53,9 +53,9 @@ const HotelDetails = () => {
             <PayNowButton linkTo="booking-review" />
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between h-[67vh] gap-x-4 w-full">
           <HotelDetailsImages />
-          {showInfo ? <HotelDetailsOverview /> : <GuestRatings />}
+          {showInfo ? <HotelReview /> : <GuestRatings />}
         </div>
       </div>
     </div>

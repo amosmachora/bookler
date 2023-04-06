@@ -5,14 +5,14 @@ import BookingReviewAside from './BookingReviewAside';
 import HotelSearchParameters from './HotelSearchParameters';
 import { useHotelSearchResults } from './HotelSearchResultsProvider';
 
-const BookingReview = () => {
+export const HotelBookingReview = () => {
   const { selectedHotelInfo } = useHotelSearchResults();
 
   return (
     <div>
       <HotelSearchParameters />
-      <div className="flex justify-between">
-        <div className="w-3/4">
+      <div className="flex justify-between gap-x-2">
+        <div className="w-4/5">
           <div className="bg-flightResultsBg justify-between flex rounded-sm py-2 px-3">
             <p className="text-lg font-bold">Booking Review</p>
             <div className="flex">
@@ -24,7 +24,7 @@ const BookingReview = () => {
               </p>
             </div>
           </div>
-          <div className="bg-white flex items-center justify-between mt-3 px-12 py-2 rounded-md">
+          <div className="bg-white flex items-center justify-between mt-1 px-12 py-2 rounded-md">
             <div className="flex items-center">
               <img src={Assets.CheckMark} alt="Tick" className="mr-2" />
               <p className="text-xs">Hotel selected</p>
@@ -51,5 +51,3 @@ const BookingReview = () => {
     </div>
   );
 };
-
-export default BookingReview;
