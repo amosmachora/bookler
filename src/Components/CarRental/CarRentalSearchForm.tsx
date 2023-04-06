@@ -45,9 +45,9 @@ const CarRentalSearchForm = () => {
   };
 
   return (
-    <div className="bg-white flex flex-wrap rounded-lg p-9 mt-5 gap-3 transition-all">
+    <div className="bg-white flex flex-wrap rounded-lg p-9 mt-5 gap-2 transition-all">
       <div
-        className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
+        className="bg-gray-100 rounded-md w-1/3 px-4 py-2 cursor-pointer"
         onClick={() => setShowSearchModal(true)}
       >
         <div className="flex">
@@ -112,7 +112,7 @@ const CarRentalSearchForm = () => {
       />
       <TimePicker name="Pick-up time" type="pick-up-time" />
       <TimePicker name="Drop-off time" type="drop-off-time" />
-      <div className="flex items-center text-white bg-blue-600 px-3 py-1 rounded-md text-sm max-h-[30px]">
+      <div className="flex items-center flex-grow text-white bg-blue-600 px-3 py-2 rounded-md text-sm h-max mt-auto">
         <input
           type="checkbox"
           className="mr-2 h-5 w-5 rounded-xl"

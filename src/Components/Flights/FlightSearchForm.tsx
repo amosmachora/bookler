@@ -100,7 +100,7 @@ const FlightSearchForm = () => {
           name="TO"
           onClick={openToSearchModal}
         />
-        <div className="w-1/4 px-4 py-2 bg-gray-100">
+        <div className="flex-grow px-4 py-2 bg-gray-100">
           <div className="flex">
             <img src={Assets.Class} alt="Location Pointer" />
             <p className="text-gray-400 text-xs ml-1">CLASS</p>

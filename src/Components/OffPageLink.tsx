@@ -13,7 +13,7 @@ const OffPageLink = ({
   return (
     <Link
       to={to}
-      className={`text-white rounded-lg w-1/4 ml-auto flex items-center justify-center transition-all min-h-[78px] ${
+      className={`text-white rounded-lg w-1/4 flex items-center justify-center transition-all min-h-[78px] ${
         isClickable
           ? 'bg-red-600 cursor-pointer'
           : 'bg-red-300 cursor-not-allowed'

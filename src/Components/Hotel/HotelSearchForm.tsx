@@ -24,9 +24,9 @@ const HotelSearchForm = () => {
 
   return (
     <div className="bg-white rounded-lg py-8 px-9 mt-5 relative">
-      <div className="flex flex-wrap gap-3 [&>*]:px-3 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg">
+      <div className="flex flex-wrap gap-2 [&>*]:px-3 [&>*]:py-2 [&>*]:cursor-pointer [&>*]:rounded-lg">
         <div
-          className="bg-gray-200 rounded-md"
+          className="bg-gray-200 rounded-md flex-grow"
           onClick={() => setShowSearchModal(true)}
         >
           <div className="flex">
@@ -74,7 +74,7 @@ const HotelSearchForm = () => {
           <TravellerSelector closeModalFunction={setShowTravelSelector} />
         )}
         <MoreButton />
-        <div className="flex h-max mt-auto p-2">
+        <div className="flex items-center flex-grow text-white bg-blue-600 px-3 py-2 rounded-md text-sm h-max mt-auto">
           <input
             type="checkbox"
             className="h-5 w-5 mr-2 cursor-pointer"
