@@ -1,9 +1,9 @@
 import React from 'react';
 import { Assets } from '../../Assets/Assets';
 
-const ProgressBar = () => {
+export const FlightProgressBar = () => {
   return (
-    <div className="flex justify-between bg-white rounded-md py-3 px-12 mt-2 items-center text-xs">
+    <div className="flex justify-between bg-white rounded-md py-3 px-12 mb-2 items-center text-xs">
       <div className="flex items-center">
         <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
         <p className="cursor-pointer">Flight selected</p>
@@ -23,5 +23,3 @@ const ProgressBar = () => {
     </div>
   );
 };
-
-export default ProgressBar;

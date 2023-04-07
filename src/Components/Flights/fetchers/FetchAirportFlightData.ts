@@ -1,6 +1,6 @@
-import { Airport, Departures } from "../Types/Flights";
-import axios from "axios";
-import DevAirportFlightData from "../Util/AirportFlightData.json";
+import { Airport, Departures } from '../../../Types/Flights';
+import axios from 'axios';
+import DevAirportFlightData from '../../../Util/AirportFlightData.json';
 
 function getZeroPadded(secondDateHour: number) {
   if (secondDateHour.toString().length !== 2) {
@@ -37,23 +37,24 @@ const getSearchDates = () => {
 export const fetchAirportFlightData = async (
   fromAirport: Airport
 ): Promise<Departures[]> => {
-  console.log("Searching data for " + fromAirport.name);
+  console.log('Searching data for ' + fromAirport.name);
   const options = {
-    method: "GET",
-    url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
-      fromAirport.icao
-    }/${getSearchDates().firstDate}/${getSearchDates().secondDate}`,
+    method: 'GET',
+    // url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
+    //   fromAirport.icao
+    // }/${getSearchDates().firstDate}/${getSearchDates().secondDate}`,
+    url: 'https://fakeUrl',
     params: {
-      withLeg: "true",
-      withCancelled: "true",
-      withCodeshared: "true",
-      withCargo: "true",
-      withPrivate: "true",
-      withLocation: "false",
+      withLeg: 'true',
+      withCancelled: 'true',
+      withCodeshared: 'true',
+      withCargo: 'true',
+      withPrivate: 'true',
+      withLocation: 'false',
     },
     headers: {
-      "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-      "X-RapidAPI-Host": "aerodatabox.p.rapidapi.com",
+      'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',
+      'X-RapidAPI-Host': 'aerodatabox.p.rapidapi.com',
     },
   };
 

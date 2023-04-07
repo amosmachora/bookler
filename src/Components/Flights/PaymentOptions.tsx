@@ -1,6 +1,5 @@
 import { UserProfileTabLarge } from '../../Components/UserProfileTabLarge';
 import React from 'react';
-import ProgressBar from './ProgressBar';
 
 export const PaymentOptions = ({
   className,
@@ -21,7 +20,6 @@ export const PaymentOptions = ({
             <span className="text-sky-700 font-semibold">{remainingTime}</span>
           </p>
         </div>
-        <ProgressBar />
       </div>
       {showSmallProfile && <UserProfileTabLarge className="w-1/5 mr-6" />}
     </div>

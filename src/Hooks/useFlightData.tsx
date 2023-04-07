@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { fetchAirportFlightData } from '../Fetchers/FetchAirportFlightData';
-import { useGlobalData } from './useGlobalData';
+import { fetchAirportFlightData } from '../Components/Flights/fetchers/FetchAirportFlightData';
 import { useUpdateLogger } from './useUpdateLogger';
 import { Airport, Departures } from '../Types/Flights';
 
@@ -16,7 +15,7 @@ export type UserFlightChoices = {
 
 export type FlightDataContextType = {
   userFlightChoices: UserFlightChoices;
-  outGoingFlights: Departures[];
+  outGoingFlights: Departures[] | null;
   setUserFlightChoices: React.Dispatch<React.SetStateAction<UserFlightChoices>>;
 };
 
@@ -34,20 +33,18 @@ const useFlightData = () => {
       typeOfTrip: 'one-way',
     }
   );
-  const [outGoingFlights, setOutGoingFlights] = useState<Departures[]>([]);
-  const { setIsLoading } = useGlobalData();
+  const [outGoingFlights, setOutGoingFlights] = useState<Departures[] | null>(
+    null
+  );
 
   useEffect(() => {
     if (userFlightChoices?.fromAirport) {
-      setIsLoading(true);
       fetchAirportFlightData(userFlightChoices.fromAirport)
         .then((res) => {
           setOutGoingFlights(res);
-          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          setIsLoading(false);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

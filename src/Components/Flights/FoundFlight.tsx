@@ -1,38 +1,58 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Assets } from '../../Assets/Assets';
-import { Airport, Departures, SingleFlightData } from '../../Types/Flights';
-import BookButton from './BookButton';
+import { Departures, ExtraFlightData } from '../../Types/Flights';
 import { Airline } from '../../Types/Flights';
-import { fetchExtraFlightData } from '../../Fetchers/FetchExtraFlightData';
+import { fetchExtraFlightData } from './fetchers/FetchExtraFlightData';
 import FlightDetails from './FlightDetails';
-import { BookingContext } from './FlightResults';
 import { useGlobalData } from '../../Hooks/useGlobalData';
 import { useFlightDataContext } from '../../Hooks/useFlightData';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
+import LoadingScreen from '../LoadingScreen';
+import { FlightTimes } from './FlightTimes';
+import { Link } from 'react-router-dom';
+import { FlightPrices } from '../../Types/Contexts';
 
-type FoundFlightProps = {
+const FoundFlight = ({
+  foundFlight,
+  sortBy,
+}: {
   foundFlight: Departures;
   sortBy: string;
-};
-
-const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
+}) => {
   const { userFlightChoices } = useFlightDataContext();
   const { fromAirport, toAirport } = userFlightChoices!;
-  const { airlines, setIsLoading } = useGlobalData();
-  const { booking } = useContext(BookingContext);
-  const [extraFlightData, setExtraFlightData] = useState<SingleFlightData>();
+  const { airlines } = useGlobalData();
+  const [extraFlightData, setExtraFlightData] = useState<{
+    extraFlightData: ExtraFlightData;
+    flightPrice: FlightPrices;
+  } | null>(null);
   const [showDetails, setShowDetails] = useState<Boolean>(false);
 
+  const fetchFlightPrices = (): FlightPrices => {
+    const baseFare = 20;
+    const flightSurCharges = 10;
+    return { baseFare, flightSurCharges };
+  };
+
   useEffect(() => {
-    setIsLoading(true);
     fetchExtraFlightData(foundFlight.aircraft.reg!).then((res) => {
-      setExtraFlightData(res);
-      setIsLoading(false);
+      const flightPrices = fetchFlightPrices();
+      setExtraFlightData({
+        extraFlightData: res,
+        flightPrice: flightPrices,
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useUpdateLogger(extraFlightData, 'ExtraFlightData');
+
+  const thumbnail: string =
+    extraFlightData?.extraFlightData.result.response.aircraftImages[0].images
+      .thumbnails[0].src!;
+
   return (
-    <>
+    <div>
       <div
         className={`flex ${
           showDetails ? 'rounded-t-lg' : 'rounded-lg mb-2'
@@ -57,12 +77,16 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
             <p className="mr-4 text-sm font-bold w-20">
               {foundFlight.airline.name}
             </p>
-            <FlightTimes
-              foundFlight={foundFlight}
-              fromAirport={fromAirport!}
-              toAirport={toAirport!}
-              extraFlightData={extraFlightData}
-            />
+            {extraFlightData ? (
+              <FlightTimes
+                foundFlight={foundFlight}
+                fromAirport={fromAirport!}
+                toAirport={toAirport!}
+                extraFlightData={extraFlightData.extraFlightData}
+              />
+            ) : (
+              <LoadingScreen />
+            )}
             <p className="font-bold mx-6">00H 00M</p>
             <p
               className="text-black bg-gray-300 rounded-full text-xs p-2 cursor-pointer"
@@ -82,14 +106,20 @@ const FoundFlight = ({ foundFlight, sortBy }: FoundFlightProps) => {
               000
               <span className="text-gray-400 text-xs font-normal">USD</span>
             </p>
-            {booking === false ? (
-              <BookButton foundFlight={foundFlight} />
-            ) : null}
+            <Link
+              type="submit"
+              className="bg-blue-600 rounded-sm w-24 h-8 text-white text-xs cursor-pointer flex items-center justify-center"
+              to={foundFlight.number}
+            >
+              BOOK NOW
+            </Link>
           </div>
         </div>
       </div>
-      <div>{showDetails && <FlightDetails foundFlight={foundFlight} />}</div>
-    </>
+      {showDetails && (
+        <FlightDetails foundFlight={foundFlight} thumbnail={thumbnail} />
+      )}
+    </div>
   );
 };
 
@@ -104,59 +134,3 @@ const getLogo = (airlineName: string, airlines: Airline[]): string => {
   }
   return `https://content.airhex.com/content/logos/airlines_${airline[0].Code}_100_100_s.png`;
 };
-
-function getActualTime(scheduledTimeUtc: string | undefined): React.ReactNode {
-  return scheduledTimeUtc?.substring(
-    scheduledTimeUtc.length - 6,
-    scheduledTimeUtc.length - 1
-  );
-}
-
-type FlightTimesProps = {
-  fromAirport: Airport;
-  toAirport: Airport;
-  foundFlight: Departures;
-  showLocations?: boolean;
-  extraFlightData?: SingleFlightData | undefined;
-};
-
-export function FlightTimes({
-  fromAirport,
-  toAirport,
-  foundFlight,
-  showLocations,
-  extraFlightData,
-}: FlightTimesProps) {
-  return (
-    <div className="flex items-center">
-      <div className="flex flex-col items-end">
-        <p className="font-bold text-lg">
-          {getActualTime(foundFlight.departure.scheduledTimeUtc)}
-        </p>
-        <p className={`text-gray-400 ${showLocations ? 'text-xs' : 'text-sm'}`}>
-          {showLocations
-            ? fromAirport.city + ', ' + fromAirport.country
-            : fromAirport.icao}
-        </p>
-      </div>
-      <div className="w-24 mx-5 border-b h-[1px] border-dashed border-black relative">
-        <div className="w-3 h-3 rounded-full bg-white border-2 border-black center-absolutely" />
-      </div>
-      <div className="flex flex-col items-start">
-        <p className="font-bold text-lg">
-          {/* {extraFlightData?.result.response.data[9].time.scheduled.arrival} */}
-          00:00
-        </p>
-        <p
-          className={`mr-2 text-gray-400 ${
-            showLocations ? 'text-xs' : 'text-sm'
-          }`}
-        >
-          {showLocations
-            ? toAirport.city + ', ' + toAirport.country
-            : toAirport.icao}
-        </p>
-      </div>
-    </div>
-  );
-}

@@ -6,7 +6,7 @@ export const FinalBookingStage = ({
   bookingType: 'Flights' | 'Hotels' | 'CarRental';
 }) => {
   return (
-    <div className="p-10 bg-white mt-1 rounded-md">
+    <div className="p-10 bg-white rounded-md">
       {bookingType}
       <p className="text-xl font-bold">Your details</p>
       <p className="text-gray-400 leading-5 text-xs w-3/4">

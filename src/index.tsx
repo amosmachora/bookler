@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import FlightResults from './Components/Flights/FlightResults';
 import FlightSearchForm from './Components/Flights/FlightSearchForm';
-import TravelerDetails from './Components/Flights/TravelerDetails';
+import { FlightBookingReview } from './Components/Flights/FlightBookingReview';
 import CarRentalSearchForm from './Components/CarRental/CarRentalSearchForm';
 import CarDetails from './Components/CarRental/CarDetails';
 import CarRentalResults from './Components/CarRental/CarRentalResults';
@@ -46,9 +46,12 @@ root.render(
                     <Route
                       path="flights/flight-results"
                       element={<FlightResults />}
-                    >
-                      <Route path=":flightId" element={<TravelerDetails />} />
-                    </Route>
+                    />
+
+                    <Route
+                      path="/flights/flight-results/:flightId"
+                      element={<FlightBookingReview />}
+                    />
                     <Route path="hotels" element={<HotelSearchForm />} />
                     <Route
                       element={<HotelResults />}

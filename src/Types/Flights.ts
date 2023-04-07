@@ -117,7 +117,7 @@ type aircraftImage = {
   source: string;
 };
 
-export type SingleFlightData = {
+export type ExtraFlightData = {
   result: {
     request: {
       callback: null;
@@ -322,8 +322,8 @@ export interface Car {
 }
 
 export enum Side {
-  Left = "left",
-  Right = "right",
+  Left = 'left',
+  Right = 'right',
 }
 
 export interface CoatOfArms {
@@ -332,13 +332,13 @@ export interface CoatOfArms {
 }
 
 export enum Continent {
-  Africa = "Africa",
-  Antarctica = "Antarctica",
-  Asia = "Asia",
-  Europe = "Europe",
-  NorthAmerica = "North America",
-  Oceania = "Oceania",
-  SouthAmerica = "South America",
+  Africa = 'Africa',
+  Antarctica = 'Antarctica',
+  Asia = 'Asia',
+  Europe = 'Europe',
+  NorthAmerica = 'North America',
+  Oceania = 'Oceania',
+  SouthAmerica = 'South America',
 }
 
 export interface Currencies {
@@ -558,23 +558,23 @@ export interface PostalCode {
 }
 
 export enum Region {
-  Africa = "Africa",
-  Americas = "Americas",
-  Antarctic = "Antarctic",
-  Asia = "Asia",
-  Europe = "Europe",
-  Oceania = "Oceania",
+  Africa = 'Africa',
+  Americas = 'Americas',
+  Antarctic = 'Antarctic',
+  Asia = 'Asia',
+  Europe = 'Europe',
+  Oceania = 'Oceania',
 }
 
 export enum StartOfWeek {
-  Monday = "monday",
-  Saturday = "saturday",
-  Sunday = "sunday",
+  Monday = 'monday',
+  Saturday = 'saturday',
+  Sunday = 'sunday',
 }
 
 export enum Status {
-  OfficiallyAssigned = "officially-assigned",
-  UserAssigned = "user-assigned",
+  OfficiallyAssigned = 'officially-assigned',
+  UserAssigned = 'user-assigned',
 }
 
 export type Adult = {

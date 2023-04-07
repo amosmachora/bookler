@@ -3,17 +3,15 @@ import { Airline, Airport } from '../../Types/Flights';
 import { useGlobalData } from '../../Hooks/useGlobalData';
 import { useFlightDataContext } from '../../Hooks/useFlightData';
 
-type FlightFilterProps = {
-  setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
-  preferredStopAirport: Airport | null;
-  setPreferredAirline: React.Dispatch<SetStateAction<Airline | null>>;
-};
-
 const FlightFilter = ({
   setPreferredStopAirport,
   preferredStopAirport,
   setPreferredAirline,
-}: FlightFilterProps) => {
+}: {
+  setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
+  preferredStopAirport: Airport | null;
+  setPreferredAirline: React.Dispatch<SetStateAction<Airline | null>>;
+}) => {
   const { airports, airlines } = useGlobalData();
   const { userFlightChoices } = useFlightDataContext();
   const { toAirport } = userFlightChoices!;
@@ -45,7 +43,7 @@ const FlightFilter = ({
   };
 
   return (
-    <div className="w-1/5 mr-6 mt-4 ml-5 rounded-lg overflow-hidden">
+    <div className="w-1/5 rounded-lg overflow-hidden">
       <p className="font-bold text-lg p-3 bg-flightResultsBg">Filters</p>
       <div className="p-5 bg-white">
         <p className="text-sm font-semibold mb-4">Price</p>

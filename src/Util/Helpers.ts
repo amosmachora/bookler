@@ -1,22 +1,3 @@
-import { FlightPrices } from "../Types/Contexts";
-import { TravelerInfo } from "../Types/Flights";
-
-export function getTotalPrice(
-  travelersInfo: TravelerInfo | null,
-  flightPrice: FlightPrices | null
-): number {
-  const numberOfAdults =
-    travelersInfo?.adultList === undefined
-      ? 0
-      : travelersInfo?.adultList.length;
-  const baseFare =
-    flightPrice?.baseFare === undefined ? 0 : flightPrice.baseFare;
-
-  const flightSurcharges = flightPrice!.flightSurCharges;
-
-  return numberOfAdults * baseFare + flightSurcharges;
-}
-
 /**
  * Get formatted date.
  * @param date A normal Js Date object
@@ -37,16 +18,16 @@ export const getDateFromIsoString = (date: Date | null): string | undefined => {
 
 export const getDay = (date: Date | null | undefined) => {
   const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
   ];
   if (date === null || date === undefined) {
-    return "Sunday";
+    return 'Sunday';
   }
   return weekdays[date.getDay()];
 };
@@ -57,11 +38,11 @@ export const getDay = (date: Date | null | undefined) => {
  * @returns one string of the format string1,string2,string3,
  */
 export function cleaned(filterBy: string[]): string {
-  let text: string = "";
+  let text: string = '';
 
   filterBy.forEach((filter) => {
     if (filterBy.indexOf(filter) !== filterBy.length - 1) {
-      text = text.concat(filter + ",");
+      text = text.concat(filter + ',');
     } else {
       text = text.concat(filter);
     }
@@ -71,18 +52,18 @@ export function cleaned(filterBy: string[]): string {
 }
 
 export const monthNames: string[] = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 /**
@@ -95,19 +76,19 @@ export const getCapitalizedString = (text: string): string => {
 };
 
 export const getBaseUrl = (pathname: string): string => {
-  let baseUrl: string = "/";
+  let baseUrl: string = '/';
 
   for (let i = 1; i < pathname.length; i++) {
     const char = pathname[i];
-    if (char !== "/") {
+    if (char !== '/') {
       baseUrl = baseUrl + char;
     } else {
       return baseUrl;
     }
   }
 
-  if (baseUrl === "/profile") {
-    return "/";
+  if (baseUrl === '/profile') {
+    return '/';
   }
 
   return pathname;
@@ -123,6 +104,6 @@ export const isLinkClickable = (...inputs: any[]): boolean => {
 };
 
 export const shouldMenuBeWide = (pathName: string): boolean => {
-  const smallScreenLinks = ["/home", "/flights", "/hotels", "/car-rental", "/"];
+  const smallScreenLinks = ['/home', '/flights', '/hotels', '/car-rental', '/'];
   return smallScreenLinks.includes(pathName);
 };

@@ -1,6 +1,6 @@
-import { SetStateAction } from "react";
-import { Airport, Departures, TravelerInfo } from "./Flights";
-import { TravellerHotelInfo } from "./Hotel";
+import { SetStateAction } from 'react';
+import { Airport, Departures } from './Flights';
+import { TravellerHotelInfo } from './Hotel';
 
 export interface FlightSearchParametersContext {
   toAirport: Airport | null;
@@ -14,14 +14,6 @@ export interface FlightSearchParametersContext {
   setReturnDate: React.Dispatch<SetStateAction<Date | null>>;
   setFromAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
   setToAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
-}
-
-export interface BookingContextType {
-  initiateBooking: (flight: Departures) => void;
-  travelersInfo: TravelerInfo | null;
-  flightPrice: FlightPrices | null;
-  booking: boolean;
-  setTravelersInfo: React.Dispatch<React.SetStateAction<TravelerInfo | null>>;
 }
 
 export type FlightPrices = {

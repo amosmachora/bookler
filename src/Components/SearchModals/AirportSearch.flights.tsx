@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Assets } from '../../Assets/Assets';
 import { useFlightDataContext } from '../../Hooks/useFlightData';
 import { useGlobalData } from '../../Hooks/useGlobalData';
 import { Airport } from '../../Types/Flights';
 import { getCapitalizedString } from '../../Util/Helpers';
+import LoadingScreen from '../LoadingScreen';
 import './AirportSearch.css';
 
 export type AirportSearchConfig = {
@@ -23,20 +24,37 @@ export const AirportSearch = ({
 
   const { outGoingFlights, setUserFlightChoices } = useFlightDataContext();
 
-  const getDefaultAirportList = (): Airport[] | (() => Airport[]) => {
-    if (config.searching === 'destination-airport') {
-      return airports.filter((airport) =>
-        outGoingFlights
-          .map((flight) => flight.arrival.airport.icao)
-          .includes(airport.icao)
-      );
+  const getDefaultAirportList = (): Airport[] | null => {
+    if (config.searching === 'origin-airport') {
+      return airports;
     }
-    return airports;
+
+    if (!outGoingFlights) {
+      return null;
+    }
+
+    return airports.filter((airport) =>
+      outGoingFlights!
+        .map((flight) => flight.arrival.airport.icao)
+        .includes(airport.icao)
+    );
   };
 
-  const [localAirportList, setLocalAirportList] = useState<Airport[]>(
+  const [localAirportList, setLocalAirportList] = useState<Airport[] | null>(
     getDefaultAirportList()
   );
+
+  useEffect(() => {
+    if (outGoingFlights) {
+      setLocalAirportList(
+        airports.filter((airport) =>
+          outGoingFlights!
+            .map((flight) => flight.arrival.airport.icao)
+            .includes(airport.icao)
+        )
+      );
+    }
+  }, [airports, outGoingFlights]);
 
   const searchAirport = (e: React.KeyboardEvent) => {
     const searchValue = (e.target as HTMLInputElement).value.toLowerCase();
@@ -97,19 +115,22 @@ export const AirportSearch = ({
         onKeyDown={(e) => searchAirport(e)}
         onChange={(e) => checkIfEmpty(e)}
       />
-
-      <div className="airports-list mt-8 search-results-airports h-28 overflow-y-scroll scroll">
-        {localAirportList.map((airport) => (
-          <div
-            key={airport.id}
-            className="flex justify-between cursor-pointer"
-            onClick={() => handleSettingUserChoicesObject(airport)}
-          >
-            <p className="font-bold text-sm ho">{airport.country}</p>
-            <p className="text-xs">{airport.name}</p>
-          </div>
-        ))}
-      </div>
+      {localAirportList ? (
+        <div className="airports-list mt-8 search-results-airports h-28 overflow-y-scroll scroll">
+          {localAirportList.map((airport) => (
+            <div
+              key={airport.id}
+              className="flex justify-between cursor-pointer"
+              onClick={() => handleSettingUserChoicesObject(airport)}
+            >
+              <p className="font-bold text-sm ho">{airport.country}</p>
+              <p className="text-xs">{airport.name}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <LoadingScreen className="mt-10" />
+      )}
     </div>
   );
 };
