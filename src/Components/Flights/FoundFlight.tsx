@@ -27,9 +27,9 @@ const FoundFlight = ({
     flightPrice: FlightPrices;
   } | null>(null);
   const [showDetails, setShowDetails] = useState<Boolean>(false);
+  const baseFare = getRandomThreeDigitNumber();
 
   const fetchFlightPrices = (): FlightPrices => {
-    const baseFare = 20;
     const flightSurCharges = 10;
     return { baseFare, flightSurCharges };
   };
@@ -98,12 +98,16 @@ const FoundFlight = ({
         </div>
         <div className="flex bg-flightPrices flex-grow p-2">
           <div>
-            <p className="text-red-600 text-sm font-semibold mt-7">00% OFF</p>
-            <p className="text-xs text-gray-400">Save $00</p>
+            <p className="text-red-600 text-sm font-semibold mt-7">
+              {getRandomTwoDigitNumberLessThan30()}% OFF
+            </p>
+            <p className="text-xs text-gray-400">
+              Save ${getRandomTwoDigitNumber()}
+            </p>
           </div>
           <div className="flex flex-col items-end mt-2 justify-between">
             <p className="text-[32px] w-min font-semi mb-1 ml-6">
-              000
+              {getRandomThreeDigitNumber()}
               <span className="text-gray-400 text-xs font-normal">USD</span>
             </p>
             <Link
@@ -134,3 +138,21 @@ const getLogo = (airlineName: string, airlines: Airline[]): string => {
   }
   return `https://content.airhex.com/content/logos/airlines_${airline[0].Code}_100_100_s.png`;
 };
+
+function getRandomThreeDigitNumber(): number {
+  const min = 100;
+  const max = 999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomTwoDigitNumber(): number {
+  const min = 10;
+  const max = 99;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomTwoDigitNumberLessThan30(): number {
+  const min = 10;
+  const max = 29;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
