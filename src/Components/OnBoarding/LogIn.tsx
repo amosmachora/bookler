@@ -1,58 +1,53 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Assets } from "../../Assets/Assets";
-import { isLinkClickable } from "../../Util/Helpers";
-import { AuthProvider } from "../Contexts/AuthenticationProvider";
-import jwt_decode from "jwt-decode";
-import { Authenticator } from "../../Types/Contexts";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Assets } from '../../Assets/Assets';
+import { isLinkClickable } from '../../Util/Helpers';
+import { useAuth } from '../../Hooks/useAuth';
+import {
+  getSignInErrorMessage,
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../../firebase';
+import { AuthErrorMessage } from '../AuthErrorMessage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const LogIn = () => {
-  const [email, setEmail] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [rememberForThirtyDays, setRememberForThirtyDays] =
     useState<boolean>(false);
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
+  const navigate = useNavigate();
   const isClickable = isLinkClickable(email, password);
-  const { setUserData } = useContext(AuthProvider);
 
-  const handleLogin = () => {
-    //Here is where maybe i call a backend service or something
-    setUserData((prevState) => {
-      return {
-        ...prevState,
-        name: "Test user",
-        email: email,
-        password: password,
-      };
-    });
+  const { setUserData } = useAuth();
+
+  const handleLogin = async () => {
+    setIsLoadingEmail(true);
+    try {
+      const user = await signInWithEmailAndPassword(email, password);
+      setUserData(user);
+      navigate('/');
+    } catch (error) {
+      setErrorMessage(getSignInErrorMessage(error));
+    }
+    setIsLoadingEmail(false);
   };
 
-  const handleCallBackResponse = (response: any) => {
-    const userObject: Authenticator = jwt_decode(response.credential);
-    console.log(userObject);
-    setUserData((prev) => {
-      return {
-        ...prev,
-        ...userObject,
-      };
-    });
+  const googleSignIn = async () => {
+    setIsLoadingGoogle(true);
+    try {
+      const user = await signInWithGoogle(false);
+      setUserData(user);
+      navigate('/');
+    } catch (error) {
+      setErrorMessage(getSignInErrorMessage(error));
+    }
+    setIsLoadingEmail(false);
   };
-
-  useEffect(() => {
-    // @ts-ignore:next-line
-    google.accounts.id.initialize({
-      client_id:
-        "620329238439-508a2loab4eef8eo8kjma93m6iqekbdp.apps.googleusercontent.com",
-      callback: handleCallBackResponse,
-    });
-    // @ts-ignore:next-line
-    google.accounts.id.renderButton(
-      document.getElementById("logInWithGoogleDiv"),
-      { theme: "outline", size: "large" }
-    );
-    // @ts-ignore:next-line
-    google.accounts.id.prompt();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="h-screen flex">
@@ -73,10 +68,12 @@ const LogIn = () => {
         </div>
       </div>
       <div className="bg-loginPageBg w-1/2 py-20 px-28 relative">
-        <p className="text-red-500 absolute top-0">
-          Currently the app is in test mode , if google sign in doesnt work just
-          type random characters and hit login
-        </p>
+        {errorMessage ? (
+          <AuthErrorMessage
+            message={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
+        ) : null}
         <div className="flex items-center">
           <img src={Assets.InteractiveStar} alt="star" className="mr-2" />
           <p className="font-semibold text-sm">Interactive Brand</p>
@@ -86,8 +83,12 @@ const LogIn = () => {
           <p className="text-sm">Welcome back! Please enter your details.</p>
         </div>
         <div className="border flex rounded-md justify-center py-4 mt-[5%] cursor-pointer hover:border-gray-400 transition-all">
-          <div className="flex" id="logInWithGoogleDiv">
-            <img src={Assets.Google} alt="Google" className="h-6 w-6 mr-2" />
+          <div className="flex" onClick={googleSignIn}>
+            <img
+              src={Assets.Google}
+              alt="Google"
+              className={`h-6 w-6 mr-2 ${isLoadingGoogle ? 'spin' : ''}`}
+            />
             <p>Log in with Google</p>
           </div>
         </div>
@@ -115,6 +116,7 @@ const LogIn = () => {
               className="mr-1"
               name="RememberForThirtyDays"
               onChange={(e) => setRememberForThirtyDays(e.target.checked)}
+              checked
             />
             <p>Remember for 30 days</p>
           </div>
@@ -126,11 +128,15 @@ const LogIn = () => {
           disabled={!isClickable}
           onClick={handleLogin}
         >
-          Log in
+          {isLoadingEmail ? (
+            <FontAwesomeIcon icon={faCircleNotch} spin />
+          ) : (
+            'Log in'
+          )}
         </button>
         <p className="text-xs text-center mt-4 absolute bottom-7 left-1/2 -translate-x-1/2">
-          Don’t have an account?{" "}
-          <Link className="font-semibold underline" to={"/onboarding"}>
+          Don’t have an account?{' '}
+          <Link className="font-semibold underline" to={'/onboarding'}>
             Sign up for free
           </Link>
         </p>

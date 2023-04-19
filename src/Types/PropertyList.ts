@@ -1,6 +1,6 @@
-import { HotelInfo } from "./Hotel";
+import { HotelInfo } from './Hotel';
 
-export interface PropertyListType {
+export interface PropertyList {
   total_count_with_filters: number;
   copyright: any[];
   result: HotelInfo[];
@@ -95,9 +95,9 @@ export interface RecommendedFilter {
 }
 
 export enum AccommodationTypeName {
-  Hotels = "Hotels",
-  Inns = "Inns",
-  Motels = "Motels",
+  Hotels = 'Hotels',
+  Inns = 'Inns',
+  Motels = 'Motels',
 }
 
 export interface Badge {
@@ -111,7 +111,7 @@ export interface Bwallet {
 }
 
 export enum Cc1 {
-  Us = "us",
+  Us = 'us',
 }
 
 export interface Check {
@@ -120,26 +120,26 @@ export interface Check {
 }
 
 export enum From {
-  Empty = "",
-  The1400 = "14:00",
-  The1500 = "15:00",
-  The1600 = "16:00",
+  Empty = '',
+  The1400 = '14:00',
+  The1500 = '15:00',
+  The1600 = '16:00',
 }
 
 export enum Until {
-  Empty = "",
-  The0000 = "00:00",
-  The1100 = "11:00",
-  The1200 = "12:00",
-  The2300 = "23:00",
+  Empty = '',
+  The0000 = '00:00',
+  The1100 = '11:00',
+  The1200 = '12:00',
+  The2300 = '23:00',
 }
 
 export enum CountryTrans {
-  UnitedStatesOfAmerica = "United States of America",
+  UnitedStatesOfAmerica = 'United States of America',
 }
 
 export enum Currency {
-  Usd = "USD",
+  Usd = 'USD',
 }
 
 export interface Deals {
@@ -171,8 +171,8 @@ export interface DealsAvailable {
 }
 
 export enum DefaultLanguage {
-  En = "en",
-  Xu = "xu",
+  En = 'en',
+  Xu = 'xu',
 }
 
 export interface MatchingUnitsConfiguration {
@@ -195,19 +195,19 @@ export interface PriceBreakdown {
 }
 
 export enum ReviewScoreWord {
-  Good = "Good",
-  Pleasant = "Pleasant",
-  Poor = "Poor",
-  VeryGood = "Very Good",
+  Good = 'Good',
+  Pleasant = 'Pleasant',
+  Poor = 'Poor',
+  VeryGood = 'Very Good',
 }
 
 export enum Timezone {
-  AmericaChicago = "America/Chicago",
-  AmericaMenominee = "America/Menominee",
+  AmericaChicago = 'America/Chicago',
+  AmericaMenominee = 'America/Menominee',
 }
 
 export enum Type {
-  PropertyCard = "property_card",
+  PropertyCard = 'property_card',
 }
 
 export interface RoomDistribution {

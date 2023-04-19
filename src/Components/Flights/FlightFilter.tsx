@@ -1,22 +1,22 @@
-import React, { SetStateAction, useContext } from "react";
-import { Airline, Airport } from "../../Types/Flights";
-import { MainContext } from "../Contexts/MainAppProvider";
-import { FlightSearchContext } from "./FlightsProvider";
-
-type FlightFilterProps = {
-  setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
-  preferredStopAirport: Airport | null;
-  setPreferredAirline: React.Dispatch<SetStateAction<Airline | null>>;
-};
+import React, { SetStateAction } from 'react';
+import { Airline, Airport } from '../../Types/Flights';
+import { useGlobalData } from '../../Hooks/useGlobalData';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
 
 const FlightFilter = ({
   setPreferredStopAirport,
   preferredStopAirport,
   setPreferredAirline,
-}: FlightFilterProps) => {
-  const { airports, airlines } = useContext(MainContext);
-  const { toAirport } = useContext(FlightSearchContext);
+}: {
+  setPreferredStopAirport: React.Dispatch<SetStateAction<Airport | null>>;
+  preferredStopAirport: Airport | null;
+  setPreferredAirline: React.Dispatch<SetStateAction<Airline | null>>;
+}) => {
+  const { airports, airlines } = useGlobalData();
+  const { userFlightChoices } = useFlightDataContext();
+  const { toAirport } = userFlightChoices!;
 
+  //TODO FIX THIS.
   const getStopSelectCities = (): Airport[] => {
     /**
      * TODO get unique airports.
@@ -33,7 +33,7 @@ const FlightFilter = ({
   const handleAirlinePreferenceSelect = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    if (e.target.value === "No preference") {
+    if (e.target.value === 'No preference') {
       setPreferredAirline(null);
     } else {
       setPreferredAirline(
@@ -43,7 +43,7 @@ const FlightFilter = ({
   };
 
   return (
-    <div className="w-1/5 mr-6 mt-4 ml-5 rounded-lg overflow-hidden">
+    <div className="w-1/5 rounded-lg overflow-hidden">
       <p className="font-bold text-lg p-3 bg-flightResultsBg">Filters</p>
       <div className="p-5 bg-white">
         <p className="text-sm font-semibold mb-4">Price</p>
@@ -64,7 +64,7 @@ const FlightFilter = ({
           <option value={toAirport!.city}>NO STOP</option>
           {getStopSelectCities().map((airport) => (
             <option value={airport.city} key={airport.id}>
-              {airport.city + ", " + airport.country}
+              {airport.city + ', ' + airport.country}
             </option>
           ))}
         </select>

@@ -1,5 +1,6 @@
-import axios from "axios";
-import { DirtyHotelImages, HotelImage, tags } from "../Types/Hotel";
+import axios from 'axios';
+import { DirtyHotelImages, HotelImage, tags } from '../Types/Hotel';
+import BackedUpImages from '../Util/HotelImages.json';
 
 /**
  * @JsDoc
@@ -12,29 +13,29 @@ export const fetchHotelImages = async (
   hotel_id: number
 ): Promise<HotelImage[]> => {
   const options = {
-    method: "GET",
-    url: "https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos",
-    params: { hotel_ids: hotel_id.toString(), languagecode: "en-us" },
+    method: 'GET',
+    // url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos',
+    url: 'https://invalid-url',
+    params: { hotel_ids: hotel_id.toString(), languagecode: 'en-us' },
     headers: {
-      "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
-      "X-RapidAPI-Host": "apidojo-booking-v1.p.rapidapi.com",
+      'X-RapidAPI-Key': '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',
+      'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   };
 
-  let response = await axios
-    .request(options)
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  try {
+    let response: DirtyHotelImages = await axios
+      .request(options)
+      .then(function (response) {
+        return response.data;
+      });
 
-  return getCleanedArrayOfImageObjects(response);
+    return getCleanedArrayOfImageObjects(response, hotel_id.toString());
+  } catch (error) {
+    console.error(error);
+    return getCleanedArrayOfImageObjects(BackedUpImages, '25924');
+  }
 };
-
-//TODO don`t forget to fix this
-const tempHotelId: number = 25924;
 
 /**
  *  The getCleanedArrayOfImageObjects function takes a single argument, hotelImages,
@@ -43,12 +44,13 @@ const tempHotelId: number = 25924;
  *  The getTagName function is used to extract the tag_name from the input data.
  */
 export const getCleanedArrayOfImageObjects = (
-  hotelImages: DirtyHotelImages
+  hotelImages: DirtyHotelImages,
+  hotelId: string
 ): HotelImage[] => {
-  if (!hotelImages || !hotelImages.data || !hotelImages.data[tempHotelId]) {
+  if (!hotelImages || !hotelImages.data || !hotelImages.data[hotelId]) {
     return [];
   }
-  return hotelImages.data[tempHotelId]
+  return hotelImages.data[hotelId]
     .map((hotelImage) => {
       return {
         tag_name: getTagName(hotelImage[1]),

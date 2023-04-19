@@ -1,98 +1,58 @@
-import React, { useEffect, useContext } from "react";
-import { Assets } from "./Assets/Assets";
-import BackGround from "./Components/BackGround/BackGround";
-import Menu from "./Components/Menu/Menu";
-import Options from "./Components/Options";
-import Overlay from "./Components/Overlay";
-import UserProfileTabSmall from "./Components/UserProfileTabSmall";
-import Reach from "./Components/Reach/Reach";
-import { fetchAirports } from "./Fetchers/FetchAirports";
-import { fetchAirlines } from "./Fetchers/FetchAirlines";
-import { fetchCountryList } from "./Fetchers/FetchCountryList";
-import { Outlet, useNavigate } from "react-router";
-import { MainContext } from "./Components/Contexts/MainAppProvider";
-import FlightsProvider from "./Components/Flights/FlightsProvider";
-import CarRentalProvider from "./Components/CarRental/CarRentalProvider";
-import HotelProvider from "./Components/Hotel/HotelProvider";
-import { AuthProvider } from "./Components/Contexts/AuthenticationProvider";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
+import { Assets } from './Assets/Assets';
+import BackGround from './Components/BackGround/BackGround';
+import Menu from './Components/Menu';
+import Options from './Components/Options';
+import UserProfileTabSmall from './Components/UserProfileTabSmall';
+import { Outlet, useNavigate } from 'react-router';
+import LoadingScreen from './Components/LoadingScreen';
+import { useGlobalData } from './Hooks/useGlobalData';
 
 function App() {
-  const {
-    setAirports,
-    setCountryList,
-    setAirlines,
-    setIsLoading,
-    setMenuWide,
-    isLoading,
-    menuWide,
-    devMode,
-  } = useContext(MainContext);
-
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AuthProvider);
-
+  const { menuWide, isLoading } = useGlobalData();
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
+    const user = localStorage.getItem('userData');
+    if (!user) {
+      navigate('/login');
+    } else {
+      navigate('/flights');
     }
-  }, [isLoggedIn, navigate]);
-
-  useEffect(() => {
-    const initializeApplication = async () => {
-      await fetchAirports().then((res) => setAirports(res));
-      await fetchCountryList().then((res) => setCountryList(res));
-      await fetchAirlines().then((res) => setAirlines(res));
-    };
-    if (!devMode) {
-      setIsLoading(true);
-      initializeApplication();
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [[], devMode]);
+  }, []);
 
   return (
-    <FlightsProvider>
-      <CarRentalProvider>
-        <HotelProvider>
-          <div className="App w-full">
-            {isLoading && (
-              <>
-                <Overlay />
-                <Reach />
-              </>
-            )}
-            <BackGround menuWide={menuWide} />
-            <div className="flex relative">
-              <Menu menuWide={menuWide} setMenuWide={setMenuWide} />
-              <div
-                className={`h-min ${
-                  menuWide
-                    ? "top-1/4 left-1/4 w-2/3 fixed"
-                    : "top-[34px] left-[12%] w-[87%] absolute"
-                } transition-all`}
-              >
-                <div className="flex justify-between">
-                  <Options menuWide={menuWide} />
-                  {menuWide && (
-                    <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
-                  )}
-                </div>
-                <Outlet />
-              </div>
-            </div>
-            <div className="flex absolute right-14 top-[34px] items-start">
+    <div className="App w-full">
+      {isLoading && <LoadingScreen />}
+      <BackGround />
+      <div className="flex z-10 gap-x-10 h-screen p-10 relative">
+        <Menu />
+        <div
+          className={`h-full transition-all flex-grow ${
+            menuWide ? 'w-4/5' : 'w-11/12'
+          }`}
+        >
+          <div className="flex justify-between w-full">
+            {!menuWide && <Options />}
+            <div className="flex items-start w-max ml-auto">
               <div className="ml-5 rounded-full bg-white/30 backdrop-blur-lg w-44 pr-4 pl-1 pt-1 pb-1 text-white flex items-center justify-between cursor-pointer">
                 <img src={Assets.House} alt="House" />
                 <p className="text-xs">Become A Partner</p>
                 <img src={Assets.DropDown} alt="Drop down" />
               </div>
-              <UserProfileTabSmall setMenuWide={setMenuWide} />
+              <UserProfileTabSmall />
             </div>
           </div>
-        </HotelProvider>
-      </CarRentalProvider>
-    </FlightsProvider>
+          {menuWide && (
+            <div className="flex justify-between items-center mt-[6%]">
+              <Options />
+              <img src={Assets.Plane} alt="Plane" className="w-40 h-14" />
+            </div>
+          )}
+          <Outlet />
+        </div>
+      </div>
+    </div>
   );
 }
 

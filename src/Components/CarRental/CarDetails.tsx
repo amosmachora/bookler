@@ -1,46 +1,46 @@
-import React, { useContext } from "react";
-import { Assets } from "../../Assets/Assets";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Assets } from '../../Assets/Assets';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 import {
   Airport,
   Images,
   PartnerLocation,
   VehicleInformation,
-} from "../../Types/CarRentals";
-import Map from "../Hotel/Map";
-import { PayNowButton } from "../PayNowButton";
-import { CarRentalSearchContext } from "./CarRentalProvider";
+} from '../../Types/CarRentals';
+import Map from '../Hotel/Map';
+import CarRentalSearchParameters from './CarRentalSearchParameters';
 import {
-  CarRentalSearchResultsContext,
   getPartnerLocation,
-} from "./CarRentalSearchResultsProvider";
+  useCarRentalSearchResults,
+} from './CarRentalSearchResultsProvider';
 
 const CarDetails = () => {
-  const { activeVehicle, carRentalData } = useContext(
-    CarRentalSearchResultsContext
-  );
+  const { activeVehicle, carRentalData } = useCarRentalSearchResults();
 
   const image: string = getLargestPossibleImage(
     activeVehicle?.vehicleInfo.images
   );
   const partnerLocation: PartnerLocation = getPartnerLocation(
-    carRentalData.partnerLocations,
+    carRentalData!.partnerLocations,
     activeVehicle?.partnerCode
   );
   const pickUpLocation: Airport =
-    carRentalData.airports[
+    carRentalData!.airports[
       activeVehicle!.partnerInfo.pickupLocationId.substring(3)
     ];
   const dropOffLocation: Airport =
-    carRentalData.airports[
+    carRentalData!.airports[
       activeVehicle!.partnerInfo.returnLocationId.substring(3)
     ];
 
-  const { dropCarAtDifferentLocation } = useContext(CarRentalSearchContext);
+  const { dropCarAtDifferentLocation } = useCarRentalDataContext();
   const trueKeys: string[] = getTrueKeys(activeVehicle);
 
   return (
-    <div className="mt-4">
-      <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
+    <div>
+      <CarRentalSearchParameters />
+      <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-2 mt-4 items-center justify-between">
         <p className="font-bold">Car Details</p>
         <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white text-sm">
           Info and price
@@ -66,7 +66,7 @@ const CarDetails = () => {
             )}
             <div className="flex">
               <img src={Assets.Class} alt="Class" className="mr-1 ml-3" />
-              <p>{activeVehicle!.vehicleInfo.peopleCapacity + " seat"}</p>
+              <p>{activeVehicle!.vehicleInfo.peopleCapacity + ' seat'}</p>
             </div>
             {activeVehicle!.vehicleInfo.airConditioning && (
               <>
@@ -95,7 +95,12 @@ const CarDetails = () => {
               {activeVehicle?.posCurrencyCode}
             </span>
           </p>
-          <PayNowButton linkTo="booking-review" />
+          <Link
+            className="px-6 py-2 bg-blue-600 rounded-md text-[11px] text-white"
+            to={'booking-review'}
+          >
+            Review And Book
+          </Link>
         </div>
       </div>
       <div className="flex bg-white py-3 px-5 rounded-md justify-between mt-4">
@@ -106,13 +111,13 @@ const CarDetails = () => {
             <div className="ml-4">
               <p className="font-semibold text-base">Pick Up & Drop Off</p>
               <p className="text-xs font-normal text-gray-400">
-                {dropCarAtDifferentLocation && "Pick Up: "}
-                {pickUpLocation.fullDisplayName + ", " + pickUpLocation.city}
+                {dropCarAtDifferentLocation && 'Pick Up: '}
+                {pickUpLocation.fullDisplayName + ', ' + pickUpLocation.city}
               </p>
               {dropCarAtDifferentLocation && (
                 <p className="text-xs font-normal text-gray-400">
-                  Drop Off:{" "}
-                  {dropOffLocation.displayName + ", " + dropOffLocation.city}
+                  Drop Off:{' '}
+                  {dropOffLocation.displayName + ', ' + dropOffLocation.city}
                 </p>
               )}
             </div>
@@ -123,9 +128,9 @@ const CarDetails = () => {
               <p className="font-semibold text-base">Address</p>
               <p className="text-xs font-normal text-gray-400">
                 {partnerLocation.address.addressLine1 +
-                  ", " +
+                  ', ' +
                   partnerLocation.address.cityName +
-                  ", " +
+                  ', ' +
                   partnerLocation.address.countryName}
               </p>
             </div>
@@ -160,7 +165,7 @@ const getTrueKeys = (activeVehicle: VehicleInformation | null): string[] => {
   const myArray: string[] = [];
   keys.forEach((key) => {
     const currentValue = activeVehicle![key];
-    if (typeof currentValue === "boolean" && currentValue === true) {
+    if (typeof currentValue === 'boolean' && currentValue === true) {
       myArray.push(getNormalCaseString(key));
     }
   });

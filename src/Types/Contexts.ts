@@ -1,6 +1,6 @@
-import { SetStateAction } from "react";
-import { Airline, Airport, Country, Departures, TravelerInfo } from "./Flights";
-import { TravellerHotelInfo } from "./Hotel";
+import { SetStateAction } from 'react';
+import { Airport, Departures } from './Flights';
+import { TravellerHotelInfo } from './Hotel';
 
 export interface FlightSearchParametersContext {
   toAirport: Airport | null;
@@ -14,29 +14,6 @@ export interface FlightSearchParametersContext {
   setReturnDate: React.Dispatch<SetStateAction<Date | null>>;
   setFromAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
   setToAirport: React.Dispatch<React.SetStateAction<Airport | null>>;
-}
-
-export interface MainContextValue {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setAirports: React.Dispatch<React.SetStateAction<Airport[]>>;
-  setAirlines: React.Dispatch<React.SetStateAction<Airline[]>>;
-  setDevMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setMenuWide: React.Dispatch<React.SetStateAction<boolean>>;
-  setCountryList: React.Dispatch<React.SetStateAction<Country[]>>;
-  isLoading: boolean;
-  airports: Airport[];
-  airlines: Airline[];
-  devMode: boolean;
-  countryList: Country[];
-  menuWide: boolean;
-}
-
-export interface BookingContextType {
-  initiateBooking: (flight: Departures) => void;
-  travelersInfo: TravelerInfo | null;
-  flightPrice: FlightPrices | null;
-  booking: boolean;
-  setTravelersInfo: React.Dispatch<React.SetStateAction<TravelerInfo | null>>;
 }
 
 export type FlightPrices = {
@@ -73,27 +50,4 @@ export interface CarRentalSearch {
   dropOffLocation: Airport | null;
   setPickUpLocation: React.Dispatch<React.SetStateAction<Airport | null>>;
   setDropOffLocation: React.Dispatch<React.SetStateAction<Airport | null>>;
-}
-
-export interface Authenticator {
-  email: string | null;
-  picture: string | null;
-  name: string | null;
-  accountType: string | null;
-  birthday: string | null;
-  gender: string | null;
-  address: string | null;
-  aud?: string;
-  azp?: string;
-  email_verified?: boolean;
-  exp?: number;
-  family_name?: string;
-  given_name?: string;
-  iat?: number;
-  iss?: string;
-  jti?: string;
-  nbf?: string;
-  sub?: string;
-  mobileNumber?: string | null;
-  password?: string | null;
 }

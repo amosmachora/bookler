@@ -1,5 +1,6 @@
-import axios from "axios";
-import { PropertyListType } from "../Types/PropertyList";
+import axios from 'axios';
+import { PropertyList } from '../Types/PropertyList';
+import devPropertyList from '../Util/PropertyListByDestId.json';
 
 /**
  * List properties having type of resorts, hotels, motels, hostels, etc as on official site
@@ -22,29 +23,30 @@ export const fetchPropertyListByDestId = async (
   travel_purpose: string,
   sortBy: string,
   categories_filter: string
-): Promise<PropertyListType> => {
+): Promise<PropertyList> => {
   const options = {
-    method: "GET",
-    url: "https://apidojo-booking-v1.p.rapidapi.com/properties/list",
+    method: 'GET',
+    // url: "https://apidojo-booking-v1.p.rapidapi.com/properties/list",
+    url: 'https://fake-url',
     params: {
-      offset: "0",
+      offset: '0',
       arrival_date: arrival_date,
       departure_date: departure_date,
       guest_qty: guest_qty,
       dest_ids: dest_ids,
       room_qty: room_qty,
-      search_type: "city",
+      search_type: 'city',
       children_qty: children_qty,
-      search_id: "none",
-      price_filter_currencycode: "USD",
+      search_id: 'none',
+      price_filter_currencycode: 'USD',
       order_by: sortBy,
-      languagecode: "en-us",
+      languagecode: 'en-us',
       travel_purpose: travel_purpose,
       categories_filter: categories_filter,
     },
     headers: {
-      "X-RapidAPI-Key": "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
-      "X-RapidAPI-Host": "apidojo-booking-v1.p.rapidapi.com",
+      'X-RapidAPI-Key': '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',
+      'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   };
 
@@ -55,5 +57,6 @@ export const fetchPropertyListByDestId = async (
     })
     .catch(function (error) {
       console.error(error);
+      return devPropertyList;
     });
 };

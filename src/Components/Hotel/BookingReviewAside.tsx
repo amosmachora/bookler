@@ -1,25 +1,23 @@
-import React, { useContext } from "react";
-import { Assets } from "../../Assets/Assets";
-import { SelectedHotel } from "../../Types/Hotel";
-import { getDay, monthNames } from "../../Util/Helpers";
-import { HotelSearchContext } from "./HotelProvider";
+import React from 'react';
+import { Assets } from '../../Assets/Assets';
+import { useHotelDataContext } from '../../Hooks/useHotelData';
+import { SelectedHotel } from '../../Types/Hotel';
+import { getDay, monthNames } from '../../Util/Helpers';
+import { getMainImage } from './HotelData';
 
 const BookingReviewAside = ({
   selectedHotelInfo,
 }: {
   selectedHotelInfo: SelectedHotel | null;
 }) => {
-  const { checkInDate, checkOutDate } = useContext(HotelSearchContext);
+  const { userHotelChoices } = useHotelDataContext();
+  const { checkInDate, checkOutDate } = userHotelChoices!;
 
-  const hotelImages = selectedHotelInfo?.hotelImages;
-  const hotelInfo = selectedHotelInfo?.hotelInfo;
+  const { hotelImages, hotelInfo } = selectedHotelInfo!;
   return (
     <div className="w-1/5 bg-white rounded-md overflow-hidden p-3">
       <img
-        src={
-          hotelImages?.find((image) => image.tag_name === "Property Building")
-            ?.img_url_large
-        }
+        src={getMainImage(hotelImages)}
         alt="hotel view"
         className="rounded-md"
       />
@@ -32,11 +30,11 @@ const BookingReviewAside = ({
       <div className="border text-sm font-semibold py-3 px-4">
         <p>{`${
           checkInDate?.getDate() +
-          " " +
+          ' ' +
           monthNames[checkInDate!.getMonth()].substring(0, 3) +
-          ", " +
+          ', ' +
           checkInDate?.getFullYear() +
-          ", " +
+          ', ' +
           getDay(checkInDate)
         }`}</p>
       </div>
@@ -44,17 +42,17 @@ const BookingReviewAside = ({
       <div className="border text-sm font-semibold py-3 px-4">
         <p>{`${
           checkOutDate?.getDate() +
-          " " +
+          ' ' +
           monthNames[checkOutDate!.getMonth()].substring(0, 3) +
-          ", " +
+          ', ' +
           checkOutDate?.getFullYear() +
-          ", " +
+          ', ' +
           getDay(checkOutDate)
         }`}</p>
       </div>
       <div className="flex flex-col items-end mt-7">
         <p className="font-bold text-3xl mb-3">
-          {hotelInfo?.price_breakdown.all_inclusive_price}{" "}
+          {hotelInfo?.price_breakdown.all_inclusive_price}{' '}
           <span className="text-xs font-normal text-gray-400">
             {hotelInfo?.price_breakdown.currency}
           </span>
@@ -65,7 +63,7 @@ const BookingReviewAside = ({
           target="_blank"
           rel="noreferrer"
         >
-          PAY NOW
+          BOOK NOW
         </a>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { HotelSearchContext } from "./HotelProvider";
+import React from 'react';
+import { useHotelDataContext } from '../../Hooks/useHotelData';
 
 /**
  * @param closeModalFunction a function to close the modal
@@ -10,12 +10,12 @@ const TravellerSelector = ({
 }: {
   closeModalFunction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { travellerHotelInfo, setTravellerHotelInfo } =
-    useContext(HotelSearchContext);
+  const { userHotelChoices, setUserHotelChoices } = useHotelDataContext();
+  const { travellerHotelInfo } = userHotelChoices;
   const circle =
-    "rounded-[50%] border px-2 border-gray-500 cursor-pointer hover:border-sky-500 transition-all mx-2 my-1";
+    'rounded-[50%] border px-2 border-gray-500 cursor-pointer hover:border-sky-500 transition-all mx-2 my-1';
   return (
-    <div className="absolute -top-1 right-1/3 -translate-y-full bg-white w-1/3 shadow-md rounded-md p-4 cursor-auto z-10">
+    <div className="absolute bg-white left-0 right-0 -translate-y-full -top-2 w-1/2 shadow-md rounded-md p-4 cursor-auto z-10">
       <p className="font-bold text-md">Travellers</p>
       <p className="font-semibold">Room 1</p>
       <div className="flex justify-between items-center my-3">
@@ -24,10 +24,16 @@ const TravellerSelector = ({
           <p
             className={circle}
             onClick={() =>
-              setTravellerHotelInfo((prev) => {
+              setUserHotelChoices((prev) => {
                 return {
                   ...prev,
-                  adults: prev.adults === 0 ? 0 : prev.adults - 1,
+                  travellerHotelInfo: {
+                    ...prev.travellerHotelInfo,
+                    adults:
+                      prev.travellerHotelInfo.adults === 0
+                        ? 0
+                        : prev.travellerHotelInfo.adults - 1,
+                  },
                 };
               })
             }
@@ -38,10 +44,13 @@ const TravellerSelector = ({
           <p
             className={circle}
             onClick={() =>
-              setTravellerHotelInfo((prev) => {
+              setUserHotelChoices((prev) => {
                 return {
                   ...prev,
-                  adults: prev.adults + 1,
+                  travellerHotelInfo: {
+                    ...prev.travellerHotelInfo,
+                    adults: prev.travellerHotelInfo.adults + 1,
+                  },
                 };
               })
             }
@@ -59,10 +68,16 @@ const TravellerSelector = ({
           <p
             className={circle}
             onClick={() =>
-              setTravellerHotelInfo((prev) => {
+              setUserHotelChoices((prev) => {
                 return {
                   ...prev,
-                  kids: prev.kids === 0 ? 0 : prev.kids - 1,
+                  travellerHotelInfo: {
+                    ...prev.travellerHotelInfo,
+                    kids:
+                      prev.travellerHotelInfo.kids === 0
+                        ? 0
+                        : prev.travellerHotelInfo.kids - 1,
+                  },
                 };
               })
             }
@@ -73,10 +88,13 @@ const TravellerSelector = ({
           <p
             className={circle}
             onClick={() =>
-              setTravellerHotelInfo((prev) => {
+              setUserHotelChoices((prev) => {
                 return {
                   ...prev,
-                  kids: prev.kids + 1,
+                  travellerHotelInfo: {
+                    ...prev.travellerHotelInfo,
+                    kids: prev.travellerHotelInfo.kids + 1,
+                  },
                 };
               })
             }

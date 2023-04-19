@@ -1,5 +1,6 @@
-import axios from "axios";
-import { CarRentalSearchResultsType } from "../Types/CarRentals";
+import axios from 'axios';
+import { CarRentalData } from '../Types/CarRentals';
+import DevCarRentals from '../Util/CarRentals.json';
 
 /**
  * @param pickUpLocation String of the format "JFK"
@@ -13,10 +14,11 @@ export const fetchCarRentals = async (
   returnDate: string,
   pickUpDate: string,
   returnLocation: string
-): Promise<CarRentalSearchResultsType> => {
+): Promise<CarRentalData> => {
   const options = {
-    method: "GET",
-    url: "https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search",
+    method: 'GET',
+    // url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search',
+    url: 'https://fake-url',
     params: {
       location_pickup: pickUpLocation,
       date_time_return: returnDate,
@@ -24,8 +26,8 @@ export const fetchCarRentals = async (
       location_return: returnLocation,
     },
     headers: {
-      "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-      "X-RapidAPI-Host": "priceline-com-provider.p.rapidapi.com",
+      'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',
+      'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
     },
   };
 
@@ -36,5 +38,6 @@ export const fetchCarRentals = async (
     })
     .catch(function (error) {
       console.error(error);
+      return DevCarRentals;
     });
 };

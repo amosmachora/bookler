@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { BaseFilter, RecommendedFilter } from "../../Types/PropertyList";
-import { HotelSearchResultsContext } from "./HotelSearchResults";
+import React, { useEffect, useRef, useState } from 'react';
+import { BaseFilter, RecommendedFilter } from '../../Types/PropertyList';
+import LineGraph from '../CarRental/LineGraph';
+import { useHotelSearchResults } from './HotelSearchResultsProvider';
 
 const HotelFilter = ({
   baseFilters,
   recommendedFilters,
+  prices,
 }: {
   baseFilters: BaseFilter[];
   recommendedFilters: RecommendedFilter[];
+  prices: number[];
 }) => {
   const [activeFilter, setActiveFilter] = useState<BaseFilter | undefined>(
     baseFilters[0]
   );
 
-  const { setFilterBy } = useContext(HotelSearchResultsContext);
+  const { setFilterBy } = useHotelSearchResults();
 
   const addFilter = (filter_id: string) => {
     setFilterBy((prevState) => [...prevState, filter_id]);
@@ -46,9 +49,7 @@ const HotelFilter = ({
           <p>Price</p>
           <p>+795</p>
         </div>
-        <p className="text-red-800 font-bold">
-          Fix me !! Generate price graph from provided prices
-        </p>
+        <LineGraph prices={prices} />
         <input type="range" className="w-full" />
         <p className="font-semibold mb-5 mt-7">Looking for</p>
         <select
@@ -98,7 +99,7 @@ const HotelFilter = ({
         {isOverflowing && (
           <p
             className="text-center absolute bottom-0 left-1/2 -translate-x-1/2 py-4 bg-white w-full cursor-pointer"
-            onClick={() => (filterDiv.current!.style.overflowY = "scroll")}
+            onClick={() => (filterDiv.current!.style.overflowY = 'scroll')}
           >
             More
           </p>

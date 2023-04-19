@@ -1,52 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Departures } from "../../Types/Flights";
-import { FlightTimes } from "./FoundFlight";
-import axios from "axios";
-import { Assets } from "../../Assets/Assets";
-import { FlightSearchContext } from "./FlightsProvider";
+import React, { useState } from 'react';
+import { Departures } from '../../Types/Flights';
+import { Assets } from '../../Assets/Assets';
+import { useFlightDataContext } from '../../Hooks/useFlightData';
+import { FlightTimes } from './FlightTimes';
 
-type FlightDetailsProps = {
+const FlightDetails = ({
+  foundFlight,
+  thumbnail,
+}: {
   foundFlight: Departures;
-};
-
-const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
-  const { toAirport, fromAirport } = useContext(FlightSearchContext);
+  thumbnail: string;
+}) => {
+  const { userFlightChoices } = useFlightDataContext();
+  const { toAirport, fromAirport } = userFlightChoices!;
   const [details, setDetails] = useState(true);
-  const [aircraftImage, setAircraftImage] = useState<string>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getAircraftImage = async (): Promise<string> => {
-      setLoading(true);
-      const options = {
-        method: "GET",
-        url: `https://aerodatabox.p.rapidapi.com/aircrafts/reg/${foundFlight.aircraft.reg}/image/beta`,
-        headers: {
-          "X-RapidAPI-Key":
-            "6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf",
-          "X-RapidAPI-Host": "aerodatabox.p.rapidapi.com",
-        },
-      };
-
-      const imageUrlPromise = await axios
-        .request(options)
-        .then(function (response) {
-          return response.data.url;
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-
-      setLoading(false);
-
-      return imageUrlPromise;
-    };
-
-    getAircraftImage().then((url) => setAircraftImage(url));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // console.log(foundFlight);
 
   return (
     <div className="transition-all mb-2 rounded-b-lg overflow-hidden">
@@ -55,7 +22,7 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
           onClick={() => setDetails(true)}
           className={`uppercase ${
             details
-              ? "text-detailsText border border-b-detailsText"
+              ? 'text-detailsText border border-b-detailsText'
               : `text-gray-700`
           } font-semibold text-sm px-4 py-2 mr-5`}
         >
@@ -65,7 +32,7 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
           onClick={() => setDetails(false)}
           className={`uppercase  ${
             details
-              ? "text-gray-700"
+              ? 'text-gray-700'
               : `text-detailsText border-b-detailsText border`
           } font-semibold text-sm px-4 py-2`}
         >
@@ -76,10 +43,11 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
         {details ? (
           <div className="flex items-center">
             <img
-              src={loading ? Assets.loadingImage : aircraftImage}
+              src={thumbnail}
               alt="Aircraft"
               className={`rounded-md w-24 h-12`}
             />
+
             <p className="text-sm font-semibold mx-4">{foundFlight.number}</p>
             <FlightTimes
               foundFlight={foundFlight}
@@ -91,20 +59,20 @@ const FlightDetails = ({ foundFlight }: FlightDetailsProps) => {
               <div className="flex justify-between">
                 <p className="font-bold text-sm">
                   <span className="text-gray-500 font-medium text-sm">
-                    Baggage:{" "}
+                    Baggage:{' '}
                   </span>
                   Adult
                 </p>
                 <p className="font-bold text-sm">
                   <span className="text-gray-500 font-medium text-sm">
-                    Check In:{" "}
+                    Check In:{' '}
                   </span>
                   40kgs
                 </p>
               </div>
               <p className="font-bold text-sm mt-1">
                 <span className="text-gray-500 font-medium text-sm">
-                  Cabin:{" "}
+                  Cabin:{' '}
                 </span>
                 40kgs
               </p>

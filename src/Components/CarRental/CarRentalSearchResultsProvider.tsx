@@ -1,63 +1,59 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import CarRentalSearchParameters from "./CarRentalSearchParameters";
-import DevCarRentals from "../../Util/CarRentals.json";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
-  CarRentalSearchResultsType,
+  CarRentalData,
   PartnerLocation,
   VehicleInformation,
-} from "../../Types/CarRentals";
-import { fetchCarRentals } from "../../Fetchers/FetchCarRentals";
-import { CarRentalSearchContext } from "./CarRentalProvider";
-import { MainContext } from "../Contexts/MainAppProvider";
-import { Outlet } from "react-router";
+} from '../../Types/CarRentals';
+import { fetchCarRentals } from '../../Fetchers/FetchCarRentals';
+import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
 
-export const CarRentalSearchResultsContext = createContext<{
+const CarRentalSearchResultsContext = createContext<{
   activeVehicle: VehicleInformation | null;
-  carRentalData: CarRentalSearchResultsType;
-  suggestedVehicles: VehicleInformation[];
-  allUnfilteredVehicles: VehicleInformation[];
+  carRentalData: CarRentalData | null;
+  suggestedVehicles: VehicleInformation[] | null;
+  allUnfilteredVehicles: VehicleInformation[] | null;
   setActiveVehicle: React.Dispatch<
     React.SetStateAction<VehicleInformation | null>
   >;
   setSuggestedVehicles: React.Dispatch<
-    React.SetStateAction<VehicleInformation[]>
+    React.SetStateAction<VehicleInformation[] | null>
   >;
 }>(null as any);
 
-const CarRentalSearchResultsProvider = () => {
-  const [carRentalData, setCarRentalData] =
-    useState<CarRentalSearchResultsType>(DevCarRentals);
-  const { devMode } = useContext(MainContext);
-  const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } = useContext(
-    CarRentalSearchContext
+export const CarRentalSearchResultsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [carRentalData, setCarRentalData] = useState<CarRentalData | null>(
+    null
   );
+  const { userCarRentalChoices } = useCarRentalDataContext();
+  const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } =
+    userCarRentalChoices!;
   const [suggestedVehicles, setSuggestedVehicles] = useState<
-    VehicleInformation[]
-  >(getArrayOfObjects(carRentalData.vehicleRates));
+    VehicleInformation[] | null
+  >(getArrayOfObjects(carRentalData?.vehicleRates));
 
-  const allUnfilteredVehicles: VehicleInformation[] = getArrayOfObjects(
-    carRentalData.vehicleRates
+  const allUnfilteredVehicles: VehicleInformation[] | null = getArrayOfObjects(
+    carRentalData?.vehicleRates
   );
 
-  const { setMenuWide } = useContext(MainContext);
-
-  useEffect(() => {
-    setMenuWide(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useUpdateLogger(carRentalData, 'CarRentalData');
 
   //TODO Remember to fix locations.
   useEffect(() => {
-    if (!devMode) {
-      fetchCarRentals(
-        "JFK",
-        getConcatenatedDate(dropOffDate, dropOffTime!),
-        getConcatenatedDate(pickUpDate, pickUpTime!),
-        "JFK"
-      ).then((res) => setCarRentalData(res));
-    }
+    fetchCarRentals(
+      'JFK',
+      getConcatenatedDate(dropOffDate, dropOffTime!),
+      getConcatenatedDate(pickUpDate, pickUpTime!),
+      'JFK'
+    ).then((res) => {
+      setCarRentalData(res);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [[], devMode]);
+  }, []);
 
   const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
     null
@@ -67,41 +63,41 @@ const CarRentalSearchResultsProvider = () => {
     <CarRentalSearchResultsContext.Provider
       value={{
         activeVehicle,
+        suggestedVehicles,
         carRentalData,
         allUnfilteredVehicles,
         setActiveVehicle,
         setSuggestedVehicles,
-        suggestedVehicles,
       }}
     >
-      <CarRentalSearchParameters />
-      <Outlet />
-      {/* {stage === "Booking review" && (
-        <CarRentalReview
-          selectedVehicle={activeVehicle}
-          carRentalData={carRentalData}
-        />
-      )} */}
+      {children}
     </CarRentalSearchResultsContext.Provider>
   );
 };
 
-export default CarRentalSearchResultsProvider;
+export const useCarRentalSearchResults = () =>
+  useContext(CarRentalSearchResultsContext);
 
-const getConcatenatedDate = (Date: Date | null, Time: string): string => {
+const getConcatenatedDate = (date: Date | null, Time: string): string => {
+  if (!date) {
+    return '';
+  }
   return `${
-    Date?.getFullYear() +
-    "-" +
-    (Date!.getMonth() + 1) +
-    "-" +
-    Date?.getDate() +
-    " " +
+    date!.getFullYear() +
+    '-' +
+    (date!.getMonth() + 1) +
+    '-' +
+    date!.getDate() +
+    ' ' +
     Time +
-    ":00"
+    ':00'
   }`;
 };
 
-export const getArrayOfObjects = (vehicles: any): any[] => {
+export const getArrayOfObjects = (vehicles: any): any => {
+  if (!vehicles) {
+    return null;
+  }
   const keys = Object.keys(vehicles);
   let myArray: any[] = [];
   keys.forEach((key) => myArray.push(vehicles[key]));

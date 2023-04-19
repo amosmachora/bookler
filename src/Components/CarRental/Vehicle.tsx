@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Assets } from "../../Assets/Assets";
-import { VehicleInformation } from "../../Types/CarRentals";
-import { Rating } from "../Rating";
-import { CarRentalSearchResultsContext } from "./CarRentalSearchResultsProvider";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Assets } from '../../Assets/Assets';
+import { Images, VehicleInformation } from '../../Types/CarRentals';
+import { Rating } from '../Rating';
+import { useCarRentalSearchResults } from './CarRentalSearchResultsProvider';
 
 const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
-  const { setActiveVehicle } = useContext(CarRentalSearchResultsContext);
+  const { setActiveVehicle } = useCarRentalSearchResults();
   return (
-    <div className="bg-white rounded-md overflow-hidden my-1 flex relative py-2 w-full">
-      <img src={vehicle.vehicleInfo.images.SIZE268X144} alt="Car" />
+    <div className="bg-white rounded-md overflow-hidden mb-1 flex relative py-2 w-full">
+      <img
+        src={getLargestPossibleImage(vehicle.vehicleInfo.images)}
+        alt="Car"
+      />
       <div className="flex-grow ml-2">
         <p className="text-lg font-bold">
           {vehicle.vehicleInfo.vehicleExample}
@@ -21,7 +24,7 @@ const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
           {vehicle.vehicleInfo.automatic ? <p>Automatic</p> : <p>Manual</p>}
           <div className="flex">
             <img src={Assets.Class} alt="Class" className="mr-1 ml-3" />
-            <p>{vehicle.vehicleInfo.peopleCapacity + " seat"}</p>
+            <p>{vehicle.vehicleInfo.peopleCapacity + ' seat'}</p>
           </div>
           {vehicle.vehicleInfo.airConditioning && (
             <>
@@ -38,20 +41,15 @@ const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
                 .totalAllInclusivePrice
             }
           </p>
-          <div className="flex text-xs">
-            <Link
-              className="bg-gray-300 hover:bg-gray-400 px-5 mr-4 rounded-md font-semibold transition-all flex justify-center items-center"
-              onClick={() => {
-                setActiveVehicle(vehicle);
-              }}
-              to="car-details"
-            >
-              View Details
-            </Link>
-            <button className="bg-blue-600 text-white px-5 hover:bg-blue-400 rounded-md transition-all py-3">
-              Book Now
-            </button>
-          </div>
+          <Link
+            className="bg-blue-600 text-xs hover:bg-blue-400 text-white px-5 py-3 rounded-md font-semibold transition-all"
+            onClick={() => {
+              setActiveVehicle(vehicle);
+            }}
+            to="car-details"
+          >
+            View Details
+          </Link>
         </div>
         <Rating
           mapShown={false}
@@ -63,3 +61,7 @@ const Vehicle = ({ vehicle }: { vehicle: VehicleInformation }) => {
 };
 
 export default Vehicle;
+
+const getLargestPossibleImage = (vehicleImages: Images): string => {
+  return vehicleImages.SIZE268X144;
+};

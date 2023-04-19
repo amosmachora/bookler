@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
+import DevLocations from '../Util/Locations.json';
 
 export type SuggestedLocations = {
   b_max_los_data: {
@@ -34,15 +35,16 @@ export type SuggestedLocations = {
  * @param Location A location string.
  */
 export const fetchSuggestedLocations = async (
-  Location: string | undefined
+  Location: string
 ): Promise<SuggestedLocations[]> => {
   const options = {
-    method: "GET",
-    url: "https://apidojo-booking-v1.p.rapidapi.com/locations/auto-complete",
-    params: { text: Location, languagecode: "en-us" },
+    method: 'GET',
+    // url: "https://apidojo-booking-v1.p.rapidapi.com/locations/auto-complete",
+    url: 'https://fakeurl',
+    params: { text: Location, languagecode: 'en-us' },
     headers: {
-      "X-RapidAPI-Key": "c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46",
-      "X-RapidAPI-Host": "apidojo-booking-v1.p.rapidapi.com",
+      'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',
+      'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   };
 
@@ -53,5 +55,6 @@ export const fetchSuggestedLocations = async (
     })
     .catch(function (error) {
       console.error(error);
+      return DevLocations;
     });
 };
