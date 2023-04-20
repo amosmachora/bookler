@@ -9,6 +9,8 @@ import { Outlet, useNavigate } from 'react-router';
 import LoadingScreen from './Components/LoadingScreen';
 import { useGlobalData } from './Hooks/useGlobalData';
 
+export const RESULTS_DIV_HEIGHT = 'h-[58vh]';
+
 function App() {
   const navigate = useNavigate();
   const { menuWide, isLoading } = useGlobalData();
@@ -25,10 +27,10 @@ function App() {
     <div className="App w-full">
       {isLoading && <LoadingScreen />}
       <BackGround />
-      <div className="flex z-10 gap-x-10 h-screen p-10 relative">
+      <div className="flex z-10 gap-x-10 h-screen p-10 relative h-screen">
         <Menu />
         <div
-          className={`h-full transition-all flex-grow ${
+          className={`transition-all flex flex-col flex-grow h-full ${
             menuWide ? 'w-4/5' : 'w-11/12'
           }`}
         >

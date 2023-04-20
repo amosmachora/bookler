@@ -7,8 +7,8 @@ export const fetchHotelDescription = (
 ): Promise<HotelDescription[]> => {
   const options = {
     method: 'GET',
-    // url: "https://apidojo-booking-v1.p.rapidapi.com/properties/get-description",
-    url: 'https://fake-url',
+    url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/get-description',
+    // url: 'https://fake-url',
     params: { hotel_ids: hotel_id, languagecode: 'en-us' },
     headers: {
       'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',

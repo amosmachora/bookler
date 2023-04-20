@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { fetchHotelFacilities } from '../../Fetchers/FetchHotelFacilities';
-import { fetchHotelImages } from '../../Fetchers/FetchHotelImages';
+import { RESULTS_DIV_HEIGHT } from '../../App';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
 import { CompleteHotel, GoogleMapsCenter, HotelInfo } from '../../Types/Hotel';
 import LoadingScreen from '../LoadingScreen';
+import { fetchHotelFacilities } from './fetchers/FetchHotelFacilities';
+import { fetchHotelImages } from './fetchers/FetchHotelImages';
 import HotelData from './HotelData';
 import HotelFilter from './HotelFilter';
 import HotelSearchParameters from './HotelSearchParameters';
@@ -17,7 +18,7 @@ export const HotelResults = () => {
   const [completeHotelsList, setCompleteHotelsList] = useState<
     CompleteHotel[] | null
   >(null);
-  const prices: number[] = getPricesArray(completeHotelsList);
+  const prices: number[] | null = getPricesArray(completeHotelsList);
 
   useUpdateLogger(completeHotelsList, 'CompleteHotelsList');
 
@@ -31,10 +32,10 @@ export const HotelResults = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex-1 overflow-y-hidden">
       <HotelSearchParameters />
-      <div className="flex gap-x-2 h-[87vh] mb-8">
-        <div className="w-4/5 h-87vh flex flex-col overflow-hidden rounded-b-md">
+      <div className="flex gap-x-2">
+        <div className="w-4/5 flex flex-col overflow-hidden rounded-b-md">
           <div className="flex px-5 bg-flightResultsBg py-2 rounded-md mb-1 items-center justify-between">
             <p className="font-bold">Hotels</p>
             <div className="h-5 w-[1px] bg-gray-300 mx-3" />
@@ -63,12 +64,12 @@ export const HotelResults = () => {
                 ))}
             </div>
           </div>
-          <div className="flex gap-x-2 flex-grow h-[90%]">
+          <div className="flex gap-x-2 flex-grow">
             {completeHotelsList ? (
               <div
-                className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${
+                className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${RESULTS_DIV_HEIGHT} ${
                   mapCenter ? 'w-5/12' : ''
-                } `}
+                }`}
               >
                 {completeHotelsList.map((hotel) => (
                   <HotelData
@@ -82,17 +83,15 @@ export const HotelResults = () => {
                 ))}
               </div>
             ) : (
-              <LoadingScreen />
+              <LoadingScreen className="text-blue-600 h-max mt-[5%]" />
             )}
             {mapCenter && <Map center={mapCenter} width="w-7/12" />}
           </div>
         </div>
         <HotelFilter
-          baseFilters={propertyList === null ? [] : propertyList.base_filters}
-          recommendedFilters={
-            propertyList === null ? [] : propertyList.recommended_filters
-          }
-          prices={completeHotelsList ? prices : []}
+          baseFilters={propertyList!.base_filters}
+          recommendedFilters={propertyList!.recommended_filters}
+          prices={prices}
         />
       </div>
     </div>
@@ -129,7 +128,10 @@ const fetchExtraHotelsData = (
 };
 const getPricesArray = (
   completeHotelsList: CompleteHotel[] | null
-): number[] => {
+): number[] | null => {
+  if (!completeHotelsList) {
+    return null;
+  }
   const pricesArray: number[] =
     completeHotelsList?.map(
       (hotel) => hotel.hotelInfo.price_breakdown.all_inclusive_price

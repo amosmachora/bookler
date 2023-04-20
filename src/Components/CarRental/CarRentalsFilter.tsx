@@ -30,13 +30,38 @@ const CarRentalsFilter = () => {
   const prices: number[] = getPrices(allUnfilteredVehicles!);
   const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles!);
 
+  const handlePriceRange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const minPrice: number = parseInt(e.target.value);
+    console.log(e.target.value);
+    const maxPrice = prices[prices.length - 1];
+    setSuggestedVehicles(
+      allUnfilteredVehicles!.filter(
+        (vehicle) =>
+          parseInt(
+            vehicle.rates[vehicle.posCurrencyCode].totalAllInclusivePrice
+          ) >= minPrice &&
+          parseInt(
+            vehicle.rates[vehicle.posCurrencyCode].totalAllInclusivePrice
+          ) <= maxPrice
+      )
+    );
+  };
+
   return (
-    <div className="w-1/5 overflow-hidden rounded-md h-full relative">
+    <div className="w-1/5 overflow-hidden rounded-md relative bg-white">
       <p className="bg-flightResultsBg font-bold text-lg py-3 px-5">Filters</p>
-      <div className="px-5 pt-2 pb-5 bg-white text-sm rounded-b-md">
+      <div className="px-5 pt-2 text-sm rounded-b-md">
         <p className="text-xs">Prices</p>
         <LineGraph prices={prices} />
-        <input type="range" className="w-full" />
+        <input
+          type="range"
+          className="w-full"
+          min={0}
+          max={prices[prices.length - 1]}
+          // value={prices[prices.length - 1]}
+          step="1"
+          onChange={handlePriceRange}
+        />
         <p className="font-semibold mt-7 mb-5">Looking for</p>
         <select
           className="text-xs border w-full rounded-md h-10 px-2 font-semibold"
@@ -138,7 +163,8 @@ const getPrices = (suggestedVehicles: VehicleInformation[]): number[] => {
       )
     )
   );
-  return myArray;
+  return myArray.sort((a, b) => a - b);
+  // return myArray.sort((a, b) => a - b);
 };
 
 const getNumberOfSeatsArray = (

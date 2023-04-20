@@ -41,7 +41,7 @@ const FlightSearchParameters = () => {
             getFormattedDate(returnDate)}
         </p>
       </div>
-      <RedSearchButton text="Search FlIGhT" to="flights/flight-results" />
+      <RedSearchButton text="Search FlIGhT" to="/flights/flight-results" />
     </div>
   );
 };

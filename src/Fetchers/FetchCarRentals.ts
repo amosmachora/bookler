@@ -17,8 +17,8 @@ export const fetchCarRentals = async (
 ): Promise<CarRentalData> => {
   const options = {
     method: 'GET',
-    // url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search',
-    url: 'https://fake-url',
+    url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search',
+    // url: 'https://fake-url',
     params: {
       location_pickup: pickUpLocation,
       date_time_return: returnDate,
@@ -28,6 +28,8 @@ export const fetchCarRentals = async (
     headers: {
       'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',
       'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
     },
   };
 

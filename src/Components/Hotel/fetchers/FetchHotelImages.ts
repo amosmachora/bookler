@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { DirtyHotelImages, HotelImage, tags } from '../Types/Hotel';
-import BackedUpImages from '../Util/HotelImages.json';
+import { DirtyHotelImages, HotelImage, tags } from '../../../Types/Hotel';
+import BackedUpImages from '../../../Util/HotelImages.json';
 
 /**
  * @JsDoc

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import DevLocations from '../Util/Locations.json';
+import DevLocations from '../../../Util/Locations.json';
 
 export type SuggestedLocations = {
   b_max_los_data: {

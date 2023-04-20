@@ -7,8 +7,8 @@ export const fetchExtraFlightData = async (
 ): Promise<ExtraFlightData> => {
   const options = {
     method: 'GET',
-    // url: 'https://flight-radar1.p.rapidapi.com/flights/get-more-info',
-    url: 'https://fake-url',
+    url: 'https://flight-radar1.p.rapidapi.com/flights/get-more-info',
+    // url: 'https://fake-url',
     params: { query: flightNumber, fetchBy: 'flight', page: '1', limit: '100' },
     headers: {
       'X-RapidAPI-Key': '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',

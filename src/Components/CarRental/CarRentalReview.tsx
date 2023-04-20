@@ -13,14 +13,14 @@ const CarRentalReview = () => {
     <div>
       <CarRentalSearchParameters />
       <div className="flex gap-x-4 mt-4">
-        <div className="w-3/4">
+        <div className="w-4/5">
           <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
             <p className="font-bold text-lg">Car Rental Details</p>
             <p className="rounded-full py-1 mx-3 px-3 cursor-pointer transition-all bg-blue-900 text-white text-xs">
               Your Details
             </p>
           </div>
-          <div className="flex justify-between bg-white rounded-md py-3 px-12 mt-2 items-center text-xs">
+          <div className="flex justify-between bg-white rounded-md py-3 px-12 my-2 items-center text-xs">
             <div className="flex items-center">
               <img src={Assets.CheckMark} alt="CheckMark" className="mr-2" />
               <p className="cursor-pointer">Car - Selected</p>

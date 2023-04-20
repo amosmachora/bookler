@@ -13,7 +13,7 @@ const HotelDetails = () => {
   const [showInfo, setShowInfo] = useState(true);
 
   return (
-    <div>
+    <div className="flex-1">
       <HotelSearchParameters />
       <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
         <p className="font-bold">Hotel Details</p>

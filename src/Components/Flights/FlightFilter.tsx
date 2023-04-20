@@ -43,9 +43,9 @@ const FlightFilter = ({
   };
 
   return (
-    <div className="w-1/5 rounded-lg overflow-hidden">
+    <div className="w-1/5 rounded-lg overflow-hidden bg-white">
       <p className="font-bold text-lg p-3 bg-flightResultsBg">Filters</p>
-      <div className="p-5 bg-white">
+      <div className="p-5">
         <p className="text-sm font-semibold mb-4">Price</p>
         <input
           type="range"

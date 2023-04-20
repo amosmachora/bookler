@@ -40,10 +40,10 @@ export const fetchAirportFlightData = async (
   console.log('Searching data for ' + fromAirport.name);
   const options = {
     method: 'GET',
-    // url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
-    //   fromAirport.icao
-    // }/${getSearchDates().firstDate}/${getSearchDates().secondDate}`,
-    url: 'https://fakeUrl',
+    url: `https://aerodatabox.p.rapidapi.com/flights/airports/icao/${
+      fromAirport.icao
+    }/${getSearchDates().firstDate}/${getSearchDates().secondDate}`,
+    // url: 'https://fakeUrl',
     params: {
       withLeg: 'true',
       withCancelled: 'true',

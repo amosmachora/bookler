@@ -16,7 +16,7 @@ export const CarRentalReviewSummary = ({
   );
 
   return (
-    <div className="overflow-hidden w-1/4 rounded-md bg-white">
+    <div className="overflow-hidden w-1/5 rounded-md bg-white">
       <p className="font-bold text-lg bg-flightResultsBg py-2 px-5">
         Fare Summary
       </p>
