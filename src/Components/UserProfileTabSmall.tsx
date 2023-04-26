@@ -10,9 +10,10 @@ const UserProfileTabSmall = () => {
   const { setMenuWide } = useGlobalData();
   const navigate = useNavigate();
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const { setUserCredential } = useAuth();
 
   const handleLogOut = () => {
-    localStorage.removeItem('userData');
+    setUserCredential(null);
     navigate('/login');
   };
 

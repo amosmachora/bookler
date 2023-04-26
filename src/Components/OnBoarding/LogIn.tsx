@@ -42,7 +42,6 @@ const LogIn = () => {
     try {
       const userCredential = await signInWithGoogle(false);
       setUserCredential(userCredential);
-      console.log(userCredential);
       navigate('/');
     } catch (error) {
       setErrorMessage(getSignInErrorMessage(error));

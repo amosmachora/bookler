@@ -23,6 +23,7 @@ import { HotelDataContextProvider } from './Hooks/useHotelData';
 import { HotelSearchResultsProvider } from './Components/Hotel/HotelSearchResultsProvider';
 import { CarRentalSearchResultsProvider } from './Components/CarRental/CarRentalSearchResultsProvider';
 import { HotelResults } from './Components/Hotel/HotelResults';
+import { UserProvider } from './Hooks/useAuth';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,66 +32,68 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <FlightDataProvider>
-        <CarRentalDataContextProvider>
-          <HotelDataContextProvider>
-            <CarRentalSearchResultsProvider>
-              <HotelSearchResultsProvider>
-                <Routes>
-                  <Route path="/" element={<App />}>
-                    <Route
-                      path="flights"
-                      element={<FlightSearchForm />}
-                      index
-                    />
-                    <Route
-                      path="flights/flight-results"
-                      element={<FlightResults />}
-                    />
+      <UserProvider>
+        <FlightDataProvider>
+          <CarRentalDataContextProvider>
+            <HotelDataContextProvider>
+              <CarRentalSearchResultsProvider>
+                <HotelSearchResultsProvider>
+                  <Routes>
+                    <Route path="/" element={<App />}>
+                      <Route
+                        path="flights"
+                        element={<FlightSearchForm />}
+                        index
+                      />
+                      <Route
+                        path="flights/flight-results"
+                        element={<FlightResults />}
+                      />
 
-                    <Route
-                      path="/flights/flight-results/:flightId"
-                      element={<FlightBookingReview />}
-                    />
-                    <Route path="hotels" element={<HotelSearchForm />} />
-                    <Route
-                      element={<HotelResults />}
-                      path="hotels/hotel-results"
-                    />
-                    <Route
-                      path="/hotels/hotel-results/hotel-details"
-                      element={<HotelDetails />}
-                    />
-                    <Route
-                      path="/hotels/hotel-results/hotel-details/booking-review"
-                      element={<HotelBookingReview />}
-                    />
-                    <Route
-                      path="car-rental"
-                      element={<CarRentalSearchForm />}
-                    />
-                    <Route
-                      element={<CarRentalResults />}
-                      path="car-rental/car-rental-results"
-                    />
-                    <Route
-                      path="/car-rental/car-rental-results/car-details"
-                      element={<CarDetails />}
-                    />
-                    <Route
-                      path="/car-rental/car-rental-results/car-details/booking-review"
-                      element={<CarRentalReview />}
-                    />
-                    <Route path="profile" element={<UserProfileForm />} />
-                  </Route>
-                  <Route path="/login" element={<LogIn />} />
-                  <Route path="/onboarding" element={<SignUp />} />
-                </Routes>
-              </HotelSearchResultsProvider>
-            </CarRentalSearchResultsProvider>
-          </HotelDataContextProvider>
-        </CarRentalDataContextProvider>
-      </FlightDataProvider>
+                      <Route
+                        path="/flights/flight-results/:flightId"
+                        element={<FlightBookingReview />}
+                      />
+                      <Route path="hotels" element={<HotelSearchForm />} />
+                      <Route
+                        element={<HotelResults />}
+                        path="hotels/hotel-results"
+                      />
+                      <Route
+                        path="/hotels/hotel-results/hotel-details"
+                        element={<HotelDetails />}
+                      />
+                      <Route
+                        path="/hotels/hotel-results/hotel-details/booking-review"
+                        element={<HotelBookingReview />}
+                      />
+                      <Route
+                        path="car-rental"
+                        element={<CarRentalSearchForm />}
+                      />
+                      <Route
+                        element={<CarRentalResults />}
+                        path="car-rental/car-rental-results"
+                      />
+                      <Route
+                        path="/car-rental/car-rental-results/car-details"
+                        element={<CarDetails />}
+                      />
+                      <Route
+                        path="/car-rental/car-rental-results/car-details/booking-review"
+                        element={<CarRentalReview />}
+                      />
+                      <Route path="profile" element={<UserProfileForm />} />
+                    </Route>
+                    <Route path="/login" element={<LogIn />} />
+                    <Route path="/onboarding" element={<SignUp />} />
+                  </Routes>
+                </HotelSearchResultsProvider>
+              </CarRentalSearchResultsProvider>
+            </HotelDataContextProvider>
+          </CarRentalDataContextProvider>
+        </FlightDataProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
