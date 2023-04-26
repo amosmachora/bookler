@@ -8,26 +8,30 @@ import UserProfileTabSmall from './Components/UserProfileTabSmall';
 import { Outlet, useNavigate } from 'react-router';
 import LoadingScreen from './Components/LoadingScreen';
 import { useGlobalData } from './Hooks/useGlobalData';
+import { useAuth } from './Hooks/useAuth';
+import { useUpdateLogger } from './Hooks/useUpdateLogger';
 
 export const RESULTS_DIV_HEIGHT = 'h-[58vh]';
 
 function App() {
   const navigate = useNavigate();
   const { menuWide, isLoading } = useGlobalData();
+  const { userCredential } = useAuth();
+  useUpdateLogger(userCredential, 'userCredential');
   useEffect(() => {
-    const user = localStorage.getItem('userData');
-    if (!user) {
-      navigate('/login');
-    } else {
-      navigate('/flights');
-    }
+    // const user = localStorage.getItem('userData');
+    // if (!user) {
+    //   navigate('/login');
+    // } else {
+    // }
+    navigate('/flights');
   }, []);
 
   return (
     <div className="App w-full">
       {isLoading && <LoadingScreen />}
       <BackGround />
-      <div className="flex z-10 gap-x-10 h-screen p-10 relative h-screen">
+      <div className="flex z-10 gap-x-10 h-screen p-10 relative">
         <Menu />
         <div
           className={`transition-all flex flex-col flex-grow h-full ${

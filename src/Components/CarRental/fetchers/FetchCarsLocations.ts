@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PickUpOrDropOffLocations } from '../Types/CarRentals';
+import { PickUpOrDropOffLocations } from '../../../Types/CarRentals';
 
 /***
  * Returns all pickup locations on the target city name.
@@ -10,7 +10,8 @@ export const fetchPickUpOrDropOffLocations = async (
 ): Promise<PickUpOrDropOffLocations> => {
   const options = {
     method: 'GET',
-    url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/locations',
+    // url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/locations',
+    url: 'https://fakeUrl',
     params: { name: city },
     headers: {
       'X-RapidAPI-Key': 'c890ab4a16msh7c633ea6110821ap1e3f64jsn0ed6b1319c46',

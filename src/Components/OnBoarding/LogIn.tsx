@@ -23,13 +23,13 @@ const LogIn = () => {
   const navigate = useNavigate();
   const isClickable = isLinkClickable(email, password);
 
-  const { setUserData } = useAuth();
+  const { setUserCredential } = useAuth();
 
   const handleLogin = async () => {
     setIsLoadingEmail(true);
     try {
       const user = await signInWithEmailAndPassword(email, password);
-      setUserData(user);
+      setUserCredential(user);
       navigate('/');
     } catch (error) {
       setErrorMessage(getSignInErrorMessage(error));
@@ -40,8 +40,9 @@ const LogIn = () => {
   const googleSignIn = async () => {
     setIsLoadingGoogle(true);
     try {
-      const user = await signInWithGoogle(false);
-      setUserData(user);
+      const userCredential = await signInWithGoogle(false);
+      setUserCredential(userCredential);
+      console.log(userCredential);
       navigate('/');
     } catch (error) {
       setErrorMessage(getSignInErrorMessage(error));

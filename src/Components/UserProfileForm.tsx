@@ -1,5 +1,6 @@
+import { User } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useAuth, User } from '../Hooks/useAuth';
+import { useAuth } from '../Hooks/useAuth';
 import NonNullUserInput from './NonNullUserInput';
 import NullUserFieldInput from './NullUserFieldInput';
 import PaymentMethods from './PaymentMethods';
@@ -7,7 +8,8 @@ import ProfileCompleteness from './ProfileCompleteness';
 import { UserProfileTabLarge } from './UserProfileTabLarge';
 
 const UserProfileForm = () => {
-  const { user } = useAuth();
+  const { userCredential } = useAuth();
+  const user = userCredential?.user;
   const nullUserFields: string[] = getNullUserFields(user);
   const nonNullUserFields: string[] = getNonNullUserFields(user);
   const [showPaymentMethodsModal, setShowPaymentMethodsModal] = useState(false);
@@ -53,7 +55,7 @@ const UserProfileForm = () => {
             </p>
             {nonNullUserFields.map((field) => (
               <NonNullUserInput
-                defaultValue={user[field]}
+                defaultValue={user ? user[field] : ''}
                 field={field}
                 key={field}
               />
@@ -62,7 +64,7 @@ const UserProfileForm = () => {
               <NullUserFieldInput field={field} key={field} />
             ))}
           </div>
-          {!user.hasOwnProperty('iss') && (
+          {!user?.hasOwnProperty('iss') && (
             <div className="bg-white rounded-md p-8 text-xs mt-4">
               <p className="font-bold text-lg">Login details</p>
               <p className="font-normal text-gray-400">
@@ -107,7 +109,10 @@ const googleAuthKeys: string[] = [
   'sub',
 ];
 
-const getNullUserFields = (user: User): string[] => {
+const getNullUserFields = (user: User | undefined): string[] => {
+  if (!user) {
+    return [];
+  }
   const keys = Object.keys(user);
   const myArray: string[] = [];
   keys.forEach((key) =>
@@ -118,11 +123,14 @@ const getNullUserFields = (user: User): string[] => {
   return myArray;
 };
 
-const getNonNullUserFields = (auth: User): string[] => {
-  const keys = Object.keys(auth);
+const getNonNullUserFields = (user: User | undefined): string[] => {
+  if (!user) {
+    return [];
+  }
+  const keys = Object.keys(user);
   const myArray: string[] = [];
   keys.forEach((key) =>
-    auth[key] !== null && key !== 'picture' && !googleAuthKeys.includes(key)
+    user[key] !== null && key !== 'picture' && !googleAuthKeys.includes(key)
       ? myArray.push(key)
       : null
   );

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { CarRentalData } from '../Types/CarRentals';
-import DevCarRentals from '../Util/CarRentals.json';
+import { CarRentalData } from '../../../Types/CarRentals';
+import DevCarRentals from '../../../Util/CarRentals.json';
 
 /**
  * @param pickUpLocation String of the format "JFK"

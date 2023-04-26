@@ -9,6 +9,7 @@ import Vehicle from './Vehicle';
 
 const CarRentalResults = () => {
   const { suggestedVehicles } = useCarRentalSearchResults();
+
   return (
     <div className="flex-1 flex flex-col">
       <CarRentalSearchParameters />

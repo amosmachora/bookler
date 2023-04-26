@@ -4,9 +4,10 @@ import {
   PartnerLocation,
   VehicleInformation,
 } from '../../Types/CarRentals';
-import { fetchCarRentals } from '../../Fetchers/FetchCarRentals';
+import { fetchCarRentals } from './fetchers/FetchCarRentals';
 import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
+import { isLinkClickable } from '../../Util/Helpers';
 
 const CarRentalSearchResultsContext = createContext<{
   activeVehicle: VehicleInformation | null;
@@ -30,8 +31,14 @@ export const CarRentalSearchResultsProvider = ({
     null
   );
   const { userCarRentalChoices } = useCarRentalDataContext();
-  const { dropOffDate, dropOffTime, pickUpDate, pickUpTime } =
-    userCarRentalChoices!;
+  const {
+    dropOffDate,
+    dropOffTime,
+    pickUpDate,
+    pickUpTime,
+    pickUpLocation,
+    dropOffLocation,
+  } = userCarRentalChoices!;
   const [suggestedVehicles, setSuggestedVehicles] = useState<
     VehicleInformation[] | null
   >(getArrayOfObjects(carRentalData?.vehicleRates));
@@ -42,18 +49,34 @@ export const CarRentalSearchResultsProvider = ({
 
   useUpdateLogger(carRentalData, 'CarRentalData');
 
-  //TODO Remember to fix locations.
   useEffect(() => {
-    fetchCarRentals(
-      'JFK',
-      getConcatenatedDate(dropOffDate, dropOffTime!),
-      getConcatenatedDate(pickUpDate, pickUpTime!),
-      'JFK'
-    ).then((res) => {
-      setCarRentalData(res);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (
+      isLinkClickable(
+        dropOffDate,
+        dropOffLocation,
+        dropOffTime,
+        pickUpDate,
+        pickUpLocation,
+        pickUpTime
+      )
+    ) {
+      fetchCarRentals(
+        pickUpLocation!.iata,
+        getConcatenatedDate(dropOffDate, dropOffTime!),
+        getConcatenatedDate(pickUpDate, pickUpTime!),
+        dropOffLocation!.iata
+      ).then((res) => {
+        setCarRentalData(res);
+      });
+    }
+  }, [
+    dropOffDate,
+    dropOffLocation,
+    dropOffTime,
+    pickUpDate,
+    pickUpLocation,
+    pickUpTime,
+  ]);
 
   const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
     null

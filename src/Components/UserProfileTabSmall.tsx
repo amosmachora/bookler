@@ -5,7 +5,8 @@ import { useAuth } from '../Hooks/useAuth';
 import { useGlobalData } from '../Hooks/useGlobalData';
 
 const UserProfileTabSmall = () => {
-  const { user } = useAuth();
+  const { userCredential } = useAuth();
+  const user = userCredential?.user;
   const { setMenuWide } = useGlobalData();
   const navigate = useNavigate();
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const UserProfileTabSmall = () => {
   };
 
   return (
-    <div className="ml-5">
+    <div className="ml-5 relative">
       <div
         className="rounded-full bg-white/40 backdrop-blur-lg w-44 pr-4 pl-1 pt-1 pb-1 text-white flex items-center justify-between cursor-pointer"
         onClick={() => {
@@ -24,15 +25,21 @@ const UserProfileTabSmall = () => {
         }}
       >
         <img
-          src={user.picture === null ? Assets.PersonClipArt : user.picture}
+          src={user ? user.photoURL! : Assets.PersonClipArt}
           alt="Profile pic"
           className="w-8 h-8 rounded-full"
         />
-        <p className="text-xs">{user.name}</p>
-        <img src={Assets.DropDown} alt="Drop down" />
+        <p className="text-xs">
+          {user ? 'Hello ' + user.displayName : 'Hello User'}
+        </p>
+        <img
+          src={Assets.DropDown}
+          alt="Drop down"
+          className={`${showOptions && 'rotate-180'} transition-all`}
+        />
       </div>
       {showOptions && (
-        <div className="bg-white mt-3 rounded-md py-2">
+        <div className="bg-white mt-3 rounded-md py-2 absolute right-0 left-0 z-50">
           <Link
             className="ml-2 text-xs flex items-center cursor-pointer justify-center py-1"
             onClick={() => {
