@@ -8,36 +8,43 @@ const menuLinks = [
     to: '/flights',
     imgSrc: Assets.Home,
     name: 'Home',
+    isAllowed: true,
   },
   {
     to: '/profile',
     imgSrc: Assets.PersonClipArt,
     name: 'Profile',
+    isAllowed: true,
   },
   {
     to: '/wallet',
     imgSrc: Assets.Wallet,
     name: 'Wallet',
+    isAllowed: false,
   },
   {
     to: '/booking',
     imgSrc: Assets.Booking,
     name: 'Booking',
+    isAllowed: false,
   },
   {
     to: '/business',
     imgSrc: Assets.Business,
     name: 'Business',
+    isAllowed: false,
   },
   {
     to: '/explore',
     imgSrc: Assets.Explore,
     name: 'Explore',
+    isAllowed: false,
   },
   {
     to: '/support',
     imgSrc: Assets.Support,
     name: 'Support',
+    isAllowed: false,
   },
 ];
 
@@ -47,7 +54,7 @@ const Menu = () => {
 
   return (
     <div
-      className={`h-[90vh]  bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 px-5 overflow-hidden transition-all relative ${
+      className={`bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 px-5 overflow-hidden transition-all relative ${
         menuWide ? 'w-1/5' : 'w-1/12'
       }`}
     >
@@ -66,13 +73,7 @@ const Menu = () => {
           <span className="bg-white w-full h-[3px] rounded-sm" />
         </Link>
       </div>
-      <div
-        className={`mt-20 [&>*]:flex [&>*]:items-center [&>*]:mb-1 [&>*]:cursor-pointer ${
-          menuWide
-            ? '[&>*]:rounded-full [&>*]:px-3 [&>*]:py-2'
-            : '[&>*]:rounded [&>*]:p-2'
-        }`}
-      >
+      <div className={`mt-20 ${!menuWide && 'flex flex-col items-center'}`}>
         {menuLinks.map((item, i) => (
           <MenuLink
             pathName={pathname}
@@ -115,15 +116,24 @@ export const MenuLink = ({
     to: string;
     imgSrc: string;
     name: string;
+    isAllowed: boolean;
   };
   menuWide: boolean;
 }) => {
   return (
     <Link
-      className={`${pathName === menuItem.to ? 'bg-blueTab' : ''}`}
-      to={menuItem.to}
+      className={`${
+        pathName === menuItem.to ? 'bg-blueTab' : ''
+      } px-3 py-2 flex items-center transition-all ${
+        !menuItem.isAllowed && 'cursor-not-allowed'
+      } ${menuWide ? 'rounded-full' : 'rounded w-max'}`}
+      to={menuItem.isAllowed ? menuItem.to : '/flights'}
     >
-      <img src={menuItem.imgSrc} alt="Home" className="mr-2 w-5 h-5" />
+      <img
+        src={menuItem.imgSrc}
+        alt="Home"
+        className={`h-5 w-5 ${menuWide ? 'mr-2' : 'mx-auto'}`}
+      />
       {menuWide && <p>{menuItem.name}</p>}
     </Link>
   );

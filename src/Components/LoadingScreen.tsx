@@ -4,7 +4,7 @@ import React from 'react';
 
 const LoadingScreen = ({ className }: { className?: string }) => {
   return (
-    <div className="flex min-h-full w-full justify-center">
+    <div className={`flex w-full justify-center ${className}`}>
       <FontAwesomeIcon icon={faSpinner} spin className="mx-auto my-auto" />
     </div>
   );

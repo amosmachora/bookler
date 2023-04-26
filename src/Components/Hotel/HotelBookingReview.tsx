@@ -24,7 +24,7 @@ export const HotelBookingReview = () => {
               </p>
             </div>
           </div>
-          <div className="bg-white flex items-center justify-between mt-1 px-12 py-2 rounded-md">
+          <div className="bg-white flex items-center justify-between mt-1 mb-2 px-12 py-2 rounded-md">
             <div className="flex items-center">
               <img src={Assets.CheckMark} alt="Tick" className="mr-2" />
               <p className="text-xs">Hotel selected</p>

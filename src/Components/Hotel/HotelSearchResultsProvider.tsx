@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { fetchPropertyListByDestId } from '../../Fetchers/FetchPropertyListByDestId';
+import { fetchPropertyListByDestId } from './fetchers/FetchPropertyListByDestId';
 import { cleaned, getDateFromIsoString } from '../../Util/Helpers';
-import { fetchSuggestedLocations } from '../../Fetchers/FetchLocations';
 import { PropertyList } from '../../Types/PropertyList';
 import { SelectedHotel } from '../../Types/Hotel';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
 import { useHotelDataContext } from '../../Hooks/useHotelData';
+import { fetchSuggestedLocations } from './fetchers/FetchLocations';
 
 const HotelSearchResultsContext = createContext<{
   selectedHotelInfo: SelectedHotel | null;

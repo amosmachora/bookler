@@ -1,4 +1,5 @@
 import React from 'react';
+import { RESULTS_DIV_HEIGHT } from '../../App';
 import GraySeparator from '../GraySeparator';
 import LoadingScreen from '../LoadingScreen';
 import CarRentalSearchParameters from './CarRentalSearchParameters';
@@ -8,11 +9,12 @@ import Vehicle from './Vehicle';
 
 const CarRentalResults = () => {
   const { suggestedVehicles } = useCarRentalSearchResults();
+
   return (
-    <div>
+    <div className="flex-1 flex flex-col">
       <CarRentalSearchParameters />
-      <div className="flex gap-x-2 h-[75vh] overflow-y-scroll mb-3">
-        <div className="w-4/5 flex flex-col">
+      <div className="flex gap-x-2 mt-2 flex-1">
+        <div className="w-4/5">
           <div className="flex px-5 bg-flightResultsBg py-2 rounded-sm mb-1 items-center justify-between">
             <div className="flex items-center">
               <p className="text-xl font-bold">Taxi</p>
@@ -37,7 +39,7 @@ const CarRentalResults = () => {
               </p>
             </div>
           </div>
-          <div className="overflow-y-scroll flex-grow">
+          <div className={`${RESULTS_DIV_HEIGHT} overflow-y-scroll`}>
             {suggestedVehicles ? (
               suggestedVehicles.map((vehicle) => (
                 <Vehicle vehicle={vehicle} key={vehicle.id} />

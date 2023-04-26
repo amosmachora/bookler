@@ -13,7 +13,7 @@ import { AuthErrorMessage } from '../AuthErrorMessage';
 import { CountryCodeSelector } from '../Hotel/CountryCodeSelector';
 
 const SignUp = () => {
-  const { setUserData } = useAuth();
+  const { setUserCredential } = useAuth();
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -27,7 +27,7 @@ const SignUp = () => {
   const createAccount = async () => {
     setIsLoadingEmail(true);
     try {
-      const user = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         emailRef.current!.value!,
         passwordRef.current!.value!,
         {
@@ -35,7 +35,7 @@ const SignUp = () => {
           lastName: lastNameRef.current?.value!,
         }
       );
-      setUserData(user);
+      setUserCredential(userCredential);
       navigate('/');
     } catch (error) {
       setErrorMessage(getSignUpErrorMessage(error));
@@ -46,8 +46,8 @@ const SignUp = () => {
   const createUserWithGoogle = async () => {
     setIsLoadingGoogle(true);
     try {
-      const user = await signInWithGoogle(true);
-      setUserData(user);
+      const userCredential = await signInWithGoogle(true);
+      setUserCredential(userCredential);
       navigate('/');
     } catch (error) {
       setErrorMessage(getSignUpErrorMessage(error));

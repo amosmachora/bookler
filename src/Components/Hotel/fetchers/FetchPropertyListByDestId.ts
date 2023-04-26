@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { PropertyList } from '../Types/PropertyList';
-import devPropertyList from '../Util/PropertyListByDestId.json';
+import { PropertyList } from '../../../Types/PropertyList';
+import devPropertyList from '../../../Util/PropertyListByDestId.json';
 
 /**
  * List properties having type of resorts, hotels, motels, hostels, etc as on official site
@@ -26,7 +26,7 @@ export const fetchPropertyListByDestId = async (
 ): Promise<PropertyList> => {
   const options = {
     method: 'GET',
-    // url: "https://apidojo-booking-v1.p.rapidapi.com/properties/list",
+    // url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/list',
     url: 'https://fake-url',
     params: {
       offset: '0',

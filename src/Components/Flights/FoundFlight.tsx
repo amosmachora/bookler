@@ -54,9 +54,9 @@ const FoundFlight = ({
   return (
     <div>
       <div
-        className={`flex ${
+        className={`flex transition-all ${
           showDetails ? 'rounded-t-lg' : 'rounded-lg mb-2'
-        } overflow-hidden transition-all`}
+        } overflow-hidden`}
         key={foundFlight.number}
       >
         <div className="bg-white px-2 py-3 w-[79%]">

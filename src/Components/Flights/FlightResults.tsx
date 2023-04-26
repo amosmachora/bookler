@@ -4,11 +4,18 @@ import FlightFilter from './FlightFilter';
 import FoundFlight from './FoundFlight';
 import FlightSearchParameters from './FlightSearchParameters';
 import { useFlightDataContext } from '../../Hooks/useFlightData';
+import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
+import { RESULTS_DIV_HEIGHT } from '../../App';
 
 const FlightResults = () => {
   const { userFlightChoices, outGoingFlights } = useFlightDataContext();
   const { toAirport } = userFlightChoices!;
-  const [foundFlights, setFoundFlights] = useState<Departures[]>();
+  const unfilteredFoundFlights: Departures[] = outGoingFlights!.filter(
+    (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport!.icao
+  );
+  const [foundFlights, setFoundFlights] = useState<Departures[]>(
+    unfilteredFoundFlights
+  );
   const [sortBy, setSortBy] = useState('cheapest');
   const [preferredStopAirport, setPreferredStopAirport] =
     useState<Airport | null>(null);
@@ -16,13 +23,11 @@ const FlightResults = () => {
     null
   );
 
-  const allUnfilteredFoundFlights = outGoingFlights!.filter(
-    (outGoingFlight) => outGoingFlight.arrival.airport.icao === toAirport!.icao
-  );
-
   useEffect(() => {
     console.log(preferredStopAirport);
   }, [preferredStopAirport]);
+
+  useUpdateLogger(preferredAirline, 'preferredAirline');
 
   useEffect(() => {
     if (preferredAirline) {
@@ -32,15 +37,15 @@ const FlightResults = () => {
         )
       );
     } else {
-      setFoundFlights(allUnfilteredFoundFlights);
+      setFoundFlights(unfilteredFoundFlights);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferredAirline]);
 
   return (
-    <div>
+    <div className="flex-1 flex flex-col">
       <FlightSearchParameters />
-      <div className="flex gap-x-2">
+      <div className="flex flex-1 gap-x-2">
         <div className="w-4/5">
           <div className="flex justify-between px-5 py-3 items-center rounded-lg bg-flightResultsBg">
             <div className="flex items-center">
@@ -86,7 +91,9 @@ const FlightResults = () => {
               </p>
             </div>
           </div>
-          <div className="rounded-lg mt-1 overflow-y-auto found-flights">
+          <div
+            className={`rounded-lg overflow-y-auto mt-1 found-flights ${RESULTS_DIV_HEIGHT}`}
+          >
             {foundFlights?.map((foundFlight) => (
               <FoundFlight
                 foundFlight={foundFlight}

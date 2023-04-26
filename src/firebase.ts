@@ -13,7 +13,6 @@ import {
   createUserWithEmailAndPassword as createUserWithEmailFnFromFirebase,
   signInWithEmailAndPassword as signInUserFnFromFirebase,
 } from 'firebase/auth';
-import { User } from './Hooks/useAuth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC36qCIxLFkUUrp3xYZcglOBIlflnYNkaY',
@@ -37,51 +36,51 @@ const googleAuthProvider = new GoogleAuthProvider();
  */
 export const signInWithGoogle = async (
   firstTimeUser: boolean
-): Promise<User> => {
+): Promise<UserCredential> => {
   if (window.innerWidth < 768) {
     try {
       const userCredential: UserCredential = await signInWithRedirect(
         auth,
         googleAuthProvider
       );
-      const user = {
-        id: userCredential.user.uid,
-        email: userCredential.user.email!,
-        name: userCredential.user.displayName ?? userCredential.user.email!,
-        paymentMethodSelected: false,
-        plan: 'basic',
-        picture: userCredential.user.photoURL!,
-      };
+      // const user = {
+      //   id: userCredential.user.uid,
+      //   email: userCredential.user.email!,
+      //   name: userCredential.user.displayName ?? userCredential.user.email!,
+      //   paymentMethodSelected: false,
+      //   plan: 'basic',
+      //   picture: userCredential.user.photoURL!,
+      // };
 
-      if (firstTimeUser) {
-        addNewUserToDB(user);
-      } else {
-        //TODO fetch and return saved user from DB
-      }
-      return user;
+      // if (firstTimeUser) {
+      //   addNewUserToDB(user);
+      // } else {
+      //   //TODO fetch and return saved user from DB
+      // }
+      return userCredential;
     } catch (err) {
       throw err;
     }
   } else {
     try {
-      const UserCredential: UserCredential = await signInWithPopup(
+      const userCredential: UserCredential = await signInWithPopup(
         auth,
         googleAuthProvider
       );
-      const user = {
-        id: UserCredential.user.uid,
-        email: UserCredential.user.email!,
-        name: UserCredential.user.displayName ?? UserCredential.user.email!,
-        paymentMethodSelected: false,
-        plan: 'basic',
-        picture: UserCredential.user.photoURL!,
-      };
-      if (firstTimeUser) {
-        addNewUserToDB(user);
-      } else {
-        //TODO fetch and return saved user from DB
-      }
-      return user;
+      // const user = {
+      //   id: UserCredential.user.uid,
+      //   email: UserCredential.user.email!,
+      //   name: UserCredential.user.displayName ?? UserCredential.user.email!,
+      //   paymentMethodSelected: false,
+      //   plan: 'basic',
+      //   picture: UserCredential.user.photoURL!,
+      // };
+      // if (firstTimeUser) {
+      //   addNewUserToDB(user);
+      // } else {
+      //   //TODO fetch and return saved user from DB
+      // }
+      return userCredential;
     } catch (error) {
       throw error;
     }
@@ -91,16 +90,15 @@ export const signInWithGoogle = async (
 export const signInWithEmailAndPassword = async (
   email: string,
   password: string
-): Promise<User> => {
+): Promise<UserCredential> => {
   try {
-    const user = await signInUserFnFromFirebase(auth, email, password);
+    const userCredential = await signInUserFnFromFirebase(
+      auth,
+      email,
+      password
+    );
     //TODO fetch saved user from DB
-    return {
-      id: user.user.uid,
-      email: user.user.email!,
-      name: user.user.displayName ?? user.user.email!,
-      picture: user.user.photoURL,
-    };
+    return userCredential;
   } catch (err) {
     throw err;
   }
@@ -117,36 +115,36 @@ export const createUserWithEmailAndPassword = async (
   email: string,
   password: string,
   name: { firstName: string; lastName: string }
-): Promise<User> => {
+): Promise<UserCredential> => {
   try {
     const userCredential: UserCredential =
       await createUserWithEmailFnFromFirebase(auth, email, password);
-    const newUser: User = {
-      id: userCredential.user.uid,
-      email: userCredential.user.email!,
-      name:
-        userCredential.user.displayName ?? name.firstName + ' ' + name.lastName,
-      picture: userCredential.user.photoURL,
-    };
-    addNewUserToDB(newUser);
-    return newUser;
+    // const newUser: User = {
+    //   id: userCredential.user.uid,
+    //   email: userCredential.user.email!,
+    //   name:
+    //     userCredential.user.displayName ?? name.firstName + ' ' + name.lastName,
+    //   picture: userCredential.user.photoURL,
+    // };
+    // addNewUserToDB(newUser);
+    return userCredential;
   } catch (error) {
     throw error;
   }
 };
 
-export const redirectResult = async (): Promise<User | null> => {
+export const redirectResult = async (): Promise<UserCredential | null> => {
   try {
     const userCredential: UserCredential | null = await getRedirectResult(auth);
     if (userCredential) {
-      const newUser: User = {
-        id: userCredential.user.uid,
-        email: userCredential.user.email!,
-        name: userCredential.user.displayName ?? userCredential.user.email!,
-        picture: userCredential.user.photoURL!,
-      };
-      addNewUserToDB(newUser);
-      return newUser;
+      // const newUser: User = {
+      //   id: userCredential.user.uid,
+      //   email: userCredential.user.email!,
+      //   name: userCredential.user.displayName ?? userCredential.user.email!,
+      //   picture: userCredential.user.photoURL!,
+      // };
+      // addNewUserToDB(newUser);
+      return userCredential;
     }
     return null;
   } catch (error) {
@@ -154,7 +152,7 @@ export const redirectResult = async (): Promise<User | null> => {
   }
 };
 
-const addNewUserToDB = async (user: User) => {
+export const addNewUserToDB = async (user: any) => {
   const usersRef = doc(db, 'users', user.id);
   await setDoc(usersRef, user, {
     merge: true,
