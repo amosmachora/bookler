@@ -26,8 +26,8 @@ export const fetchPropertyListByDestId = async (
 ): Promise<PropertyList> => {
   const options = {
     method: 'GET',
-    // url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/list',
-    url: 'https://fake-url',
+    url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/list',
+    // url: 'https://fake-url',
     params: {
       offset: '0',
       arrival_date: arrival_date,

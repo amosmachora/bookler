@@ -17,8 +17,8 @@ export const fetchCarRentals = async (
 ): Promise<CarRentalData> => {
   const options = {
     method: 'GET',
-    url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search',
-    // url: 'https://fake-url',
+    // url: 'https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/search',
+    url: 'https://fake-url',
     params: {
       location_pickup: pickUpLocation,
       date_time_return: returnDate,

@@ -5,8 +5,8 @@ import DevHotelReviews from '../../../Util/HotelReviews.json';
 export const fetchHotelReviews = (hotel_id: string): Promise<HotelReviews> => {
   const options = {
     method: 'GET',
-    // url: 'https://apidojo-booking-v1.p.rapidapi.com/reviews/list',
-    url: 'https://fake-url',
+    url: 'https://apidojo-booking-v1.p.rapidapi.com/reviews/list',
+    // url: 'https://fake-url',
     params: {
       hotel_ids: hotel_id,
       languagecode: 'en-us',

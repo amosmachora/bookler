@@ -14,8 +14,8 @@ export const fetchHotelImages = async (
 ): Promise<HotelImage[]> => {
   const options = {
     method: 'GET',
-    // url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos',
-    url: 'https://invalid-url',
+    url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos',
+    // url: 'https://invalid-url',
     params: { hotel_ids: hotel_id.toString(), languagecode: 'en-us' },
     headers: {
       'X-RapidAPI-Key': '6445ce28c1msh4b2afb9dc1a38bbp17a68bjsn97511bcb4bbf',

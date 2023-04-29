@@ -7,8 +7,8 @@ export const fetchHotelData = async (
 ): Promise<any> => {
   const options = {
     method: 'GET',
-    // url: "https://hotels-com-provider.p.rapidapi.com/v1/hotels/search",
-    url: 'https://fake-url',
+    url: 'https://hotels-com-provider.p.rapidapi.com/v1/hotels/search',
+    // url: 'https://fake-url',
     params: {
       checkin_date: checkInDate,
       checkout_date: checkOutDate,

@@ -47,10 +47,6 @@ const FoundFlight = ({
 
   useUpdateLogger(extraFlightData, 'ExtraFlightData');
 
-  const thumbnail: string =
-    extraFlightData?.extraFlightData.result.response.aircraftImages[0].images
-      .thumbnails[0].src!;
-
   return (
     <div>
       <div
@@ -121,7 +117,13 @@ const FoundFlight = ({
         </div>
       </div>
       {showDetails && (
-        <FlightDetails foundFlight={foundFlight} thumbnail={thumbnail} />
+        <FlightDetails
+          foundFlight={foundFlight}
+          thumbnail={
+            extraFlightData?.extraFlightData.result.response.aircraftImages[0]
+              .images.thumbnails[0].src!
+          }
+        />
       )}
     </div>
   );
