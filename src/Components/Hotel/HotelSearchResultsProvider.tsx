@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { fetchPropertyListByDestId } from './fetchers/FetchPropertyListByDestId';
-import { cleaned, getDateFromIsoString } from '../../Util/Helpers';
+import {
+  cleaned,
+  getDateFromIsoString,
+  isLinkClickable,
+} from '../../Util/Helpers';
 import { PropertyList } from '../../Types/PropertyList';
 import { SelectedHotel } from '../../Types/Hotel';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
@@ -54,9 +58,17 @@ export const HotelSearchResultsProvider = ({
   };
 
   useEffect(() => {
-    fetchHotelInfo();
+    if (
+      isLinkClickable(
+        userHotelChoices.checkInDate,
+        userHotelChoices.checkOutDate,
+        userHotelChoices.targetHotelLocation
+      )
+    ) {
+      fetchHotelInfo();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userHotelChoices]);
 
   const [selectedHotelInfo, setSelectedHotelInfo] =
     useState<SelectedHotel | null>(null);

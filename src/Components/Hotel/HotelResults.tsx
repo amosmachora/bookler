@@ -67,7 +67,7 @@ export const HotelResults = () => {
           <div className="flex gap-x-2 flex-grow">
             {completeHotelsList ? (
               <div
-                className={`h-full overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${RESULTS_DIV_HEIGHT} ${
+                className={`overflow-y-scroll overflow-x-hidden rounded-md transition-all duration-500 w-full ${RESULTS_DIV_HEIGHT} ${
                   mapCenter ? 'w-5/12' : ''
                 }`}
               >
@@ -89,8 +89,8 @@ export const HotelResults = () => {
           </div>
         </div>
         <HotelFilter
-          baseFilters={propertyList!.base_filters}
-          recommendedFilters={propertyList!.recommended_filters}
+          baseFilters={propertyList?.base_filters}
+          recommendedFilters={propertyList?.recommended_filters}
           prices={prices}
         />
       </div>

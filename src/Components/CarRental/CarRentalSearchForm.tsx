@@ -35,14 +35,13 @@ const CarRentalSearchForm = () => {
   }
 
   const isClickable: boolean = isLinkClickable(...args);
-
-  let config: ModalConfig = {
+  const [config, setConfig] = useState<ModalConfig>({
     inputPlaceHolder: 'Search pick up location',
     mainText: 'Pick Up location',
     name: 'Pick up location',
     closeFunction: setShowSearchModal,
     type: 'pick-up',
-  };
+  });
 
   return (
     <div className="bg-white flex flex-wrap rounded-lg p-9 mt-5 gap-2 transition-all">
@@ -71,12 +70,13 @@ const CarRentalSearchForm = () => {
         <div
           className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
           onClick={() => {
-            config = {
-              ...config,
+            setConfig({
+              type: 'drop-off',
               inputPlaceHolder: 'Search drop off location',
               mainText: 'Drop off location',
               name: 'Drop off location',
-            };
+              closeFunction: setShowSearchModal,
+            });
             setShowSearchModal(true);
           }}
         >

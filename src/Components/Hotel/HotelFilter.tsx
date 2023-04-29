@@ -8,8 +8,8 @@ const HotelFilter = ({
   recommendedFilters,
   prices,
 }: {
-  baseFilters: BaseFilter[] | null;
-  recommendedFilters: RecommendedFilter[] | null;
+  baseFilters: BaseFilter[] | undefined;
+  recommendedFilters: RecommendedFilter[] | undefined;
   prices: number[] | null;
 }) => {
   const [activeFilter, setActiveFilter] = useState<BaseFilter | null>(
@@ -29,7 +29,7 @@ const HotelFilter = ({
   };
 
   return (
-    <div className="w-1/5 rounded-md h-full relative bg-white rounded-md overflow-hidden">
+    <div className="w-1/5 h-full relative bg-white rounded-md overflow-hidden">
       <p className="font-bold text-lg bg-flightResultsBg py-3 px-5">Filters</p>
       <div className="p-5 text-sm rounded-bg">
         <div className="flex justify-between font-semibold">

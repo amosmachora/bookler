@@ -64,19 +64,14 @@ export const CarRentalSearchResultsProvider = ({
         pickUpLocation!.iata,
         getConcatenatedDate(dropOffDate, dropOffTime!),
         getConcatenatedDate(pickUpDate, pickUpTime!),
-        dropOffLocation!.iata
+        // dropOffLocation!.iata
+        'JFK'
       ).then((res) => {
         setCarRentalData(res);
       });
     }
-  }, [
-    dropOffDate,
-    dropOffLocation,
-    dropOffTime,
-    pickUpDate,
-    pickUpLocation,
-    pickUpTime,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userCarRentalChoices]);
 
   const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
     null

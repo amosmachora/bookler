@@ -10,8 +10,8 @@ const CarRentalsFilter = () => {
   const [appliedFilters, setAppliedFilters] = useState<string | null>(null);
   const { setSuggestedVehicles, allUnfilteredVehicles, carRentalData } =
     useCarRentalSearchResults();
-  const categories: VehicleCategory[] = getArrayOfObjects(
-    carRentalData!.vehicleCategories
+  const categories: VehicleCategory[] | null = getArrayOfObjects(
+    carRentalData?.vehicleCategories
   );
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const CarRentalsFilter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appliedFilters]);
 
-  const prices: number[] = getPrices(allUnfilteredVehicles!);
-  const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles!);
+  const prices: number[] = getPrices(allUnfilteredVehicles);
+  const arrayOfSeats: string[] = getNumberOfSeatsArray(allUnfilteredVehicles);
 
   const handlePriceRange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const minPrice: number = parseInt(e.target.value);
@@ -68,11 +68,12 @@ const CarRentalsFilter = () => {
           onChange={(e) => setAppliedFilters(e.target.value)}
         >
           <option value="No filter">No filter</option>
-          {categories.map((category) => (
-            <option value={category.display.id} key={category.display.id}>
-              {category.display.name}
-            </option>
-          ))}
+          {categories &&
+            categories.map((category) => (
+              <option value={category.display.id} key={category.display.id}>
+                {category.display.name}
+              </option>
+            ))}
         </select>
         <p className="mt-7 mb-5">Popular Filters</p>
         <div className="h-[20vh] overflow-hidden">
@@ -154,8 +155,13 @@ const CarRentalsFilter = () => {
 
 export default CarRentalsFilter;
 
-const getPrices = (suggestedVehicles: VehicleInformation[]): number[] => {
+const getPrices = (
+  suggestedVehicles: VehicleInformation[] | null
+): number[] => {
   const myArray: number[] = [];
+  if (!suggestedVehicles) {
+    return [];
+  }
   suggestedVehicles.forEach((vehicle) =>
     myArray.push(
       parseInt(
@@ -168,9 +174,12 @@ const getPrices = (suggestedVehicles: VehicleInformation[]): number[] => {
 };
 
 const getNumberOfSeatsArray = (
-  allUnfilteredVehicles: VehicleInformation[]
+  allUnfilteredVehicles: VehicleInformation[] | null
 ): string[] => {
   const myArray: string[] = [];
+  if (!allUnfilteredVehicles) {
+    return [];
+  }
   allUnfilteredVehicles.forEach((vehicle) =>
     myArray.push(vehicle.vehicleInfo.peopleCapacity!)
   );
