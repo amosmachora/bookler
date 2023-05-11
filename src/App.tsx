@@ -28,10 +28,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App w-full">
+    <div className="App w-full h-screen">
       {isLoading && <LoadingScreen />}
       <BackGround />
-      <div className="flex z-10 gap-x-10 h-screen p-10 relative">
+      <div className="flex z-10 gap-x-10 h-screen p-10 relative overflow-y-auto">
         <Menu />
         <div
           className={`transition-all flex flex-col flex-grow h-full ${

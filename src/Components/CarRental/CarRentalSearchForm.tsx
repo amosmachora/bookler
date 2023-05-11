@@ -5,6 +5,11 @@ import { isLinkClickable } from '../../Util/Helpers';
 import { DatePicker } from '../DatePicker';
 import OffPageLink from '../OffPageLink';
 import { CarRentalSearch } from '../SearchModals/AirportSearch.cars';
+import {
+  getArrayOfObjects,
+  useCarRentalSearchResults,
+} from './CarRentalSearchResultsProvider';
+import { fetchCarRentals } from './fetchers/FetchCarRentals';
 import TimePicker from './TimePicker';
 
 export type ModalConfig = {
@@ -17,10 +22,20 @@ export type ModalConfig = {
 
 const CarRentalSearchForm = () => {
   const { userCarRentalChoices } = useCarRentalDataContext();
+  const { setCarRentalData, setSuggestedVehicles } =
+    useCarRentalSearchResults();
 
-  const [dropCarAtDifferentLocation, setDropCarAtDifferentLocation] =
-    useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [dropsCarAtDifferentLocation, setDropsCarAtDifferentLocation] =
+    useState(false);
+
+  const [config, setConfig] = useState<ModalConfig>({
+    inputPlaceHolder: 'Search pick up location',
+    mainText: 'Pick Up location',
+    name: 'Pick up location',
+    closeFunction: setShowSearchModal,
+    type: 'pick-up',
+  });
 
   const args = [
     userCarRentalChoices?.pickUpDate,
@@ -30,18 +45,30 @@ const CarRentalSearchForm = () => {
     userCarRentalChoices?.pickUpLocation,
   ];
 
-  if (dropCarAtDifferentLocation) {
+  if (dropsCarAtDifferentLocation) {
     args.push(userCarRentalChoices?.dropOffLocation);
   }
 
   const isClickable: boolean = isLinkClickable(...args);
-  const [config, setConfig] = useState<ModalConfig>({
-    inputPlaceHolder: 'Search pick up location',
-    mainText: 'Pick Up location',
-    name: 'Pick up location',
-    closeFunction: setShowSearchModal,
-    type: 'pick-up',
-  });
+
+  const handleCarRentalSearch = () => {
+    fetchCarRentals(
+      userCarRentalChoices.pickUpLocation!.iata,
+      getConcatenatedDate(
+        userCarRentalChoices.dropOffDate,
+        userCarRentalChoices.dropOffTime!
+      ),
+      getConcatenatedDate(
+        userCarRentalChoices.pickUpDate,
+        userCarRentalChoices.pickUpTime!
+      ),
+      userCarRentalChoices.dropOffLocation?.iata ??
+        userCarRentalChoices.pickUpLocation!.iata
+    ).then((res) => {
+      setCarRentalData(res);
+      setSuggestedVehicles(getArrayOfObjects(res.vehicleRates));
+    });
+  };
 
   return (
     <div className="bg-white flex flex-wrap rounded-lg p-9 mt-5 gap-2 transition-all">
@@ -66,7 +93,7 @@ const CarRentalSearchForm = () => {
             : userCarRentalChoices?.pickUpLocation.name}
         </p>
       </div>
-      {dropCarAtDifferentLocation && (
+      {dropsCarAtDifferentLocation && (
         <div
           className="bg-gray-100 rounded-md w-[32%] px-4 py-2 cursor-pointer"
           onClick={() => {
@@ -116,7 +143,7 @@ const CarRentalSearchForm = () => {
         <input
           type="checkbox"
           className="mr-2 h-5 w-5 rounded-xl"
-          onChange={(e) => setDropCarAtDifferentLocation(e.target.checked)}
+          onChange={(e) => setDropsCarAtDifferentLocation(e.target.checked)}
         />
         <p>Drop car off at different location</p>
       </div>
@@ -124,6 +151,7 @@ const CarRentalSearchForm = () => {
         isClickable={isClickable}
         to="car-rental-results"
         children="SEARCH CARS"
+        onClick={handleCarRentalSearch}
       />
       {showSearchModal && <CarRentalSearch config={config} />}
     </div>
@@ -131,3 +159,19 @@ const CarRentalSearchForm = () => {
 };
 
 export default CarRentalSearchForm;
+
+const getConcatenatedDate = (date: Date | null, Time: string): string => {
+  if (!date) {
+    return '';
+  }
+  return `${
+    date!.getFullYear() +
+    '-' +
+    (date!.getMonth() + 1) +
+    '-' +
+    date!.getDate() +
+    ' ' +
+    Time +
+    ':00'
+  }`;
+};

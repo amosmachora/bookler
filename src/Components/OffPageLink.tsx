@@ -5,7 +5,9 @@ const OffPageLink = ({
   isClickable,
   to,
   children,
+  onClick,
 }: {
+  onClick?: () => void;
   isClickable: boolean;
   to: string;
   children: React.ReactNode;
@@ -18,11 +20,7 @@ const OffPageLink = ({
           ? 'bg-red-600 cursor-pointer'
           : 'bg-red-300 cursor-not-allowed'
       }`}
-      onClick={(e) => {
-        if (!isClickable) {
-          e.preventDefault();
-        }
-      }}
+      onClick={onClick}
     >
       {children}
     </Link>

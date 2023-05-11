@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import {
   CarRentalData,
   PartnerLocation,
   VehicleInformation,
 } from '../../Types/CarRentals';
-import { fetchCarRentals } from './fetchers/FetchCarRentals';
-import { useCarRentalDataContext } from '../../Hooks/useCarRentalData';
 import { useUpdateLogger } from '../../Hooks/useUpdateLogger';
-import { isLinkClickable } from '../../Util/Helpers';
 
 const CarRentalSearchResultsContext = createContext<{
   activeVehicle: VehicleInformation | null;
   carRentalData: CarRentalData | null;
   suggestedVehicles: VehicleInformation[] | null;
   allUnfilteredVehicles: VehicleInformation[] | null;
+  dropsCarAtDifferentLocation: boolean;
   setActiveVehicle: React.Dispatch<
     React.SetStateAction<VehicleInformation | null>
   >;
   setSuggestedVehicles: React.Dispatch<
     React.SetStateAction<VehicleInformation[] | null>
   >;
+  setDropsCarAtDifferentLocation: React.Dispatch<React.SetStateAction<boolean>>;
+  setCarRentalData: React.Dispatch<React.SetStateAction<CarRentalData | null>>;
 }>(null as any);
 
 export const CarRentalSearchResultsProvider = ({
@@ -30,52 +30,20 @@ export const CarRentalSearchResultsProvider = ({
   const [carRentalData, setCarRentalData] = useState<CarRentalData | null>(
     null
   );
-  const { userCarRentalChoices } = useCarRentalDataContext();
-  const {
-    dropOffDate,
-    dropOffTime,
-    pickUpDate,
-    pickUpTime,
-    pickUpLocation,
-    dropOffLocation,
-  } = userCarRentalChoices!;
   const [suggestedVehicles, setSuggestedVehicles] = useState<
     VehicleInformation[] | null
-  >(getArrayOfObjects(carRentalData?.vehicleRates));
+  >(null);
+  const [dropsCarAtDifferentLocation, setDropsCarAtDifferentLocation] =
+    useState(false);
+  const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
+    null
+  );
 
   const allUnfilteredVehicles: VehicleInformation[] | null = getArrayOfObjects(
     carRentalData?.vehicleRates
   );
 
   useUpdateLogger(carRentalData, 'CarRentalData');
-
-  useEffect(() => {
-    if (
-      isLinkClickable(
-        dropOffDate,
-        dropOffLocation,
-        dropOffTime,
-        pickUpDate,
-        pickUpLocation,
-        pickUpTime
-      )
-    ) {
-      fetchCarRentals(
-        pickUpLocation!.iata,
-        getConcatenatedDate(dropOffDate, dropOffTime!),
-        getConcatenatedDate(pickUpDate, pickUpTime!),
-        // dropOffLocation!.iata
-        'JFK'
-      ).then((res) => {
-        setCarRentalData(res);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userCarRentalChoices]);
-
-  const [activeVehicle, setActiveVehicle] = useState<VehicleInformation | null>(
-    null
-  );
 
   return (
     <CarRentalSearchResultsContext.Provider
@@ -84,8 +52,11 @@ export const CarRentalSearchResultsProvider = ({
         suggestedVehicles,
         carRentalData,
         allUnfilteredVehicles,
+        dropsCarAtDifferentLocation,
         setActiveVehicle,
         setSuggestedVehicles,
+        setDropsCarAtDifferentLocation,
+        setCarRentalData,
       }}
     >
       {children}
@@ -95,22 +66,6 @@ export const CarRentalSearchResultsProvider = ({
 
 export const useCarRentalSearchResults = () =>
   useContext(CarRentalSearchResultsContext);
-
-const getConcatenatedDate = (date: Date | null, Time: string): string => {
-  if (!date) {
-    return '';
-  }
-  return `${
-    date!.getFullYear() +
-    '-' +
-    (date!.getMonth() + 1) +
-    '-' +
-    date!.getDate() +
-    ' ' +
-    Time +
-    ':00'
-  }`;
-};
 
 export const getArrayOfObjects = (vehicles: any): any => {
   if (!vehicles) {
