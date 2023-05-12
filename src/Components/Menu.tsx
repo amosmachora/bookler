@@ -54,7 +54,7 @@ const Menu = () => {
 
   return (
     <div
-      className={`bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 px-5 overflow-hidden transition-all relative ${
+      className={`bg-blue-600 text-white text-sm z-0 rounded-xl pt-4 px-5 overflow-hidden transition-all sticky top-0 h-[90vh] ${
         menuWide ? 'w-1/5' : 'w-1/12'
       }`}
     >
