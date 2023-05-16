@@ -10,6 +10,7 @@ import LoadingScreen from './Components/LoadingScreen';
 import { useGlobalData } from './Hooks/useGlobalData';
 import { useAuth } from './Hooks/useAuth';
 import { useUpdateLogger } from './Hooks/useUpdateLogger';
+import { SmallScreenAlert } from './Components/SmallScreenAlert';
 
 export const RESULTS_DIV_HEIGHT = 'h-[58vh]';
 
@@ -31,7 +32,8 @@ function App() {
     <div className="App w-full h-screen">
       {isLoading && <LoadingScreen />}
       <BackGround />
-      <div className="flex z-10 gap-x-10 h-screen p-10 relative overflow-y-auto">
+      <SmallScreenAlert />
+      <div className="z-10 gap-x-10 h-screen p-10 relative overflow-y-auto hidden sm:flex">
         <Menu />
         <div
           className={`transition-all flex flex-col flex-grow h-full ${
